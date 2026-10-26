@@ -1,0 +1,42 @@
+schema: spec-driven
+
+context: |
+  Language: pt-BR
+  All artifacts must be written in pt-BR.
+  Keep OpenSpec structural headings and SHALL/MUST keywords in English.
+
+# Regras por artefato do framework Rebic
+# (specs rebic/spec-governance e rebic/framework-architecture; docs/CONTRIBUTING.md).
+rules:
+  proposal:
+    - "Nome da change: add-rebic-<widget>, add-rebic-foundation-<fundamento>, add-rebic-core-<infraestrutura>, update-rebic-<item>-<assunto> ou remove-rebic-<item>, em kebab-case e igual ao id da spec."
+    - "No máximo um widget público por change. Até três specs só para widgets inseparáveis (ex.: RebicForm + RebicFormField), com a inseparabilidade justificada na proposta."
+    - "Consulte docs/catalog.yaml: confirme que todas as dependências do item já têm spec em openspec/specs/ ou estão na mesma change, e que a prioridade e a fase são coerentes."
+    - "Declare o impacto no portal existente. Changes do framework não podem alterar o portal; adoção pelo portal exige change dedicada com aprovação explícita."
+  specs:
+    - "Specs de widget ficam em specs/rebic/widgets/rebic-<widget>/spec.md; fundamentos em specs/rebic/foundation/<x>/spec.md; núcleo em specs/rebic/core/<x>/spec.md. Uma spec nunca cobre mais de um widget público."
+    - "Specs de widget seguem docs/specs/widget-spec-template.md: '## Purpose' (objetivo e escopo) e ao menos um requisito com cada etiqueta no início do título: [API], [Comportamento], [Aparência], [Estados], [Acessibilidade], [Responsividade], [Integração], [Testes], [Documentação], [Restrições]."
+    - "Aspecto não aplicável vira requisito explícito e verificável com a etiqueta correspondente (ex.: '[Estados] ... SHALL NOT exibir hover'); nunca omita a etiqueta."
+    - "O requisito [Integração] lista os caminhos das specs das quais o widget depende (rebic/foundation/..., rebic/core/..., rebic/widgets/...). Referencie requisitos de outras specs pelo caminho; não os copie."
+    - "Cenários no formato GIVEN (opcional) / WHEN / THEN; cada cenário deve ser verificável por um teste automatizado ou verificação manual documentada."
+    - "Aparência é descrita por tokens de componente do tema, nunca por valores literais (cores, px, durações)."
+    - "Valide com 'openspec validate <change> --strict' e 'dart run rebic_checks specs'."
+  design:
+    - "Justifique qualquer RenderObject próprio ou uso interno de Material/Cupertino; este último exige ADR em docs/adr/ e o marcador '// rebic-adr: NNNN' no import."
+  tasks:
+    - "Cada cenário da spec tem um teste nomeado '<requisito> — <cenário>' na mesma tarefa que implementa o comportamento."
+    - "Inclua tarefas para: goldens nos temas claro e escuro e nas duas densidades; testes de acessibilidade; página do widget na galeria (apps/rebic_gallery); dartdoc da API pública."
+    - "Inclua a atualização de docs/catalog.yaml (status specified/implemented) e do CHANGELOG do pacote."
+    - "A verificação final executa tool/ci (dart analyze, testes, openspec validate --all --strict, rebic_checks all)."
+
+# Per-operation guidance (optional)
+# Add advisory guidance for how apply and archive work should be conducted.
+# This is separate from artifact rules above.
+# Example:
+#   operations:
+#     apply:
+#       guidance:
+#         - Keep test summaries concise
+#     archive:
+#       guidance:
+#         - Summarize the archive outcome before finishing

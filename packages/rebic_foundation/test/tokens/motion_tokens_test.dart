@@ -1,0 +1,180 @@
+import 'package:flutter/animation.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:rebic_foundation/rebic_foundation.dart';
+import 'package:rebic_foundation/rebic_primitives.dart';
+
+import '../support/token_set_contract.dart';
+
+/// Conjunto com todos os campos diferentes do `fallback()`.
+const _slow = RebicMotionTokens(
+  instant: Duration.zero,
+  short: Duration(milliseconds: 200),
+  medium: Duration(milliseconds: 400),
+  long: Duration(milliseconds: 600),
+  standard: Curves.linear,
+  enter: Curves.easeIn,
+  exit: Curves.easeOut,
+);
+
+void main() {
+  const fallback = RebicMotionTokens.fallback();
+
+  test('cumpre o contrato de RebicTokenSet', () {
+    expectTokenSetContract(
+      a: fallback,
+      // Instância não canônica, para testar a igualdade por valor.
+      // ignore: prefer_const_constructors
+      aCopy: RebicMotionTokens.fallback(),
+      b: _slow,
+    );
+  });
+
+  test('igualdade e copyWith consideram cada campo isoladamente', () {
+    final variants = <String, RebicMotionTokens>{
+      'short': fallback.copyWith(short: RebicMotionPrimitives.duration150),
+      'medium': fallback.copyWith(medium: RebicMotionPrimitives.duration250),
+      'long': fallback.copyWith(long: RebicMotionPrimitives.duration400),
+      'standard': fallback.copyWith(standard: _slow.standard),
+      'enter': fallback.copyWith(enter: _slow.enter),
+      'exit': fallback.copyWith(exit: _slow.exit),
+    };
+    for (final MapEntry(key: field, value: variant) in variants.entries) {
+      expect(variant, isNot(fallback), reason: field);
+      expect(variant.lerp(fallback, 1), fallback, reason: field);
+    }
+  });
+
+  group('Três níveis de tokens', () {
+    test('Três níveis de tokens — Token semântico derivado de primitivo', () {
+      expect(fallback.instant, RebicMotionPrimitives.duration0);
+      expect(fallback.short, RebicMotionPrimitives.duration100);
+      expect(fallback.medium, RebicMotionPrimitives.duration200);
+      expect(fallback.long, RebicMotionPrimitives.duration300);
+      expect(fallback.standard, same(RebicMotionPrimitives.curveStandard));
+      expect(fallback.enter, same(RebicMotionPrimitives.curveDecelerate));
+      expect(fallback.exit, same(RebicMotionPrimitives.curveAccelerate));
+    });
+  });
+
+  group('Conjuntos de tokens imutáveis', () {
+    test('Conjuntos de tokens imutáveis — copyWith substitui um campo', () {
+      final original = fallback;
+      final changed = original.copyWith(
+        medium: const Duration(milliseconds: 250),
+      );
+      expect(changed.medium, const Duration(milliseconds: 250));
+      expect(
+        changed,
+        original.copyWith(medium: const Duration(milliseconds: 250)),
+      );
+      expect(changed.copyWith(medium: original.medium), original);
+      expect(original.medium, RebicMotionPrimitives.duration200);
+    });
+
+    test('Conjuntos de tokens imutáveis — copyWith sem argumentos', () {
+      expect(fallback.copyWith(), fallback);
+      expect(_slow.copyWith(), _slow);
+    });
+  });
+
+  group('Igualdade por valor', () {
+    test('Igualdade por valor — Conjuntos com valores iguais', () {
+      // ignore: prefer_const_constructors
+      final a = RebicMotionTokens.fallback();
+      // ignore: prefer_const_constructors
+      final b = RebicMotionTokens.fallback();
+      expect(identical(a, b), isFalse);
+      expect(a, b);
+      expect(a.hashCode, b.hashCode);
+    });
+
+    test('Igualdade por valor — Conjuntos com um valor diferente', () {
+      expect(
+        fallback.copyWith(long: RebicMotionPrimitives.duration400),
+        isNot(fallback),
+      );
+    });
+  });
+
+  group('Interpolação entre conjuntos', () {
+    test('Interpolação entre conjuntos — Extremos da interpolação', () {
+      expect(fallback.lerp(_slow, 0), fallback);
+      expect(fallback.lerp(_slow, 1), _slow);
+    });
+
+    test('Interpolação entre conjuntos — Ponto médio de token contínuo', () {
+      final a = fallback.copyWith(short: const Duration(milliseconds: 100));
+      final b = fallback.copyWith(
+        short: const Duration(milliseconds: 300),
+        medium: const Duration(milliseconds: 300),
+        long: const Duration(milliseconds: 300),
+      );
+      expect(a.lerp(b, 0.5).short, const Duration(milliseconds: 200));
+    });
+
+    test('Interpolação entre conjuntos — Token discreto', () {
+      expect(fallback.lerp(_slow, 0.49).standard, fallback.standard);
+      expect(fallback.lerp(_slow, 0.5).standard, _slow.standard);
+    });
+
+    test('Interpolação entre conjuntos — Interpolação com nulo', () {
+      expect(fallback.lerp(null, 0.7), fallback);
+    });
+  });
+
+  group('Tokens de movimento', () {
+    test('Tokens de movimento — Ordem das durações', () {
+      expect(fallback.instant, Duration.zero);
+      expect(fallback.instant <= fallback.short, isTrue);
+      expect(fallback.short <= fallback.medium, isTrue);
+      expect(fallback.medium <= fallback.long, isTrue);
+    });
+
+    test('Tokens de movimento — mapeamento fora de ordem é rejeitado', () {
+      expect(
+        () => fallback.copyWith(short: RebicMotionPrimitives.duration500),
+        throwsA(isA<AssertionError>()),
+      );
+      expect(
+        () => fallback.copyWith(instant: RebicMotionPrimitives.duration50),
+        throwsA(isA<AssertionError>()),
+      );
+    });
+  });
+
+  group('Nomenclatura dos tokens', () {
+    test('Nomenclatura dos tokens — Primitivo identificado pela escala', () {
+      final scale = RebicMotionPrimitives.durations;
+      final positions = [
+        for (final name in scale.keys)
+          int.parse(RegExp(r'^duration(\d+)$').firstMatch(name)!.group(1)!),
+      ];
+      expect(positions, orderedEquals([...positions]..sort()));
+      for (final MapEntry(key: name, value: value) in scale.entries) {
+        expect(
+          value.inMilliseconds,
+          int.parse(name.substring('duration'.length)),
+          reason: name,
+        );
+      }
+    });
+  });
+
+  group('Inspeção dos tokens', () {
+    test('Inspeção dos tokens — Propriedades no diagnóstico', () {
+      final dump = fallback.toDiagnosticsNode().toStringDeep();
+      for (final name in [
+        'instant',
+        'short',
+        'medium',
+        'long',
+        'standard',
+        'enter',
+        'exit',
+      ]) {
+        expect(dump, contains('$name:'), reason: name);
+      }
+      expect(dump, contains('0:00:00.200000'));
+    });
+  });
+}

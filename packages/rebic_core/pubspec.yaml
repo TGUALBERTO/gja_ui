@@ -1,0 +1,18 @@
+name: rebic_core
+description: "Núcleo do Rebic: interação, foco, overlay, localização, validação e contratos de dados."
+version: 0.0.1
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ^3.8.0
+  flutter: ">=3.32.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  intl: ^0.20.2
+  rebic_foundation: ^0.0.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

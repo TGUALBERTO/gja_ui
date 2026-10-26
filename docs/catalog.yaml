@@ -1,0 +1,825 @@
+# Catálogo de componentes do framework Rebic (fonte da verdade).
+#
+# Mantido por toda change que cria, altera ou remove um item
+# (spec rebic/spec-governance, requisito "Catálogo de componentes").
+# Verificado por `dart run rebic_checks catalog`.
+#
+# Campos:
+#   id          caminho da spec em openspec/specs/
+#   name        nome público
+#   kind        widget | foundation | core
+#   category    kebab-case; para widgets, define lib/src/<categoria>/ em rebic_widgets
+#   priority    P0 (núcleo mínimo) | P1 (essenciais) | P2 (dados) | P3 (avançados)
+#   phase       fase de implementação (1 a 5)
+#   status      planned | specified | implemented | deprecated
+#   depends_on  ids das specs das quais o item depende (as dependências implícitas
+#               de todo widget, theming, accessibility e RebicTheme, são omitidas)
+#   proposed    true para itens adicionados além da lista original da solicitação
+version: 1
+items:
+
+  # --- Fundamentos ---
+  - id: rebic/foundation/design-tokens
+    name: "Design tokens"
+    kind: foundation
+    category: fundamentos
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on: []
+  - id: rebic/foundation/color
+    name: "Cores semânticas"
+    kind: foundation
+    category: fundamentos
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/design-tokens
+  - id: rebic/foundation/typography
+    name: "Tipografia"
+    kind: foundation
+    category: fundamentos
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/design-tokens
+  - id: rebic/foundation/spacing
+    name: "Espaçamentos"
+    kind: foundation
+    category: fundamentos
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/design-tokens
+  - id: rebic/foundation/radius
+    name: "Raios de borda"
+    kind: foundation
+    category: fundamentos
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/design-tokens
+  - id: rebic/foundation/elevation
+    name: "Elevação e sombras"
+    kind: foundation
+    category: fundamentos
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/design-tokens
+      - rebic/foundation/color
+  - id: rebic/foundation/density
+    name: "Densidade"
+    kind: foundation
+    category: fundamentos
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/spacing
+      - rebic/foundation/typography
+  - id: rebic/foundation/breakpoints
+    name: "Breakpoints"
+    kind: foundation
+    category: fundamentos
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/design-tokens
+  - id: rebic/foundation/interaction-states
+    name: "Estados visuais"
+    kind: foundation
+    category: fundamentos
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/color
+  - id: rebic/foundation/iconography
+    name: "Ícones"
+    kind: foundation
+    category: fundamentos
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/design-tokens
+  - id: rebic/foundation/accessibility
+    name: "Convenções de acessibilidade"
+    kind: foundation
+    category: fundamentos
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/density
+  - id: rebic/foundation/theming
+    name: "Temas claro/escuro e personalização"
+    kind: foundation
+    category: fundamentos
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/design-tokens
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/spacing
+      - rebic/foundation/radius
+      - rebic/foundation/elevation
+      - rebic/foundation/density
+      - rebic/foundation/breakpoints
+      - rebic/foundation/interaction-states
+      - rebic/foundation/iconography
+      - rebic/foundation/accessibility
+
+  # --- Núcleo ---
+  - id: rebic/core/interaction
+    name: "Interação e foco"
+    kind: core
+    category: nucleo
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/interaction-states
+      - rebic/foundation/accessibility
+  - id: rebic/core/localization
+    name: "Localização"
+    kind: core
+    category: nucleo
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on: []
+  - id: rebic/core/responsive
+    name: "Responsividade"
+    kind: core
+    category: nucleo
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/breakpoints
+      - rebic/foundation/density
+  - id: rebic/core/overlay
+    name: "Sobreposições"
+    kind: core
+    category: nucleo
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/core/interaction
+      - rebic/core/localization
+      - rebic/foundation/color
+  - id: rebic/core/validation
+    name: "Validação"
+    kind: core
+    category: nucleo
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/localization
+  - id: rebic/core/data-source
+    name: "Contrato de dados"
+    kind: core
+    category: nucleo
+    priority: P2
+    phase: 3
+    status: planned
+    depends_on:
+      - rebic/core/localization
+
+  # --- Widgets ---
+  - id: rebic/widgets/rebic-theme
+    name: "RebicTheme"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: planned
+    depends_on:
+      - rebic/foundation/theming
+  - id: rebic/widgets/rebic-app
+    name: "RebicApp"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-theme
+      - rebic/core/localization
+      - rebic/core/interaction
+      - rebic/core/overlay
+  - id: rebic/widgets/rebic-text
+    name: "RebicText"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: planned
+    depends_on:
+      - rebic/foundation/typography
+    proposed: true
+  - id: rebic/widgets/rebic-icon
+    name: "RebicIcon"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: planned
+    depends_on:
+      - rebic/foundation/iconography
+    proposed: true
+  - id: rebic/widgets/rebic-spacing
+    name: "RebicSpacing"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: planned
+    depends_on:
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+  - id: rebic/widgets/rebic-container
+    name: "RebicContainer"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: planned
+    depends_on:
+      - rebic/foundation/color
+      - rebic/foundation/radius
+      - rebic/foundation/elevation
+      - rebic/foundation/spacing
+  - id: rebic/widgets/rebic-row
+    name: "RebicRow"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-spacing
+  - id: rebic/widgets/rebic-column
+    name: "RebicColumn"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-spacing
+  - id: rebic/widgets/rebic-divider
+    name: "RebicDivider"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: planned
+    depends_on:
+      - rebic/foundation/color
+  - id: rebic/widgets/rebic-responsive-layout
+    name: "RebicResponsiveLayout"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: planned
+    depends_on:
+      - rebic/core/responsive
+  - id: rebic/widgets/rebic-grid
+    name: "RebicGrid"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: planned
+    depends_on:
+      - rebic/core/responsive
+      - rebic/widgets/rebic-spacing
+  - id: rebic/widgets/rebic-scaffold
+    name: "RebicScaffold"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-app
+      - rebic/widgets/rebic-responsive-layout
+  - id: rebic/widgets/rebic-page
+    name: "RebicPage"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-scaffold
+      - rebic/widgets/rebic-text
+  - id: rebic/widgets/rebic-card
+    name: "RebicCard"
+    kind: widget
+    category: fundacao-layout
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-container
+      - rebic/widgets/rebic-text
+  - id: rebic/widgets/rebic-button
+    name: "RebicButton"
+    kind: widget
+    category: acoes-navegacao
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/interaction
+      - rebic/widgets/rebic-text
+      - rebic/widgets/rebic-icon
+      - rebic/widgets/rebic-progress-indicator
+  - id: rebic/widgets/rebic-icon-button
+    name: "RebicIconButton"
+    kind: widget
+    category: acoes-navegacao
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/interaction
+      - rebic/widgets/rebic-icon
+      - rebic/widgets/rebic-tooltip
+  - id: rebic/widgets/rebic-link
+    name: "RebicLink"
+    kind: widget
+    category: acoes-navegacao
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/interaction
+      - rebic/widgets/rebic-text
+  - id: rebic/widgets/rebic-menu
+    name: "RebicMenu"
+    kind: widget
+    category: acoes-navegacao
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-dropdown
+      - rebic/widgets/rebic-icon
+  - id: rebic/widgets/rebic-toolbar
+    name: "RebicToolbar"
+    kind: widget
+    category: acoes-navegacao
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-button
+      - rebic/widgets/rebic-icon-button
+      - rebic/widgets/rebic-menu
+  - id: rebic/widgets/rebic-navigation-bar
+    name: "RebicNavigationBar"
+    kind: widget
+    category: acoes-navegacao
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/interaction
+      - rebic/widgets/rebic-icon
+      - rebic/widgets/rebic-text
+      - rebic/widgets/rebic-badge
+  - id: rebic/widgets/rebic-side-navigation
+    name: "RebicSideNavigation"
+    kind: widget
+    category: acoes-navegacao
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/interaction
+      - rebic/widgets/rebic-icon
+      - rebic/widgets/rebic-text
+      - rebic/widgets/rebic-badge
+      - rebic/widgets/rebic-scaffold
+  - id: rebic/widgets/rebic-breadcrumbs
+    name: "RebicBreadcrumbs"
+    kind: widget
+    category: acoes-navegacao
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-link
+      - rebic/widgets/rebic-menu
+  - id: rebic/widgets/rebic-tabs
+    name: "RebicTabs"
+    kind: widget
+    category: acoes-navegacao
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/interaction
+      - rebic/widgets/rebic-text
+      - rebic/widgets/rebic-icon
+      - rebic/widgets/rebic-badge
+  - id: rebic/widgets/rebic-pagination
+    name: "RebicPagination"
+    kind: widget
+    category: acoes-navegacao
+    priority: P2
+    phase: 3
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-button
+      - rebic/widgets/rebic-icon-button
+      - rebic/widgets/rebic-select
+  - id: rebic/widgets/rebic-form-field
+    name: "RebicFormField"
+    kind: widget
+    category: formularios
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/validation
+      - rebic/widgets/rebic-text
+  - id: rebic/widgets/rebic-form
+    name: "RebicForm"
+    kind: widget
+    category: formularios
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/validation
+      - rebic/widgets/rebic-form-field
+  - id: rebic/widgets/rebic-text-field
+    name: "RebicTextField"
+    kind: widget
+    category: formularios
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/interaction
+      - rebic/widgets/rebic-form-field
+      - rebic/widgets/rebic-icon
+  - id: rebic/widgets/rebic-text-area
+    name: "RebicTextArea"
+    kind: widget
+    category: formularios
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-text-field
+  - id: rebic/widgets/rebic-checkbox
+    name: "RebicCheckbox"
+    kind: widget
+    category: formularios
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/interaction
+      - rebic/widgets/rebic-form-field
+  - id: rebic/widgets/rebic-radio-group
+    name: "RebicRadioGroup"
+    kind: widget
+    category: formularios
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/interaction
+      - rebic/widgets/rebic-form-field
+  - id: rebic/widgets/rebic-switch
+    name: "RebicSwitch"
+    kind: widget
+    category: formularios
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/interaction
+      - rebic/widgets/rebic-form-field
+  - id: rebic/widgets/rebic-select
+    name: "RebicSelect"
+    kind: widget
+    category: formularios
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-dropdown
+      - rebic/widgets/rebic-form-field
+  - id: rebic/widgets/rebic-search-field
+    name: "RebicSearchField"
+    kind: widget
+    category: formularios
+    priority: P2
+    phase: 3
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-text-field
+      - rebic/widgets/rebic-dropdown
+      - rebic/core/data-source
+  - id: rebic/widgets/rebic-multi-select
+    name: "RebicMultiSelect"
+    kind: widget
+    category: formularios
+    priority: P2
+    phase: 3
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-select
+      - rebic/widgets/rebic-checkbox
+      - rebic/widgets/rebic-badge
+  - id: rebic/widgets/rebic-date-picker
+    name: "RebicDatePicker"
+    kind: widget
+    category: formularios
+    priority: P3
+    phase: 4
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-text-field
+      - rebic/widgets/rebic-popover
+      - rebic/core/localization
+  - id: rebic/widgets/rebic-date-range-picker
+    name: "RebicDateRangePicker"
+    kind: widget
+    category: formularios
+    priority: P3
+    phase: 4
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-date-picker
+  - id: rebic/widgets/rebic-time-picker
+    name: "RebicTimePicker"
+    kind: widget
+    category: formularios
+    priority: P3
+    phase: 4
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-text-field
+      - rebic/widgets/rebic-popover
+      - rebic/core/localization
+  - id: rebic/widgets/rebic-file-upload
+    name: "RebicFileUpload"
+    kind: widget
+    category: formularios
+    priority: P3
+    phase: 4
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-button
+      - rebic/widgets/rebic-progress-indicator
+      - rebic/widgets/rebic-list
+  - id: rebic/widgets/rebic-progress-indicator
+    name: "RebicProgressIndicator"
+    kind: widget
+    category: exibicao-dados
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/foundation/color
+  - id: rebic/widgets/rebic-badge
+    name: "RebicBadge"
+    kind: widget
+    category: exibicao-dados
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-text
+  - id: rebic/widgets/rebic-status-indicator
+    name: "RebicStatusIndicator"
+    kind: widget
+    category: exibicao-dados
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-icon
+      - rebic/widgets/rebic-text
+  - id: rebic/widgets/rebic-avatar
+    name: "RebicAvatar"
+    kind: widget
+    category: exibicao-dados
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-icon
+      - rebic/widgets/rebic-text
+  - id: rebic/widgets/rebic-tooltip
+    name: "RebicTooltip"
+    kind: widget
+    category: exibicao-dados
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/overlay
+      - rebic/widgets/rebic-text
+  - id: rebic/widgets/rebic-skeleton
+    name: "RebicSkeleton"
+    kind: widget
+    category: exibicao-dados
+    priority: P2
+    phase: 3
+    status: planned
+    depends_on:
+      - rebic/foundation/color
+  - id: rebic/widgets/rebic-empty-state
+    name: "RebicEmptyState"
+    kind: widget
+    category: exibicao-dados
+    priority: P2
+    phase: 3
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-icon
+      - rebic/widgets/rebic-text
+      - rebic/widgets/rebic-button
+  - id: rebic/widgets/rebic-error-state
+    name: "RebicErrorState"
+    kind: widget
+    category: exibicao-dados
+    priority: P2
+    phase: 3
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-icon
+      - rebic/widgets/rebic-text
+      - rebic/widgets/rebic-button
+  - id: rebic/widgets/rebic-list-tile
+    name: "RebicListTile"
+    kind: widget
+    category: exibicao-dados
+    priority: P2
+    phase: 3
+    status: planned
+    depends_on:
+      - rebic/core/interaction
+      - rebic/widgets/rebic-text
+      - rebic/widgets/rebic-icon
+      - rebic/widgets/rebic-avatar
+  - id: rebic/widgets/rebic-list
+    name: "RebicList"
+    kind: widget
+    category: exibicao-dados
+    priority: P2
+    phase: 3
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-list-tile
+      - rebic/core/data-source
+      - rebic/widgets/rebic-empty-state
+      - rebic/widgets/rebic-skeleton
+  - id: rebic/widgets/rebic-table
+    name: "RebicTable"
+    kind: widget
+    category: exibicao-dados
+    priority: P2
+    phase: 3
+    status: planned
+    depends_on:
+      - rebic/core/data-source
+      - rebic/widgets/rebic-checkbox
+      - rebic/widgets/rebic-empty-state
+      - rebic/widgets/rebic-skeleton
+      - rebic/widgets/rebic-pagination
+  - id: rebic/widgets/rebic-data-grid
+    name: "RebicDataGrid"
+    kind: widget
+    category: exibicao-dados
+    priority: P3
+    phase: 4
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-table
+      - rebic/widgets/rebic-text-field
+      - rebic/widgets/rebic-select
+  - id: rebic/widgets/rebic-tree
+    name: "RebicTree"
+    kind: widget
+    category: exibicao-dados
+    priority: P3
+    phase: 4
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-list-tile
+      - rebic/core/data-source
+  - id: rebic/widgets/rebic-popover
+    name: "RebicPopover"
+    kind: widget
+    category: feedback-sobreposicoes
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/overlay
+      - rebic/widgets/rebic-container
+  - id: rebic/widgets/rebic-dropdown
+    name: "RebicDropdown"
+    kind: widget
+    category: feedback-sobreposicoes
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-popover
+  - id: rebic/widgets/rebic-dialog
+    name: "RebicDialog"
+    kind: widget
+    category: feedback-sobreposicoes
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/overlay
+      - rebic/widgets/rebic-button
+      - rebic/widgets/rebic-text
+  - id: rebic/widgets/rebic-confirmation-dialog
+    name: "RebicConfirmationDialog"
+    kind: widget
+    category: feedback-sobreposicoes
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-dialog
+  - id: rebic/widgets/rebic-alert
+    name: "RebicAlert"
+    kind: widget
+    category: feedback-sobreposicoes
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-status-indicator
+      - rebic/widgets/rebic-icon-button
+  - id: rebic/widgets/rebic-snackbar
+    name: "RebicSnackbar"
+    kind: widget
+    category: feedback-sobreposicoes
+    priority: P1
+    phase: 2
+    status: planned
+    depends_on:
+      - rebic/core/overlay
+      - rebic/widgets/rebic-button
+  - id: rebic/widgets/rebic-drawer
+    name: "RebicDrawer"
+    kind: widget
+    category: feedback-sobreposicoes
+    priority: P2
+    phase: 3
+    status: planned
+    depends_on:
+      - rebic/core/overlay
+  - id: rebic/widgets/rebic-loading-overlay
+    name: "RebicLoadingOverlay"
+    kind: widget
+    category: feedback-sobreposicoes
+    priority: P2
+    phase: 3
+    status: planned
+    depends_on:
+      - rebic/core/overlay
+      - rebic/widgets/rebic-progress-indicator
+  - id: rebic/widgets/rebic-notification
+    name: "RebicNotification"
+    kind: widget
+    category: feedback-sobreposicoes
+    priority: P3
+    phase: 4
+    status: planned
+    depends_on:
+      - rebic/widgets/rebic-popover
+      - rebic/widgets/rebic-list
+      - rebic/widgets/rebic-badge
+      - rebic/widgets/rebic-snackbar

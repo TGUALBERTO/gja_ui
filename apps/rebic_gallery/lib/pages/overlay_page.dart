@@ -1,0 +1,196 @@
+import 'package:flutter/widgets.dart';
+import 'package:rebic_ui/rebic_ui.dart';
+
+/// Página "Sobreposições": modal dispensável, modal obrigatório e uma
+/// sobreposição ancorada com escolha do lado preferido.
+///
+/// A aparência dos conteúdos é provisória da galeria; os widgets de diálogo e
+/// popover terão specs próprias. As dimensões são literais da galeria.
+class OverlayPage extends StatefulWidget {
+  /// Cria a página.
+  const OverlayPage({super.key});
+
+  /// Título no índice e no cabeçalho.
+  static const title = 'Sobreposições';
+
+  /// Rota nomeada.
+  static const route = '/overlay';
+
+  /// Chave do texto com o último resultado do modal.
+  static const resultKey = Key('overlay-result');
+
+  /// Chave do conteúdo da sobreposição ancorada.
+  static const popoverKey = Key('overlay-popover');
+
+  @override
+  State<OverlayPage> createState() => _OverlayPageState();
+}
+
+class _OverlayPageState extends State<OverlayPage> {
+  final _popover = RebicAnchoredOverlayController();
+  RebicOverlaySide _side = RebicOverlaySide.below;
+  String _result = 'nenhum';
+
+  RebicThemeData get _theme => RebicThemeData.light();
+
+  @override
+  void dispose() {
+    _popover.dispose();
+    super.dispose();
+  }
+
+  Widget _button(
+    String label,
+    VoidCallback onPressed, {
+    bool selected = false,
+  }) {
+    final t = _theme;
+    return RebicInteractable(
+      onPressed: onPressed,
+      selected: selected,
+      semanticLabel: label,
+      minTargetSize: t.density.minTargetSize,
+      interactionTokens: t.interaction,
+      focusColor: t.colors.focus,
+      focusRingBorderRadius: BorderRadius.circular(t.radius.control),
+      builder: (context, states) {
+        final c = RebicControlColors.of(
+          RebicControlFamily.standard,
+          t.colors,
+        ).resolve(states);
+        return Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: t.spacing.m,
+            vertical: t.spacing.s,
+          ),
+          decoration: BoxDecoration(
+            color: c.background,
+            border: Border.all(color: c.border),
+            borderRadius: BorderRadius.circular(t.radius.control),
+          ),
+          child: Text(label, style: t.typography.label.copyWith(color: c.text)),
+        );
+      },
+    );
+  }
+
+  Widget _panel(List<Widget> children) {
+    final t = _theme;
+    return Container(
+      padding: EdgeInsets.all(t.spacing.l),
+      decoration: BoxDecoration(
+        color: t.colors.base,
+        borderRadius: BorderRadius.circular(t.radius.container),
+        boxShadow: t.elevation.shadowsFor(t.elevation.dialog, t.colors.shadow),
+      ),
+      child: DefaultTextStyle(
+        style: t.typography.body.copyWith(color: t.colors.text),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: children,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _openModal() async {
+    final result = await RebicModal.show<String>(
+      context,
+      barrierColor: _theme.colors.blockLayer,
+      builder: (context) => _panel([
+        Text('Enviar pedido?', style: _theme.typography.title),
+        SizedBox(height: _theme.spacing.l),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _button('Confirmar', () => Navigator.of(context).pop('confirmado')),
+            SizedBox(width: _theme.spacing.s),
+            _button('Cancelar', () => Navigator.of(context).pop()),
+          ],
+        ),
+      ]),
+    );
+    if (mounted) setState(() => _result = result ?? 'dispensado');
+  }
+
+  Future<void> _openRequiredModal() async {
+    await RebicModal.show<void>(
+      context,
+      dismissible: false,
+      barrierColor: _theme.colors.blockLayer,
+      builder: (context) => _panel([
+        Text('Leia antes de continuar', style: _theme.typography.title),
+        SizedBox(height: _theme.spacing.l),
+        _button('Concluir', () => Navigator.of(context).pop()),
+      ]),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = _theme;
+    return ColoredBox(
+      color: t.colors.base,
+      child: DefaultTextStyle(
+        style: t.typography.body.copyWith(color: t.colors.text),
+        child: ListView(
+          padding: EdgeInsets.all(t.spacing.pageMargin),
+          children: [
+            GestureDetector(
+              onTap: () => Navigator.of(context).maybePop(),
+              child: Semantics(button: true, child: const Text('← Voltar')),
+            ),
+            SizedBox(height: t.spacing.stackGap),
+            Text(OverlayPage.title, style: t.typography.headline),
+            SizedBox(height: t.spacing.sectionGap),
+            Wrap(
+              spacing: t.spacing.s,
+              runSpacing: t.spacing.s,
+              children: [
+                _button('Abrir modal', _openModal),
+                _button('Abrir modal obrigatório', _openRequiredModal),
+              ],
+            ),
+            SizedBox(height: t.spacing.s),
+            Text('Resultado: $_result', key: OverlayPage.resultKey),
+            SizedBox(height: t.spacing.sectionGap),
+            Text('Lado preferido', style: t.typography.title),
+            SizedBox(height: t.spacing.s),
+            Wrap(
+              spacing: t.spacing.s,
+              runSpacing: t.spacing.s,
+              children: [
+                for (final side in RebicOverlaySide.values)
+                  _button(
+                    side.name,
+                    () => setState(() => _side = side),
+                    selected: side == _side,
+                  ),
+              ],
+            ),
+            SizedBox(height: t.spacing.l),
+            Center(
+              child: RebicAnchoredOverlay(
+                controller: _popover,
+                side: _side,
+                overlayBuilder: (context) => KeyedSubtree(
+                  key: OverlayPage.popoverKey,
+                  child: _panel([
+                    _button('Primeiro item', _popover.hide),
+                    SizedBox(height: t.spacing.xs),
+                    _button('Segundo item', _popover.hide),
+                  ]),
+                ),
+                child: _button(
+                  'Abrir popover',
+                  () => _popover.isShowing ? _popover.hide() : _popover.show(),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
