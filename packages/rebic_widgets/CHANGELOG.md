@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- `RebicResponsiveLayout` (`add-rebic-responsive-layout`, spec `rebic/widgets/rebic-responsive-layout`): um
+  construtor por classe de tamanho (`small` obrigatório, demais com herança da classe menor), medido pelo contêiner
+  ou pela tela (`RebicLayoutBasis`), com os limiares do tema. Versão básica; colunas flexíveis na Fase 4.
 - `RebicDivider` (`add-rebic-divider`, spec `rebic/widgets/rebic-divider`): linha fina horizontal ou vertical
   (`RebicDivider.vertical`), com `tone` (`subtle`/`strong`), `spacing` e recuo direcional (`indent`/`endIndent`) por
   `RebicSpace`; fora da semântica.

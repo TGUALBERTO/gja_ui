@@ -15,6 +15,7 @@ import 'pages/radius_page.dart';
 import 'pages/rebic_container_page.dart';
 import 'pages/rebic_divider_page.dart';
 import 'pages/rebic_icon_page.dart';
+import 'pages/rebic_responsive_layout_page.dart';
 import 'pages/rebic_row_column_page.dart';
 import 'pages/rebic_spacing_page.dart';
 import 'pages/rebic_text_page.dart';
@@ -165,6 +166,11 @@ final galleryPages = <GalleryPage>[
     title: RebicDividerPage.title,
     route: RebicDividerPage.route,
     builder: (_) => const RebicDividerPage(),
+  ),
+  GalleryPage(
+    title: RebicResponsiveLayoutPage.title,
+    route: RebicResponsiveLayoutPage.route,
+    builder: (_) => const RebicResponsiveLayoutPage(),
   ),
 ];
 
