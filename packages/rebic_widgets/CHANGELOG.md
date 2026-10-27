@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- `RebicSpacing` (`add-rebic-spacing`, spec `rebic/widgets/rebic-spacing`): espaço nomeado por `RebicSpace` (passos e
+  papéis de layout do tema), com `RebicSpacing.horizontal`, `.vertical`, `.padding` (precedência por lado e
+  início/fim pela direção do texto) e `RebicSpacing.resolve`; os valores seguem a densidade ativa.
 - `RebicIcon` (`add-rebic-icon`, spec `rebic/widgets/rebic-icon`): ícone com `size` (papéis de `RebicIconTokens`),
   `tone` (texto, rótulo, marca ou estado de valor) e `semanticLabel` (sem ele, decorativo); direcionais espelhados em
   RTL e `inline` acompanhando a escala de texto. Os testes passam a carregar também a Lucide.

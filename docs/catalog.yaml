@@ -260,10 +260,11 @@ items:
     category: fundacao-layout
     priority: P0
     phase: 1
-    status: planned
+    status: implemented
     depends_on:
       - rebic/foundation/spacing
       - rebic/foundation/density
+      - rebic/foundation/theming
   - id: rebic/widgets/rebic-container
     name: "RebicContainer"
     kind: widget

@@ -8,3 +8,4 @@ export 'src/fundacao_layout/theme/rebic_theme.dart';
 export 'src/fundacao_layout/app/rebic_app.dart';
 export 'src/fundacao_layout/text/rebic_text.dart';
 export 'src/fundacao_layout/icon/rebic_icon.dart';
+export 'src/fundacao_layout/spacing/rebic_spacing.dart';
