@@ -17,7 +17,8 @@ dart analyze . --fatal-infos
 step "Testes Flutter"
 for dir in packages/* apps/*; do
   if [ -d "$dir/test" ]; then
-    (cd "$dir" && flutter test)
+    # Goldens têm referência gerada no Windows (ADR 0008): excluídos no Linux.
+    (cd "$dir" && flutter test --exclude-tags golden)
   fi
 done
 

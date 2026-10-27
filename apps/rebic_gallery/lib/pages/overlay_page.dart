@@ -31,7 +31,7 @@ class _OverlayPageState extends State<OverlayPage> {
   RebicOverlaySide _side = RebicOverlaySide.below;
   String _result = 'nenhum';
 
-  RebicThemeData get _theme => RebicThemeData.light();
+  RebicThemeData get _theme => RebicTheme.of(context);
 
   @override
   void dispose() {
@@ -49,10 +49,6 @@ class _OverlayPageState extends State<OverlayPage> {
       onPressed: onPressed,
       selected: selected,
       semanticLabel: label,
-      minTargetSize: t.density.minTargetSize,
-      interactionTokens: t.interaction,
-      focusColor: t.colors.focus,
-      focusRingBorderRadius: BorderRadius.circular(t.radius.control),
       builder: (context, states) {
         final c = RebicControlColors.of(
           RebicControlFamily.standard,
@@ -97,7 +93,6 @@ class _OverlayPageState extends State<OverlayPage> {
   Future<void> _openModal() async {
     final result = await RebicModal.show<String>(
       context,
-      barrierColor: _theme.colors.blockLayer,
       builder: (context) => _panel([
         Text('Enviar pedido?', style: _theme.typography.title),
         SizedBox(height: _theme.spacing.l),
@@ -118,7 +113,6 @@ class _OverlayPageState extends State<OverlayPage> {
     await RebicModal.show<void>(
       context,
       dismissible: false,
-      barrierColor: _theme.colors.blockLayer,
       builder: (context) => _panel([
         Text('Leia antes de continuar', style: _theme.typography.title),
         SizedBox(height: _theme.spacing.l),

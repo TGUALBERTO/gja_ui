@@ -15,8 +15,8 @@ abstract final class RebicModal {
   /// Feche com `Navigator.of(context).pop(resultado)` de dentro do conteúdo.
   /// Quando [dismissible] é verdadeiro, Esc e um toque na camada fecham o
   /// modal com resultado nulo, e a camada tem o rótulo `close` do idioma
-  /// ativo. A camada usa [barrierColor] ou, sem ele, o `blockLayer` do
-  /// mapeamento claro de referência, até existir o tema.
+  /// ativo. A camada usa [barrierColor] ou, sem ele, o `blockLayer` do tema
+  /// ativo (`RebicThemeData.of`).
   ///
   /// O foco inicial é o do elemento com `autofocus`; sem nenhum, o primeiro
   /// elemento focável do modal recebe o foco.
@@ -31,7 +31,8 @@ abstract final class RebicModal {
     return navigator.push<T>(
       RawDialogRoute<T>(
         barrierDismissible: dismissible,
-        barrierColor: barrierColor ?? const RebicColorTokens.light().blockLayer,
+        barrierColor:
+            barrierColor ?? RebicThemeData.of(context).colors.blockLayer,
         barrierLabel: RebicLocalizations.of(context).close,
         transitionDuration: Duration.zero,
         pageBuilder: (context, _, _) => SafeArea(

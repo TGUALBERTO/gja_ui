@@ -30,7 +30,7 @@ class _LocalizationPageState extends State<LocalizationPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = RebicThemeData.light();
+    final theme = RebicTheme.of(context);
     final colors = theme.colors;
     final spacing = theme.spacing;
     final typography = theme.typography;
@@ -100,7 +100,7 @@ class _Samples extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = RebicLocalizations.of(context);
-    final theme = RebicThemeData.light();
+    final theme = RebicTheme.of(context);
     final when = LocalizationPage.sampleDate;
 
     Widget row(String name, String value) => Padding(

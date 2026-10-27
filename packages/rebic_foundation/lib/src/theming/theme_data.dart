@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart' show BuildContext, MediaQuery;
 
 import '../accessibility/accessibility.dart';
 import '../breakpoints/breakpoint_tokens.dart';
@@ -16,6 +17,7 @@ import '../tokens/motion_tokens.dart';
 import '../tokens/token_extensions.dart';
 import '../tokens/token_set.dart';
 import '../typography/typography_tokens.dart';
+import 'theme_scope.dart';
 
 /// Tema centralizado do Rebic: todos os fundamentos em um único objeto.
 ///
@@ -130,6 +132,26 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
       motion: RebicAccessibility.resolveMotion(motion, disableAnimations: true),
     );
   }
+
+  /// Tema ativo de [context]: o do `RebicThemeScope` mais próximo ou, sem
+  /// escopo, o tema claro de referência.
+  ///
+  /// Quando o sistema pede animações desligadas
+  /// (`MediaQuery.disableAnimations`), retorna o tema resolvido com movimento
+  /// reduzido. Quem chama é reconstruído quando o tema do escopo muda.
+  static RebicThemeData of(BuildContext context) {
+    final data = maybeOf(context) ?? _fallback;
+    final reduce = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+    return data.resolve(disableAnimations: reduce);
+  }
+
+  /// Tema do `RebicThemeScope` mais próximo, sem resolução de movimento, ou
+  /// nulo sem escopo.
+  static RebicThemeData? maybeOf(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<RebicThemeScope>()?.data;
+
+  // Uma única instância, para que leituras sem escopo sejam idênticas.
+  static final _fallback = RebicThemeData.light();
 
   /// Problemas de acessibilidade deste tema: pares de contraste abaixo do
   /// mínimo (papéis de cor e estados das famílias de controle) e alvo de interação abaixo de

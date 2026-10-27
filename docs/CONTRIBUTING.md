@@ -55,6 +55,8 @@ Uma change só é aprovada quando:
       `RebicValueState`, densidade via tema) e não expõe tipos Material/Cupertino;
 - [ ] não há valores visuais literais nos widgets, ou cada exceção está justificada em `tool/rebic_checks/token_exceptions.yaml`;
 - [ ] cada cenário tem teste nomeado `<requisito> — <cenário>`, e há goldens (claro/escuro × densidades) e testes de acessibilidade;
+- [ ] os goldens têm a etiqueta `golden` e foram regenerados e conferidos no Windows
+      (`flutter test --update-goldens --tags golden` no pacote; ver [ADR 0008](adr/0008-golden-reference-windows.md));
 - [ ] o widget aparece na galeria e toda a API pública tem dartdoc;
 - [ ] o catálogo e o `CHANGELOG.md` do pacote foram atualizados;
 - [ ] nenhum arquivo do portal existente foi alterado.

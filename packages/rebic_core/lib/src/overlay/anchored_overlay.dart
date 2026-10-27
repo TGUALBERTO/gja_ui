@@ -68,8 +68,8 @@ class RebicAnchoredOverlayController extends OverlayPortalController
 /// Esc, chamando [onDismiss]. Com [focusOnShow], o foco vai para o conteúdo
 /// ao abrir e volta para quem o tinha ao fechar.
 ///
-/// [gap] e [margin] usam os espaçamentos `xs` e `s` do mapeamento de
-/// referência quando omitidos, até existir o tema.
+/// [gap] e [margin] usam os espaçamentos `xs` e `s` do tema ativo
+/// (`RebicThemeData.of`) quando omitidos.
 class RebicAnchoredOverlay extends StatefulWidget {
   /// Cria a sobreposição ancorada.
   const RebicAnchoredOverlay({
@@ -125,8 +125,6 @@ class _RebicAnchoredOverlayState extends State<RebicAnchoredOverlay> {
   final List<ScrollPosition> _positions = [];
   FocusNode? _focusBeforeShow;
   bool _wasShowing = false;
-
-  static const _spacing = RebicSpacingTokens.fallback();
 
   @override
   void initState() {
@@ -237,13 +235,14 @@ class _RebicAnchoredOverlayState extends State<RebicAnchoredOverlay> {
         child: content,
       ),
     );
+    final spacing = RebicThemeData.of(context).spacing;
     return CustomSingleChildLayout(
       delegate: _AnchoredLayoutDelegate(
         anchor: anchorRect,
         side: widget.side,
         alignment: widget.alignment,
-        gap: widget.gap ?? _spacing.xs,
-        margin: widget.margin ?? _spacing.s,
+        gap: widget.gap ?? spacing.xs,
+        margin: widget.margin ?? spacing.s,
         textDirection: Directionality.of(context),
       ),
       child: content,

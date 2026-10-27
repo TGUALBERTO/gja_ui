@@ -2,6 +2,11 @@
 
 ## Não lançado
 
+- Valores do tema ativo (`add-rebic-theme`): os parâmetros visuais de `RebicInteractable` (`minTargetSize`,
+  `interactionTokens`, `focusColor`, `focusRingBorderRadius`), `RebicModal.show` (`barrierColor`),
+  `RebicAnchoredOverlay` (`gap`, `margin`) e da responsividade (`breakpoints`) passam a ser opcionais e, sem valor,
+  vêm de `RebicThemeData.of`. O anel de foco sem raio informado passa a usar o raio `control` do tema (antes, zero).
+
 - Sobreposições (`add-rebic-core-overlay`, spec `rebic/core/overlay`):
   - `RebicModal.show`: modal com camada de bloqueio (`blockLayer`), foco preso e devolvido, dispensa por Esc e pela
     camada quando dispensável, e resultado ao fechar;

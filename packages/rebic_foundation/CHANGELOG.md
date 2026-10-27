@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- Tema na árvore (`add-rebic-theme`, spec `rebic/foundation/theming`): `RebicThemeScope` publica o tema para a
+  subárvore, e `RebicThemeData.of`/`maybeOf` leem o tema ativo, com o claro de referência como reserva e o movimento
+  reduzido quando o sistema pede.
+
 - **BREAKING** Realinhamento ao modelo Fiori (`update-rebic-foundation-color-fiori-parameters`, specs
   `rebic/foundation/color`, `rebic/foundation/interaction-states` e `rebic/foundation/theming`):
   - papéis de cor renomeados e ampliados em `RebicColorTokens`, com o mapa `roles`:

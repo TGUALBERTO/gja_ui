@@ -33,7 +33,7 @@ class _InteractionPageState extends State<InteractionPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = RebicThemeData.light();
+    final theme = RebicTheme.of(context);
     final colors = theme.colors;
     final spacing = theme.spacing;
     final typography = theme.typography;
@@ -48,10 +48,6 @@ class _InteractionPageState extends State<InteractionPage> {
         key: key,
         onPressed: onPressed,
         semanticLabel: label,
-        minTargetSize: theme.density.minTargetSize,
-        interactionTokens: theme.interaction,
-        focusColor: colors.focus,
-        focusRingBorderRadius: BorderRadius.circular(theme.radius.control),
         builder: (context, states) {
           final c = RebicControlColors.of(
             RebicControlFamily.list,

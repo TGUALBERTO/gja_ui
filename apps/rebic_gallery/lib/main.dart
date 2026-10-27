@@ -12,6 +12,8 @@ import 'pages/interaction_page.dart';
 import 'pages/localization_page.dart';
 import 'pages/overlay_page.dart';
 import 'pages/radius_page.dart';
+import 'pages/rebic_text_page.dart';
+import 'pages/rebic_theme_page.dart';
 import 'pages/responsive_page.dart';
 import 'pages/spacing_page.dart';
 import 'pages/states_page.dart';
@@ -124,16 +126,23 @@ final galleryPages = <GalleryPage>[
     route: OverlayPage.route,
     builder: (_) => const OverlayPage(),
   ),
+  GalleryPage(
+    title: RebicThemePage.title,
+    route: RebicThemePage.route,
+    builder: (_) => const RebicThemePage(),
+  ),
+  GalleryPage(
+    title: RebicTextPage.title,
+    route: RebicTextPage.route,
+    builder: (_) => const RebicTextPage(),
+  ),
 ];
-
-/// Cores da galeria até existir o tema.
-const _colors = RebicColorTokens.light();
 
 /// Aplicação da galeria.
 ///
-/// Provisória até existir `RebicApp`: usa `WidgetsApp` diretamente, sem
-/// Material. Cada widget implementado ganha uma página aqui.
-class RebicGalleryApp extends StatelessWidget {
+/// Usa `RebicApp` como raiz, sem Material. O índice escolhe o modo de tema e a
+/// densidade da galeria inteira. Cada widget implementado ganha uma página.
+class RebicGalleryApp extends StatefulWidget {
   /// Cria a aplicação da galeria.
   const RebicGalleryApp({super.key});
 
@@ -141,21 +150,26 @@ class RebicGalleryApp extends StatelessWidget {
   static const title = 'Rebic — Galeria';
 
   @override
+  State<RebicGalleryApp> createState() => _RebicGalleryAppState();
+}
+
+class _RebicGalleryAppState extends State<RebicGalleryApp> {
+  RebicThemeMode _themeMode = RebicThemeMode.system;
+  RebicDensity? _density;
+
+  @override
   Widget build(BuildContext context) {
-    return WidgetsApp(
-      title: title,
-      // Cor obrigatória do WidgetsApp. Vem do mapeamento claro de referência
-      // até existir o tema (RebicTheme).
-      color: _colors.brand,
-      textStyle: TextStyle(fontSize: 16, color: _colors.text),
-      localizationsDelegates: const [RebicLocalizations.delegate],
-      supportedLocales: RebicLocalizations.supportedLocales,
-      builder: (context, child) => RebicScreenSizeScope(child: child!),
-      pageRouteBuilder: <T>(RouteSettings settings, WidgetBuilder builder) =>
-          PageRouteBuilder<T>(
-            settings: settings,
-            pageBuilder: (context, _, _) => builder(context),
-          ),
+    return RebicApp(
+      title: RebicGalleryApp.title,
+      themeMode: _themeMode,
+      density: _density,
+      builder: (context, child) => _GallerySettings(
+        themeMode: _themeMode,
+        density: _density,
+        onThemeMode: (mode) => setState(() => _themeMode = mode),
+        onDensity: (density) => setState(() => _density = density),
+        child: child!,
+      ),
       routes: {
         '/': (_) => const _GalleryIndex(),
         for (final page in galleryPages) page.route: page.builder,
@@ -164,33 +178,139 @@ class RebicGalleryApp extends StatelessWidget {
   }
 }
 
-/// Índice com um link por página.
+/// Escolhas de tema e densidade da galeria, para o índice.
+class _GallerySettings extends InheritedWidget {
+  const _GallerySettings({
+    required this.themeMode,
+    required this.density,
+    required this.onThemeMode,
+    required this.onDensity,
+    required super.child,
+  });
+
+  final RebicThemeMode themeMode;
+  final RebicDensity? density;
+  final ValueChanged<RebicThemeMode> onThemeMode;
+  final ValueChanged<RebicDensity?> onDensity;
+
+  static _GallerySettings of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<_GallerySettings>()!;
+
+  @override
+  bool updateShouldNotify(_GallerySettings old) =>
+      old.themeMode != themeMode || old.density != density;
+}
+
+/// Índice: escolha de tema e densidade, e um link por página.
 class _GalleryIndex extends StatelessWidget {
   const _GalleryIndex();
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: _colors.base,
-      child: ListView(
-        padding: const EdgeInsets.all(24),
-        children: [
-          const Text(RebicGalleryApp.title, style: TextStyle(fontSize: 24)),
-          const SizedBox(height: 16),
-          for (final page in galleryPages)
-            GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () => Navigator.of(context).pushNamed(page.route),
-              child: Semantics(
-                button: true,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Text(page.title),
-                ),
+    final theme = RebicTheme.of(context);
+    final settings = _GallerySettings.of(context);
+    final spacing = theme.spacing;
+    return ListView(
+      padding: EdgeInsets.all(spacing.pageMargin),
+      children: [
+        Text(RebicGalleryApp.title, style: theme.typography.headline),
+        SizedBox(height: spacing.stackGap),
+        _Options(
+          children: [
+            for (final (mode, label) in const [
+              (RebicThemeMode.system, 'Tema: sistema'),
+              (RebicThemeMode.light, 'Tema: claro'),
+              (RebicThemeMode.dark, 'Tema: escuro'),
+            ])
+              _Option(
+                label: label,
+                selected: settings.themeMode == mode,
+                onPressed: () => settings.onThemeMode(mode),
+              ),
+          ],
+        ),
+        SizedBox(height: spacing.s),
+        _Options(
+          children: [
+            for (final (density, label) in const [
+              (null, 'Densidade: recomendada'),
+              (RebicDensity.comfortable, 'Densidade: confortável'),
+              (RebicDensity.compact, 'Densidade: compacta'),
+            ])
+              _Option(
+                label: label,
+                selected: settings.density == density,
+                onPressed: () => settings.onDensity(density),
+              ),
+          ],
+        ),
+        SizedBox(height: spacing.sectionGap),
+        for (final page in galleryPages)
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => Navigator.of(context).pushNamed(page.route),
+            child: Semantics(
+              button: true,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: spacing.m),
+                child: Text(page.title),
               ),
             ),
-        ],
-      ),
+          ),
+      ],
+    );
+  }
+}
+
+class _Options extends StatelessWidget {
+  const _Options({required this.children});
+
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    final spacing = RebicTheme.of(context).spacing;
+    return Wrap(spacing: spacing.s, runSpacing: spacing.s, children: children);
+  }
+}
+
+/// Opção selecionável do índice, com as cores da família `standard`.
+class _Option extends StatelessWidget {
+  const _Option({
+    required this.label,
+    required this.selected,
+    required this.onPressed,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = RebicTheme.of(context);
+    return RebicInteractable(
+      onPressed: onPressed,
+      selected: selected,
+      semanticLabel: label,
+      builder: (context, states) {
+        final c = RebicControlColors.of(
+          RebicControlFamily.standard,
+          t.colors,
+        ).resolve(states);
+        return Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: t.spacing.m,
+            vertical: t.spacing.xs,
+          ),
+          decoration: BoxDecoration(
+            color: c.background,
+            border: Border.all(color: c.border),
+            borderRadius: BorderRadius.circular(t.radius.control),
+          ),
+          child: Text(label, style: t.typography.label.copyWith(color: c.text)),
+        );
+      },
     );
   }
 }

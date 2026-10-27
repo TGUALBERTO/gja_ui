@@ -17,8 +17,9 @@ typedef RebicInteractableBuilder =
 /// [builder], normalmente com `RebicControlColors.resolve` da família do
 /// controle e `RebicInteractionStateTokens.opacity`.
 ///
-/// Os valores visuais vêm por parâmetro, com o mapeamento de referência como
-/// padrão, até existir a propagação de tema.
+/// Os valores visuais omitidos vêm do tema ativo (`RebicThemeData.of`):
+/// alvo da densidade, tokens de interação, cor `focus` e raio `control`. Um
+/// valor passado tem precedência sobre o do tema.
 class RebicInteractable extends StatefulWidget {
   /// Cria o elemento.
   const RebicInteractable({
@@ -28,10 +29,10 @@ class RebicInteractable extends StatefulWidget {
     this.semanticLabel,
     this.focusNode,
     this.autofocus = false,
-    this.minTargetSize = RebicAccessibility.defaultMinTargetSize,
-    this.interactionTokens = const RebicInteractionStateTokens.fallback(),
+    this.minTargetSize,
+    this.interactionTokens,
     this.focusColor,
-    this.focusRingBorderRadius = BorderRadius.zero,
+    this.focusRingBorderRadius,
     super.key,
   });
 
@@ -53,17 +54,19 @@ class RebicInteractable extends StatefulWidget {
   /// Se o elemento pede foco ao ser inserido.
   final bool autofocus;
 
-  /// Lado mínimo da área de interação, em pixels lógicos.
-  final double minTargetSize;
+  /// Lado mínimo da área de interação, em pixels lógicos; nulo usa o alvo
+  /// da densidade do tema ativo.
+  final double? minTargetSize;
 
-  /// Regras e valores dos estados de interação.
-  final RebicInteractionStateTokens interactionTokens;
+  /// Regras e valores dos estados de interação; nulo usa os do tema ativo.
+  final RebicInteractionStateTokens? interactionTokens;
 
-  /// Cor do anel de foco; nula usa o papel `focus` do mapeamento claro.
+  /// Cor do anel de foco; nula usa o papel `focus` do tema ativo.
   final Color? focusColor;
 
-  /// Cantos do conteúdo, para o anel de foco acompanhar a curva.
-  final BorderRadius focusRingBorderRadius;
+  /// Cantos do conteúdo, para o anel de foco acompanhar a curva; nulo usa o
+  /// raio `control` do tema ativo.
+  final BorderRadius? focusRingBorderRadius;
 
   @override
   State<RebicInteractable> createState() => _RebicInteractableState();
@@ -113,8 +116,10 @@ class _RebicInteractableState extends State<RebicInteractable> {
   @override
   Widget build(BuildContext context) {
     final states = _states;
-    final showRing =
-        _focusHighlight && widget.interactionTokens.showsFocusRing(states);
+    final theme = RebicThemeData.of(context);
+    final tokens = widget.interactionTokens ?? theme.interaction;
+    final minTargetSize = widget.minTargetSize ?? theme.density.minTargetSize;
+    final showRing = _focusHighlight && tokens.showsFocusRing(states);
 
     return Semantics(
       container: true,
@@ -161,19 +166,20 @@ class _RebicInteractableState extends State<RebicInteractable> {
             onTap: _enabled ? _activate : null,
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                minWidth: widget.minTargetSize,
-                minHeight: widget.minTargetSize,
+                minWidth: minTargetSize,
+                minHeight: minTargetSize,
               ),
               child: Center(
                 widthFactor: 1,
                 heightFactor: 1,
                 child: RebicFocusRing(
                   visible: showRing,
-                  width: widget.interactionTokens.focusWidth,
-                  offset: widget.interactionTokens.focusOffset,
-                  color:
-                      widget.focusColor ?? const RebicColorTokens.light().focus,
-                  borderRadius: widget.focusRingBorderRadius,
+                  width: tokens.focusWidth,
+                  offset: tokens.focusOffset,
+                  color: widget.focusColor ?? theme.colors.focus,
+                  borderRadius:
+                      widget.focusRingBorderRadius ??
+                      BorderRadius.circular(theme.radius.control),
                   child: widget.builder(context, states),
                 ),
               ),

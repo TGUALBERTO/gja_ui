@@ -8,7 +8,8 @@ import 'package:rebic_foundation/rebic_foundation.dart';
 /// Equivale às faixas de `sap.ui.Device.media` do SAPUI5. Para a classe do
 /// espaço disponível de um widget, use [RebicResponsiveBuilder].
 abstract final class RebicResponsive {
-  /// Classe de tamanho da largura da janela, com [breakpoints].
+  /// Classe de tamanho da largura da janela, com [breakpoints] ou, sem eles,
+  /// com os limiares do tema ativo (`RebicThemeData.of`).
   ///
   /// Sob um [RebicScreenSizeScope] com os mesmos [breakpoints], quem chama
   /// só é reconstruído quando a classe muda. Sem o escopo, a classe é a
@@ -16,16 +17,17 @@ abstract final class RebicResponsive {
   /// reconstruído a cada mudança de largura ou altura.
   static RebicSizeClass screenSizeClassOf(
     BuildContext context, {
-    RebicBreakpointTokens breakpoints = const RebicBreakpointTokens.fallback(),
+    RebicBreakpointTokens? breakpoints,
   }) {
+    final effective = breakpoints ?? RebicThemeData.of(context).breakpoints;
     final scope = context
         .getInheritedWidgetOfExactType<_ScreenSizeClassScope>();
-    if (scope != null && scope.breakpoints == breakpoints) {
+    if (scope != null && scope.breakpoints == effective) {
       return context
           .dependOnInheritedWidgetOfExactType<_ScreenSizeClassScope>()!
           .sizeClass;
     }
-    return breakpoints.classify(MediaQuery.sizeOf(context).width);
+    return effective.classify(MediaQuery.sizeOf(context).width);
   }
 
   /// Densidade inicial recomendada para [platform] (por padrão,
@@ -55,21 +57,22 @@ class RebicScreenSizeScope extends StatelessWidget {
   /// Cria o escopo em volta de [child].
   const RebicScreenSizeScope({
     required this.child,
-    this.breakpoints = const RebicBreakpointTokens.fallback(),
+    this.breakpoints,
     super.key,
   });
 
-  /// Limiares usados na classificação.
-  final RebicBreakpointTokens breakpoints;
+  /// Limiares usados na classificação; nulos usam os do tema ativo.
+  final RebicBreakpointTokens? breakpoints;
 
   /// Subárvore que recebe a classe.
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
+    final effective = breakpoints ?? RebicThemeData.of(context).breakpoints;
     return _ScreenSizeClassScope(
-      breakpoints: breakpoints,
-      sizeClass: breakpoints.classify(MediaQuery.sizeOf(context).width),
+      breakpoints: effective,
+      sizeClass: effective.classify(MediaQuery.sizeOf(context).width),
       child: child,
     );
   }
@@ -99,21 +102,22 @@ class RebicResponsiveBuilder extends StatelessWidget {
   /// Cria o construtor.
   const RebicResponsiveBuilder({
     required this.builder,
-    this.breakpoints = const RebicBreakpointTokens.fallback(),
+    this.breakpoints,
     super.key,
   });
 
   /// Constrói o conteúdo para a classe do espaço disponível.
   final Widget Function(BuildContext context, RebicSizeClass sizeClass) builder;
 
-  /// Limiares usados na classificação.
-  final RebicBreakpointTokens breakpoints;
+  /// Limiares usados na classificação; nulos usam os do tema ativo.
+  final RebicBreakpointTokens? breakpoints;
 
   @override
   Widget build(BuildContext context) {
+    final effective = breakpoints ?? RebicThemeData.of(context).breakpoints;
     return LayoutBuilder(
       builder: (context, constraints) =>
-          builder(context, breakpoints.classify(constraints.maxWidth)),
+          builder(context, effective.classify(constraints.maxWidth)),
     );
   }
 }

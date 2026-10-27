@@ -33,7 +33,7 @@ class ResponsivePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = RebicThemeData.light();
+    final theme = RebicTheme.of(context);
     final colors = theme.colors;
     final spacing = theme.spacing;
     final typography = theme.typography;

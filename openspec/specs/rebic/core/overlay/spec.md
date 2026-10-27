@@ -7,7 +7,7 @@ Define as sobreposições do núcleo do Rebic: o modal com camada de bloqueio, o
 ## Requirements
 
 ### Requirement: Modal com camada de bloqueio
-O núcleo SHALL abrir um conteúdo modal acima da tela, sobre uma camada de bloqueio que cobre toda a tela com a cor recebida (o `blockLayer` do mapeamento claro por padrão). Enquanto o modal está aberto, o conteúdo abaixo MUST NOT receber toques nem ser exposto à árvore de semântica. O modal MUST devolver a quem o abriu o resultado informado ao fechar, ou nulo quando é dispensado.
+O núcleo SHALL abrir um conteúdo modal acima da tela, sobre uma camada de bloqueio que cobre toda a tela com a cor recebida ou, sem ela, com o `blockLayer` do tema ativo de `rebic/foundation/theming`. Enquanto o modal está aberto, o conteúdo abaixo MUST NOT receber toques nem ser exposto à árvore de semântica. O modal MUST devolver a quem o abriu o resultado informado ao fechar, ou nulo quando é dispensado.
 
 #### Scenario: Interação bloqueada
 - **GIVEN** um modal aberto sobre uma tela com um botão
@@ -99,3 +99,16 @@ Cada cenário desta spec MUST ter um teste automatizado com o nome `<requisito> 
 #### Scenario: Página na galeria
 - **WHEN** a página "Sobreposições" é aberta, o modal dispensável é aberto e fechado com Esc, e a sobreposição ancorada é aberta e fechada com um toque fora
 - **THEN** cada sobreposição aparece e some, e a página volta ao estado inicial
+
+### Requirement: Valores do tema ativo nas sobreposições
+Sem valores recebidos, a camada do modal MUST usar o `blockLayer` do tema ativo, e a sobreposição ancorada MUST usar o espaçamento `xs` como afastamento e `s` como margem. Um valor recebido MUST ter precedência sobre o do tema.
+
+#### Scenario: Camada no tema escuro
+- **GIVEN** o tema escuro ativo
+- **WHEN** um modal é aberto sem cor de camada
+- **THEN** a camada tem o `blockLayer` do tema escuro
+
+#### Scenario: Espaçamentos da densidade compacta
+- **GIVEN** um tema ativo compacto
+- **WHEN** uma sobreposição ancorada abaixo da âncora é aberta sem afastamento
+- **THEN** o topo do conteúdo fica abaixo da base da âncora à distância `xs` do espaçamento compacto

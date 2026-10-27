@@ -29,3 +29,4 @@ export 'src/interaction_states/interaction_state_tokens.dart';
 export 'src/interaction_states/state_contrast_check.dart';
 export 'src/accessibility/accessibility.dart';
 export 'src/theming/theme_data.dart';
+export 'src/theming/theme_scope.dart';
