@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- `RebicGrid` (`add-rebic-grid`, spec `rebic/widgets/rebic-grid`): grade de 12 colunas com `defaultSpan` por classe
+  de tamanho (padrão `S12 M6 L4 XL3`, com herança), span por item via `RebicGridCell` em `RebicGrid.cells`, fluxo em
+  linhas, `gap`/`runGap` por `RebicSpace`, base contêiner ou tela e RTL.
 - `RebicResponsiveLayout` (`add-rebic-responsive-layout`, spec `rebic/widgets/rebic-responsive-layout`): um
   construtor por classe de tamanho (`small` obrigatório, demais com herança da classe menor), medido pelo contêiner
   ou pela tela (`RebicLayoutBasis`), com os limiares do tema. Versão básica; colunas flexíveis na Fase 4.

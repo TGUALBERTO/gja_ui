@@ -15,3 +15,4 @@ export 'src/fundacao_layout/flex/rebic_flex_alignment.dart';
 export 'src/fundacao_layout/row/rebic_row.dart';
 export 'src/fundacao_layout/divider/rebic_divider.dart';
 export 'src/fundacao_layout/responsive_layout/rebic_responsive_layout.dart';
+export 'src/fundacao_layout/grid/rebic_grid.dart';

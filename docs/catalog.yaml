@@ -335,10 +335,15 @@ items:
     category: fundacao-layout
     priority: P0
     phase: 1
-    status: planned
+    status: implemented
     depends_on:
       - rebic/core/responsive
       - rebic/widgets/rebic-spacing
+      - rebic/widgets/rebic-responsive-layout
+      - rebic/foundation/breakpoints
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/theming
   - id: rebic/widgets/rebic-scaffold
     name: "RebicScaffold"
     kind: widget
