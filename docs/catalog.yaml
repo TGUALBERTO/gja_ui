@@ -286,18 +286,24 @@ items:
     category: fundacao-layout
     priority: P0
     phase: 1
-    status: planned
+    status: implemented
     depends_on:
       - rebic/widgets/rebic-spacing
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/theming
   - id: rebic/widgets/rebic-column
     name: "RebicColumn"
     kind: widget
     category: fundacao-layout
     priority: P0
     phase: 1
-    status: planned
+    status: implemented
     depends_on:
       - rebic/widgets/rebic-spacing
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/theming
   - id: rebic/widgets/rebic-divider
     name: "RebicDivider"
     kind: widget

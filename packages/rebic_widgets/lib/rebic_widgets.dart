@@ -10,3 +10,6 @@ export 'src/fundacao_layout/text/rebic_text.dart';
 export 'src/fundacao_layout/icon/rebic_icon.dart';
 export 'src/fundacao_layout/spacing/rebic_spacing.dart';
 export 'src/fundacao_layout/container/rebic_container.dart';
+export 'src/fundacao_layout/column/rebic_column.dart';
+export 'src/fundacao_layout/flex/rebic_flex_alignment.dart';
+export 'src/fundacao_layout/row/rebic_row.dart';
