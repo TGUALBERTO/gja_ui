@@ -68,6 +68,9 @@ abstract class RebicLocalizations {
   /// Campo obrigatório.
   String get required;
 
+  /// Área de navegação da aplicação (ex.: rótulo do botão que a expande).
+  String get navigation;
+
   /// Texto de [state] para leitores de tela; vazio para
   /// [RebicValueState.none].
   String valueState(RebicValueState state);
@@ -151,6 +154,9 @@ class RebicLocalizationsPtBr extends RebicLocalizations {
   String get required => 'Obrigatório';
 
   @override
+  String get navigation => 'Navegação';
+
+  @override
   String valueState(RebicValueState state) => switch (state) {
     RebicValueState.none => '',
     RebicValueState.success => 'Valor válido',
@@ -198,6 +204,9 @@ class RebicLocalizationsEn extends RebicLocalizations {
 
   @override
   String get required => 'Required';
+
+  @override
+  String get navigation => 'Navigation';
 
   @override
   String valueState(RebicValueState state) => switch (state) {

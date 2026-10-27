@@ -18,6 +18,7 @@ import 'pages/rebic_grid_page.dart';
 import 'pages/rebic_icon_page.dart';
 import 'pages/rebic_responsive_layout_page.dart';
 import 'pages/rebic_row_column_page.dart';
+import 'pages/rebic_scaffold_page.dart';
 import 'pages/rebic_spacing_page.dart';
 import 'pages/rebic_text_page.dart';
 import 'pages/rebic_theme_page.dart';
@@ -177,6 +178,11 @@ final galleryPages = <GalleryPage>[
     title: RebicGridPage.title,
     route: RebicGridPage.route,
     builder: (_) => const RebicGridPage(),
+  ),
+  GalleryPage(
+    title: RebicScaffoldPage.title,
+    route: RebicScaffoldPage.route,
+    builder: (_) => const RebicScaffoldPage(),
   ),
 ];
 

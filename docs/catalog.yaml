@@ -350,10 +350,25 @@ items:
     category: fundacao-layout
     priority: P0
     phase: 1
-    status: planned
+    status: implemented
     depends_on:
       - rebic/widgets/rebic-app
-      - rebic/widgets/rebic-responsive-layout
+      - rebic/widgets/rebic-container
+      - rebic/widgets/rebic-divider
+      - rebic/widgets/rebic-icon
+      - rebic/widgets/rebic-text
+      - rebic/core/responsive
+      - rebic/core/interaction
+      - rebic/core/localization
+      - rebic/foundation/color
+      - rebic/foundation/elevation
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/iconography
+      - rebic/foundation/interaction-states
+      - rebic/foundation/design-tokens
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-page
     name: "RebicPage"
     kind: widget

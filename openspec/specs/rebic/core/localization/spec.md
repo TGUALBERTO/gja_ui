@@ -7,7 +7,7 @@ Define a localização do núcleo do Rebic: os textos que os widgets do framewor
 ## Requirements
 
 ### Requirement: Textos do framework
-O núcleo SHALL fornecer um conjunto tipado de textos do framework: `ok`, `cancel`, `close`, `search`, `clear`, `noData`, `loading`, `more`, `required`, o texto de cada estado de valor e a contagem de itens selecionados. O texto de estado de valor MUST ser vazio para `none`. A contagem MUST tratar zero, um e vários, com o número formatado no idioma. Widgets do framework MUST NOT fixar esses textos no código.
+O núcleo SHALL fornecer um conjunto tipado de textos do framework: `ok`, `cancel`, `close`, `search`, `clear`, `noData`, `loading`, `more`, `required`, `navigation`, o texto de cada estado de valor e a contagem de itens selecionados. O texto de estado de valor MUST ser vazio para `none`. A contagem MUST tratar zero, um e vários, com o número formatado no idioma. Widgets do framework MUST NOT fixar esses textos no código.
 
 #### Scenario: Textos em pt-BR
 - **GIVEN** os textos do idioma pt-BR
@@ -26,6 +26,10 @@ O núcleo SHALL fornecer um conjunto tipado de textos do framework: `ok`, `cance
 #### Scenario: Estado sem texto
 - **WHEN** o texto do estado `none` é lido em qualquer idioma fornecido
 - **THEN** ele é vazio, e os de `success`, `warning`, `error` e `information` não são vazios
+
+#### Scenario: Texto da navegação
+- **WHEN** `navigation` é lido em pt-BR e em en
+- **THEN** ele é "Navegação" e "Navigation", respectivamente
 
 ### Requirement: Idiomas e resolução
 O núcleo SHALL fornecer pt-BR e en, com pt-BR como padrão, e expor o delegate e a lista de idiomas para o `WidgetsApp`. A resolução MUST usar o mecanismo nativo do Flutter: o idioma exato, senão o mesmo código de língua, senão o padrão. O delegate MUST aceitar qualquer região de `pt` e de `en`.

@@ -32,6 +32,8 @@ class _Es extends RebicLocalizations {
   @override
   String get required => 'Obligatorio';
   @override
+  String get navigation => 'Navegación';
+  @override
   String valueState(RebicValueState state) => state.name;
   @override
   String selectedItems(int count) => '$count';
@@ -118,6 +120,11 @@ void main() {
       }
     });
 
+    test('Textos do framework — Texto da navegação', () {
+      expect(_pt.navigation, 'Navegação');
+      expect(_en.navigation, 'Navigation');
+    });
+
     test('todos os textos simples existem nos dois idiomas', () {
       for (final l in const <RebicLocalizations>[_pt, _en]) {
         final texts = [
@@ -130,6 +137,7 @@ void main() {
           l.loading,
           l.more,
           l.required,
+          l.navigation,
         ];
         expect(texts.every((t) => t.isNotEmpty), isTrue, reason: '${l.locale}');
       }

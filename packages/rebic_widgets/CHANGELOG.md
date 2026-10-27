@@ -2,6 +2,11 @@
 
 ## Não lançado
 
+- `RebicScaffold` (`add-rebic-scaffold`, spec `rebic/widgets/rebic-scaffold`): estrutura da aplicação no modelo do
+  `ToolPage`, com barra superior (`logo`, `title`, `actions` e botão de navegação, na superfície `shell` com sombra
+  `header`), navegação lateral expandida ou recolhida ao lado do corpo e, no `small`, sobre o corpo, com estado
+  controlado (`navigationExpanded`/`onNavigationExpandedChanged`) ou automático pela classe da tela, e
+  `RebicScaffold.navigationExpandedOf`.
 - `RebicGrid` (`add-rebic-grid`, spec `rebic/widgets/rebic-grid`): grade de 12 colunas com `defaultSpan` por classe
   de tamanho (padrão `S12 M6 L4 XL3`, com herança), span por item via `RebicGridCell` em `RebicGrid.cells`, fluxo em
   linhas, `gap`/`runGap` por `RebicSpace`, base contêiner ou tela e RTL.

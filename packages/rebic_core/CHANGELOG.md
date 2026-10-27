@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Localização (`add-rebic-scaffold`): novo texto `navigation` ("Navegação" / "Navigation"), rótulo do botão de
+  navegação do `RebicScaffold`. Subclasses próprias de `RebicLocalizations` precisam implementá-lo.
 - Valores do tema ativo (`add-rebic-theme`): os parâmetros visuais de `RebicInteractable` (`minTargetSize`,
   `interactionTokens`, `focusColor`, `focusRingBorderRadius`), `RebicModal.show` (`barrierColor`),
   `RebicAnchoredOverlay` (`gap`, `margin`) e da responsividade (`breakpoints`) passam a ser opcionais e, sem valor,
