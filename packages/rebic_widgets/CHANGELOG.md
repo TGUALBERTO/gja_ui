@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- `RebicDivider` (`add-rebic-divider`, spec `rebic/widgets/rebic-divider`): linha fina horizontal ou vertical
+  (`RebicDivider.vertical`), com `tone` (`subtle`/`strong`), `spacing` e recuo direcional (`indent`/`endIndent`) por
+  `RebicSpace`; fora da semântica.
 - `RebicRow` e `RebicColumn` (`add-rebic-row-column`, specs `rebic/widgets/rebic-row` e `rebic/widgets/rebic-column`):
   `gap` (`RebicSpace`, só entre filhos), `RebicMainAlignment`, `RebicCrossAlignment` e `shrinkWrap`, sobre o
   `spacing` nativo do `Flex`; `RebicRow.wrap` quebra em linhas e rejeita filhos expansíveis.

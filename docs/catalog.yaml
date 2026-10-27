@@ -310,9 +310,14 @@ items:
     category: fundacao-layout
     priority: P0
     phase: 1
-    status: planned
+    status: implemented
     depends_on:
       - rebic/foundation/color
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
+      - rebic/widgets/rebic-spacing
   - id: rebic/widgets/rebic-responsive-layout
     name: "RebicResponsiveLayout"
     kind: widget
