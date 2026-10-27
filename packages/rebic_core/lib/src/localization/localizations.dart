@@ -71,6 +71,9 @@ abstract class RebicLocalizations {
   /// Área de navegação da aplicação (ex.: rótulo do botão que a expande).
   String get navigation;
 
+  /// Voltar à página anterior (ex.: rótulo do botão de voltar).
+  String get back;
+
   /// Texto de [state] para leitores de tela; vazio para
   /// [RebicValueState.none].
   String valueState(RebicValueState state);
@@ -157,6 +160,9 @@ class RebicLocalizationsPtBr extends RebicLocalizations {
   String get navigation => 'Navegação';
 
   @override
+  String get back => 'Voltar';
+
+  @override
   String valueState(RebicValueState state) => switch (state) {
     RebicValueState.none => '',
     RebicValueState.success => 'Valor válido',
@@ -207,6 +213,9 @@ class RebicLocalizationsEn extends RebicLocalizations {
 
   @override
   String get navigation => 'Navigation';
+
+  @override
+  String get back => 'Back';
 
   @override
   String valueState(RebicValueState state) => switch (state) {

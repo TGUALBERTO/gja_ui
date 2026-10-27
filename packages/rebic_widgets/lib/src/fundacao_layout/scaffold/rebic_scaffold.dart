@@ -2,9 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
+import '../action/rebic_transparent_icon_action.dart';
 import '../container/rebic_container.dart';
 import '../divider/rebic_divider.dart';
-import '../icon/rebic_icon.dart';
 import '../row/rebic_row.dart';
 import '../spacing/rebic_spacing.dart';
 import '../text/rebic_text.dart';
@@ -178,7 +178,9 @@ class _RebicScaffoldState extends State<RebicScaffold> {
             gap: RebicSpace.s,
             children: [
               if (navigation != null)
-                _NavigationButton(
+                RebicTransparentIconAction(
+                  icon: RebicIcons.menu,
+                  semanticLabel: RebicLocalizations.of(context).navigation,
                   expanded: expanded,
                   onPressed: () => _toggle(expanded),
                 ),
@@ -229,51 +231,4 @@ class _RebicScaffoldScope extends InheritedWidget {
   @override
   bool updateShouldNotify(_RebicScaffoldScope oldWidget) =>
       expanded != oldWidget.expanded;
-}
-
-/// Botão que expande e recolhe a navegação, na família `transparent`.
-class _NavigationButton extends StatelessWidget {
-  const _NavigationButton({required this.expanded, required this.onPressed});
-
-  final bool expanded;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = RebicThemeData.of(context);
-    final colors = RebicControlColors.of(
-      RebicControlFamily.transparent,
-      theme.colors,
-    );
-    // Um só nó: botão, rótulo e estado expandido.
-    return MergeSemantics(
-      child: Semantics(
-        expanded: expanded,
-        child: RebicInteractable(
-          semanticLabel: RebicLocalizations.of(context).navigation,
-          onPressed: onPressed,
-          builder: (context, states) {
-            final c = colors.resolve(states);
-            return SizedBox.square(
-              dimension: theme.density.controlHeight,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: c.background,
-                  borderRadius: BorderRadius.circular(theme.radius.control),
-                ),
-                // O ícone toma a cor de texto do estado (ex.: contraste no
-                // pressionado), que os tons de `RebicIcon` não cobrem.
-                child: Center(
-                  child: ColorFiltered(
-                    colorFilter: ColorFilter.mode(c.text, BlendMode.srcIn),
-                    child: const RebicIcon(RebicIcons.menu),
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
 }

@@ -34,6 +34,8 @@ class _Es extends RebicLocalizations {
   @override
   String get navigation => 'Navegación';
   @override
+  String get back => 'Volver';
+  @override
   String valueState(RebicValueState state) => state.name;
   @override
   String selectedItems(int count) => '$count';
@@ -125,6 +127,11 @@ void main() {
       expect(_en.navigation, 'Navigation');
     });
 
+    test('Textos do framework — Texto de voltar', () {
+      expect(_pt.back, 'Voltar');
+      expect(_en.back, 'Back');
+    });
+
     test('todos os textos simples existem nos dois idiomas', () {
       for (final l in const <RebicLocalizations>[_pt, _en]) {
         final texts = [
@@ -138,6 +145,7 @@ void main() {
           l.more,
           l.required,
           l.navigation,
+          l.back,
         ];
         expect(texts.every((t) => t.isNotEmpty), isTrue, reason: '${l.locale}');
       }

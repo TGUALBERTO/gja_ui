@@ -2,6 +2,11 @@
 
 ## Não lançado
 
+- `RebicPage` (`add-rebic-page`, spec `rebic/widgets/rebic-page`): página no modelo do `sap.m.Page`, com área de
+  título (`onBack`, `title`, `subtitle`, `actions`) na superfície `base`, conteúdo com a margem `pageMargin`
+  (`padded`) que rola entre o título e o rodapé ou recebe a altura disponível (`scrollable: false`), e rodapé fixo
+  de ações (`footerActions`). O botão de navegação do `RebicScaffold` passa a usar um botão interno compartilhado,
+  sem mudança de comportamento.
 - `RebicScaffold` (`add-rebic-scaffold`, spec `rebic/widgets/rebic-scaffold`): estrutura da aplicação no modelo do
   `ToolPage`, com barra superior (`logo`, `title`, `actions` e botão de navegação, na superfície `shell` com sombra
   `header`), navegação lateral expandida ou recolhida ao lado do corpo e, no `small`, sobre o corpo, com estado

@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Localização (`add-rebic-page`): novo texto `back` ("Voltar" / "Back"), rótulo do botão de voltar da `RebicPage`.
+  Subclasses próprias de `RebicLocalizations` precisam implementá-lo.
 - Localização (`add-rebic-scaffold`): novo texto `navigation` ("Navegação" / "Navigation"), rótulo do botão de
   navegação do `RebicScaffold`. Subclasses próprias de `RebicLocalizations` precisam implementá-lo.
 - Valores do tema ativo (`add-rebic-theme`): os parâmetros visuais de `RebicInteractable` (`minTargetSize`,
