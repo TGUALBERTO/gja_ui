@@ -247,9 +247,12 @@ items:
     category: fundacao-layout
     priority: P0
     phase: 1
-    status: planned
+    status: implemented
     depends_on:
       - rebic/foundation/iconography
+      - rebic/foundation/color
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
     proposed: true
   - id: rebic/widgets/rebic-spacing
     name: "RebicSpacing"
