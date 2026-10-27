@@ -271,12 +271,15 @@ items:
     category: fundacao-layout
     priority: P0
     phase: 1
-    status: planned
+    status: implemented
     depends_on:
       - rebic/foundation/color
       - rebic/foundation/radius
       - rebic/foundation/elevation
       - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/theming
+      - rebic/widgets/rebic-spacing
   - id: rebic/widgets/rebic-row
     name: "RebicRow"
     kind: widget

@@ -15,8 +15,9 @@ final goldenThemes = <(String, RebicThemeData)>[
       ('${name}_${density.name}', base.withDensity(density)),
 ];
 
-/// Renderiza [child] sob [theme], com fundo `base`, numa superfície de
-/// [size] e `devicePixelRatio` 1, e compara com `goldens/<name>.png`.
+/// Renderiza [child] sob [theme], sobre a superfície [surface] (padrão
+/// `base`) com espaço interno `l`, numa área de [size] e `devicePixelRatio` 1,
+/// e compara com `goldens/<name>.png`.
 ///
 /// Os goldens têm a etiqueta `golden` e referência gerada no Windows
 /// (ADR 0008). Para atualizar: `flutter test --update-goldens --tags golden`.
@@ -26,6 +27,7 @@ Future<void> expectGolden(
   required RebicThemeData theme,
   required Widget child,
   Size size = const Size(480, 640),
+  RebicSurface surface = RebicSurface.base,
 }) async {
   await loadRebicFonts();
   tester.view.devicePixelRatio = 1;
@@ -39,11 +41,11 @@ Future<void> expectGolden(
         textDirection: TextDirection.ltr,
         child: RepaintBoundary(
           key: const Key('golden'),
-          child: ColoredBox(
-            color: theme.colors.base,
-            child: Padding(
-              padding: EdgeInsets.all(theme.spacing.l),
-              child: child,
+          child: SizedBox.expand(
+            child: RebicContainer(
+              surface: surface,
+              padding: RebicSpace.l,
+              child: Align(alignment: Alignment.topLeft, child: child),
             ),
           ),
         ),

@@ -12,6 +12,7 @@ import 'pages/interaction_page.dart';
 import 'pages/localization_page.dart';
 import 'pages/overlay_page.dart';
 import 'pages/radius_page.dart';
+import 'pages/rebic_container_page.dart';
 import 'pages/rebic_icon_page.dart';
 import 'pages/rebic_spacing_page.dart';
 import 'pages/rebic_text_page.dart';
@@ -147,6 +148,11 @@ final galleryPages = <GalleryPage>[
     title: RebicSpacingPage.title,
     route: RebicSpacingPage.route,
     builder: (_) => const RebicSpacingPage(),
+  ),
+  GalleryPage(
+    title: RebicContainerPage.title,
+    route: RebicContainerPage.route,
+    builder: (_) => const RebicContainerPage(),
   ),
 ];
 

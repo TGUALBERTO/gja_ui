@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- `RebicContainer` (`add-rebic-container`, spec `rebic/widgets/rebic-container`): superfície com `surface`
+  (`RebicSurface`), `border` (`separator`), `radius` (`RebicRadius`, com recorte do conteúdo), `elevation`
+  (`RebicElevation`, papéis de sombra) e `padding` (`RebicSpace`), todos do tema ativo. O suporte de goldens dos
+  testes passa a aceitar a superfície de fundo.
 - `RebicSpacing` (`add-rebic-spacing`, spec `rebic/widgets/rebic-spacing`): espaço nomeado por `RebicSpace` (passos e
   papéis de layout do tema), com `RebicSpacing.horizontal`, `.vertical`, `.padding` (precedência por lado e
   início/fim pela direção do texto) e `RebicSpacing.resolve`; os valores seguem a densidade ativa.
