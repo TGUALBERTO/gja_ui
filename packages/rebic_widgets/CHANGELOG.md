@@ -2,6 +2,11 @@
 
 ## Não lançado
 
+- `RebicProgressIndicator` (`add-rebic-progress-indicator`, spec `rebic/widgets/rebic-progress-indicator`):
+  indicador de progresso em barra (`linear`, espessura `spacing.xs`) ou círculo (`circular`, no tamanho de um
+  ícone), determinado (`value` de 0 a 1, com transição `motion.short`) ou indeterminado (ciclo de 4 ×
+  `motion.long`), com cor por `state`, semântica com o valor em porcentagem e desenho estático no movimento
+  reduzido. Primeiro widget da categoria `exibicao-dados`.
 - `RebicPage` (`add-rebic-page`, spec `rebic/widgets/rebic-page`): página no modelo do `sap.m.Page`, com área de
   título (`onBack`, `title`, `subtitle`, `actions`) na superfície `base`, conteúdo com a margem `pageMargin`
   (`padded`) que rola entre o título e o rodapé ou recebe a altura disponível (`scrollable: false`), e rodapé fixo
