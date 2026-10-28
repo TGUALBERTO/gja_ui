@@ -26,9 +26,11 @@ RebicInteractable _recorder(
   bool autofocus = false,
   String? label,
   double side = 48,
+  bool link = false,
   Key? key,
 }) => RebicInteractable(
   key: key,
+  link: link,
   onPressed: onPressed,
   selected: selected,
   focusNode: focusNode,
@@ -303,6 +305,24 @@ void main() {
           isButton: true,
           isEnabled: true,
           isSelected: true,
+          hasTapAction: true,
+        ),
+      );
+      handle.dispose();
+    });
+
+    testWidgets('Semântica e cursor — Semântica de link', (tester) async {
+      final handle = tester.ensureSemantics();
+      await tester.pumpWidget(
+        _app(_recorder([], onPressed: () {}, label: 'Ver pedido', link: true)),
+      );
+      expect(
+        tester.getSemantics(find.bySemanticsLabel('Ver pedido')),
+        containsSemantics(
+          label: 'Ver pedido',
+          isLink: true,
+          isButton: false,
+          isEnabled: true,
           hasTapAction: true,
         ),
       );

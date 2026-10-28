@@ -22,3 +22,4 @@ export 'src/exibicao_dados/progress_indicator/rebic_progress_indicator.dart';
 export 'src/exibicao_dados/tooltip/rebic_tooltip.dart';
 export 'src/acoes_navegacao/button/rebic_button.dart';
 export 'src/acoes_navegacao/icon_button/rebic_icon_button.dart';
+export 'src/acoes_navegacao/link/rebic_link.dart';

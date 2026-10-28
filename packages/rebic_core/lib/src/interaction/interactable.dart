@@ -33,6 +33,7 @@ class RebicInteractable extends StatefulWidget {
     this.interactionTokens,
     this.focusColor,
     this.focusRingBorderRadius,
+    this.link = false,
     super.key,
   });
 
@@ -67,6 +68,10 @@ class RebicInteractable extends StatefulWidget {
   /// Cantos do conteúdo, para o anel de foco acompanhar a curva; nulo usa o
   /// raio `control` do tema ativo.
   final BorderRadius? focusRingBorderRadius;
+
+  /// Se o elemento é exposto ao leitor de tela como link, em vez de botão
+  /// (ex.: `RebicLink`).
+  final bool link;
 
   @override
   State<RebicInteractable> createState() => _RebicInteractableState();
@@ -123,7 +128,8 @@ class _RebicInteractableState extends State<RebicInteractable> {
 
     return Semantics(
       container: true,
-      button: true,
+      button: !widget.link,
+      link: widget.link,
       enabled: _enabled,
       selected: widget.selected,
       label: widget.semanticLabel,

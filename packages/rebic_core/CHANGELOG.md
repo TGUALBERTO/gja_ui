@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Interação (`add-rebic-link`): `RebicInteractable.link` expõe o papel de link em vez do de botão ao leitor de tela,
+  com o padrão `false` inalterado.
 - Localização (`add-rebic-page`): novo texto `back` ("Voltar" / "Back"), rótulo do botão de voltar da `RebicPage`.
   Subclasses próprias de `RebicLocalizations` precisam implementá-lo.
 - Localização (`add-rebic-scaffold`): novo texto `navigation` ("Navegação" / "Navigation"), rótulo do botão de

@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- `RebicLink` (`add-rebic-link`, spec `rebic/widgets/rebic-link`): link de ação no modelo do `sap.m.Link`, na cor
+  `colors.link` (ou `colors.text`, com `subtle`), em negrito com `emphasized`, sublinhado no hover e no pressionado,
+  numa linha com reticências ou com quebra (`wrapping`), desabilitado com `onPressed` nulo e anunciado como link.
 - `RebicIconButton` (`add-rebic-icon-button`, spec `rebic/widgets/rebic-icon-button`): botão só com ícone, com dica
   obrigatória (rótulo do leitor de tela e `RebicTooltip`), tipos Fiori (padrão `transparent`), estados do núcleo e
   desabilitado. `RebicScaffold` e `RebicPage` passam a usá-lo nos botões de navegação e de voltar, que ganham dica
