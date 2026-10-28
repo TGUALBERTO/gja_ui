@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- `RebicPopoverWidth` e `RebicPopover.width` (`update-rebic-popover-width`): a largura do popover deixa de seguir o
+  conteúdo e passa a ser a do tema, igual entre popovers (`standard`, 8 passos `spacing.xxxl`; `wide`, 12 passos,
+  para tabelas), ou a da âncora quando ela é mais larga, como a lista do `sap.m.Select`.
 - `RebicPopover` e `RebicPopoverController` (`add-rebic-popover`, spec `rebic/widgets/rebic-popover`): painel
   ancorado no modelo do `sap.m.Popover`, sobre a sobreposição ancorada do núcleo, com superfície `base` sem borda,
   raio `container` e sombra `popover`; cabeçalho opcional com título; conteúdo rolável com ou sem margem; rodapé de

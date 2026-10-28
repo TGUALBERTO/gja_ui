@@ -4,7 +4,8 @@ import 'dart:io';
 Directory get repoRoot => Directory.current.parent.parent;
 
 /// Nomes no formato `<requisito> — <cenário>` da spec [id]: a principal com
-/// os requisitos ADDED e MODIFIED das changes ativas aplicados por cima.
+/// os requisitos ADDED e MODIFIED das changes ativas aplicados por cima e os
+/// REMOVED retirados.
 ///
 /// [change] é a change que criou a spec; outras changes ativas que a
 /// modificam também são consideradas, para que os nomes reflitam a spec como
@@ -24,9 +25,14 @@ List<String> scenarioNames(String id, String change) {
     for (final dir in dirs) File('${dir.path}/specs/$id/spec.md'),
   ].where((f) => f.existsSync());
   final requirements = <String, List<String>>{
-    if (main.existsSync()) ..._requirements(main),
-    for (final delta in deltas) ..._requirements(delta),
+    if (main.existsSync()) ..._requirements(main).kept,
   };
+  for (final delta in deltas) {
+    final (:kept, :removed) = _requirements(delta);
+    requirements
+      ..addAll(kept)
+      ..removeWhere((name, _) => removed.contains(name));
+  }
   return [
     for (final MapEntry(key: requirement, value: scenarios)
         in requirements.entries)
@@ -34,22 +40,33 @@ List<String> scenarioNames(String id, String change) {
   ];
 }
 
-/// Cenários de cada requisito de [spec], na ordem do arquivo.
-Map<String, List<String>> _requirements(File spec) {
+/// Cenários de cada requisito de [spec], na ordem do arquivo (`kept`), e os
+/// nomes dos requisitos em `## REMOVED Requirements` (`removed`).
+({Map<String, List<String>> kept, Set<String> removed}) _requirements(
+  File spec,
+) {
   final result = <String, List<String>>{};
+  final removed = <String>{};
+  var removing = false;
   String? requirement;
   for (final line in spec.readAsLinesSync()) {
+    if (line.startsWith('## ')) removing = line.startsWith('## REMOVED');
     final req = RegExp(r'^### Requirement: (.+)$').firstMatch(line);
     if (req != null) {
       requirement = req.group(1)!.trim();
-      result[requirement] = [];
+      if (removing) {
+        removed.add(requirement);
+        requirement = null;
+      } else {
+        result[requirement] = [];
+      }
     }
     final scen = RegExp(r'^#### Scenario: (.+)$').firstMatch(line);
     if (scen != null && requirement != null) {
       result[requirement]!.add(scen.group(1)!.trim());
     }
   }
-  return result;
+  return (kept: result, removed: removed);
 }
 
 /// Cenários de [names] sem teste de mesmo nome nas suítes de `rebic_widgets`

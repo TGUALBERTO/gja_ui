@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/widgets.dart';
 import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
@@ -28,13 +30,21 @@ class RebicPopoverController extends RebicAnchoredOverlayController {
   void toggle() => isOpen ? close() : open();
 }
 
-/// Largura mínima do popover em passos `spacing.xxxl`: 192 nos tokens de
-/// referência, para que cabeçalho e rodapé não fiquem apertados.
-const _minWidthSteps = 4;
+/// Largura de um [RebicPopover], igual entre popovers do mesmo tipo.
+enum RebicPopoverWidth {
+  /// Largura padrão: 8 passos `spacing.xxxl` (384 nos tokens de referência),
+  /// perto do `contentWidth` usual de um popover Fiori.
+  standard(8),
 
-/// Largura máxima do popover em passos `spacing.xxxl`: 384 nos tokens de
-/// referência, perto da largura usual de um popover Fiori.
-const _maxWidthSteps = 8;
+  /// Largura maior, para conteúdos largos como tabelas: 12 passos
+  /// `spacing.xxxl` (576 nos tokens de referência).
+  wide(12);
+
+  const RebicPopoverWidth(this._steps);
+
+  /// Passos `spacing.xxxl` da largura.
+  final int _steps;
+}
 
 /// Painel leve junto de uma âncora, como o `sap.m.Popover` do SAPUI5.
 ///
@@ -45,6 +55,11 @@ const _maxWidthSteps = 8;
 /// [actions], um rodapé com as ações no fim. O [content] tem a margem
 /// `spacing.l`, ou nenhuma com [padded] `false` (listas), e rola quando
 /// passa da altura disponível, com cabeçalho e rodapé fixos.
+///
+/// A largura é a de [width] (padrão `standard`, igual entre popovers), ou a
+/// da âncora, quando ela é mais larga, como a lista do `sap.m.Select`; é
+/// reduzida à área da sobreposição em telas estreitas. Textos longos quebram
+/// em linhas.
 ///
 /// Fecha com um toque fora ou com Esc, chamando [onDismiss]. Ao abrir, o
 /// foco vai ao primeiro elemento focável e circula dentro do popover; ao
@@ -63,7 +78,7 @@ const _maxWidthSteps = 8;
 ///   child: RebicButton(label: 'Filtrar', onPressed: filtros.toggle),
 /// )
 /// ```
-class RebicPopover extends StatelessWidget {
+class RebicPopover extends StatefulWidget {
   /// Cria o popover de [content], ancorado em [child].
   const RebicPopover({
     required this.controller,
@@ -73,6 +88,7 @@ class RebicPopover extends StatelessWidget {
     this.actions = const [],
     this.side = RebicOverlaySide.below,
     this.alignment = RebicOverlayAlignment.start,
+    this.width = RebicPopoverWidth.standard,
     this.padded = true,
     this.semanticLabel,
     this.onDismiss,
@@ -103,6 +119,9 @@ class RebicPopover extends StatelessWidget {
   /// Alinhamento ao longo da âncora.
   final RebicOverlayAlignment alignment;
 
+  /// Largura do popover; a da âncora prevalece quando é maior.
+  final RebicPopoverWidth width;
+
   /// Se o conteúdo tem a margem `spacing.l`.
   final bool padded;
 
@@ -112,65 +131,70 @@ class RebicPopover extends StatelessWidget {
   /// Chamado quando o popover fecha por toque fora ou Esc.
   final VoidCallback? onDismiss;
 
+  @override
+  State<RebicPopover> createState() => _RebicPopoverState();
+}
+
+class _RebicPopoverState extends State<RebicPopover> {
+  final _anchorKey = GlobalKey();
+
+  /// Largura da âncora, ou zero antes do primeiro layout.
+  double get _anchorWidth {
+    final anchor = _anchorKey.currentContext?.findRenderObject();
+    return anchor is RenderBox && anchor.hasSize ? anchor.size.width : 0;
+  }
+
   Widget _panel(BuildContext context) {
     final theme = RebicThemeData.of(context);
-    final title = this.title;
+    final RebicPopover(:title, :actions, :padded, :content) = widget;
     return Semantics(
       scopesRoute: true,
       namesRoute: true,
       explicitChildNodes: true,
-      label: title ?? semanticLabel,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          minWidth: theme.spacing.xxxl * _minWidthSteps,
-          maxWidth: theme.spacing.xxxl * _maxWidthSteps,
-        ),
-        child: IntrinsicWidth(
-          child: RebicContainer(
-            surface: RebicSurface.base,
-            radius: RebicRadius.container,
-            elevation: RebicElevation.popover,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (title != null) ...[
-                  RebicSpacing.padding(
-                    all: RebicSpace.l,
-                    child: RebicText(
-                      title,
-                      variant: RebicTextVariant.subtitle,
-                      heading: true,
-                      maxLines: 1,
-                    ),
-                  ),
-                  const RebicDivider(),
-                ],
-                Flexible(
-                  child: SingleChildScrollView(
-                    child: padded
-                        ? RebicSpacing.padding(
-                            all: RebicSpace.l,
-                            child: content,
-                          )
-                        : content,
+      label: title ?? widget.semanticLabel,
+      child: SizedBox(
+        width: math.max(theme.spacing.xxxl * widget.width._steps, _anchorWidth),
+        child: RebicContainer(
+          surface: RebicSurface.base,
+          radius: RebicRadius.container,
+          elevation: RebicElevation.popover,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (title != null) ...[
+                RebicSpacing.padding(
+                  all: RebicSpace.l,
+                  child: RebicText(
+                    title,
+                    variant: RebicTextVariant.subtitle,
+                    heading: true,
+                    maxLines: 1,
                   ),
                 ),
-                if (actions.isNotEmpty) ...[
-                  const RebicDivider(),
-                  RebicSpacing.padding(
-                    all: RebicSpace.s,
-                    child: OverflowBar(
-                      alignment: MainAxisAlignment.end,
-                      overflowAlignment: OverflowBarAlignment.end,
-                      spacing: theme.spacing.xs,
-                      overflowSpacing: theme.spacing.xs,
-                      children: actions,
-                    ),
-                  ),
-                ],
+                const RebicDivider(),
               ],
-            ),
+              Flexible(
+                child: SingleChildScrollView(
+                  child: padded
+                      ? RebicSpacing.padding(all: RebicSpace.l, child: content)
+                      : content,
+                ),
+              ),
+              if (actions.isNotEmpty) ...[
+                const RebicDivider(),
+                RebicSpacing.padding(
+                  all: RebicSpace.s,
+                  child: OverflowBar(
+                    alignment: MainAxisAlignment.end,
+                    overflowAlignment: OverflowBarAlignment.end,
+                    spacing: theme.spacing.xs,
+                    overflowSpacing: theme.spacing.xs,
+                    children: actions,
+                  ),
+                ),
+              ],
+            ],
           ),
         ),
       ),
@@ -180,12 +204,12 @@ class RebicPopover extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RebicAnchoredOverlay(
-      controller: controller,
-      side: side,
-      alignment: alignment,
-      onDismiss: onDismiss,
+      controller: widget.controller,
+      side: widget.side,
+      alignment: widget.alignment,
+      onDismiss: widget.onDismiss,
       overlayBuilder: _panel,
-      child: child,
+      child: KeyedSubtree(key: _anchorKey, child: widget.child),
     );
   }
 }

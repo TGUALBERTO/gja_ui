@@ -579,16 +579,18 @@ class _GoldenScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget item(BuildContext context, IconData icon, String label) => RebicSpacing.padding(
-      horizontal: RebicSpace.m,
-      vertical: RebicSpace.s,
-      child: RebicRow(
-        children: [
-          RebicIcon(icon),
-          if (RebicScaffold.navigationExpandedOf(context)!) RebicText(label),
-        ],
-      ),
-    );
+    Widget item(BuildContext context, IconData icon, String label) =>
+        RebicSpacing.padding(
+          horizontal: RebicSpace.m,
+          vertical: RebicSpace.s,
+          child: RebicRow(
+            children: [
+              RebicIcon(icon),
+              if (RebicScaffold.navigationExpandedOf(context)!)
+                RebicText(label),
+            ],
+          ),
+        );
     return RebicScaffold(
       logo: const RebicIcon(RebicIcons.home, tone: RebicIconTone.brand),
       title: 'Compras',

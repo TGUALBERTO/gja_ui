@@ -207,9 +207,32 @@ void main() {
     });
   });
 
-  group('[Comportamento] Posição, tamanho e rolagem', () {
+  testWidgets('[API] Posição e largura — Popover largo', (tester) async {
+    final controller = _controller();
+    await tester.pumpWidget(
+      _app(
+        _anchored(
+          RebicPopover(
+            controller: controller,
+            title: 'Pedidos',
+            width: RebicPopoverWidth.wide,
+            content: _box('content'),
+            child: _anchor,
+          ),
+        ),
+      ),
+    );
+    controller.open();
+    await tester.pumpAndSettle();
+    expect(
+      tester.getRect(_panel()).width,
+      closeTo(_light.spacing.xxxl * 12, 0.01),
+    );
+  });
+
+  group('[Comportamento] Posição, largura e rolagem', () {
     testWidgets(
-      '[Comportamento] Posição, tamanho e rolagem — Popover abaixo da âncora',
+      '[Comportamento] Posição, largura e rolagem — Popover abaixo da âncora',
       (tester) async {
         final controller = _controller();
         await tester.pumpWidget(
@@ -233,40 +256,67 @@ void main() {
       },
     );
 
+    testWidgets('[Comportamento] Posição, largura e rolagem — Largura padrão', (
+      tester,
+    ) async {
+      Future<(Rect, double)> open(String text) async {
+        final controller = _controller();
+        await tester.pumpWidget(
+          _app(
+            _anchored(
+              RebicPopover(
+                key: ValueKey(text),
+                controller: controller,
+                semanticLabel: 'Texto',
+                content: RebicText(text, key: const Key('content')),
+                child: _anchor,
+              ),
+            ),
+          ),
+        );
+        controller.open();
+        await tester.pumpAndSettle();
+        final panel = tester.getRect(_panel());
+        return (panel, tester.getSize(find.text(text)).height);
+      }
+
+      final (short, oneLine) = await open('Ok');
+      expect(short.width, closeTo(_light.spacing.xxxl * 8, 0.01));
+      final (long, height) = await open(_long);
+      expect(long.width, closeTo(_light.spacing.xxxl * 8, 0.01));
+      expect(height, greaterThan(oneLine * 1.5));
+    });
+
     testWidgets(
-      '[Comportamento] Posição, tamanho e rolagem — Largura entre o mínimo e o máximo',
+      '[Comportamento] Posição, largura e rolagem — Âncora mais larga que o popover',
       (tester) async {
-        Future<(Rect, double)> open(String text) async {
-          final controller = _controller();
-          await tester.pumpWidget(
-            _app(
-              _anchored(
-                RebicPopover(
-                  key: ValueKey(text),
-                  controller: controller,
-                  semanticLabel: 'Texto',
-                  content: RebicText(text, key: const Key('content')),
-                  child: _anchor,
+        final controller = _controller();
+        final width = _light.spacing.xxxl * 10;
+        await tester.pumpWidget(
+          _app(
+            _anchored(
+              RebicPopover(
+                controller: controller,
+                title: 'Filtros',
+                content: _box('content'),
+                child: SizedBox(
+                  key: const Key('anchor'),
+                  width: width,
+                  height: 24,
                 ),
               ),
             ),
-          );
-          controller.open();
-          await tester.pumpAndSettle();
-          final panel = tester.getRect(_panel());
-          return (panel, tester.getSize(find.text(text)).height);
-        }
-
-        final (short, oneLine) = await open('Ok');
-        expect(short.width, closeTo(_light.spacing.xxxl * 4, 0.01));
-        final (long, height) = await open(_long);
-        expect(long.width, closeTo(_light.spacing.xxxl * 8, 0.01));
-        expect(height, greaterThan(oneLine * 1.5));
+          ),
+        );
+        controller.open();
+        await tester.pumpAndSettle();
+        expect(tester.getRect(_panel()).width, closeTo(width, 0.01));
+        expect(_rect(tester, 'anchor').width, closeTo(width, 0.01));
       },
     );
 
     testWidgets(
-      '[Comportamento] Posição, tamanho e rolagem — Conteúdo rolável',
+      '[Comportamento] Posição, largura e rolagem — Conteúdo rolável',
       (tester) async {
         tester.view.devicePixelRatio = 1;
         tester.view.physicalSize = const Size(800, 400);
@@ -564,7 +614,7 @@ void main() {
         'rebic/widgets/rebic-popover',
         'add-rebic-popover',
       );
-      expect(names, hasLength(20));
+      expect(names, hasLength(22));
       expect(untestedScenarios(names), isEmpty);
     });
 
@@ -573,7 +623,7 @@ void main() {
     ) async {
       await loadRebicFonts();
       tester.view.devicePixelRatio = 1;
-      tester.view.physicalSize = const Size(720, 400);
+      tester.view.physicalSize = const Size(960, 400);
       addTearDown(tester.view.reset);
       for (final (name, theme) in goldenThemes) {
         final filters = _controller();
@@ -614,7 +664,7 @@ void main() {
                     ),
                   ),
                   _anchored(
-                    inset: 400,
+                    inset: 480,
                     RebicPopover(
                       controller: details,
                       semanticLabel: 'Detalhes do pedido',
