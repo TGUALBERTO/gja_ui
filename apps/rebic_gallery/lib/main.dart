@@ -21,6 +21,7 @@ import 'pages/rebic_page_page.dart';
 import 'pages/rebic_progress_indicator_page.dart';
 import 'pages/rebic_row_column_page.dart';
 import 'pages/rebic_scaffold_page.dart';
+import 'pages/rebic_tooltip_page.dart';
 import 'pages/rebic_spacing_page.dart';
 import 'pages/rebic_text_page.dart';
 import 'pages/rebic_theme_page.dart';
@@ -195,6 +196,11 @@ final galleryPages = <GalleryPage>[
     title: RebicProgressIndicatorPage.title,
     route: RebicProgressIndicatorPage.route,
     builder: (_) => const RebicProgressIndicatorPage(),
+  ),
+  GalleryPage(
+    title: RebicTooltipPage.title,
+    route: RebicTooltipPage.route,
+    builder: (_) => const RebicTooltipPage(),
   ),
 ];
 

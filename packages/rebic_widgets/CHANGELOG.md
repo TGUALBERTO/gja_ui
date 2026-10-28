@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- `RebicTooltip` (`add-rebic-tooltip`, spec `rebic/widgets/rebic-tooltip`): dica textual de um elemento, aberta pelo
+  ponteiro (após `motion.long`), pelo foco do teclado ou por toque longo, e fechada pela saída do ponteiro (após
+  `motion.short`), perda de foco, Esc ou toque fora; apontável, uma por vez, posicionada pela sobreposição ancorada
+  do núcleo, e anunciada como a dica (`tooltip`) do próprio elemento.
 - `RebicProgressIndicator` (`add-rebic-progress-indicator`, spec `rebic/widgets/rebic-progress-indicator`):
   indicador de progresso em barra (`linear`, espessura `spacing.xs`) ou círculo (`circular`, no tamanho de um
   ícone), determinado (`value` de 0 a 1, com transição `motion.short`) ou indeterminado (ciclo de 4 ×

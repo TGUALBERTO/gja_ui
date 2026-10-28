@@ -712,10 +712,18 @@ items:
     category: exibicao-dados
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
       - rebic/core/overlay
       - rebic/widgets/rebic-text
+      - rebic/widgets/rebic-container
+      - rebic/foundation/color
+      - rebic/foundation/elevation
+      - rebic/foundation/radius
+      - rebic/foundation/spacing
+      - rebic/foundation/design-tokens
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-skeleton
     name: "RebicSkeleton"
     kind: widget
