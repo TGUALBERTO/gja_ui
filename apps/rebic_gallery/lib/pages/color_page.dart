@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
+import 'gallery_comparison.dart';
 
 /// Página "Cores": papéis e estados de valor nos modos claro e escuro, com a
 /// razão de contraste de cada par de texto.
@@ -19,7 +20,7 @@ class ColorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const light = RebicColorTokens.light();
+    final light = RebicThemeData.of(context).colors;
     return ColoredBox(
       color: light.base,
       child: SingleChildScrollView(
@@ -38,8 +39,18 @@ class ColorPage extends StatelessWidget {
               spacing: 24,
               runSpacing: 24,
               children: [
-                _ModePanel(label: 'Claro', tokens: RebicColorTokens.light()),
-                _ModePanel(label: 'Escuro', tokens: RebicColorTokens.dark()),
+                GalleryComparison(
+                  child: _ModePanel(
+                    label: 'Claro',
+                    tokens: RebicColorTokens.light(),
+                  ),
+                ),
+                GalleryComparison(
+                  child: _ModePanel(
+                    label: 'Escuro',
+                    tokens: RebicColorTokens.dark(),
+                  ),
+                ),
               ],
             ),
           ],

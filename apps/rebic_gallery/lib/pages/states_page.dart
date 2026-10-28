@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
+import 'gallery_comparison.dart';
 
 /// Página "Estados": cada família de controle em cada estado, nos dois modos.
 ///
@@ -43,9 +44,9 @@ class StatesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const light = RebicColorTokens.light();
-    const spacing = RebicSpacingTokens.fallback();
-    const typography = RebicTypographyTokens.fallback();
+    final light = RebicThemeData.of(context).colors;
+    final spacing = RebicThemeData.of(context).spacing;
+    final typography = RebicThemeData.of(context).typography;
 
     return ColoredBox(
       color: light.base,
@@ -61,9 +62,19 @@ class StatesPage extends StatelessWidget {
             SizedBox(height: spacing.stackGap),
             Text(title, style: typography.headline),
             SizedBox(height: spacing.sectionGap),
-            const _ModeStrip(mode: 'claro', colors: RebicColorTokens.light()),
+            const GalleryComparison(
+              child: _ModeStrip(
+                mode: 'claro',
+                colors: RebicColorTokens.light(),
+              ),
+            ),
             SizedBox(height: spacing.sectionGap),
-            const _ModeStrip(mode: 'escuro', colors: RebicColorTokens.dark()),
+            const GalleryComparison(
+              child: _ModeStrip(
+                mode: 'escuro',
+                colors: RebicColorTokens.dark(),
+              ),
+            ),
           ],
         ),
       ),
@@ -79,8 +90,8 @@ class _ModeStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const spacing = RebicSpacingTokens.fallback();
-    const typography = RebicTypographyTokens.fallback();
+    final spacing = RebicThemeData.of(context).spacing;
+    final typography = RebicThemeData.of(context).typography;
 
     return Container(
       padding: EdgeInsets.all(spacing.xl),
@@ -135,8 +146,8 @@ class _Sample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const interaction = RebicInteractionStateTokens.fallback();
-    const radius = RebicRadiusTokens.fallback();
-    const typography = RebicTypographyTokens.fallback();
+    final radius = RebicThemeData.of(context).radius;
+    final typography = RebicThemeData.of(context).typography;
     final c = RebicControlColors.of(family, colors).resolve(states);
     final ring = interaction.showsFocusRing(states);
     final outer =

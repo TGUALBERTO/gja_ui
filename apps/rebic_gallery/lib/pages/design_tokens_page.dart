@@ -53,70 +53,75 @@ class _DesignTokensPageState extends State<DesignTokensPage>
 
   @override
   Widget build(BuildContext context) {
+    final page = RebicThemeData.of(context);
     return ColoredBox(
-      color: const Color(0xFFFFFFFF),
-      child: AnimatedBuilder(
-        animation: _controller,
-        builder: (context, _) {
-          final t = _controller.value;
-          final motion = _fallback.lerp(_slow, t);
-          final roles = <String, Duration>{
-            'instant': motion.instant,
-            'short': motion.short,
-            'medium': motion.medium,
-            'long': motion.long,
-          };
-          return ListView(
-            padding: const EdgeInsets.all(24),
-            children: [
-              GestureDetector(
-                onTap: () => Navigator.of(context).maybePop(),
-                child: Semantics(button: true, child: const Text('← Voltar')),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                DesignTokensPage.title,
-                style: TextStyle(fontSize: 24),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Movimento — fallback → lento (t = ${t.toStringAsFixed(2)})',
-              ),
-              const SizedBox(height: 16),
-              for (final MapEntry(key: role, value: duration) in roles.entries)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  child: Row(
-                    children: [
-                      SizedBox(width: 96, child: Text(role)),
-                      SizedBox(
-                        width: 72,
-                        child: Text('${duration.inMilliseconds} ms'),
-                      ),
-                      Container(
-                        height: 12,
-                        width: duration.inMilliseconds / 2,
-                        color: const Color(0xFF0A6ED1),
-                      ),
-                    ],
+      color: page.colors.base,
+      child: DefaultTextStyle(
+        style: page.typography.body.copyWith(color: page.colors.text),
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, _) {
+            final t = _controller.value;
+            final motion = _fallback.lerp(_slow, t);
+            final roles = <String, Duration>{
+              'instant': motion.instant,
+              'short': motion.short,
+              'medium': motion.medium,
+              'long': motion.long,
+            };
+            return ListView(
+              padding: const EdgeInsets.all(24),
+              children: [
+                GestureDetector(
+                  onTap: () => Navigator.of(context).maybePop(),
+                  child: Semantics(button: true, child: const Text('← Voltar')),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  DesignTokensPage.title,
+                  style: TextStyle(fontSize: 24),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Movimento — fallback → lento (t = ${t.toStringAsFixed(2)})',
+                ),
+                const SizedBox(height: 16),
+                for (final MapEntry(key: role, value: duration)
+                    in roles.entries)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 96, child: Text(role)),
+                        SizedBox(
+                          width: 72,
+                          child: Text('${duration.inMilliseconds} ms'),
+                        ),
+                        Container(
+                          height: 12,
+                          width: duration.inMilliseconds / 2,
+                          color: page.colors.brand,
+                        ),
+                      ],
+                    ),
+                  ),
+                const SizedBox(height: 16),
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: _toggle,
+                  child: Semantics(
+                    button: true,
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      color: page.colors.selectionBackground,
+                      child: const Text('Alternar conjunto (interpolação)'),
+                    ),
                   ),
                 ),
-              const SizedBox(height: 16),
-              GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: _toggle,
-                child: Semantics(
-                  button: true,
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    color: const Color(0xFFE5F0FA),
-                    child: const Text('Alternar conjunto (interpolação)'),
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
+import 'gallery_comparison.dart';
 
 /// Página "RebicTheme": troca animada entre claro e escuro, e uma subárvore
 /// compacta ao lado de uma confortável.
@@ -57,9 +58,12 @@ class _RebicThemePageState extends State<RebicThemePage> {
             ),
           ),
           SizedBox(height: spacing.sectionGap),
-          RebicTheme(
-            data: _dark ? RebicThemeData.dark() : RebicThemeData.light(),
-            child: const _Preview(),
+          // A prévia alterna o tema de propósito, independente da galeria.
+          GalleryComparison(
+            child: RebicTheme(
+              data: _dark ? RebicThemeData.dark() : RebicThemeData.light(),
+              child: const _Preview(),
+            ),
           ),
         ],
       ),

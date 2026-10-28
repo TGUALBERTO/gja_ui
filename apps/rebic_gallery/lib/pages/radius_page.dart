@@ -21,10 +21,10 @@ class RadiusPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const radius = RebicRadiusTokens.fallback();
-    const colors = RebicColorTokens.light();
-    const spacing = RebicSpacingTokens.fallback();
-    const typography = RebicTypographyTokens.fallback();
+    final radius = RebicThemeData.of(context).radius;
+    final colors = RebicThemeData.of(context).colors;
+    final spacing = RebicThemeData.of(context).spacing;
+    final typography = RebicThemeData.of(context).typography;
 
     return ColoredBox(
       color: colors.base,

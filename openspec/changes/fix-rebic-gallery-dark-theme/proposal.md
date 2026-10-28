@@ -5,8 +5,12 @@
 Ao escolher o tema escuro no índice da galeria e abrir as páginas dos fundamentos, elas aparecem inteiras no tema
 claro. Isso foi reportado pelo usuário em 2026-10-28.
 
-A causa está nas 11 páginas criadas na fase dos fundamentos, antes de existir o `RebicTheme`:
-- Acessibilidade, Breakpoints, Cor, Densidade, Elevação, Ícones, Raio, Espaçamento, Estados, Tipografia e Tokens.
+A causa está nas 12 páginas criadas na fase dos fundamentos, antes de existir o `RebicTheme`:
+- Acessibilidade, Breakpoints, Cores, Densidade, Design tokens, Elevação, Espaçamentos, Estados, Ícones, Raios,
+  Tema e Tipografia.
+
+A página "Design tokens" também usava cores literais, sem estilo de texto próprio. No tema escuro, o texto claro
+herdado ficava sobre o fundo branco e não podia ser lido.
 
 Elas pintam com tokens fixos (`RebicColorTokens.light()`, `RebicSpacingTokens.fallback()`, `RebicThemeData.light()`)
 em vez do tema ativo. Por isso ignoram o modo escuro e também a densidade compacta. As páginas dos widgets, que usam
@@ -16,10 +20,10 @@ O nome segue o pedido do usuário. Pela convenção do projeto, seria `update-re
 
 ## What Changes
 
-- As 11 páginas passam a obter cores, espaçamentos, tipografia e demais tokens do tema ativo
+- As 12 páginas passam a obter cores, espaçamentos, tipografia e demais tokens do tema ativo
   (`RebicThemeData.of(context)`): o fundo, o texto, os cabeçalhos, os rótulos e as amostras de escala (espaçamento,
   raio, tipografia, elevação, ícones, breakpoints, movimento).
-- As comparações intencionais ficam em painéis rotulados, com tokens fixos:
+- As comparações intencionais ficam em painéis rotulados, com tokens fixos, marcados pelo widget `GalleryComparison`:
   - os painéis "Claro" e "Escuro" das páginas "Cor" e "Estados";
   - as colunas confortável e compacta da página "Densidade";
   - a prévia configurável da página "Tema".
@@ -48,7 +52,7 @@ Nenhuma.
 ## Impact
 
 - **Código:**
-  - `apps/rebic_gallery/lib/pages/` (as 11 páginas) e os testes delas que comparam com tokens fixos;
+  - `apps/rebic_gallery/lib/pages/` (as 12 páginas e o widget `GalleryComparison`) e os testes delas que comparam com tokens fixos;
   - um teste novo na galeria;
   - o teste de rastreabilidade do `RebicApp` em `rebic_widgets`, que passa de 20 para 21 cenários.
 - **Framework:** nenhuma mudança de código.

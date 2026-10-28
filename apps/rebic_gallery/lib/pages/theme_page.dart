@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_foundation/rebic_primitives.dart';
 import 'package:rebic_ui/rebic_ui.dart';
+import 'gallery_comparison.dart';
 
 /// Página "Tema": brilho, densidade e marca de exemplo, com uma prévia
 /// montada só a partir do `RebicThemeData` escolhido.
@@ -74,7 +75,7 @@ class _ThemePageState extends State<ThemePage> {
       compact: _compact,
       brand: _brand,
     );
-    final page = RebicThemeData.light();
+    final page = RebicThemeData.of(context);
     final issues = theme.accessibilityIssues();
 
     Widget toggle(String label, bool value, ValueChanged<bool> onChanged) {
@@ -129,7 +130,7 @@ class _ThemePageState extends State<ThemePage> {
               ],
             ),
             SizedBox(height: page.spacing.sectionGap),
-            _Preview(theme: theme),
+            GalleryComparison(child: _Preview(theme: theme)),
             SizedBox(height: page.spacing.stackGap),
             Text(
               issues.isEmpty

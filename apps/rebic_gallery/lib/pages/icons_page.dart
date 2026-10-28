@@ -17,10 +17,10 @@ class IconsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const colors = RebicColorTokens.light();
-    const spacing = RebicSpacingTokens.fallback();
-    const typography = RebicTypographyTokens.fallback();
-    const iconSizes = RebicIconTokens.fallback();
+    final colors = RebicThemeData.of(context).colors;
+    final spacing = RebicThemeData.of(context).spacing;
+    final typography = RebicThemeData.of(context).typography;
+    final iconSizes = RebicThemeData.of(context).icons;
 
     return ColoredBox(
       color: colors.base,

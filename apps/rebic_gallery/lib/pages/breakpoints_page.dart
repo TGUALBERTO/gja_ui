@@ -20,10 +20,10 @@ class BreakpointsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const breakpoints = RebicBreakpointTokens.fallback();
-    const colors = RebicColorTokens.light();
-    const spacing = RebicSpacingTokens.fallback();
-    const typography = RebicTypographyTokens.fallback();
+    final breakpoints = RebicThemeData.of(context).breakpoints;
+    final colors = RebicThemeData.of(context).colors;
+    final spacing = RebicThemeData.of(context).spacing;
+    final typography = RebicThemeData.of(context).typography;
     final width = MediaQuery.sizeOf(context).width;
     final current = breakpoints.classify(width);
 

@@ -27,9 +27,9 @@ class DensityPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const colors = RebicColorTokens.light();
-    const spacing = RebicSpacingTokens.fallback();
-    const typography = RebicTypographyTokens.fallback();
+    final colors = RebicThemeData.of(context).colors;
+    final spacing = RebicThemeData.of(context).spacing;
+    final typography = RebicThemeData.of(context).typography;
 
     return ColoredBox(
       color: colors.base,
@@ -67,9 +67,9 @@ class _DensityColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const colors = RebicColorTokens.light();
-    const radius = RebicRadiusTokens.fallback();
-    const typography = RebicTypographyTokens.fallback();
+    final colors = RebicThemeData.of(context).colors;
+    final radius = RebicThemeData.of(context).radius;
+    final typography = RebicThemeData.of(context).typography;
     final spacing = tokens.spacing;
 
     return Container(

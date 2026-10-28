@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
+import 'gallery_comparison.dart';
 
 /// Página "Elevação": uma superfície por sombra e por papel, nos dois modos.
 ///
@@ -21,9 +22,9 @@ class ElevationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const light = RebicColorTokens.light();
-    const spacing = RebicSpacingTokens.fallback();
-    const typography = RebicTypographyTokens.fallback();
+    final light = RebicThemeData.of(context).colors;
+    final spacing = RebicThemeData.of(context).spacing;
+    final typography = RebicThemeData.of(context).typography;
 
     return ColoredBox(
       color: light.base,
@@ -39,9 +40,19 @@ class ElevationPage extends StatelessWidget {
             SizedBox(height: spacing.stackGap),
             Text(title, style: typography.headline),
             SizedBox(height: spacing.sectionGap),
-            const _ModeStrip(mode: 'claro', colors: RebicColorTokens.light()),
+            const GalleryComparison(
+              child: _ModeStrip(
+                mode: 'claro',
+                colors: RebicColorTokens.light(),
+              ),
+            ),
             SizedBox(height: spacing.sectionGap),
-            const _ModeStrip(mode: 'escuro', colors: RebicColorTokens.dark()),
+            const GalleryComparison(
+              child: _ModeStrip(
+                mode: 'escuro',
+                colors: RebicColorTokens.dark(),
+              ),
+            ),
           ],
         ),
       ),
@@ -57,10 +68,10 @@ class _ModeStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const elevation = RebicElevationTokens.fallback();
-    const radius = RebicRadiusTokens.fallback();
-    const spacing = RebicSpacingTokens.fallback();
-    const typography = RebicTypographyTokens.fallback();
+    final elevation = RebicThemeData.of(context).elevation;
+    final radius = RebicThemeData.of(context).radius;
+    final spacing = RebicThemeData.of(context).spacing;
+    final typography = RebicThemeData.of(context).typography;
 
     return Container(
       padding: EdgeInsets.all(spacing.xl),

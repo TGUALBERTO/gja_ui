@@ -32,10 +32,10 @@ class AccessibilityPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const colors = RebicColorTokens.light();
-    const spacing = RebicSpacingTokens.fallback();
-    const typography = RebicTypographyTokens.fallback();
-    const motion = RebicMotionTokens.fallback();
+    final colors = RebicThemeData.of(context).colors;
+    final spacing = RebicThemeData.of(context).spacing;
+    final typography = RebicThemeData.of(context).typography;
+    final motion = RebicThemeData.of(context).motion;
     final reduced = RebicAccessibility.resolveMotion(
       motion,
       disableAnimations: true,

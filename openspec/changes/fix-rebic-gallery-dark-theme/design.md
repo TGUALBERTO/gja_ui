@@ -4,7 +4,7 @@
 
 - `RebicApp` resolve o tema pelo modo escolhido (sistema, claro, escuro) e pela densidade, e aplica `RebicTheme`
   acima do `Navigator`. O fundo da aplicação já é o `background` do tema ativo.
-- As 11 páginas dos fundamentos montam a própria aparência com tokens fixos:
+- As 12 páginas dos fundamentos montam a própria aparência com tokens fixos:
   - `ColoredBox(color: light.base)`;
   - `DefaultTextStyle(color: light.text)`;
   - espaçamentos `fallback()`.
@@ -48,7 +48,8 @@ da origem dos tokens resolve o problema com mudanças pequenas e mantém os test
 
 ### D2. Comparações
 
-Os painéis que comparam modos ou densidades continuam recebendo tokens fixos, sempre rotulados ("Claro", "Escuro",
+Os painéis que comparam modos ou densidades ficam dentro do widget `GalleryComparison`
+(`lib/pages/gallery_comparison.dart`), que só marca o painel. Eles continuam recebendo tokens fixos, sempre rotulados ("Claro", "Escuro",
 "Confortável", "Compacto"). Só o que está em volta deles, como o fundo da página, os títulos e o "← Voltar", passa a
 seguir o tema.
 
@@ -61,8 +62,10 @@ configurado pelos botões.
 galeria no tema escuro". Para cada página de `galleryPages`, o teste:
 1. abre a galeria, escolhe "Tema: escuro" e abre a página;
 2. busca o primeiro `ColoredBox` e o primeiro `DefaultTextStyle` abaixo do `Navigator`, fora dos painéis de
-   comparação, e exige as cores do tema escuro. Os painéis são marcados com a chave
-   `ValueKey('gallery-comparison')`;
+   comparação, e exige as cores do tema escuro. Os painéis são reconhecidos pelo ancestral `GalleryComparison`.
+
+   Uma `ValueKey` repetida em painéis irmãos, como "Claro" e "Escuro", seria uma chave duplicada, e por isso foi
+   trocada pelo widget marcador;
 3. volta ao índice.
 
 As páginas dos widgets, que não pintam fundo próprio, passam pela regra porque não têm `ColoredBox` na raiz.

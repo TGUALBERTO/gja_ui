@@ -18,8 +18,8 @@ class SpacingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const spacing = RebicSpacingTokens.fallback();
-    const colors = RebicColorTokens.light();
+    final spacing = RebicThemeData.of(context).spacing;
+    final colors = RebicThemeData.of(context).colors;
     final steps = <String, double>{
       'xxs': spacing.xxs,
       'xs': spacing.xs,

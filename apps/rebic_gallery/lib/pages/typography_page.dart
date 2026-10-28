@@ -27,9 +27,9 @@ class TypographyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const typography = RebicTypographyTokens.fallback();
-    const colors = RebicColorTokens.light();
-    const spacing = RebicSpacingTokens.fallback();
+    final typography = RebicThemeData.of(context).typography;
+    final colors = RebicThemeData.of(context).colors;
+    final spacing = RebicThemeData.of(context).spacing;
     final caption = typography.caption.copyWith(color: colors.label);
 
     return ColoredBox(

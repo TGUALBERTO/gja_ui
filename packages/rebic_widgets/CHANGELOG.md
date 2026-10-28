@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Galeria (`fix-rebic-gallery-dark-theme`): as 12 páginas dos fundamentos passam a seguir o tema e a densidade
+  escolhidos no índice, em vez de tokens claros fixos. As comparações intencionais entre modos e densidades ficam em
+  painéis `GalleryComparison`, e um teste abre todas as páginas no tema escuro.
 - `RebicAvatar`, `RebicAvatarSize` e `RebicAvatarShape` (`add-rebic-avatar`, spec `rebic/widgets/rebic-avatar`):
   avatar no modelo do `sap.m.Avatar`, com imagem, iniciais (até 3) ou ícone, fallback quando a imagem falha, forma
   circular ou quadrada, cinco tamanhos (1× a 3,5× `icons.xLarge`, os 2/3/4/5/7 rem do UI5), fundo

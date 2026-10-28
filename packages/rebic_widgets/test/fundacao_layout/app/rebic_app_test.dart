@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 import 'package:rebic_widgets/rebic_widgets.dart';
+
+import '../../support/traceability.dart';
 
 /// Página que guarda o contexto e o tema lidos a cada build.
 class _Page extends StatelessWidget {
@@ -67,8 +68,6 @@ class _Delegate extends RouterDelegate<Object> with ChangeNotifier {
   @override
   Future<void> setNewRoutePath(Object configuration) => SynchronousFuture(null);
 }
-
-Directory get _repo => Directory.current.parent.parent;
 
 void main() {
   final light = RebicThemeData.light();
@@ -415,31 +414,8 @@ void main() {
   });
 
   test('[Testes] Cobertura exigida — Rastreabilidade', () {
-    const id = 'rebic/widgets/rebic-app';
-    final spec = [
-      File('${_repo.path}/openspec/specs/$id/spec.md'),
-      File('${_repo.path}/openspec/changes/add-rebic-app/specs/$id/spec.md'),
-    ].firstWhere((f) => f.existsSync());
-    final names = <String>[];
-    String? requirement;
-    for (final line in spec.readAsLinesSync()) {
-      final req = RegExp(r'^### Requirement: (.+)$').firstMatch(line);
-      if (req != null) requirement = req.group(1)!.trim();
-      final scen = RegExp(r'^#### Scenario: (.+)$').firstMatch(line);
-      if (scen != null) names.add('$requirement — ${scen.group(1)!.trim()}');
-    }
-    final tests = [
-      for (final dir in [
-        Directory('${_repo.path}/packages/rebic_widgets/test'),
-        Directory('${_repo.path}/apps/rebic_gallery/test'),
-      ])
-        for (final f in dir.listSync(recursive: true).whereType<File>())
-          if (f.path.endsWith('_test.dart')) f.readAsStringSync(),
-    ].join('\n');
-    expect(names, hasLength(20));
-    expect([
-      for (final name in names)
-        if (!tests.contains("'$name'")) name,
-    ], isEmpty);
+    final names = scenarioNames('rebic/widgets/rebic-app', 'add-rebic-app');
+    expect(names, hasLength(21));
+    expect(untestedScenarios(names), isEmpty);
   });
 }
