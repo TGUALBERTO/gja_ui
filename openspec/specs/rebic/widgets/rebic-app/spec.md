@@ -146,11 +146,16 @@
 - **THEN** cada cenário tem um teste nomeado "<requisito> — <cenário>"
 
 ### Requirement: [Documentação] Exemplos mínimos
-`RebicApp` SHALL ter dartdoc em toda API pública, com um exemplo de aplicação mínima. A galeria SHALL usar `RebicApp` como raiz e permitir escolher o modo de tema (sistema, claro, escuro) e a densidade no índice.
+`RebicApp` SHALL ter dartdoc em toda API pública, com um exemplo de aplicação mínima. A galeria SHALL usar `RebicApp` como raiz e permitir escolher o modo de tema (sistema, claro, escuro) e a densidade no índice. Toda página da galeria MUST seguir o tema e a densidade escolhidos; comparações entre modos ou densidades ficam em painéis rotulados.
 
 #### Scenario: Página na galeria
 - **WHEN** a galeria é aberta e o modo de tema escuro é escolhido no índice
 - **THEN** o fundo da galeria passa a ser o `background` do tema escuro
+
+#### Scenario: Páginas da galeria no tema escuro
+- **GIVEN** a galeria com o modo de tema escuro escolhido no índice
+- **WHEN** cada página da galeria é aberta
+- **THEN** o fundo e o texto da página são os do tema escuro, fora dos painéis de comparação
 
 ### Requirement: [Restrições] Fora do escopo
 `RebicApp` SHALL NOT criar barra de navegação, menu lateral ou cabeçalho, e SHALL NOT usar `MaterialApp`, `CupertinoApp` ou rotas do Material. Ele SHALL NOT persistir as escolhas de tema, densidade ou idioma.
