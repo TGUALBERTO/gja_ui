@@ -118,7 +118,7 @@ A página SHALL ocupar a largura disponível, sem limiares próprios. Em RTL, o 
 - **THEN** o botão de voltar fica à direita, a ação termina na borda esquerda da área de título, e a ação de rodapé termina na borda esquerda do rodapé
 
 ### Requirement: [Integração] Dependências de widgets
-Dos widgets, `RebicPage` SHALL depender somente de `rebic/widgets/rebic-text`, `rebic/widgets/rebic-icon`, `rebic/widgets/rebic-container`, `rebic/widgets/rebic-divider`, `rebic/widgets/rebic-row`, `rebic/widgets/rebic-column` e `rebic/widgets/rebic-spacing`, e SHALL funcionar como corpo de `rebic/widgets/rebic-scaffold`.
+Dos widgets, `RebicPage` SHALL depender somente de `rebic/widgets/rebic-text`, `rebic/widgets/rebic-icon`, `rebic/widgets/rebic-icon-button`, `rebic/widgets/rebic-container`, `rebic/widgets/rebic-divider`, `rebic/widgets/rebic-row`, `rebic/widgets/rebic-column` e `rebic/widgets/rebic-spacing`, e SHALL funcionar como corpo de `rebic/widgets/rebic-scaffold`.
 
 #### Scenario: Página no corpo do scaffold
 - **GIVEN** uma árvore criada apenas com `RebicApp`, com um `RebicScaffold` cuja barra tem título

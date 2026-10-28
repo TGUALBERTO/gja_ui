@@ -381,6 +381,31 @@ void main() {
     },
   );
 
+  testWidgets(
+    '[Acessibilidade] Semântica e contraste — Dica fora da semântica',
+    (tester) async {
+      final handle = tester.ensureSemantics();
+      await tester.pumpWidget(
+        _app(
+          Center(
+            child: RebicTooltip(
+              message: _message,
+              excludeFromSemantics: true,
+              child: Semantics(button: true, label: _message, child: _icon()),
+            ),
+          ),
+        ),
+      );
+      await tester.longPress(find.byKey(const Key('icon')));
+      await tester.pump();
+      expect(find.text(_message), findsOneWidget);
+      final node = tester.getSemantics(find.byKey(const Key('icon')));
+      expect(node.tooltip, isEmpty);
+      expect(find.bySemanticsLabel(_message), findsOneWidget);
+      handle.dispose();
+    },
+  );
+
   testWidgets('[Responsividade] Bordas e direção — Dica junto à borda', (
     tester,
   ) async {
@@ -426,7 +451,7 @@ void main() {
         'rebic/widgets/rebic-tooltip',
         'add-rebic-tooltip',
       );
-      expect(names, hasLength(21));
+      expect(names, hasLength(22));
       expect(untestedScenarios(names), isEmpty);
     });
 

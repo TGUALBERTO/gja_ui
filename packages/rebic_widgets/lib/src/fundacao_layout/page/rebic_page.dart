@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
-import '../action/rebic_transparent_icon_action.dart';
+import '../../acoes_navegacao/icon_button/rebic_icon_button.dart';
 import '../column/rebic_column.dart';
 import '../container/rebic_container.dart';
 import '../divider/rebic_divider.dart';
@@ -84,9 +84,9 @@ class RebicPage extends StatelessWidget {
           gap: RebicSpace.s,
           children: [
             if (onBack != null)
-              RebicTransparentIconAction(
+              RebicIconButton(
                 icon: RebicIcons.arrowLeft,
-                semanticLabel: RebicLocalizations.of(context).back,
+                tooltip: RebicLocalizations.of(context).back,
                 onPressed: onBack,
               ),
             Expanded(

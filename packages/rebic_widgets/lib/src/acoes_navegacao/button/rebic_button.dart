@@ -3,6 +3,7 @@ import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
 import '../../exibicao_dados/progress_indicator/rebic_progress_view.dart';
+import 'rebic_button_family.dart';
 
 /// Tipo de um [RebicButton], no modelo dos tipos de botão do Fiori.
 ///
@@ -73,19 +74,10 @@ class RebicButton extends StatelessWidget {
   /// Se a ação está em andamento: mostra o indicador e ignora acionamentos.
   final bool busy;
 
-  static RebicControlFamily _family(RebicButtonType type) => switch (type) {
-    RebicButtonType.standard => RebicControlFamily.standard,
-    RebicButtonType.emphasized => RebicControlFamily.emphasized,
-    RebicButtonType.transparent => RebicControlFamily.transparent,
-    RebicButtonType.accept => RebicControlFamily.accept,
-    RebicButtonType.reject => RebicControlFamily.reject,
-    RebicButtonType.attention => RebicControlFamily.attention,
-  };
-
   @override
   Widget build(BuildContext context) {
     final theme = RebicThemeData.of(context);
-    final family = RebicControlColors.of(_family(type), theme.colors);
+    final family = RebicControlColors.of(rebicButtonFamily(type), theme.colors);
     final corners = BorderRadius.circular(theme.radius.control);
     final onPressed = this.onPressed;
     final icon = this.icon;

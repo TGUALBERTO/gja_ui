@@ -143,7 +143,14 @@ List<Violation> checkCatalog(Repo repo) {
   }
 
   final main = loadMainSpecs(repo);
-  final inChanges = {for (final s in loadChangeSpecs(repo)) s.id};
+  final changeSpecs = loadChangeSpecs(repo);
+  final inChanges = {for (final s in changeSpecs) s.id};
+  // Dependências declaradas nas changes ativas (ex.: um MODIFIED de
+  // [Integração]) valem como as da spec principal, como no grafo de specs.
+  final changeDependencies = <String, Set<String>>{};
+  for (final spec in changeSpecs) {
+    (changeDependencies[spec.id] ??= {}).addAll(spec.dependencies);
+  }
 
   for (final item in items) {
     for (final dep in item.dependsOn) {
@@ -168,7 +175,10 @@ List<Violation> checkCatalog(Repo repo) {
       fail('${item.id}: possui spec principal, mas está como "planned"');
     }
     if (hasSpec) {
-      final declared = main[item.id]!.dependencies;
+      final declared = {
+        ...main[item.id]!.dependencies,
+        ...?changeDependencies[item.id],
+      };
       for (final dep in item.dependsOn) {
         if (!declared.contains(dep)) {
           fail('${item.id}: dependência "$dep" do catálogo não aparece na spec');

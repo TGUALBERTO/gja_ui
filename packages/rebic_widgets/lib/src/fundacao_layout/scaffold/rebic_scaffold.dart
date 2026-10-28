@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
-import '../action/rebic_transparent_icon_action.dart';
+import '../../acoes_navegacao/icon_button/rebic_icon_button.dart';
 import '../container/rebic_container.dart';
 import '../divider/rebic_divider.dart';
 import '../row/rebic_row.dart';
@@ -178,11 +178,16 @@ class _RebicScaffoldState extends State<RebicScaffold> {
             gap: RebicSpace.s,
             children: [
               if (navigation != null)
-                RebicTransparentIconAction(
-                  icon: RebicIcons.menu,
-                  semanticLabel: RebicLocalizations.of(context).navigation,
-                  expanded: expanded,
-                  onPressed: () => _toggle(expanded),
+                // Um só nó: o botão e o estado expandido da navegação.
+                MergeSemantics(
+                  child: Semantics(
+                    expanded: expanded,
+                    child: RebicIconButton(
+                      icon: RebicIcons.menu,
+                      tooltip: RebicLocalizations.of(context).navigation,
+                      onPressed: () => _toggle(expanded),
+                    ),
+                  ),
                 ),
               ?logo,
               // O título ocupa o espaço livre e leva as ações à borda final.

@@ -2,6 +2,13 @@
 
 ## Não lançado
 
+- `RebicIconButton` (`add-rebic-icon-button`, spec `rebic/widgets/rebic-icon-button`): botão só com ícone, com dica
+  obrigatória (rótulo do leitor de tela e `RebicTooltip`), tipos Fiori (padrão `transparent`), estados do núcleo e
+  desabilitado. `RebicScaffold` e `RebicPage` passam a usá-lo nos botões de navegação e de voltar, que ganham dica
+  visível; o botão interno anterior foi removido. No catálogo, `RebicProgressIndicator`, `RebicTooltip`,
+  `RebicButton` e `RebicIconButton` passam a P0/Fase 1, como controles básicos da estrutura das páginas.
+- `RebicTooltip`: novo `excludeFromSemantics`, para filhos que já anunciam a mensagem como rótulo; o toque longo
+  deixa de expor uma ação sem rótulo na semântica.
 - `RebicButton` e `RebicButtonType` (`add-rebic-button`, spec `rebic/widgets/rebic-button`): botão com rótulo, ícone
   opcional, seis tipos no modelo Fiori (`standard`, `emphasized`, `transparent`, `accept`, `reject`, `attention`) sobre
   as famílias de controle, estados do núcleo, desabilitado (`onPressed` nulo) e ocupado (`busy`, com indicador na cor

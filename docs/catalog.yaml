@@ -352,6 +352,7 @@ items:
     phase: 1
     status: implemented
     depends_on:
+      - rebic/widgets/rebic-icon-button
       - rebic/widgets/rebic-app
       - rebic/widgets/rebic-container
       - rebic/widgets/rebic-divider
@@ -377,6 +378,7 @@ items:
     phase: 1
     status: implemented
     depends_on:
+      - rebic/widgets/rebic-icon-button
       - rebic/widgets/rebic-scaffold
       - rebic/widgets/rebic-text
       - rebic/widgets/rebic-icon
@@ -408,8 +410,8 @@ items:
     name: "RebicButton"
     kind: widget
     category: acoes-navegacao
-    priority: P1
-    phase: 2
+    priority: P0
+    phase: 1
     status: implemented
     depends_on:
       - rebic/core/interaction
@@ -428,13 +430,19 @@ items:
     name: "RebicIconButton"
     kind: widget
     category: acoes-navegacao
-    priority: P1
-    phase: 2
-    status: planned
+    priority: P0
+    phase: 1
+    status: implemented
     depends_on:
       - rebic/core/interaction
-      - rebic/widgets/rebic-icon
       - rebic/widgets/rebic-tooltip
+      - rebic/widgets/rebic-button
+      - rebic/foundation/interaction-states
+      - rebic/foundation/iconography
+      - rebic/foundation/density
+      - rebic/foundation/radius
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-link
     name: "RebicLink"
     kind: widget
@@ -672,8 +680,8 @@ items:
     name: "RebicProgressIndicator"
     kind: widget
     category: exibicao-dados
-    priority: P1
-    phase: 2
+    priority: P0
+    phase: 1
     status: implemented
     depends_on:
       - rebic/foundation/color
@@ -718,8 +726,8 @@ items:
     name: "RebicTooltip"
     kind: widget
     category: exibicao-dados
-    priority: P1
-    phase: 2
+    priority: P0
+    phase: 1
     status: implemented
     depends_on:
       - rebic/core/overlay

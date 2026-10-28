@@ -14,6 +14,7 @@
 | `message` | `String` | obrigatória |
 | `child` | `Widget` | obrigatória |
 | `side` | `RebicOverlaySide` | `below` |
+| `excludeFromSemantics` | `bool` | `false` |
 
 #### Scenario: Tooltip mínimo
 - **GIVEN** um `RebicTooltip` com `message` "Editar pedido" em volta de um ícone
@@ -108,7 +109,7 @@ Esc MUST fechar a dica aberta sem mover o foco, conforme o critério 1.4.13 da W
 - **THEN** a dica fecha, e o foco continua no filho
 
 ### Requirement: [Acessibilidade] Semântica e contraste
-A mensagem SHALL ser exposta como a dica (`tooltip`) do nó do filho, e a sobreposição MUST NOT acrescentar outro nó com a mensagem. O texto da dica MUST manter o contraste sobre `colors.base`, conforme `rebic/foundation/accessibility`.
+A mensagem SHALL ser exposta como a dica (`tooltip`) do nó do filho, exceto com `excludeFromSemantics`, quando o filho já anuncia a mensagem como rótulo. A sobreposição MUST NOT acrescentar outro nó com a mensagem. O texto da dica MUST manter o contraste sobre `colors.base`, conforme `rebic/foundation/accessibility`.
 
 #### Scenario: Mensagem na semântica do filho
 - **GIVEN** a dica aberta em volta de um botão com rótulo "Editar"
@@ -118,6 +119,11 @@ A mensagem SHALL ser exposta como a dica (`tooltip`) do nó do filho, e a sobrep
 #### Scenario: Contraste da dica
 - **WHEN** a diretriz de contraste de texto é aplicada à dica aberta, nos temas claro e escuro
 - **THEN** a diretriz é atendida
+
+#### Scenario: Dica fora da semântica
+- **GIVEN** a dica com `excludeFromSemantics` em volta de um botão cujo rótulo é a própria mensagem
+- **WHEN** a árvore de semântica é lida
+- **THEN** o nó do botão não tem dica, e a mensagem aparece uma única vez, como rótulo
 
 ### Requirement: [Responsividade] Bordas e direção
 A dica MUST ficar dentro da tela, com a inversão de lado e o limite de bordas de `rebic/core/overlay`. Em RTL, `start` e `end` seguem a direção do texto, como no núcleo.

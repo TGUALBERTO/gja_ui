@@ -37,6 +37,7 @@ class RebicTooltip extends StatefulWidget {
     required this.message,
     required this.child,
     this.side = RebicOverlaySide.below,
+    this.excludeFromSemantics = false,
     super.key,
   }) : assert(message != '', 'message não pode ser vazia');
 
@@ -48,6 +49,10 @@ class RebicTooltip extends StatefulWidget {
 
   /// Lado preferido da dica em relação ao filho.
   final RebicOverlaySide side;
+
+  /// Se a mensagem fica fora da semântica, quando o filho já a anuncia como
+  /// rótulo (ex.: um botão de ícone cujo rótulo é a própria dica).
+  final bool excludeFromSemantics;
 
   @override
   State<RebicTooltip> createState() => _RebicTooltipState();
@@ -178,30 +183,32 @@ class _RebicTooltipState extends State<RebicTooltip> {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      tooltip: widget.message,
-      child: RebicAnchoredOverlay(
-        controller: _controller,
-        side: widget.side,
-        alignment: RebicOverlayAlignment.center,
-        focusOnShow: false,
-        onDismiss: _hide,
-        overlayBuilder: _bubble,
-        child: Focus(
-          canRequestFocus: false,
-          skipTraversal: true,
-          onFocusChange: _handleFocusChange,
-          child: MouseRegion(
-            onEnter: (_) => _scheduleShow(),
-            onExit: (_) => _scheduleHide(),
-            child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onLongPress: _show,
-              child: widget.child,
-            ),
+    final overlay = RebicAnchoredOverlay(
+      controller: _controller,
+      side: widget.side,
+      alignment: RebicOverlayAlignment.center,
+      focusOnShow: false,
+      onDismiss: _hide,
+      overlayBuilder: _bubble,
+      child: Focus(
+        canRequestFocus: false,
+        skipTraversal: true,
+        onFocusChange: _handleFocusChange,
+        child: MouseRegion(
+          onEnter: (_) => _scheduleShow(),
+          onExit: (_) => _scheduleHide(),
+          // O toque longo só mostra a dica na tela; o leitor de tela já
+          // recebe a mensagem, então a ação não entra na semântica.
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            excludeFromSemantics: true,
+            onLongPress: _show,
+            child: widget.child,
           ),
         ),
       ),
     );
+    if (widget.excludeFromSemantics) return overlay;
+    return Semantics(tooltip: widget.message, child: overlay);
   }
 }

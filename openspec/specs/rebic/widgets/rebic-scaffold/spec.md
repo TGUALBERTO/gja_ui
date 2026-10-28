@@ -133,7 +133,7 @@ A classe usada pelo scaffold SHALL ser a da tela, com os limiares do tema ativo,
 - **THEN** a navegação e o botão ficam na borda direita, e a ação termina na borda esquerda da barra
 
 ### Requirement: [Integração] Dependências de widgets e núcleo
-Dos widgets e do núcleo, `RebicScaffold` SHALL depender somente de `rebic/widgets/rebic-app`, `rebic/widgets/rebic-container`, `rebic/widgets/rebic-divider`, `rebic/widgets/rebic-icon`, `rebic/widgets/rebic-text`, `rebic/core/responsive`, `rebic/core/interaction` e `rebic/core/localization`.
+Dos widgets e do núcleo, `RebicScaffold` SHALL depender somente de `rebic/widgets/rebic-app`, `rebic/widgets/rebic-container`, `rebic/widgets/rebic-divider`, `rebic/widgets/rebic-icon`, `rebic/widgets/rebic-icon-button`, `rebic/widgets/rebic-text`, `rebic/core/responsive`, `rebic/core/interaction` e `rebic/core/localization`.
 
 #### Scenario: Scaffold sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`

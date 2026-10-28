@@ -118,6 +118,19 @@ void main() {
     expect(messages(checkCatalog(repo)), [contains('não aparece na spec')]);
   });
 
+  test('dependência declarada em change ativa sobre a spec principal é aceita', () {
+    final repo = fixtureRepo({
+      catalogFile: _catalog([
+        _item('rebic/foundation/color', 'foundation', 'P0', 1),
+        _item('rebic/widgets/rebic-badge', 'widget', 'P1', 2, status: 'specified', deps: ['rebic/foundation/color']),
+      ]),
+      'openspec/specs/rebic/widgets/rebic-badge/spec.md': widgetSpec(),
+      'openspec/changes/update-rebic-badge/specs/rebic/widgets/rebic-badge/spec.md':
+          widgetSpec(dependencies: ['rebic/foundation/color']),
+    });
+    expect(checkCatalog(repo), isEmpty);
+  });
+
   test('kind incompatível com o id é rejeitado', () {
     final repo = fixtureRepo({catalogFile: _catalog([_item('rebic/widgets/rebic-a', 'foundation', 'P1', 2)])});
     expect(messages(checkCatalog(repo)), [contains('não corresponde ao caminho')]);

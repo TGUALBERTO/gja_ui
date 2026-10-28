@@ -3,22 +3,53 @@ import 'dart:io';
 /// Raiz do repositório, a partir do diretório do pacote.
 Directory get repoRoot => Directory.current.parent.parent;
 
-/// Nomes no formato `<requisito> — <cenário>` da spec [id]: a principal, ou
-/// a da change [change] enquanto ela não foi arquivada.
+/// Nomes no formato `<requisito> — <cenário>` da spec [id]: a principal com
+/// os requisitos ADDED e MODIFIED das changes ativas aplicados por cima.
+///
+/// [change] é a change que criou a spec; outras changes ativas que a
+/// modificam também são consideradas, para que os nomes reflitam a spec como
+/// ficará após o arquivamento.
 List<String> scenarioNames(String id, String change) {
-  final spec = [
-    File('${repoRoot.path}/openspec/specs/$id/spec.md'),
-    File('${repoRoot.path}/openspec/changes/$change/specs/$id/spec.md'),
-  ].firstWhere((f) => f.existsSync());
-  final names = <String>[];
+  final main = File('${repoRoot.path}/openspec/specs/$id/spec.md');
+  final changes = Directory('${repoRoot.path}/openspec/changes');
+  final dirs = [
+    for (final dir in changes.listSync().whereType<Directory>())
+      if (dir.uri.pathSegments.lastWhere((s) => s.isNotEmpty) != 'archive') dir,
+  ];
+  // A change que criou a spec vem primeiro; as que a modificam, depois.
+  bool creator(Directory d) =>
+      d.uri.pathSegments.lastWhere((s) => s.isNotEmpty) == change;
+  dirs.sort((a, b) => (creator(a) ? 0 : 1) - (creator(b) ? 0 : 1));
+  final deltas = [
+    for (final dir in dirs) File('${dir.path}/specs/$id/spec.md'),
+  ].where((f) => f.existsSync());
+  final requirements = <String, List<String>>{
+    if (main.existsSync()) ..._requirements(main),
+    for (final delta in deltas) ..._requirements(delta),
+  };
+  return [
+    for (final MapEntry(key: requirement, value: scenarios)
+        in requirements.entries)
+      for (final scenario in scenarios) '$requirement — $scenario',
+  ];
+}
+
+/// Cenários de cada requisito de [spec], na ordem do arquivo.
+Map<String, List<String>> _requirements(File spec) {
+  final result = <String, List<String>>{};
   String? requirement;
   for (final line in spec.readAsLinesSync()) {
     final req = RegExp(r'^### Requirement: (.+)$').firstMatch(line);
-    if (req != null) requirement = req.group(1)!.trim();
+    if (req != null) {
+      requirement = req.group(1)!.trim();
+      result[requirement] = [];
+    }
     final scen = RegExp(r'^#### Scenario: (.+)$').firstMatch(line);
-    if (scen != null) names.add('$requirement — ${scen.group(1)!.trim()}');
+    if (scen != null && requirement != null) {
+      result[requirement]!.add(scen.group(1)!.trim());
+    }
   }
-  return names;
+  return result;
 }
 
 /// Cenários de [names] sem teste de mesmo nome nas suítes de `rebic_widgets`
