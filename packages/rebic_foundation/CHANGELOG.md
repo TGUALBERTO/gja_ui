@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Estados de interação (`add-rebic-button`): famílias de controle `accept`, `reject` e `attention`, derivadas das cores
+  dos estados de valor `success`, `error` e `warning`, para os tipos de botão Accept, Reject e Attention do Fiori.
 - Tema na árvore (`add-rebic-theme`, spec `rebic/foundation/theming`): `RebicThemeScope` publica o tema para a
   subárvore, e `RebicThemeData.of`/`maybeOf` leem o tema ativo, com o claro de referência como reserva e o movimento
   reduzido quando o sistema pede.

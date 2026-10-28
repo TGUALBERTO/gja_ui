@@ -20,3 +20,4 @@ export 'src/fundacao_layout/scaffold/rebic_scaffold.dart';
 export 'src/fundacao_layout/page/rebic_page.dart';
 export 'src/exibicao_dados/progress_indicator/rebic_progress_indicator.dart';
 export 'src/exibicao_dados/tooltip/rebic_tooltip.dart';
+export 'src/acoes_navegacao/button/rebic_button.dart';

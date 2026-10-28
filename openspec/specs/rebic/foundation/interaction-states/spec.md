@@ -51,7 +51,7 @@ Cada cenário desta spec MUST ter um teste automatizado com o nome `<requisito> 
 - **THEN** ela exibe, nos dois modos, as famílias `standard`, `emphasized`, `transparent` e `list` nos estados normal, hover, ativo, selecionado, selecionado com hover, foco e desabilitado, cada amostra com o rótulo do estado
 
 ### Requirement: Famílias de controle
-O fundamento SHALL definir as famílias de controle `standard`, `emphasized`, `transparent` e `list`, no modelo dos tipos de botão Default, Emphasized e Transparent e dos itens de lista do Fiori. Cada família MUST ter fundo, borda e texto explícitos para os estados normal, hover, ativo, selecionado e selecionado com hover. Essas cores MUST ser derivadas dos papéis de `rebic/foundation/color`, para que uma troca de marca alcance todas as famílias.
+O fundamento SHALL definir as famílias de controle `standard`, `emphasized`, `transparent`, `accept`, `reject`, `attention` e `list`, no modelo dos tipos de botão e dos itens de lista do Fiori. Cada família MUST ter fundo, borda e texto explícitos para os estados normal, hover, ativo, selecionado e selecionado com hover. Essas cores MUST ser derivadas dos papéis de `rebic/foundation/color`, para que uma troca de marca alcance todas as famílias.
 
 #### Scenario: Família standard
 - **WHEN** as cores da família `standard` são derivadas de um mapeamento de cor
@@ -69,6 +69,10 @@ O fundamento SHALL definir as famílias de controle `standard`, `emphasized`, `t
 - **GIVEN** um mapeamento de cor com `brand` trocado
 - **WHEN** as cores da família `standard` são derivadas dele
 - **THEN** o texto normal e a borda do selecionado são o novo `brand`
+
+#### Scenario: Famílias accept, reject e attention
+- **WHEN** as cores das famílias `accept`, `reject` e `attention` são derivadas
+- **THEN** cada uma usa as cores do estado de valor `success`, `error` e `warning`, respectivamente: normal = (fundo, borda e frente do estado), hover = (`hoverBackground`, borda do estado, frente do estado), e ativo, selecionado e selecionado com hover = (`highlight`, `highlight`, `contrastText`)
 
 ### Requirement: Resolução de cores por estado
 As cores de uma família para um conjunto de estados MUST ser resolvidas nesta ordem de precedência: `disabled` usa as cores do normal (com a opacidade de desabilitado); `pressed` ou `dragged` usa o ativo; `selected` com `hovered` usa o selecionado com hover; `selected` usa o selecionado; `hovered` usa o hover; os demais usam o normal. `focused` MUST NOT alterar as cores.

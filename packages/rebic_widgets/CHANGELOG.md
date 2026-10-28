@@ -2,6 +2,11 @@
 
 ## Não lançado
 
+- `RebicButton` e `RebicButtonType` (`add-rebic-button`, spec `rebic/widgets/rebic-button`): botão com rótulo, ícone
+  opcional, seis tipos no modelo Fiori (`standard`, `emphasized`, `transparent`, `accept`, `reject`, `attention`) sobre
+  as famílias de controle, estados do núcleo, desabilitado (`onPressed` nulo) e ocupado (`busy`, com indicador na cor
+  do texto e o valor "Carregando" na semântica). A animação do `RebicProgressIndicator` passa a um widget interno
+  compartilhado, sem mudança de comportamento.
 - `RebicTooltip` (`add-rebic-tooltip`, spec `rebic/widgets/rebic-tooltip`): dica textual de um elemento, aberta pelo
   ponteiro (após `motion.long`), pelo foco do teclado ou por toque longo, e fechada pela saída do ponteiro (após
   `motion.short`), perda de foco, Esc ou toque fora; apontável, uma por vez, posicionada pela sobreposição ancorada

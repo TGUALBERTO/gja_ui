@@ -61,6 +61,21 @@ void main() {
       expect(l.normal.text, c.text);
     });
 
+    test('Famílias de controle — Famílias accept, reject e attention', () {
+      final active = _s(c.highlight, c.highlight, c.contrastText);
+      for (final (family, state) in [
+        (RebicControlFamily.accept, RebicValueState.success),
+        (RebicControlFamily.reject, RebicValueState.error),
+        (RebicControlFamily.attention, RebicValueState.warning),
+      ]) {
+        final f = _of(family);
+        final s = c.stateColors(state);
+        expect(f.normal, _s(s.background, s.border, s.foreground));
+        expect(f.hover, _s(c.hoverBackground, s.border, s.foreground));
+        expect([f.active, f.selected, f.selectedHover], everyElement(active));
+      }
+    });
+
     test('Famílias de controle — Marca alcança as famílias', () {
       final brand = _light.copyWith(brand: RebicColorPrimitives.cyan700);
       final f = RebicControlColors.of(RebicControlFamily.standard, brand);

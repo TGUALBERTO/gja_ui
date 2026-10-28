@@ -3,6 +3,7 @@ import 'package:flutter/painting.dart' show Color, ColorProperty;
 
 import '../color/color_tokens.dart';
 import '../color/primitives/color_primitives.dart';
+import '../color/value_state.dart';
 import '../tokens/token_set.dart';
 import 'interaction_state.dart';
 
@@ -18,6 +19,16 @@ enum RebicControlFamily {
 
   /// Controle sem fundo (botão Transparent): só o texto da marca.
   transparent,
+
+  /// Ação positiva (botão Accept): cores do estado de valor `success`.
+  accept,
+
+  /// Ação negativa (botão Reject): cores do estado de valor `error`.
+  reject,
+
+  /// Ação que pede atenção (botão Attention): cores do estado de valor
+  /// `warning`.
+  attention,
 
   /// Item de lista ou linha de tabela.
   list,
@@ -135,6 +146,17 @@ class RebicControlColors extends RebicTokenSet<RebicControlColors> {
         selected: s(c.selectionBackground, none, c.brand),
         selectedHover: s(c.selectionHoverBackground, none, c.brand),
       ),
+      RebicControlFamily.accept => _semantic(
+        c,
+        RebicValueState.success,
+        active,
+      ),
+      RebicControlFamily.reject => _semantic(c, RebicValueState.error, active),
+      RebicControlFamily.attention => _semantic(
+        c,
+        RebicValueState.warning,
+        active,
+      ),
       RebicControlFamily.list => RebicControlColors(
         normal: s(c.base, none, c.text),
         hover: s(c.hoverBackground, none, c.text),
@@ -143,6 +165,31 @@ class RebicControlColors extends RebicTokenSet<RebicControlColors> {
         selectedHover: s(c.selectionHoverBackground, none, c.text),
       ),
     };
+  }
+
+  /// Família de uma ação semântica, com as cores do estado de valor [state]
+  /// no normal e no hover, e [active] nos demais estados.
+  static RebicControlColors _semantic(
+    RebicColorTokens c,
+    RebicValueState state,
+    RebicStateColors active,
+  ) {
+    final s = c.stateColors(state);
+    return RebicControlColors(
+      normal: RebicStateColors(
+        background: s.background,
+        border: s.border,
+        text: s.foreground,
+      ),
+      hover: RebicStateColors(
+        background: c.hoverBackground,
+        border: s.border,
+        text: s.foreground,
+      ),
+      active: active,
+      selected: active,
+      selectedHover: active,
+    );
   }
 
   /// Estado normal (e desabilitado, com a opacidade de desabilitado).

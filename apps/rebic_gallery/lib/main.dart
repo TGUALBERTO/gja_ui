@@ -12,6 +12,7 @@ import 'pages/interaction_page.dart';
 import 'pages/localization_page.dart';
 import 'pages/overlay_page.dart';
 import 'pages/radius_page.dart';
+import 'pages/rebic_button_page.dart';
 import 'pages/rebic_container_page.dart';
 import 'pages/rebic_divider_page.dart';
 import 'pages/rebic_grid_page.dart';
@@ -201,6 +202,11 @@ final galleryPages = <GalleryPage>[
     title: RebicTooltipPage.title,
     route: RebicTooltipPage.route,
     builder: (_) => const RebicTooltipPage(),
+  ),
+  GalleryPage(
+    title: RebicButtonPage.title,
+    route: RebicButtonPage.route,
+    builder: (_) => const RebicButtonPage(),
   ),
 ];
 

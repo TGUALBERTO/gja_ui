@@ -1,11 +1,9 @@
-import 'dart:ui' show lerpDouble;
-
 import 'package:flutter/widgets.dart';
 import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
 import '../../fundacao_layout/icon/rebic_icon.dart';
-import 'rebic_progress_painter.dart';
+import 'rebic_progress_view.dart';
 
 /// Indicador de progresso, como o `sap.m.ProgressIndicator` (barra
 /// determinada) e o `sap.m.BusyIndicator` (indeterminado) do SAPUI5.
@@ -25,7 +23,7 @@ import 'rebic_progress_painter.dart';
 /// RebicProgressIndicator.linear(value: enviados / total)
 /// const RebicProgressIndicator.circular(semanticLabel: 'Salvando pedido')
 /// ```
-class RebicProgressIndicator extends StatefulWidget {
+class RebicProgressIndicator extends StatelessWidget {
   /// Barra na largura disponível.
   const RebicProgressIndicator.linear({
     this.value,
@@ -67,7 +65,29 @@ class RebicProgressIndicator extends StatefulWidget {
   final bool _circular;
 
   @override
-  State<RebicProgressIndicator> createState() => _RebicProgressIndicatorState();
+  Widget build(BuildContext context) {
+    final theme = RebicThemeData.of(context);
+    final localizations = RebicLocalizations.of(context);
+    final colors = theme.colors;
+    final value = this.value;
+    return Semantics(
+      container: true,
+      label: semanticLabel ?? localizations.loading,
+      value: value == null
+          ? null
+          : '${localizations.formatInteger((value * 100).round())}%',
+      excludeSemantics: true,
+      child: RebicProgressView(
+        circular: _circular,
+        value: value,
+        fill: state == RebicValueState.none
+            ? colors.brand
+            : colors.stateColors(state).foreground,
+        track: colors.separator,
+        extent: _circular ? _iconSize(theme.icons, size) : theme.spacing.xs,
+      ),
+    );
+  }
 }
 
 /// Lado de um ícone de tamanho [size].
@@ -79,124 +99,3 @@ double _iconSize(RebicIconTokens t, RebicIconSize size) => switch (size) {
   RebicIconSize.inline => t.inline,
   RebicIconSize.control => t.control,
 };
-
-/// Ciclos do indeterminado por `motion.long`: 4 × 300 ms nos tokens de
-/// referência, perto do ciclo do `BusyIndicator`.
-const _cyclesPerLong = 4;
-
-class _RebicProgressIndicatorState extends State<RebicProgressIndicator>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(vsync: this);
-
-  /// Valor de onde parte a transição determinada em curso.
-  double _from = 0;
-  RebicMotionTokens? _motion;
-
-  /// Valor exibido agora no modo determinado.
-  double _shown(Curve curve) => lerpDouble(
-    _from,
-    widget.value ?? _from,
-    curve.transform(_controller.value),
-  )!;
-
-  @override
-  void initState() {
-    super.initState();
-    _from = widget.value ?? 0;
-    _controller.value = 1;
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _motion = RebicThemeData.of(context).motion;
-    if (widget.value == null) _runIndeterminate();
-  }
-
-  @override
-  void didUpdateWidget(RebicProgressIndicator oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    final motion = _motion!;
-    final value = widget.value;
-    if (value == null) {
-      _runIndeterminate();
-    } else if (oldWidget.value == null) {
-      _controller.stop();
-      _from = value;
-      _controller.value = 1;
-    } else if (value != oldWidget.value) {
-      _from = lerpDouble(
-        _from,
-        oldWidget.value,
-        motion.standard.transform(_controller.value),
-      )!;
-      _controller.duration = motion.short;
-      _controller.forward(from: 0);
-    }
-  }
-
-  void _runIndeterminate() {
-    final period = _motion!.long * _cyclesPerLong;
-    if (period == Duration.zero) {
-      _controller.stop();
-      return;
-    }
-    if (_controller.isAnimating && _controller.duration == period) return;
-    _controller.duration = period;
-    _controller.repeat();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = RebicThemeData.of(context);
-    final localizations = RebicLocalizations.of(context);
-    final colors = theme.colors;
-    final fill = widget.state == RebicValueState.none
-        ? colors.brand
-        : colors.stateColors(widget.state).foreground;
-    final value = widget.value;
-    final textDirection = Directionality.of(context);
-
-    final paint = AnimatedBuilder(
-      animation: _controller,
-      builder: (context, _) => CustomPaint(
-        painter: RebicProgressPainter(
-          circular: widget._circular,
-          value: value == null ? null : _shown(theme.motion.standard),
-          phase: value == null && _controller.isAnimating
-              ? _controller.value
-              : null,
-          fill: fill,
-          track: colors.separator,
-          thickness: theme.spacing.xxs,
-          textDirection: textDirection,
-        ),
-      ),
-    );
-
-    return Semantics(
-      container: true,
-      label: widget.semanticLabel ?? localizations.loading,
-      value: value == null
-          ? null
-          : '${localizations.formatInteger((value * 100).round())}%',
-      excludeSemantics: true,
-      child: widget._circular
-          ? SizedBox.square(
-              dimension: _iconSize(theme.icons, widget.size),
-              child: paint,
-            )
-          : SizedBox(
-              height: theme.spacing.xs,
-              width: double.infinity,
-              child: paint,
-            ),
-    );
-  }
-}
