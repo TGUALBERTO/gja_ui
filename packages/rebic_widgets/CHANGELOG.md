@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- `RebicAvatar`, `RebicAvatarSize` e `RebicAvatarShape` (`add-rebic-avatar`, spec `rebic/widgets/rebic-avatar`):
+  avatar no modelo do `sap.m.Avatar`, com imagem, iniciais (até 3) ou ícone, fallback quando a imagem falha, forma
+  circular ou quadrada, cinco tamanhos (1× a 3,5× `icons.xLarge`, os 2/3/4/5/7 rem do UI5), fundo
+  `selectionBackground` com `brand`, estado ativo (`onPressed`) e semântica de imagem ou botão.
 - `RebicStatusIndicator` (`add-rebic-status-indicator`, spec `rebic/widgets/rebic-status-indicator`): situação de um
   registro no modelo do `sap.m.ObjectStatus`, com `title`, `icon` e `text` na cor de um estado de valor, forma
   invertida (`inverted`), estado ativo (`onPressed`, sublinhado no hover e semântica de botão), quebra de texto com o

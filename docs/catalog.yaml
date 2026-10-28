@@ -740,10 +740,18 @@ items:
     category: exibicao-dados
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
       - rebic/widgets/rebic-icon
       - rebic/widgets/rebic-text
+      - rebic/core/interaction
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/iconography
+      - rebic/foundation/radius
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-tooltip
     name: "RebicTooltip"
     kind: widget
