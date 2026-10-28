@@ -402,10 +402,20 @@ items:
     category: fundacao-layout
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
       - rebic/widgets/rebic-container
       - rebic/widgets/rebic-text
+      - rebic/widgets/rebic-divider
+      - rebic/core/interaction
+      - rebic/foundation/color
+      - rebic/foundation/spacing
+      - rebic/foundation/radius
+      - rebic/foundation/elevation
+      - rebic/foundation/typography
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-button
     name: "RebicButton"
     kind: widget

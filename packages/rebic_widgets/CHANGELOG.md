@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- `RebicCard` (`add-rebic-card`, spec `rebic/widgets/rebic-card`): cartão no modelo do `sap.f.Card`, com superfície
+  `base`, borda `separator`, raio `container` e sombra `card`; cabeçalho opcional com `leading`, título (variante
+  `subtitle`, anunciado como cabeçalho), subtítulo, status e divisor; conteúdo com ou sem margem (`padded`); e
+  cabeçalho acionável (`onHeaderPressed`), com hover, teclado e semântica de botão "título, subtítulo".
 - Galeria (`fix-rebic-gallery-dark-theme`): as 12 páginas dos fundamentos passam a seguir o tema e a densidade
   escolhidos no índice, em vez de tokens claros fixos. As comparações intencionais entre modos e densidades ficam em
   painéis `GalleryComparison`, e um teste abre todas as páginas no tema escuro.

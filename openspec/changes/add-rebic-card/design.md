@@ -4,8 +4,9 @@
 
 - **`RebicContainer`** já dá a superfície (`surface`), a borda `separator` (`border: true`), o raio (`RebicRadius`) e a
   sombra (`RebicElevation.card`), com `clip` dos cantos.
-- **`RebicText`** tem as variantes `title`, `body` e `label`, o tom `muted` e `maxLines` com reticências. A variante
-  `title` já é anunciada como cabeçalho.
+- **`RebicText`** tem as variantes `subtitle`, `body` e `label`, o tom `muted`, `maxLines` com reticências e `heading`.
+  O título do cartão usa `subtitle` (18), com `heading: true`. A variante `title` (24) dos títulos de página quebrava
+  palavras em cartões estreitos, e os cartões Fiori usam um título menor que o da página.
 - **`RebicDivider`** sutil faz a separação entre cabeçalho e conteúdo.
 - **`RebicInteractable`** dá os estados, a ativação, o alvo, o anel de foco e a semântica de botão. O `MergeSemantics`
   junta o nó interno de foco e toque ao rotulado, como nos botões.
@@ -58,7 +59,7 @@ O cabeçalho é:
 Padding(all: spacing.l) → Row(start, spacing: spacing.m)
 ├─ leading?
 ├─ Expanded(Column(min, start, spacing: xxs,
-│     [RebicText(title, variant: title, maxLines: 2), RebicText(subtitle, tone: muted, maxLines: 2)]))
+│     [RebicText(title, variant: subtitle, heading: true, maxLines: 2), RebicText(subtitle, tone: muted, maxLines: 2)]))
 └─ status? → RebicText(status, variant: label, tone: muted, maxLines: 1)
 ```
 

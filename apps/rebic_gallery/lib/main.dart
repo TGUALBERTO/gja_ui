@@ -15,6 +15,7 @@ import 'pages/radius_page.dart';
 import 'pages/rebic_avatar_page.dart';
 import 'pages/rebic_badge_page.dart';
 import 'pages/rebic_button_page.dart';
+import 'pages/rebic_card_page.dart';
 import 'pages/rebic_container_page.dart';
 import 'pages/rebic_divider_page.dart';
 import 'pages/rebic_grid_page.dart';
@@ -237,6 +238,11 @@ final galleryPages = <GalleryPage>[
     title: RebicAvatarPage.title,
     route: RebicAvatarPage.route,
     builder: (_) => const RebicAvatarPage(),
+  ),
+  GalleryPage(
+    title: RebicCardPage.title,
+    route: RebicCardPage.route,
+    builder: (_) => const RebicCardPage(),
   ),
 ];
 

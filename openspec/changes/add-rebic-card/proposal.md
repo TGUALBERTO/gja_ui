@@ -20,7 +20,7 @@ StatusIndicator, Avatar, Card".
     listas e tabelas);
   - **Cabeçalho opcional**, que aparece quando há `title`:
     - `leading` (por exemplo, um `RebicAvatar` ou `RebicIcon`);
-    - `title` (variante `title`, até 2 linhas);
+    - `title` (variante `subtitle`, anunciada como cabeçalho, até 2 linhas, como o título menor dos cartões Fiori);
     - `subtitle` (tom `muted`, até 2 linhas);
     - `status` no fim (por exemplo, "3 de 5", variante `label` e tom `muted`);
     - um divisor sutil até o conteúdo;
