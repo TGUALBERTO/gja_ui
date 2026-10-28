@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- `RebicBadge` (`add-rebic-badge`, spec `rebic/widgets/rebic-badge`): contador no modelo do badge dos controles e do
+  `count` do `IconTabFilter` do SAPUI5, com as cores de um estado de valor (padrão `error`), limite `max` (`999+`),
+  ocultação abaixo de 1, avulso ou centrado no canto superior final de um `child` (sem mudar o tamanho dele nem
+  receber toques), e semântica do número, no mesmo nó do elemento.
 - `RebicLink` (`add-rebic-link`, spec `rebic/widgets/rebic-link`): link de ação no modelo do `sap.m.Link`, na cor
   `colors.link` (ou `colors.text`, com `subtle`), em negrito com `emphasized`, sublinhado no hover e no pressionado,
   numa linha com reticências ou com quebra (`wrapping`), desabilitado com `onPressed` nulo e anunciado como link.

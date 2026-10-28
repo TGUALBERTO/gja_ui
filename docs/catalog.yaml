@@ -704,9 +704,17 @@ items:
     category: exibicao-dados
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
       - rebic/widgets/rebic-text
+      - rebic/core/localization
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/spacing
+      - rebic/foundation/radius
+      - rebic/foundation/iconography
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-status-indicator
     name: "RebicStatusIndicator"
     kind: widget
