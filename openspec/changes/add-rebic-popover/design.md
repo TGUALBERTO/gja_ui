@@ -76,7 +76,7 @@ RebicAnchoredOverlay(controller, side, alignment, onDismiss, focusOnShow: true, 
                ├─ [title] RebicDivider()
                ├─ Flexible → SingleChildScrollView → padded ? Padding(all: l, content) : content
                ├─ [actions] RebicDivider()
-               └─ [actions] Padding(all: s) → Wrap(alignment: end, spacing: xs, runSpacing: xs, actions)
+               └─ [actions] Padding(all: s) → OverflowBar(alignment: end, overflowAlignment: end, spacing: xs, overflowSpacing: xs, actions)
 ```
 
 - **Largura:** `IntrinsicWidth` faz o popover seguir o conteúdo. O `ConstrainedBox` dá o mínimo (192 nos tokens de
@@ -84,8 +84,10 @@ RebicAnchoredOverlay(controller, side, alignment, onDismiss, focusOnShow: true, 
   limite de tela do núcleo, que é menor em telas estreitas. Os fatores 4 e 8 são constantes privadas documentadas.
 - **Altura:** o `Column(min)` com o conteúdo em `Flexible` + `SingleChildScrollView` cabe na altura máxima dada pelo
   núcleo. Só o conteúdo rola.
-- **Rodapé:** `Wrap` em vez de `Row`, para que as ações quebrem de linha na escala 2,0 sem estouro. `WrapAlignment.end`
-  segue a direção do texto.
+- **Rodapé:** `OverflowBar` em vez de `Row`, para que as ações fiquem uma sobre a outra, alinhadas ao fim, quando não
+  cabem lado a lado (escala 2,0), sem estouro. O `Wrap` foi descartado porque a largura intrínseca dele não conta o
+  `spacing`, e o `IntrinsicWidth` do popover quebrava as ações mesmo com espaço. O alinhamento segue a direção do
+  texto.
 - **Semântica:** `scopesRoute` + `namesRoute` é o equivalente Flutter do `role="dialog"` com `aria-labelledby`. O
   título continua também como cabeçalho, porque o leitor de tela anuncia a rota e permite navegar por cabeçalhos.
 

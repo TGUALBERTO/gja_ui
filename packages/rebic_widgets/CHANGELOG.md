@@ -2,6 +2,11 @@
 
 ## Não lançado
 
+- `RebicPopover` e `RebicPopoverController` (`add-rebic-popover`, spec `rebic/widgets/rebic-popover`): painel
+  ancorado no modelo do `sap.m.Popover`, sobre a sobreposição ancorada do núcleo, com superfície `base` sem borda,
+  raio `container` e sombra `popover`; cabeçalho opcional com título; conteúdo rolável com ou sem margem; rodapé de
+  ações alinhadas ao fim; largura entre 4 e 8 passos `spacing.xxxl`; controlador com `open`, `close`, `toggle` e
+  `isOpen`; fechamento por toque fora ou Esc (`onDismiss`); foco preso e semântica de rota nomeada.
 - `RebicCard` (`add-rebic-card`, spec `rebic/widgets/rebic-card`): cartão no modelo do `sap.f.Card`, com superfície
   `base`, borda `separator`, raio `container` e sombra `card`; cabeçalho opcional com `leading`, título (variante
   `subtitle`, anunciado como cabeçalho), subtítulo, status e divisor; conteúdo com ou sem margem (`padded`); e

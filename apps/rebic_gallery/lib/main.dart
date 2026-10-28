@@ -24,6 +24,7 @@ import 'pages/rebic_icon_page.dart';
 import 'pages/rebic_link_page.dart';
 import 'pages/rebic_responsive_layout_page.dart';
 import 'pages/rebic_page_page.dart';
+import 'pages/rebic_popover_page.dart';
 import 'pages/rebic_progress_indicator_page.dart';
 import 'pages/rebic_row_column_page.dart';
 import 'pages/rebic_scaffold_page.dart';
@@ -243,6 +244,11 @@ final galleryPages = <GalleryPage>[
     title: RebicCardPage.title,
     route: RebicCardPage.route,
     builder: (_) => const RebicCardPage(),
+  ),
+  GalleryPage(
+    title: RebicPopoverPage.title,
+    route: RebicPopoverPage.route,
+    builder: (_) => const RebicPopoverPage(),
   ),
 ];
 
