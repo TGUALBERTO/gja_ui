@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- `RebicStatusIndicator` (`add-rebic-status-indicator`, spec `rebic/widgets/rebic-status-indicator`): situação de um
+  registro no modelo do `sap.m.ObjectStatus`, com `title`, `icon` e `text` na cor de um estado de valor, forma
+  invertida (`inverted`), estado ativo (`onPressed`, sublinhado no hover e semântica de botão), quebra de texto com o
+  ícone na primeira linha e semântica "título: texto" num só nó.
 - `RebicBadge` (`add-rebic-badge`, spec `rebic/widgets/rebic-badge`): contador no modelo do badge dos controles e do
   `count` do `IconTabFilter` do SAPUI5, com as cores de um estado de valor (padrão `error`), limite `max` (`999+`),
   ocultação abaixo de 1, avulso ou centrado no canto superior final de um `child` (sem mudar o tamanho dele nem
