@@ -49,12 +49,20 @@ abstract final class RebicMotionPrimitives {
     'duration500': duration500,
   };
 
-  /// Aceleração e desaceleração suaves, para movimentos dentro da tela.
-  static const curveStandard = Cubic(0.4, 0, 0.2, 1);
+  /// Curva CSS `ease-in-out`, como as transições dos controles do SAPUI5:
+  /// aceleração e desaceleração suaves.
+  static const curveEaseInOut = Cubic(0.42, 0, 0.58, 1);
 
-  /// Desaceleração, para elementos que entram na tela.
-  static const curveDecelerate = Cubic(0, 0, 0.2, 1);
+  /// Curva CSS `ease-out`: desaceleração.
+  static const curveEaseOut = Cubic(0, 0, 0.58, 1);
 
-  /// Aceleração, para elementos que saem da tela.
-  static const curveAccelerate = Cubic(0.4, 0, 1, 1);
+  /// Curva CSS `ease-in`: aceleração.
+  static const curveEaseIn = Cubic(0.42, 0, 1, 1);
+
+  /// Curvas pelo nome.
+  static const curves = <String, Cubic>{
+    'curveEaseInOut': curveEaseInOut,
+    'curveEaseOut': curveEaseOut,
+    'curveEaseIn': curveEaseIn,
+  };
 }

@@ -2,6 +2,24 @@
 
 ## Não lançado
 
+- **BREAKING** Movimento no modelo SAPUI5 (`update-rebic-foundation-design-tokens-fiori-motion`, specs
+  `rebic/foundation/design-tokens`, `rebic/foundation/accessibility` e `rebic/foundation/theming`):
+
+    | Antes | Agora |
+    |---|---|
+    | `RebicMotionPrimitives.curveStandard` `(0.4, 0, 0.2, 1)` | `curveEaseInOut` `(0.42, 0, 0.58, 1)` |
+    | `RebicMotionPrimitives.curveDecelerate` `(0, 0, 0.2, 1)` | `curveEaseOut` `(0, 0, 0.58, 1)` |
+    | `RebicMotionPrimitives.curveAccelerate` `(0.4, 0, 1, 1)` | `curveEaseIn` `(0.42, 0, 1, 1)` |
+    | `RebicAccessibility.resolveMotion(motion, disableAnimations:)` | `resolveMotion(motion, mode:)` |
+
+  - Os papéis `standard`, `enter` e `exit` passam às curvas CSS `ease-in-out`, `ease-out` e `ease-in`; novo mapa
+    `RebicMotionPrimitives.curves`.
+  - Novo `RebicAnimationMode` (`full`, `basic`, `minimal`, `none`), como `sap.ui.core.AnimationMode`, com
+    `reducesMotion` e `effective`.
+  - `RebicThemeData.animationMode` (padrão `full`). `resolve` e `of` aplicam o modo efetivo: o do tema ou, com
+    animações desligadas na plataforma, `none`.
+
+  Valores provisórios na ADR 0009.
 - **BREAKING** Sombras no modelo Horizon (`update-rebic-foundation-elevation-horizon-shadows`, spec
   `rebic/foundation/shadows`, que substitui `rebic/foundation/elevation`):
 

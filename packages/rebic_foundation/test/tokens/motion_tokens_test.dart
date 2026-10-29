@@ -50,9 +50,9 @@ void main() {
       expect(fallback.short, RebicMotionPrimitives.duration100);
       expect(fallback.medium, RebicMotionPrimitives.duration200);
       expect(fallback.long, RebicMotionPrimitives.duration300);
-      expect(fallback.standard, same(RebicMotionPrimitives.curveStandard));
-      expect(fallback.enter, same(RebicMotionPrimitives.curveDecelerate));
-      expect(fallback.exit, same(RebicMotionPrimitives.curveAccelerate));
+      expect(fallback.standard, same(RebicMotionPrimitives.curveEaseInOut));
+      expect(fallback.enter, same(RebicMotionPrimitives.curveEaseOut));
+      expect(fallback.exit, same(RebicMotionPrimitives.curveEaseIn));
     });
   });
 
@@ -128,6 +128,25 @@ void main() {
       expect(fallback.instant <= fallback.short, isTrue);
       expect(fallback.short <= fallback.medium, isTrue);
       expect(fallback.medium <= fallback.long, isTrue);
+    });
+
+    test('Tokens de movimento — Curvas CSS', () {
+      expect(fallback.standard, const Cubic(0.42, 0, 0.58, 1));
+      expect(fallback.enter, const Cubic(0, 0, 0.58, 1));
+      expect(fallback.exit, const Cubic(0.42, 0, 1, 1));
+    });
+
+    test('Tokens de movimento — Sem curvas do Material', () {
+      const material = [
+        Cubic(0.4, 0, 0.2, 1),
+        Cubic(0, 0, 0.2, 1),
+        Cubic(0.4, 0, 1, 1),
+      ];
+      final curves = RebicMotionPrimitives.curves;
+      for (final curve in curves.values) {
+        expect(material, isNot(contains(curve)));
+      }
+      expect(curves.keys, ['curveEaseInOut', 'curveEaseOut', 'curveEaseIn']);
     });
 
     test('Tokens de movimento — mapeamento fora de ordem é rejeitado', () {

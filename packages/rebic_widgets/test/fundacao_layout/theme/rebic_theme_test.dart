@@ -108,6 +108,23 @@ void main() {
       await tester.pump();
       expect(reads.last.colors, dark.colors);
     });
+
+    testWidgets('troca imediata com o modo de animação none do tema', (
+      tester,
+    ) async {
+      final reads = <RebicThemeData>[];
+      Widget app(RebicThemeData data) => MediaQuery(
+        data: const MediaQueryData(),
+        child: RebicTheme(
+          data: data.copyWith(animationMode: RebicAnimationMode.none),
+          child: _Reader(reads),
+        ),
+      );
+      await tester.pumpWidget(app(light));
+      await tester.pumpWidget(app(dark));
+      await tester.pump();
+      expect(reads.last.colors, dark.colors);
+    });
   });
 
   testWidgets('[Comportamento] Densidade por subárvore — Subárvore compacta', (

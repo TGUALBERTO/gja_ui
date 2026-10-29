@@ -2,6 +2,11 @@
 
 ## Não lançado
 
+- Movimento no modelo SAPUI5 (`update-rebic-foundation-design-tokens-fiori-motion`): as animações usam as curvas CSS
+  do SAPUI5. O `animationMode` do tema também desliga a troca animada de `RebicTheme` e a transição de página de
+  `RebicApp`, além do pedido do sistema. Os testes de golden de popover, menu e dropdown passam a capturar cada tema
+  numa aplicação nova: antes, a troca animada de densidade deixava a sobreposição na posição de um quadro
+  intermediário, e os goldens afetados foram regerados.
 - **BREAKING** Sombras no modelo Horizon (`update-rebic-foundation-elevation-horizon-shadows`): `RebicElevation`
   passa a `RebicShadow`, e a propriedade `RebicContainer.elevation` passa a `shadow`, com os mesmos valores. O popover,
   o menu, o dropdown e a dica passam à sombra `shadow2`, com contorno de 1 px. Os goldens de dica, popover, menu,

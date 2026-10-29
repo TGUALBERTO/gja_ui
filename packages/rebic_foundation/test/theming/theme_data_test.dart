@@ -52,6 +52,7 @@ Map<String, Object> _nonColorSets(RebicThemeData t) => {
   'icons': t.icons,
   'interaction': t.interaction,
   'breakpoints': t.breakpoints,
+  'animationMode': t.animationMode,
   'components': t.components,
   'extensions': t.extensions,
 };
@@ -72,6 +73,7 @@ void main() {
     expect(light.icons, const RebicIconTokens.fallback());
     expect(light.interaction, const RebicInteractionStateTokens.fallback());
     expect(light.breakpoints, const RebicBreakpointTokens.fallback());
+    expect(light.animationMode, RebicAnimationMode.full);
   });
 
   group('Temas de referência claro e escuro', () {
@@ -124,18 +126,44 @@ void main() {
     });
   });
 
-  test('Movimento reduzido no tema — Tema resolvido com redução', () {
-    final resolved = light.resolve(disableAnimations: true);
+  void expectZeroDurations(RebicMotionTokens motion) {
     for (final d in [
-      resolved.motion.instant,
-      resolved.motion.short,
-      resolved.motion.medium,
-      resolved.motion.long,
+      motion.instant,
+      motion.short,
+      motion.medium,
+      motion.long,
     ]) {
       expect(d, Duration.zero);
     }
-    expect(resolved.copyWith(motion: light.motion), light);
+  }
+
+  test('Movimento reduzido no tema — Tema resolvido com redução', () {
+    final resolved = light.resolve(disableAnimations: true);
+    expect(resolved.animationMode, RebicAnimationMode.none);
+    expectZeroDurations(resolved.motion);
+    expect(
+      resolved.copyWith(
+        motion: light.motion,
+        animationMode: light.animationMode,
+      ),
+      light,
+    );
+  });
+
+  test(
+    'Movimento reduzido no tema — Modo do tema sem pedido da plataforma',
+    () {
+      final minimal = light.copyWith(animationMode: RebicAnimationMode.minimal);
+      final resolved = minimal.resolve(disableAnimations: false);
+      expect(resolved.animationMode, RebicAnimationMode.minimal);
+      expectZeroDurations(resolved.motion);
+    },
+  );
+
+  test('Movimento reduzido no tema — Tema sem redução', () {
     expect(light.resolve(disableAnimations: false), same(light));
+    final basic = light.copyWith(animationMode: RebicAnimationMode.basic);
+    expect(basic.resolve(disableAnimations: false), same(basic));
   });
 
   test(
@@ -190,6 +218,7 @@ void main() {
         light.copyWith(icons: light.icons.copyWith(control: 24)),
         light.copyWith(interaction: light.interaction.copyWith(focusWidth: 3)),
         light.copyWith(breakpoints: light.breakpoints.copyWith(large: 1100)),
+        light.copyWith(animationMode: RebicAnimationMode.none),
         light.copyWith(
           components: RebicTokenExtensions([const _ButtonTestTokens(1)]),
         ),
@@ -216,6 +245,7 @@ void main() {
         'icons',
         'interaction',
         'breakpoints',
+        'animationMode',
         'components',
         'extensions',
       ]) {

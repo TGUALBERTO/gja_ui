@@ -32,6 +32,8 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Estados de interação | Ativo, selecionado e selecionado com hover de Accept, Reject e Attention | normal invertido: fundo e borda `foreground`, texto `background` do estado | `sapButton_Accept_Active_Background` e `_Active_TextColor` (também no Horizon Evening) | `update-rebic-foundation-interaction-states-fiori-alignment` |
 | Sombras | Geometria de `shadow0`…`shadow3` | `shadow0`: (0, 2) e (2, 4); `shadow1`…`3`: contorno de 1 px e difusa (2, 8), (10, 30) e (20, 80), com fatores de opacidade 1 e 0,5 sobre `colors.shadow` | `sapContent_Shadow0`…`3` (cor de sombra e opacidades por camada não confirmadas) | `update-rebic-foundation-elevation-horizon-shadows` |
 | Sombras | Papel `dragged` | `shadow3` | o SAPUI5 não define sombra de item arrastado | `update-rebic-foundation-elevation-horizon-shadows` |
+| Movimento | Durações `short`, `medium` e `long` | 100, 200 e 300 ms (sem mudança) | o SAPUI5 não publica durações como parâmetros de tema | `update-rebic-foundation-design-tokens-fiori-motion` |
+| Movimento | Efeito dos modos de animação | `basic` = `full`; `minimal` = `none` (durações zero, indeterminado parado) | `sap.ui.core.AnimationMode` (`basic` sem efeitos caros; `minimal` mantém o indicador de ocupado) | `update-rebic-foundation-design-tokens-fiori-motion` |
 
 ## Alternativas consideradas
 

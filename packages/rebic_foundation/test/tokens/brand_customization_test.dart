@@ -12,9 +12,9 @@ void main() {
         short: RebicMotionPrimitives.duration150,
         medium: RebicMotionPrimitives.duration250,
         long: RebicMotionPrimitives.duration400,
-        standard: RebicMotionPrimitives.curveStandard,
-        enter: RebicMotionPrimitives.curveDecelerate,
-        exit: RebicMotionPrimitives.curveAccelerate,
+        standard: RebicMotionPrimitives.curveEaseInOut,
+        enter: RebicMotionPrimitives.curveEaseOut,
+        exit: RebicMotionPrimitives.curveEaseIn,
       );
       expect(brand.medium, RebicMotionPrimitives.duration250);
       expect(brand, isNot(const RebicMotionTokens.fallback()));

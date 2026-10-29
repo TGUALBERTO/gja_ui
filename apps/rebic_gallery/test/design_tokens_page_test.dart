@@ -15,6 +15,9 @@ void main() {
     }
     expect(find.text('0 ms'), findsOneWidget);
     expect(find.text('200 ms'), findsOneWidget);
+    expect(find.text('standard: ease-in-out'), findsOneWidget);
+    expect(find.text('enter: ease-out'), findsOneWidget);
+    expect(find.text('exit: ease-in'), findsOneWidget);
     expect(find.byType(MaterialApp), findsNothing);
     expect(find.byType(Material), findsNothing);
   });

@@ -34,9 +34,9 @@ class RebicMotionTokens extends RebicTokenSet<RebicMotionTokens> {
         short: RebicMotionPrimitives.duration100,
         medium: RebicMotionPrimitives.duration200,
         long: RebicMotionPrimitives.duration300,
-        standard: RebicMotionPrimitives.curveStandard,
-        enter: RebicMotionPrimitives.curveDecelerate,
-        exit: RebicMotionPrimitives.curveAccelerate,
+        standard: RebicMotionPrimitives.curveEaseInOut,
+        enter: RebicMotionPrimitives.curveEaseOut,
+        exit: RebicMotionPrimitives.curveEaseIn,
       );
 
   /// Mudança sem animação perceptível.
@@ -51,13 +51,13 @@ class RebicMotionTokens extends RebicTokenSet<RebicMotionTokens> {
   /// Transições de área grande (página, painel lateral).
   final Duration long;
 
-  /// Curva para movimentos dentro da tela.
+  /// Curva para movimentos dentro da tela (`ease-in-out` na referência).
   final Curve standard;
 
-  /// Curva para elementos que entram na tela.
+  /// Curva para elementos que entram na tela (`ease-out` na referência).
   final Curve enter;
 
-  /// Curva para elementos que saem da tela.
+  /// Curva para elementos que saem da tela (`ease-in` na referência).
   final Curve exit;
 
   @override

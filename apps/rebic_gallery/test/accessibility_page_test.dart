@@ -43,13 +43,19 @@ void main() {
       expect(find.text(line), findsOneWidget, reason: line);
     }
     expect(find.textContaining('WCAG 2.2 AA'), findsOneWidget);
-    expect(
-      find.text('Normal: short 100 ms · medium 200 ms · long 300 ms'),
-      findsOneWidget,
-    );
-    expect(
-      find.text('Com redução: short 0 ms · medium 0 ms · long 0 ms'),
-      findsOneWidget,
-    );
+    for (final mode in ['full', 'basic']) {
+      expect(
+        find.text('$mode: short 100 ms · medium 200 ms · long 300 ms'),
+        findsOneWidget,
+        reason: mode,
+      );
+    }
+    for (final mode in ['minimal', 'none']) {
+      expect(
+        find.text('$mode: short 0 ms · medium 0 ms · long 0 ms'),
+        findsOneWidget,
+        reason: mode,
+      );
+    }
   });
 }

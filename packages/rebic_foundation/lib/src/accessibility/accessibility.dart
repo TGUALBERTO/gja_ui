@@ -2,6 +2,7 @@ import '../color/contrast_check.dart';
 import '../density/density_tokens.dart';
 import '../spacing/primitives/spacing_primitives.dart';
 import '../tokens/motion_tokens.dart';
+import 'animation_mode.dart';
 
 /// Convenções de acessibilidade do Rebic (meta WCAG 2.2 AA).
 ///
@@ -56,16 +57,16 @@ abstract final class RebicAccessibility {
   static double minTargetSize(RebicDensityTokens density) =>
       density.minTargetSize;
 
-  /// Tokens de movimento efetivos.
+  /// Tokens de movimento efetivos no modo de animação [mode].
   ///
-  /// Com [disableAnimations] (ex.: `MediaQuery.disableAnimationsOf`), todas
-  /// as durações valem zero e as curvas são mantidas; sem ele, [motion] é
+  /// Com movimento reduzido ([RebicAnimationMode.reducesMotion]), todas as
+  /// durações valem zero e as curvas são mantidas; senão, [motion] é
   /// retornado sem alteração.
   static RebicMotionTokens resolveMotion(
     RebicMotionTokens motion, {
-    required bool disableAnimations,
+    required RebicAnimationMode mode,
   }) {
-    if (!disableAnimations) return motion;
+    if (!mode.reducesMotion) return motion;
     return motion.copyWith(
       short: Duration.zero,
       medium: Duration.zero,

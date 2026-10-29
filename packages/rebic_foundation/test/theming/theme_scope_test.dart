@@ -61,8 +61,35 @@ void main() {
         ]) {
           expect(d, Duration.zero);
         }
+        expect(reads.single.animationMode, RebicAnimationMode.none);
       },
     );
+
+    testWidgets('Tema na árvore de widgets — Animações desligadas pelo tema', (
+      tester,
+    ) async {
+      final reads = <RebicThemeData>[];
+      await tester.pumpWidget(
+        MediaQuery(
+          data: const MediaQueryData(),
+          child: RebicThemeScope(
+            data: RebicThemeData.light().copyWith(
+              animationMode: RebicAnimationMode.none,
+            ),
+            child: _Reader(reads),
+          ),
+        ),
+      );
+      final motion = reads.single.motion;
+      for (final d in [
+        motion.instant,
+        motion.short,
+        motion.medium,
+        motion.long,
+      ]) {
+        expect(d, Duration.zero);
+      }
+    });
 
     testWidgets('Tema na árvore de widgets — Reconstrução na troca', (
       tester,

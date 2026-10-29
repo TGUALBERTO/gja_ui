@@ -71,27 +71,52 @@ void main() {
     const motion = RebicMotionTokens.fallback();
 
     test('Movimento reduzido — Animações desativadas', () {
-      final reduced = RebicAccessibility.resolveMotion(
-        motion,
-        disableAnimations: true,
-      );
-      for (final d in [
-        reduced.instant,
-        reduced.short,
-        reduced.medium,
-        reduced.long,
+      for (final mode in [
+        RebicAnimationMode.minimal,
+        RebicAnimationMode.none,
       ]) {
-        expect(d, Duration.zero);
+        final reduced = RebicAccessibility.resolveMotion(motion, mode: mode);
+        for (final d in [
+          reduced.instant,
+          reduced.short,
+          reduced.medium,
+          reduced.long,
+        ]) {
+          expect(d, Duration.zero, reason: mode.name);
+        }
+        expect(reduced.standard, motion.standard, reason: mode.name);
+        expect(reduced.enter, motion.enter, reason: mode.name);
+        expect(reduced.exit, motion.exit, reason: mode.name);
       }
-      expect(reduced.standard, motion.standard);
-      expect(reduced.enter, motion.enter);
-      expect(reduced.exit, motion.exit);
     });
 
     test('Movimento reduzido — Animações ativas', () {
+      for (final mode in [RebicAnimationMode.full, RebicAnimationMode.basic]) {
+        expect(
+          RebicAccessibility.resolveMotion(motion, mode: mode),
+          same(motion),
+          reason: mode.name,
+        );
+      }
+    });
+
+    test('Movimento reduzido — Modo efetivo', () {
+      expect(RebicAnimationMode.values.map((m) => m.name), [
+        'full',
+        'basic',
+        'minimal',
+        'none',
+      ]);
+      for (final mode in RebicAnimationMode.values) {
+        expect(mode.effective(disableAnimations: false), mode);
+        expect(
+          mode.effective(disableAnimations: true),
+          RebicAnimationMode.none,
+        );
+      }
       expect(
-        RebicAccessibility.resolveMotion(motion, disableAnimations: false),
-        same(motion),
+        [for (final m in RebicAnimationMode.values) m.reducesMotion],
+        [false, false, true, true],
       );
     });
   });

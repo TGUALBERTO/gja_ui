@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart' show BuildContext, MediaQuery;
 
 import '../accessibility/accessibility.dart';
+import '../accessibility/animation_mode.dart';
 import '../breakpoints/breakpoint_tokens.dart';
 import '../color/color_tokens.dart';
 import '../color/contrast_check.dart';
@@ -42,6 +43,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
     required this.icons,
     required this.interaction,
     required this.breakpoints,
+    this.animationMode = RebicAnimationMode.full,
     this.components = const RebicTokenExtensions.empty(),
     this.extensions = const RebicTokenExtensions.empty(),
   });
@@ -111,6 +113,12 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
   /// Limiares de largura.
   final RebicBreakpointTokens breakpoints;
 
+  /// Modo de animação pedido pela aplicação (`sap-ui-animation-mode`).
+  ///
+  /// No tema resolvido ([resolve], [of]), é o modo efetivo, que também
+  /// considera o pedido da plataforma.
+  final RebicAnimationMode animationMode;
+
   /// Tokens de componente dos widgets do framework, por tipo.
   final RebicTokenExtensions components;
 
@@ -124,21 +132,28 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
   RebicThemeData withDensity(RebicDensity mode) =>
       copyWith(density: RebicDensityTokens.of(mode));
 
-  /// Este tema resolvido para a plataforma: com [disableAnimations], as
-  /// durações de movimento valem zero; sem ele, retorna este tema.
+  /// Este tema resolvido para a plataforma.
+  ///
+  /// O modo efetivo é [animationMode] ou, com [disableAnimations], `none`
+  /// ([RebicAnimationMode.effective]). O resultado tem esse modo e o
+  /// movimento resolvido para ele; com o mesmo modo e sem redução, é este
+  /// tema.
   RebicThemeData resolve({required bool disableAnimations}) {
-    if (!disableAnimations) return this;
+    final mode = animationMode.effective(disableAnimations: disableAnimations);
+    if (mode == animationMode && !mode.reducesMotion) return this;
     return copyWith(
-      motion: RebicAccessibility.resolveMotion(motion, disableAnimations: true),
+      animationMode: mode,
+      motion: RebicAccessibility.resolveMotion(motion, mode: mode),
     );
   }
 
   /// Tema ativo de [context]: o do `RebicThemeScope` mais próximo ou, sem
   /// escopo, o tema claro de referência.
   ///
-  /// Quando o sistema pede animações desligadas
-  /// (`MediaQuery.disableAnimations`), retorna o tema resolvido com movimento
-  /// reduzido. Quem chama é reconstruído quando o tema do escopo muda.
+  /// O tema vem resolvido para a plataforma ([resolve]) com
+  /// `MediaQuery.disableAnimations`: com movimento reduzido, pelo tema ou pelo
+  /// sistema, as durações valem zero. Quem chama é reconstruído quando o tema
+  /// do escopo muda.
   static RebicThemeData of(BuildContext context) {
     final data = maybeOf(context) ?? _fallback;
     final reduce = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
@@ -182,6 +197,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
     RebicIconTokens? icons,
     RebicInteractionStateTokens? interaction,
     RebicBreakpointTokens? breakpoints,
+    RebicAnimationMode? animationMode,
     RebicTokenExtensions? components,
     RebicTokenExtensions? extensions,
   }) {
@@ -196,6 +212,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
       icons: icons ?? this.icons,
       interaction: interaction ?? this.interaction,
       breakpoints: breakpoints ?? this.breakpoints,
+      animationMode: animationMode ?? this.animationMode,
       components: components ?? this.components,
       extensions: extensions ?? this.extensions,
     );
@@ -218,6 +235,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
       icons: icons.lerp(other.icons, t),
       interaction: interaction.lerp(other.interaction, t),
       breakpoints: breakpoints.lerp(other.breakpoints, t),
+      animationMode: lerpDiscrete(animationMode, other.animationMode, t),
       components: components.lerp(other.components, t),
       extensions: extensions.lerp(other.extensions, t),
     );
@@ -237,6 +255,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
         other.icons == icons &&
         other.interaction == interaction &&
         other.breakpoints == breakpoints &&
+        other.animationMode == animationMode &&
         other.components == components &&
         other.extensions == extensions;
   }
@@ -253,6 +272,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
     icons,
     interaction,
     breakpoints,
+    animationMode,
     components,
     extensions,
   );
@@ -280,6 +300,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
       ..add(
         DiagnosticsProperty<RebicBreakpointTokens>('breakpoints', breakpoints),
       )
+      ..add(EnumProperty<RebicAnimationMode>('animationMode', animationMode))
       ..add(DiagnosticsProperty<RebicTokenExtensions>('components', components))
       ..add(
         DiagnosticsProperty<RebicTokenExtensions>('extensions', extensions),

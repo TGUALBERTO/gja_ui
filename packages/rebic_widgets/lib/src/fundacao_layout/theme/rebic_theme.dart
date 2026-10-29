@@ -26,8 +26,9 @@ class RebicTheme extends StatelessWidget {
   /// Aplica [data] à subárvore [child].
   ///
   /// Uma troca de [data] é animada durante [duration] (por padrão, a duração
-  /// `medium` do movimento de [data]), com a curva `standard`. Com o
-  /// movimento reduzido pelo sistema, a troca é imediata.
+  /// `medium` do movimento de [data]), com a curva `standard`. Com movimento
+  /// reduzido, pelo `animationMode` de [data] ou pelo sistema, a troca é
+  /// imediata.
   const RebicTheme({
     required RebicThemeData this.data,
     required this.child,
@@ -62,7 +63,13 @@ class RebicTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final target = data ?? RebicThemeData.of(context).withDensity(density!);
-    final reduce = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+    // Modo efetivo: o do tema novo ou, com o pedido do sistema, `none`.
+    final reduce = target.animationMode
+        .effective(
+          disableAnimations:
+              MediaQuery.maybeDisableAnimationsOf(context) ?? false,
+        )
+        .reducesMotion;
     return _AnimatedRebicTheme(
       data: target,
       duration: reduce ? Duration.zero : duration ?? target.motion.medium,

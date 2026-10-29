@@ -208,10 +208,12 @@ void main() {
     Future<void> openDetail(
       WidgetTester tester, {
       TextDirection? direction,
+      RebicThemeData? theme,
     }) async {
       final probe = _Probe();
       await tester.pumpWidget(
         RebicApp(
+          theme: theme,
           density: RebicDensity.comfortable,
           builder: direction == null
               ? null
@@ -255,6 +257,18 @@ void main() {
         tester.platformDispatcher.clearAccessibilityFeaturesTestValue,
       );
       await openDetail(tester);
+      await tester.pump();
+      await tester.pump();
+      expect(tester.getTopLeft(find.byKey(const Key('detalhe'))).dx, 0);
+    });
+
+    testWidgets('transição imediata com o modo de animação none do tema', (
+      tester,
+    ) async {
+      await openDetail(
+        tester,
+        theme: light.copyWith(animationMode: RebicAnimationMode.none),
+      );
       await tester.pump();
       await tester.pump();
       expect(tester.getTopLeft(find.byKey(const Key('detalhe'))).dx, 0);

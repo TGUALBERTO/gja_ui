@@ -31,6 +31,15 @@ class _DesignTokensPageState extends State<DesignTokensPage>
     long: _fallback.long * 2,
   );
 
+  /// Curvas CSS usadas pelo SAPUI5, para nomear as curvas dos papéis.
+  static const _css = <Curve, String>{
+    Cubic(0.42, 0, 0.58, 1): 'ease-in-out',
+    Cubic(0, 0, 0.58, 1): 'ease-out',
+    Cubic(0.42, 0, 1, 1): 'ease-in',
+  };
+
+  static String _cssName(Curve curve) => _css[curve] ?? curve.toString();
+
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: _fallback.long,
@@ -104,6 +113,18 @@ class _DesignTokensPageState extends State<DesignTokensPage>
                         ),
                       ],
                     ),
+                  ),
+                const SizedBox(height: 16),
+                const Text('Curvas'),
+                const SizedBox(height: 8),
+                for (final (role, curve) in [
+                  ('standard', motion.standard),
+                  ('enter', motion.enter),
+                  ('exit', motion.exit),
+                ])
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Text('$role: ${_cssName(curve)}'),
                   ),
                 const SizedBox(height: 16),
                 GestureDetector(

@@ -35,11 +35,9 @@ class AccessibilityPage extends StatelessWidget {
     final colors = RebicThemeData.of(context).colors;
     final spacing = RebicThemeData.of(context).spacing;
     final typography = RebicThemeData.of(context).typography;
-    final motion = RebicThemeData.of(context).motion;
-    final reduced = RebicAccessibility.resolveMotion(
-      motion,
-      disableAnimations: true,
-    );
+    // Os tokens do tema, antes da resolução pela plataforma.
+    final motion =
+        (RebicThemeData.maybeOf(context) ?? RebicThemeData.light()).motion;
     final platformReduces = MediaQuery.disableAnimationsOf(context);
 
     String durations(RebicMotionTokens m) =>
@@ -70,10 +68,13 @@ class AccessibilityPage extends StatelessWidget {
             SizedBox(height: spacing.sectionGap),
             Text('Movimento', style: typography.header4),
             SizedBox(height: spacing.s),
-            Text('Normal: ${durations(motion)}'),
-            Text('Com redução: ${durations(reduced)}'),
+            for (final mode in RebicAnimationMode.values)
+              Text(
+                '${mode.name}: '
+                '${durations(RebicAccessibility.resolveMotion(motion, mode: mode))}',
+              ),
             Text(
-              'Plataforma pede redução: ${platformReduces ? 'sim' : 'não'}',
+              'Plataforma pede redução: ${platformReduces ? 'sim (modo none)' : 'não'}',
               style: typography.small.copyWith(color: colors.label),
             ),
             SizedBox(height: spacing.sectionGap),

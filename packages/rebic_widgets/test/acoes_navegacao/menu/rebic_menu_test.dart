@@ -512,6 +512,10 @@ void main() {
       tester.view.physicalSize = const Size(720, 480);
       addTearDown(tester.view.reset);
       for (final (name, theme) in goldenThemes) {
+        // Cada captura parte de uma aplicação nova: trocar o tema da mesma
+        // RebicApp anima a densidade, e a sobreposição abriria com a âncora
+        // no meio da transição.
+        await tester.pumpWidget(const SizedBox());
         final controller = _controller();
         await tester.pumpWidget(
           _app(
