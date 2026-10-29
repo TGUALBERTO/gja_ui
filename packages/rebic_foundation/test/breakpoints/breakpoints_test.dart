@@ -18,10 +18,14 @@ void main() {
       expect(double.parse(name.substring('width'.length)), value, reason: name);
       if (i > 0) expect(value, greaterThan(entries[i - 1].value), reason: name);
     }
-    expect(
-      RebicBreakpointPrimitives.values.values,
-      containsAll(<double>[360, 600, 840, 1024, 1280, 1440, 1920]),
-    );
+    expect(RebicBreakpointPrimitives.values.values, <double>[600, 1024, 1440]);
+  });
+
+  test('Escala primitiva de larguras — Faixas do SAPUI5', () {
+    expect(RebicBreakpointPrimitives.values.values, [600, 1024, 1440]);
+    for (final other in [360.0, 840.0, 1280.0, 1920.0]) {
+      expect(RebicBreakpointPrimitives.values.values, isNot(contains(other)));
+    }
   });
 
   test('Classes de tamanho — Comparação de classes', () {

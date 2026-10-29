@@ -1,20 +1,22 @@
-/// Classe de tamanho de uma largura disponível, em ordem crescente.
+/// Classe de tamanho de uma largura disponível, em ordem crescente, como as
+/// faixas S, M, L e XL do SAPUI5 (`sap.ui.Device.media`,
+/// `SAP_STANDARD_EXTENDED`).
 ///
 /// Nível: semântico.
 ///
 /// Obtida com `RebicBreakpointTokens.classify`. Layouts comparam classes com
 /// [isAtLeast] e [isAtMost], nunca com larguras literais.
 enum RebicSizeClass {
-  /// Celulares e janelas estreitas.
+  /// S, faixa Phone: celulares e janelas estreitas (< 600).
   small,
 
-  /// Tablets e janelas médias.
+  /// M, faixa Tablet: tablets e janelas médias (600–1023).
   medium,
 
-  /// Notebooks e desktops.
+  /// L, faixa Desktop: notebooks e desktops (1024–1439).
   large,
 
-  /// Desktops largos.
+  /// XL, faixa LargeDesktop: desktops largos (≥ 1440).
   extraLarge;
 
   /// Se esta classe é igual a [other] ou maior.

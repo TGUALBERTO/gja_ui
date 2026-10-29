@@ -23,7 +23,8 @@ class RebicBreakpointTokens extends RebicTokenSet<RebicBreakpointTokens> {
     required this.extraLarge,
   });
 
-  /// Mapeamento de referência: 600, 1024 e 1440.
+  /// Mapeamento de referência: 600, 1024 e 1440, os limites das faixas do
+  /// SAPUI5 (`SAP_STANDARD_EXTENDED`).
   const RebicBreakpointTokens.fallback()
     : this(
         medium: RebicBreakpointPrimitives.width600,

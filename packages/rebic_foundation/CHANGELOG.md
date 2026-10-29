@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- **BREAKING** Breakpoints no modelo SAPUI5 (`update-rebic-foundation-breakpoints-fiori-ranges`, spec
+  `rebic/foundation/breakpoints`): `RebicBreakpointPrimitives` passa a ter só `width600`, `width1024` e `width1440`, os
+  limites das faixas do `sap.ui.Device.media` (`SAP_STANDARD_EXTENDED`). Saem `width360`, `width840`, `width1280` e
+  `width1920`. O dartdoc de `RebicSizeClass` cita as faixas S, M, L e XL (Phone, Tablet, Desktop e LargeDesktop).
 - **BREAKING** Ícones no modelo do IconPool (`update-rebic-foundation-iconography-fiori-iconpool`, spec
   `rebic/foundation/iconography`): `RebicIcons` passa aos nomes do IconPool do SAPUI5 em camelCase. Os desenhos
   continuam os da Lucide.
