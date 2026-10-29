@@ -9,7 +9,7 @@ import '../text/rebic_text.dart';
 
 /// Cartão, como o `sap.f.Card` do SAPUI5.
 ///
-/// Uma superfície `base` com borda, raio `container` e sombra `card`, na
+/// Uma superfície `base` com borda, raio `tile` e sombra `card`, na
 /// largura disponível. Com [title], mostra o cabeçalho: o [leading] (ex.: um
 /// `RebicAvatar`), o título e o [subtitle] (até 2 linhas cada) e o [status]
 /// no fim (ex.: "3 de 5"), separado do conteúdo por um divisor. O [child]
@@ -77,7 +77,7 @@ class RebicCard extends StatelessWidget {
     return RebicContainer(
       surface: RebicSurface.base,
       border: true,
-      radius: RebicRadius.container,
+      radius: RebicRadius.tile,
       shadow: RebicShadow.card,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -144,7 +144,7 @@ class RebicCard extends StatelessWidget {
       child: RebicInteractable(
         semanticLabel: subtitle == null ? title : '$title, $subtitle',
         onPressed: onPressed,
-        focusRingBorderRadius: BorderRadius.circular(theme.radius.container),
+        focusRingBorderRadius: BorderRadius.circular(theme.radius.tile),
         builder: (context, states) => ExcludeSemantics(
           child: row(
             states.contains(RebicInteractionState.hovered)

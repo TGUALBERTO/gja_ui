@@ -155,7 +155,7 @@ class _Area extends StatelessWidget {
   @override
   Widget build(BuildContext context) => RebicContainer(
     surface: RebicSurface.header,
-    radius: RebicRadius.control,
+    radius: RebicRadius.element,
     padding: RebicSpace.s,
     child: child,
   );

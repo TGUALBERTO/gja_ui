@@ -36,6 +36,8 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Movimento | Efeito dos modos de animação | `basic` = `full`; `minimal` = `none` (durações zero, indeterminado parado) | `sap.ui.core.AnimationMode` (`basic` sem efeitos caros; `minimal` mantém o indicador de ocupado) | `update-rebic-foundation-design-tokens-fiori-motion` |
 | Densidade | Alvo mínimo (`minTargetSize`) | altura de linha: 44 no cozy, 32 no compacto, aplicada à altura e à largura pela `RebicInteractable` | caixa externa do `sap.m.Button` com `sapElement_LineHeight` (só na altura) | `update-rebic-foundation-density-fiori-cozy` |
 | Espaçamento | Margem de página por classe de tamanho | 16, 32, 32 e 48 (S, M, L, XL), pela largura da `RebicPage` | `sapUiResponsivePadding` e padding da `sap.f.DynamicPage` (1rem, 2rem, 2rem, 3rem) | `update-rebic-foundation-spacing-fiori-margins` |
+| Raios | Papéis por tipo de controle | `button` 8, `field` 4, `popover` 8, `element` 12, `tile` 16 | `sapButton_`, `sapField_`, `sapPopover_`, `sapElement_` e `sapTile_BorderCornerRadius` (0.5, 0.25, 0.5, 0.75 e 1rem) | `update-rebic-foundation-radius-fiori-roles` |
+| Raios | Anel de foco do link | `xs` (2) | contorno de foco do `sap.m.Link`, sem parâmetro próprio | `update-rebic-foundation-radius-fiori-roles` |
 
 ## Alternativas consideradas
 

@@ -170,7 +170,7 @@ void main() {
         );
         expect(container.surface, RebicSurface.base);
         expect(container.border, isTrue);
-        expect(container.radius, RebicRadius.container);
+        expect(container.radius, RebicRadius.tile);
         expect(container.shadow, RebicShadow.card);
         final decoration =
             tester

@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Raios no modelo Fiori (`update-rebic-foundation-radius-fiori-roles`, spec `rebic/core/interaction`): o anel de foco
+  de `RebicInteractable` usa por padrão o raio `button` do tema (`sapButton_BorderCornerRadius`), no lugar de
+  `control`.
 - **BREAKING** Densidade no modelo Fiori (`update-rebic-foundation-density-fiori-cozy`, spec `rebic/core/responsive`):
   `RebicResponsive.recommendedDensity` recomenda `RebicDensity.cozy` (antes `comfortable`) em Android, iOS e
   Fuchsia. A área mínima de `RebicInteractable` passa a 44 no cozy e a 32 no compacto, pelos tokens de densidade.

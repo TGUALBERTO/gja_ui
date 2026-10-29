@@ -80,7 +80,7 @@ class _Card extends StatelessWidget {
     return RebicContainer(
       surface: RebicSurface.base,
       border: true,
-      radius: RebicRadius.container,
+      radius: RebicRadius.tile,
       shadow: RebicShadow.card,
       padding: RebicSpace.l,
       child: RebicColumn(

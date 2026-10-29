@@ -87,7 +87,7 @@ class _Form extends StatelessWidget {
     return RebicContainer(
       surface: RebicSurface.base,
       border: true,
-      radius: RebicRadius.container,
+      radius: RebicRadius.tile,
       padding: RebicSpace.l,
       child: RebicResponsiveLayout(
         basis: basis,
@@ -138,7 +138,7 @@ class _Field extends StatelessWidget {
         RebicText(label, variant: RebicTextVariant.label),
         RebicContainer(
           border: true,
-          radius: RebicRadius.control,
+          radius: RebicRadius.field,
           child: SizedBox(height: height, width: double.infinity),
         ),
       ],

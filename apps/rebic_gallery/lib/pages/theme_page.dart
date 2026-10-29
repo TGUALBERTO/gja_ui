@@ -94,7 +94,7 @@ class _ThemePageState extends State<ThemePage> {
               color: value
                   ? page.colors.selectionBackground
                   : page.colors.headerBackground,
-              borderRadius: BorderRadius.circular(page.radius.control),
+              borderRadius: BorderRadius.circular(page.radius.button),
             ),
             child: Text(label),
           ),
@@ -163,7 +163,7 @@ class _Preview extends StatelessWidget {
         padding: EdgeInsets.all(t.spacing.l),
         decoration: BoxDecoration(
           color: t.colors.base,
-          borderRadius: BorderRadius.circular(t.radius.container),
+          borderRadius: BorderRadius.circular(t.radius.tile),
           boxShadow: t.shadows.boxShadows(t.shadows.card, t.colors.shadow),
         ),
         child: DefaultTextStyle(
@@ -185,7 +185,7 @@ class _Preview extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: t.colors.base,
                   border: Border.all(color: t.colors.fieldBorder),
-                  borderRadius: BorderRadius.circular(t.radius.control),
+                  borderRadius: BorderRadius.circular(t.radius.field),
                 ),
                 child: Text('Código do material', style: t.typography.base),
               ),
@@ -196,7 +196,7 @@ class _Preview extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: t.colors.brand,
-                  borderRadius: BorderRadius.circular(t.radius.control),
+                  borderRadius: BorderRadius.circular(t.radius.button),
                 ),
                 child: Text(
                   'Enviar',

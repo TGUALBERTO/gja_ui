@@ -211,7 +211,7 @@ void main() {
           typography: light.typography.copyWith(base: light.typography.small),
         ),
         light.copyWith(density: const RebicDensityTokens.compact()),
-        light.copyWith(radius: light.radius.copyWith(control: 6)),
+        light.copyWith(radius: light.radius.copyWith(button: 6)),
         light.copyWith(
           shadows: light.shadows.copyWith(card: light.shadows.shadow1),
         ),

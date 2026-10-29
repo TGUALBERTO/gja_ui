@@ -40,7 +40,7 @@ void main() {
       );
       expect(card.surface, RebicSurface.base);
       expect(card.border, isTrue);
-      expect(card.radius, RebicRadius.container);
+      expect(card.radius, RebicRadius.tile);
       expect(card.shadow, RebicShadow.card);
       expect(card.padding, RebicSpace.l);
     },

@@ -49,7 +49,7 @@ class RebicIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = RebicThemeData.of(context);
     final family = RebicControlColors.of(rebicButtonFamily(type), theme.colors);
-    final corners = BorderRadius.circular(theme.radius.control);
+    final corners = BorderRadius.circular(theme.radius.button);
     // A dica é o rótulo do botão; não é anunciada de novo como dica.
     return RebicTooltip(
       message: tooltip,

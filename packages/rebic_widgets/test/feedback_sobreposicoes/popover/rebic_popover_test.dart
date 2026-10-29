@@ -410,7 +410,7 @@ void main() {
         final container = tester.widget<RebicContainer>(_panel());
         expect(container.surface, RebicSurface.base);
         expect(container.border, isFalse);
-        expect(container.radius, RebicRadius.container);
+        expect(container.radius, RebicRadius.popover);
         expect(container.shadow, RebicShadow.popover);
         final decoration =
             tester

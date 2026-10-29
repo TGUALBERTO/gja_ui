@@ -93,7 +93,7 @@ class RebicContainerPage extends StatelessWidget {
                       shadow.name,
                       RebicContainer(
                         surface: RebicSurface.base,
-                        radius: RebicRadius.control,
+                        radius: RebicRadius.tile,
                         shadow: shadow,
                         padding: RebicSpace.xl,
                       ),
@@ -109,7 +109,7 @@ class RebicContainerPage extends StatelessWidget {
                   key: cardKey,
                   surface: RebicSurface.base,
                   border: true,
-                  radius: RebicRadius.container,
+                  radius: RebicRadius.tile,
                   shadow: RebicShadow.card,
                   padding: RebicSpace.l,
                   child: Column(

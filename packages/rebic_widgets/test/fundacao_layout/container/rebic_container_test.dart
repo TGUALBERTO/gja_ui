@@ -73,8 +73,8 @@ Widget _sample() => Column(
     Row(
       children: [
         for (final r in [
-          RebicRadius.control,
-          RebicRadius.container,
+          RebicRadius.button,
+          RebicRadius.tile,
           RebicRadius.full,
         ])
           RebicSpacing.padding(
@@ -102,7 +102,7 @@ Widget _sample() => Column(
             end: RebicSpace.l,
             child: RebicContainer(
               surface: RebicSurface.base,
-              radius: RebicRadius.control,
+              radius: RebicRadius.button,
               shadow: e,
               padding: RebicSpace.l,
             ),
@@ -113,7 +113,7 @@ Widget _sample() => Column(
     RebicContainer(
       surface: RebicSurface.base,
       border: true,
-      radius: RebicRadius.container,
+      radius: RebicRadius.tile,
       shadow: RebicShadow.card,
       padding: RebicSpace.l,
       child: Column(
@@ -198,7 +198,7 @@ void main() {
         _themed(
           const RebicContainer(
             key: _c,
-            radius: RebicRadius.container,
+            radius: RebicRadius.tile,
             child: ColoredBox(
               color: Color(0xFF000000),
               child: SizedBox(width: 80, height: 40),
@@ -207,7 +207,7 @@ void main() {
         ),
       );
       final clip = tester.widget<ClipRRect>(_clip());
-      expect(clip.borderRadius, BorderRadius.circular(theme.radius.container));
+      expect(clip.borderRadius, BorderRadius.circular(theme.radius.tile));
     });
 
     testWidgets('[Comportamento] Recorte nos cantos — Sem raio, sem recorte', (
@@ -285,8 +285,11 @@ void main() {
         RebicRadius.l: theme.radius.l,
         RebicRadius.xl: theme.radius.xl,
         RebicRadius.full: theme.radius.full,
-        RebicRadius.control: theme.radius.control,
-        RebicRadius.container: theme.radius.container,
+        RebicRadius.button: theme.radius.button,
+        RebicRadius.field: theme.radius.field,
+        RebicRadius.popover: theme.radius.popover,
+        RebicRadius.element: theme.radius.element,
+        RebicRadius.tile: theme.radius.tile,
       };
       for (final MapEntry(key: r, value: v) in radius.entries) {
         await tester.pumpWidget(
@@ -356,7 +359,7 @@ void main() {
       RebicApp(
         home: RebicContainer(
           surface: RebicSurface.base,
-          radius: RebicRadius.container,
+          radius: RebicRadius.tile,
           padding: RebicSpace.m,
           child: Column(
             children: [
@@ -387,7 +390,7 @@ void main() {
         const RebicContainer(
           surface: RebicSurface.base,
           border: true,
-          radius: RebicRadius.container,
+          radius: RebicRadius.tile,
           shadow: RebicShadow.card,
           padding: RebicSpace.l,
           child: RebicText('Pedido'),
@@ -413,7 +416,7 @@ void main() {
           children: [
             RebicContainer(
               key: Key('cozy'),
-              radius: RebicRadius.container,
+              radius: RebicRadius.tile,
               shadow: RebicShadow.card,
               padding: RebicSpace.l,
               child: _box,
@@ -422,7 +425,7 @@ void main() {
               density: RebicDensity.compact,
               child: RebicContainer(
                 key: Key('compact'),
-                radius: RebicRadius.container,
+                radius: RebicRadius.tile,
                 shadow: RebicShadow.card,
                 padding: RebicSpace.l,
                 child: _box,
@@ -474,7 +477,7 @@ void main() {
               RebicContainer(
                 surface: s,
                 border: true,
-                radius: RebicRadius.control,
+                radius: RebicRadius.button,
                 shadow: RebicShadow.card,
                 padding: RebicSpace.s,
                 child: RebicText(s.name),

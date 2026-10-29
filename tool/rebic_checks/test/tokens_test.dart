@@ -69,7 +69,7 @@ Widget build(BuildContext context) {
         final repo = fixtureRepo({
           _file: '''
 BoxDecoration decoration() {
-  return BoxDecoration(borderRadius: BorderRadius.circular(radius.control));
+  return BoxDecoration(borderRadius: BorderRadius.circular(radius.button));
 }
 ''',
         });

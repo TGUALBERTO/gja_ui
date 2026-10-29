@@ -21,7 +21,7 @@ class RebicDividerPage extends StatelessWidget {
     Widget card(Widget child) => RebicContainer(
       surface: RebicSurface.base,
       border: true,
-      radius: RebicRadius.container,
+      radius: RebicRadius.tile,
       padding: RebicSpace.l,
       child: child,
     );

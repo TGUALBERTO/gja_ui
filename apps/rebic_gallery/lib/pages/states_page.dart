@@ -151,7 +151,7 @@ class _Sample extends StatelessWidget {
     final c = RebicControlColors.of(family, colors).resolve(states);
     final ring = interaction.showsFocusRing(states);
     final outer =
-        radius.control + interaction.focusOffset + interaction.focusWidth;
+        radius.button + interaction.focusOffset + interaction.focusWidth;
 
     return Container(
       key: StatesPage.ringKey(mode, family, label),
@@ -175,7 +175,7 @@ class _Sample extends StatelessWidget {
           decoration: BoxDecoration(
             color: c.background,
             border: Border.all(color: c.border),
-            borderRadius: BorderRadius.circular(radius.control),
+            borderRadius: BorderRadius.circular(radius.button),
           ),
           child: Text(label, style: typography.base.copyWith(color: c.text)),
         ),

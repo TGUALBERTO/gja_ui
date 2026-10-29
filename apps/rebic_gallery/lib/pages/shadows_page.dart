@@ -96,7 +96,7 @@ class _ModeStrip extends StatelessWidget {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: colors.base,
-                      borderRadius: BorderRadius.circular(radius.container),
+                      borderRadius: BorderRadius.circular(radius.tile),
                       boxShadow: shadows.boxShadows(shadow, colors.shadow),
                     ),
                     child: Text(name, style: typography.base),

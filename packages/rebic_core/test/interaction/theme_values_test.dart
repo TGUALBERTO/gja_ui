@@ -63,7 +63,7 @@ void main() {
         expect(ring.visible, isTrue);
         expect(ring.color, focus);
         expect(ring.width, theme.interaction.focusWidth);
-        expect(ring.borderRadius, BorderRadius.circular(theme.radius.control));
+        expect(ring.borderRadius, BorderRadius.circular(theme.radius.button));
       },
     );
 

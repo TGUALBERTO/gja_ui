@@ -22,8 +22,11 @@ void main() {
       'l': '12 px',
       'xl': '16 px',
       'full': 'pílula',
-      'control': '4 px',
-      'container': '8 px',
+      'button': '8 px',
+      'field': '4 px',
+      'popover': '8 px',
+      'element': '12 px',
+      'tile': '16 px',
     };
     for (final MapEntry(key: name, value: value) in expected.entries) {
       final sample = find.ancestor(

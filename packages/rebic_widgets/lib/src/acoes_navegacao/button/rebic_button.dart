@@ -78,7 +78,7 @@ class RebicButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = RebicThemeData.of(context);
     final family = RebicControlColors.of(rebicButtonFamily(type), theme.colors);
-    final corners = BorderRadius.circular(theme.radius.control);
+    final corners = BorderRadius.circular(theme.radius.button);
     final onPressed = this.onPressed;
     final icon = this.icon;
 

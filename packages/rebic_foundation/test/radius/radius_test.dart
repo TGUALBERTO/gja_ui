@@ -75,19 +75,35 @@ void main() {
 
     test('Passos e papéis semânticos de raio — Papéis apontam para passos', () {
       final steps = _steps(_fallback).toSet();
-      expect(steps, contains(_fallback.control));
-      expect(steps, contains(_fallback.container));
-      expect(_fallback.control, lessThanOrEqualTo(_fallback.container));
+      for (final role in [
+        _fallback.button,
+        _fallback.field,
+        _fallback.popover,
+        _fallback.element,
+        _fallback.tile,
+      ]) {
+        expect(steps, contains(role));
+      }
+    });
+
+    test('Passos e papéis semânticos de raio — Papéis do Fiori', () {
+      expect(_fallback.button, 8);
+      expect(_fallback.field, 4);
+      expect(_fallback.popover, 8);
+      expect(_fallback.element, 12);
+      expect(_fallback.tile, 16);
+      expect(_fallback.values.keys, isNot(contains('control')));
+      expect(_fallback.values.keys, isNot(contains('container')));
     });
 
     test('Passos e papéis semânticos de raio — Valor negativo rejeitado', () {
       expect(
-        () => _fallback.copyWith(control: -1),
+        () => _fallback.copyWith(button: -1),
         throwsA(
           isA<AssertionError>().having(
             (e) => e.message,
             'message',
-            contains('"control"'),
+            contains('"button"'),
           ),
         ),
       );
@@ -106,8 +122,11 @@ void main() {
         m: _fallback.m * 2,
         l: _fallback.l * 2,
         xl: _fallback.xl * 2,
-        control: _fallback.control * 2,
-        container: _fallback.container * 2,
+        button: _fallback.button * 2,
+        field: _fallback.field * 2,
+        popover: _fallback.popover * 2,
+        element: _fallback.element * 2,
+        tile: _fallback.tile * 2,
       );
       expectTokenSetContract(
         a: _fallback,
@@ -119,9 +138,9 @@ void main() {
     });
 
     test('Contrato do conjunto de raios — Interpolação de um papel', () {
-      final a = _fallback.copyWith(control: 4);
-      final b = _fallback.copyWith(control: 8);
-      expect(a.lerp(b, 0.5).control, 6);
+      final a = _fallback.copyWith(button: 4);
+      final b = _fallback.copyWith(button: 8);
+      expect(a.lerp(b, 0.5).button, 6);
     });
 
     test('Contrato do conjunto de raios — Valores vêm dos primitivos', () {
@@ -144,8 +163,11 @@ void main() {
         _fallback.copyWith(l: 13),
         _fallback.copyWith(xl: 17),
         _fallback.copyWith(full: 5000),
-        _fallback.copyWith(control: 5),
-        _fallback.copyWith(container: 9),
+        _fallback.copyWith(button: 5),
+        _fallback.copyWith(field: 5),
+        _fallback.copyWith(popover: 5),
+        _fallback.copyWith(element: 5),
+        _fallback.copyWith(tile: 5),
       ];
       for (final (i, variant) in variants.indexed) {
         expect(variant, isNot(_fallback), reason: 'campo $i');

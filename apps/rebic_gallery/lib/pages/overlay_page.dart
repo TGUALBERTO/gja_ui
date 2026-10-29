@@ -62,7 +62,7 @@ class _OverlayPageState extends State<OverlayPage> {
           decoration: BoxDecoration(
             color: c.background,
             border: Border.all(color: c.border),
-            borderRadius: BorderRadius.circular(t.radius.control),
+            borderRadius: BorderRadius.circular(t.radius.button),
           ),
           child: Text(label, style: t.typography.base.copyWith(color: c.text)),
         );
@@ -76,7 +76,7 @@ class _OverlayPageState extends State<OverlayPage> {
       padding: EdgeInsets.all(t.spacing.l),
       decoration: BoxDecoration(
         color: t.colors.base,
-        borderRadius: BorderRadius.circular(t.radius.container),
+        borderRadius: BorderRadius.circular(t.radius.element),
         boxShadow: t.shadows.boxShadows(t.shadows.dialog, t.colors.shadow),
       ),
       child: DefaultTextStyle(

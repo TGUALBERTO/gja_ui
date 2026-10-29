@@ -568,7 +568,7 @@ void main() {
                   child: const RebicContainer(
                     surface: RebicSurface.base,
                     border: true,
-                    radius: RebicRadius.control,
+                    radius: RebicRadius.field,
                     child: RebicSpacing.padding(
                       horizontal: RebicSpace.m,
                       vertical: RebicSpace.s,

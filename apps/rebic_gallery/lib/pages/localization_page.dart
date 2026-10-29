@@ -52,7 +52,7 @@ class _LocalizationPageState extends State<LocalizationPage> {
               color: selected
                   ? colors.selectionBackground
                   : colors.headerBackground,
-              borderRadius: BorderRadius.circular(theme.radius.control),
+              borderRadius: BorderRadius.circular(theme.radius.button),
             ),
             child: Text(locale.toLanguageTag()),
           ),

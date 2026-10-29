@@ -2,6 +2,12 @@
 
 ## Não lançado
 
+- **BREAKING** Raios no modelo Fiori (`update-rebic-foundation-radius-fiori-roles`):
+  - `RebicRadius` (de `RebicContainer`) troca `control` e `container` por `button`, `field`, `popover`, `element` e
+    `tile`.
+  - `RebicButton` e `RebicIconButton` passam a ter cantos de 8 (`button`), e `RebicCard` de 16 (`tile`).
+  - `RebicPopover` usa `popover` (8, sem mudança visual), e o anel de foco de `RebicLink` usa `xs`.
+  - Os goldens de botão, botão de ícone, cartão, contêiner, menu e popover foram regerados.
 - Espaçamento no modelo Fiori (`update-rebic-foundation-spacing-fiori-margins`): `RebicPage` usa a margem de página
   da classe de tamanho da própria largura (16, 32, 32 e 48 de S a XL), como a `sap.f.DynamicPage`, no conteúdo, na
   área de título e no rodapé. Na densidade compacta, os widgets passam a ter o mesmo espaçamento da cozy, e os goldens

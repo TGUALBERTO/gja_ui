@@ -18,7 +18,7 @@ typedef RebicInteractableBuilder =
 /// controle e `RebicInteractionStateTokens.opacity`.
 ///
 /// Os valores visuais omitidos vêm do tema ativo (`RebicThemeData.of`):
-/// alvo da densidade, tokens de interação, cor `focus` e raio `control`. Um
+/// alvo da densidade, tokens de interação, cor `focus` e raio `button`. Um
 /// valor passado tem precedência sobre o do tema.
 class RebicInteractable extends StatefulWidget {
   /// Cria o elemento.
@@ -66,7 +66,7 @@ class RebicInteractable extends StatefulWidget {
   final Color? focusColor;
 
   /// Cantos do conteúdo, para o anel de foco acompanhar a curva; nulo usa o
-  /// raio `control` do tema ativo.
+  /// raio `button` do tema ativo.
   final BorderRadius? focusRingBorderRadius;
 
   /// Se o elemento é exposto ao leitor de tela como link, em vez de botão
@@ -185,7 +185,7 @@ class _RebicInteractableState extends State<RebicInteractable> {
                   color: widget.focusColor ?? theme.colors.focus,
                   borderRadius:
                       widget.focusRingBorderRadius ??
-                      BorderRadius.circular(theme.radius.control),
+                      BorderRadius.circular(theme.radius.button),
                   child: widget.builder(context, states),
                 ),
               ),

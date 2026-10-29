@@ -93,7 +93,7 @@ class _DensityColumn extends StatelessWidget {
             decoration: BoxDecoration(
               color: colors.base,
               border: Border.all(color: colors.fieldBorder),
-              borderRadius: BorderRadius.circular(radius.control),
+              borderRadius: BorderRadius.circular(radius.button),
             ),
             child: Text('Campo', style: typography.base),
           ),

@@ -10,8 +10,9 @@ import 'primitives/radius_primitives.dart';
 /// Nível: semântico.
 ///
 /// Widgets expressam raios somente com estes valores (ex.:
-/// `BorderRadius.circular(radius.control)`). [full] produz o formato de
-/// pílula. Os papéis [control] e [container] dão nome à intenção e podem ser
+/// `BorderRadius.circular(radius.button)`). [full] produz o formato de
+/// pílula. Os papéis ([button], [field], [popover], [element], [tile]) são os
+/// raios por tipo de controle do Fiori (`sap*_BorderCornerRadius`) e podem ser
 /// ajustados sem mexer na escala. Todos os valores devem ser finitos e não
 /// negativos; [copyWith] verifica com `assert` em modo debug.
 @immutable
@@ -25,11 +26,15 @@ class RebicRadiusTokens extends RebicTokenSet<RebicRadiusTokens> {
     required this.l,
     required this.xl,
     required this.full,
-    required this.control,
-    required this.container,
+    required this.button,
+    required this.field,
+    required this.popover,
+    required this.element,
+    required this.tile,
   });
 
-  /// Mapeamento de referência.
+  /// Mapeamento de referência, com os raios do Horizon (valores provisórios,
+  /// ADR 0009).
   const RebicRadiusTokens.fallback()
     : this(
         none: RebicRadiusPrimitives.radius0,
@@ -39,8 +44,11 @@ class RebicRadiusTokens extends RebicTokenSet<RebicRadiusTokens> {
         l: RebicRadiusPrimitives.radius12,
         xl: RebicRadiusPrimitives.radius16,
         full: RebicRadiusPrimitives.radiusFull,
-        control: RebicRadiusPrimitives.radius4,
-        container: RebicRadiusPrimitives.radius8,
+        button: RebicRadiusPrimitives.radius8,
+        field: RebicRadiusPrimitives.radius4,
+        popover: RebicRadiusPrimitives.radius8,
+        element: RebicRadiusPrimitives.radius12,
+        tile: RebicRadiusPrimitives.radius16,
       );
 
   /// Cantos retos.
@@ -64,11 +72,20 @@ class RebicRadiusTokens extends RebicTokenSet<RebicRadiusTokens> {
   /// Pílula: extremidades em semicírculo.
   final double full;
 
-  /// Botões, campos e caixas de seleção.
-  final double control;
+  /// Botões e botões de ícone (`sapButton_BorderCornerRadius`).
+  final double button;
 
-  /// Cartões, diálogos e menus.
-  final double container;
+  /// Campos de entrada (`sapField_BorderCornerRadius`).
+  final double field;
+
+  /// Popovers, menus e listas suspensas (`sapPopover_BorderCornerRadius`).
+  final double popover;
+
+  /// Diálogos e painéis (`sapElement_BorderCornerRadius`).
+  final double element;
+
+  /// Cartões e blocos (`sapTile_BorderCornerRadius`).
+  final double tile;
 
   /// Valores por nome, na ordem de declaração.
   Map<String, double> get values => {
@@ -79,8 +96,11 @@ class RebicRadiusTokens extends RebicTokenSet<RebicRadiusTokens> {
     'l': l,
     'xl': xl,
     'full': full,
-    'control': control,
-    'container': container,
+    'button': button,
+    'field': field,
+    'popover': popover,
+    'element': element,
+    'tile': tile,
   };
 
   @override
@@ -92,8 +112,11 @@ class RebicRadiusTokens extends RebicTokenSet<RebicRadiusTokens> {
     double? l,
     double? xl,
     double? full,
-    double? control,
-    double? container,
+    double? button,
+    double? field,
+    double? popover,
+    double? element,
+    double? tile,
   }) {
     final result = RebicRadiusTokens(
       none: none ?? this.none,
@@ -103,8 +126,11 @@ class RebicRadiusTokens extends RebicTokenSet<RebicRadiusTokens> {
       l: l ?? this.l,
       xl: xl ?? this.xl,
       full: full ?? this.full,
-      control: control ?? this.control,
-      container: container ?? this.container,
+      button: button ?? this.button,
+      field: field ?? this.field,
+      popover: popover ?? this.popover,
+      element: element ?? this.element,
+      tile: tile ?? this.tile,
     );
     assert(() {
       for (final MapEntry(key: name, value: value) in result.values.entries) {
@@ -131,8 +157,11 @@ class RebicRadiusTokens extends RebicTokenSet<RebicRadiusTokens> {
       l: mix(l, other.l),
       xl: mix(xl, other.xl),
       full: mix(full, other.full),
-      control: mix(control, other.control),
-      container: mix(container, other.container),
+      button: mix(button, other.button),
+      field: mix(field, other.field),
+      popover: mix(popover, other.popover),
+      element: mix(element, other.element),
+      tile: mix(tile, other.tile),
     );
   }
 
@@ -147,13 +176,28 @@ class RebicRadiusTokens extends RebicTokenSet<RebicRadiusTokens> {
         other.l == l &&
         other.xl == xl &&
         other.full == full &&
-        other.control == control &&
-        other.container == container;
+        other.button == button &&
+        other.field == field &&
+        other.popover == popover &&
+        other.element == element &&
+        other.tile == tile;
   }
 
   @override
-  int get hashCode =>
-      Object.hash(none, xs, s, m, l, xl, full, control, container);
+  int get hashCode => Object.hash(
+    none,
+    xs,
+    s,
+    m,
+    l,
+    xl,
+    full,
+    button,
+    field,
+    popover,
+    element,
+    tile,
+  );
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

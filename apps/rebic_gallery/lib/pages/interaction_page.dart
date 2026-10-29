@@ -62,7 +62,7 @@ class _InteractionPageState extends State<InteractionPage> {
               decoration: BoxDecoration(
                 color: c.background,
                 border: Border.all(color: colors.separator),
-                borderRadius: BorderRadius.circular(theme.radius.control),
+                borderRadius: BorderRadius.circular(theme.radius.button),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

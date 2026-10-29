@@ -45,11 +45,20 @@ enum RebicRadius {
   /// Pílula: cantos máximos.
   full,
 
-  /// Papel de botões, campos e caixas de seleção.
-  control,
+  /// Botões (`sapButton_BorderCornerRadius`).
+  button,
 
-  /// Papel de cartões, diálogos e menus.
-  container,
+  /// Campos de entrada (`sapField_BorderCornerRadius`).
+  field,
+
+  /// Popovers, menus e listas suspensas (`sapPopover_BorderCornerRadius`).
+  popover,
+
+  /// Diálogos e painéis (`sapElement_BorderCornerRadius`).
+  element,
+
+  /// Cartões e blocos (`sapTile_BorderCornerRadius`).
+  tile,
 }
 
 /// Sombra de um [RebicContainer], por papel de `RebicShadowTokens`.
@@ -85,7 +94,7 @@ enum RebicShadow {
 /// const RebicContainer(
 ///   surface: RebicSurface.base,
 ///   border: true,
-///   radius: RebicRadius.container,
+///   radius: RebicRadius.tile,
 ///   shadow: RebicShadow.card,
 ///   padding: RebicSpace.l,
 ///   child: RebicText('Pedido 4711'),
@@ -142,8 +151,11 @@ class RebicContainer extends StatelessWidget {
         RebicRadius.l => r.l,
         RebicRadius.xl => r.xl,
         RebicRadius.full => r.full,
-        RebicRadius.control => r.control,
-        RebicRadius.container => r.container,
+        RebicRadius.button => r.button,
+        RebicRadius.field => r.field,
+        RebicRadius.popover => r.popover,
+        RebicRadius.element => r.element,
+        RebicRadius.tile => r.tile,
       };
 
   static List<RebicShadowLayer> _shadow(

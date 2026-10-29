@@ -162,7 +162,7 @@ class _RebicPopoverState extends State<RebicPopover> {
         width: math.max(theme.spacing.xxxl * widget.width._steps, _anchorWidth),
         child: RebicContainer(
           surface: RebicSurface.base,
-          radius: RebicRadius.container,
+          radius: RebicRadius.popover,
           shadow: RebicShadow.popover,
           child: Column(
             mainAxisSize: MainAxisSize.min,

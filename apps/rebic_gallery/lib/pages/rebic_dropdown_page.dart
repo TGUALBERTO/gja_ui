@@ -147,7 +147,7 @@ class _StatusField extends StatelessWidget {
             child: RebicContainer(
               surface: RebicSurface.base,
               border: true,
-              radius: RebicRadius.control,
+              radius: RebicRadius.field,
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   minHeight: theme.density.controlHeight,

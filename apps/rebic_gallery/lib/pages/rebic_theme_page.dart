@@ -84,7 +84,7 @@ class _Preview extends StatelessWidget {
       decoration: BoxDecoration(
         color: t.colors.base,
         border: Border.all(color: t.colors.separator),
-        borderRadius: BorderRadius.circular(t.radius.container),
+        borderRadius: BorderRadius.circular(t.radius.tile),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,7 +166,7 @@ class _Button extends StatelessWidget {
           decoration: BoxDecoration(
             color: c.background,
             border: Border.all(color: c.border),
-            borderRadius: BorderRadius.circular(t.radius.control),
+            borderRadius: BorderRadius.circular(t.radius.button),
           ),
           child: Text(label, style: t.typography.base.copyWith(color: c.text)),
         );

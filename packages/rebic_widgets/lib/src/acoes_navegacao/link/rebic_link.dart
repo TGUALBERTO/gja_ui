@@ -54,7 +54,7 @@ class RebicLink extends StatelessWidget {
         link: true,
         semanticLabel: text,
         onPressed: onPressed,
-        focusRingBorderRadius: BorderRadius.circular(theme.radius.control),
+        focusRingBorderRadius: BorderRadius.circular(theme.radius.xs),
         builder: (context, states) {
           final underline =
               states.contains(RebicInteractionState.hovered) ||

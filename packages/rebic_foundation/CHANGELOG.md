@@ -2,6 +2,18 @@
 
 ## Não lançado
 
+- **BREAKING** Raios no modelo Fiori (`update-rebic-foundation-radius-fiori-roles`, spec `rebic/foundation/radius`):
+  os papéis `control` e `container` de `RebicRadiusTokens` dão lugar aos raios por tipo de controle do Horizon.
+
+    | Papel | Parâmetro Fiori | Referência |
+    |---|---|---|
+    | `button` | `sapButton_BorderCornerRadius` | 8 |
+    | `field` | `sapField_BorderCornerRadius` | 4 |
+    | `popover` | `sapPopover_BorderCornerRadius` | 8 |
+    | `element` | `sapElement_BorderCornerRadius` | 12 |
+    | `tile` | `sapTile_BorderCornerRadius` | 16 |
+
+  Antes, `control` valia 4 e `container` valia 8. Valores provisórios na ADR 0009.
 - Espaçamento no modelo Fiori (`update-rebic-foundation-spacing-fiori-margins`, specs `rebic/foundation/spacing` e
   `rebic/foundation/density`):
   - `RebicSpacingTokens` ganha `pageMarginMedium`, `pageMarginLarge`, `pageMarginExtraLarge` e
