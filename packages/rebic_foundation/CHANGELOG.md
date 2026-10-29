@@ -2,6 +2,19 @@
 
 ## Não lançado
 
+- **BREAKING** Estados de interação no modelo Fiori (`update-rebic-foundation-interaction-states-fiori-alignment`,
+  specs `rebic/foundation/interaction-states` e `rebic/foundation/color`):
+  - `RebicInteractionState.dragged` removido. O item arrastado usa a sombra `dragged` de elevação e as cores de
+    `pressed`.
+  - `RebicInteractionPrimitives` fica só com `opacity40` (`sapContent_DisabledOpacity`). Saem `opacity0`, `opacity4`,
+    `opacity8`, `opacity12`, `opacity16`, `opacity24`, `opacity50` e `opacity100`.
+  - `RebicValueStateColors` ganha o papel obrigatório `hoverBackground`, um tom acima do `background` do estado
+    (como `sapButton_Accept_Hover_Background`). `rebicCheckContrast` passa a medir o `foreground` sobre ele.
+  - As famílias `accept`, `reject` e `attention` usam só as cores do estado de valor: hover com o `hoverBackground`
+    do estado, e ativo, selecionado e selecionado com hover com o normal invertido (`foreground` de fundo e borda,
+    `background` de texto). Antes, usavam o `hoverBackground` neutro e o `highlight` da marca.
+
+  Valores provisórios na ADR 0009.
 - **BREAKING** Tipografia no modelo Fiori (`update-rebic-foundation-typography-fiori-sizes`, spec
   `rebic/foundation/typography`): os estilos de `RebicTypographyTokens` passam aos nomes dos parâmetros de tamanho de
   fonte do SAPUI5 (`sapFontHeader1Size`…`6Size`, `sapFontLargeSize`, `sapFontSize`, `sapFontSmallSize`), com títulos em

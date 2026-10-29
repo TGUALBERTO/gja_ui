@@ -1,50 +1,18 @@
-/// Escalas primitivas de interação: opacidades e espessuras de traço.
+/// Escalas primitivas de interação: opacidade de desabilitado e espessuras de
+/// traço.
 ///
 /// Nível: primitivo.
 ///
-/// Opacidades são nomeadas pela porcentagem (`opacity12` = 0,12); espessuras,
-/// pelo valor em pixels lógicos. Widgets não leem estes valores: eles usam
+/// Opacidades são nomeadas pela porcentagem (`opacity40` = 0,4); espessuras,
+/// pelo valor em pixels lógicos. Não há opacidades de sobreposição por estado:
+/// no Fiori, cada estado tem cores explícitas. Widgets não leem estes valores: eles usam
 /// `RebicInteractionStateTokens`.
 abstract final class RebicInteractionPrimitives {
-  /// 0%.
-  static const opacity0 = 0.0;
-
-  /// 4%.
-  static const opacity4 = 0.04;
-
-  /// 8%.
-  static const opacity8 = 0.08;
-
-  /// 12%.
-  static const opacity12 = 0.12;
-
-  /// 16%.
-  static const opacity16 = 0.16;
-
-  /// 24%.
-  static const opacity24 = 0.24;
-
-  /// 40%.
+  /// 40%, a opacidade de desabilitado (como `sapContent_DisabledOpacity`).
   static const opacity40 = 0.4;
 
-  /// 50%.
-  static const opacity50 = 0.5;
-
-  /// 100%.
-  static const opacity100 = 1.0;
-
   /// Escala de opacidades, em ordem crescente.
-  static const opacities = <String, double>{
-    'opacity0': opacity0,
-    'opacity4': opacity4,
-    'opacity8': opacity8,
-    'opacity12': opacity12,
-    'opacity16': opacity16,
-    'opacity24': opacity24,
-    'opacity40': opacity40,
-    'opacity50': opacity50,
-    'opacity100': opacity100,
-  };
+  static const opacities = <String, double>{'opacity40': opacity40};
 
   /// Traço de 1 px.
   static const stroke1 = 1.0;

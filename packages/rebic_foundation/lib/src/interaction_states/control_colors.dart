@@ -20,13 +20,13 @@ enum RebicControlFamily {
   /// Controle sem fundo (botão Transparent): só o texto da marca.
   transparent,
 
-  /// Ação positiva (botão Accept): cores do estado de valor `success`.
+  /// Ação positiva (botão Accept): só as cores do estado de valor `success`.
   accept,
 
-  /// Ação negativa (botão Reject): cores do estado de valor `error`.
+  /// Ação negativa (botão Reject): só as cores do estado de valor `error`.
   reject,
 
-  /// Ação que pede atenção (botão Attention): cores do estado de valor
+  /// Ação que pede atenção (botão Attention): só as cores do estado de valor
   /// `warning`.
   attention,
 
@@ -146,17 +146,9 @@ class RebicControlColors extends RebicTokenSet<RebicControlColors> {
         selected: s(c.selectionBackground, none, c.brand),
         selectedHover: s(c.selectionHoverBackground, none, c.brand),
       ),
-      RebicControlFamily.accept => _semantic(
-        c,
-        RebicValueState.success,
-        active,
-      ),
-      RebicControlFamily.reject => _semantic(c, RebicValueState.error, active),
-      RebicControlFamily.attention => _semantic(
-        c,
-        RebicValueState.warning,
-        active,
-      ),
+      RebicControlFamily.accept => _semantic(c, RebicValueState.success),
+      RebicControlFamily.reject => _semantic(c, RebicValueState.error),
+      RebicControlFamily.attention => _semantic(c, RebicValueState.warning),
       RebicControlFamily.list => RebicControlColors(
         normal: s(c.base, none, c.text),
         hover: s(c.hoverBackground, none, c.text),
@@ -167,14 +159,22 @@ class RebicControlColors extends RebicTokenSet<RebicControlColors> {
     };
   }
 
-  /// Família de uma ação semântica, com as cores do estado de valor [state]
-  /// no normal e no hover, e [active] nos demais estados.
+  /// Família de uma ação semântica, só com as cores do estado de valor
+  /// [state], como os botões Accept, Reject e Attention do Horizon.
+  ///
+  /// Normal = (`background`, `border`, `foreground`); o hover usa o
+  /// `hoverBackground` do estado; ativo, selecionado e selecionado com hover
+  /// invertem o normal: (`foreground`, `foreground`, `background`).
   static RebicControlColors _semantic(
     RebicColorTokens c,
     RebicValueState state,
-    RebicStateColors active,
   ) {
     final s = c.stateColors(state);
+    final active = RebicStateColors(
+      background: s.foreground,
+      border: s.foreground,
+      text: s.background,
+    );
     return RebicControlColors(
       normal: RebicStateColors(
         background: s.background,
@@ -182,7 +182,7 @@ class RebicControlColors extends RebicTokenSet<RebicControlColors> {
         text: s.foreground,
       ),
       hover: RebicStateColors(
-        background: c.hoverBackground,
+        background: s.hoverBackground,
         border: s.border,
         text: s.foreground,
       ),
@@ -198,7 +198,7 @@ class RebicControlColors extends RebicTokenSet<RebicControlColors> {
   /// Ponteiro sobre o controle.
   final RebicStateColors hover;
 
-  /// Controle pressionado ou arrastado.
+  /// Controle pressionado.
   final RebicStateColors active;
 
   /// Controle selecionado.
@@ -219,17 +219,14 @@ class RebicControlColors extends RebicTokenSet<RebicControlColors> {
   /// Cores para [states], na precedência do Fiori.
   ///
   /// `disabled` → normal (a opacidade vem de
-  /// `RebicInteractionStateTokens.opacity`); `pressed` ou `dragged` → ativo;
+  /// `RebicInteractionStateTokens.opacity`); `pressed` → ativo;
   /// `selected` com `hovered` → selecionado com hover; `selected` →
   /// selecionado; `hovered` → hover; demais → normal. `focused` não altera
   /// as cores.
   RebicStateColors resolve(Set<RebicInteractionState> states) {
     bool has(RebicInteractionState s) => states.contains(s);
     if (has(RebicInteractionState.disabled)) return normal;
-    if (has(RebicInteractionState.pressed) ||
-        has(RebicInteractionState.dragged)) {
-      return active;
-    }
+    if (has(RebicInteractionState.pressed)) return active;
     if (has(RebicInteractionState.selected)) {
       return has(RebicInteractionState.hovered) ? selectedHover : selected;
     }

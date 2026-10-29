@@ -29,7 +29,7 @@ const double rebicNonTextContrastMinimum = 3;
 /// sobre `background`, `base`, `hoverBackground`, `selectionBackground` e
 /// `selectionHoverBackground`; `contrastText` sobre `brand`, `brandHover` e
 /// `highlight`; o `foreground` de cada estado de valor sobre `base`,
-/// `background` e o `background` do estado.
+/// `background`, o `background` e o `hoverBackground` do estado.
 ///
 /// Não textual (≥ 3:1): `fieldBorder`, `focus` e `brand` sobre `background`,
 /// `base` e `headerBackground`; o `border` de cada estado sobre `base` e
@@ -115,6 +115,13 @@ List<RebicContrastIssue> rebicCheckContrast(RebicColorTokens tokens) {
       colors.foreground,
       '$name.background',
       colors.background,
+      text,
+    );
+    statePair(
+      '$name.foreground',
+      colors.foreground,
+      '$name.hoverBackground',
+      colors.hoverBackground,
       text,
     );
   }

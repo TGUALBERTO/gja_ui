@@ -9,10 +9,16 @@ void main() {
       'focused',
       'pressed',
       'selected',
-      'dragged',
       'disabled',
     ]);
     expect(<RebicInteractionState>{}, isEmpty);
+  });
+
+  test('Estados de interação — Sem estado de arraste', () {
+    expect(
+      RebicInteractionState.values.map((s) => s.name),
+      isNot(contains('dragged')),
+    );
   });
 
   test('escalas primitivas de interação em ordem e nomeadas pelo valor', () {

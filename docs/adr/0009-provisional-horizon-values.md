@@ -28,6 +28,8 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Tipografia | Peso dos títulos `header1`…`header6` | bold (700) | `sapFontHeaderFamily` | `update-rebic-foundation-typography-fiori-sizes` |
 | Tipografia | Alturas de linha de todos os estilos | múltiplo de 4 ≥ 1,2 × tamanho (`header1` 48/60) | alturas do Horizon não confirmadas | `update-rebic-foundation-typography-fiori-sizes` |
 | Tipografia | Família semibold do texto de botões | Inter 600 | `sapButton_FontFamily` (72 semibold duplex) | `update-rebic-foundation-typography-fiori-sizes` |
+| Estados de interação | Fundo de hover de cada estado de valor | um tom acima do `background` do estado (claro: 100, `none` 200; escuro: 800, `none` 700) | `sapButton_Accept_Hover_Background`, `_Reject_`, `_Attention_` | `update-rebic-foundation-interaction-states-fiori-alignment` |
+| Estados de interação | Ativo, selecionado e selecionado com hover de Accept, Reject e Attention | normal invertido: fundo e borda `foreground`, texto `background` do estado | `sapButton_Accept_Active_Background` e `_Active_TextColor` (também no Horizon Evening) | `update-rebic-foundation-interaction-states-fiori-alignment` |
 
 ## Alternativas consideradas
 

@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- Estados de interação no modelo Fiori (`update-rebic-foundation-interaction-states-fiori-alignment`): os botões
+  `accept`, `reject` e `attention` de `RebicButton` ficam na própria cor em todos os estados. O hover usa um tom
+  claro do estado, em vez do cinza neutro, e o pressionado usa o normal invertido, em vez do azul `highlight`. A API
+  não muda, e os goldens existentes não mostram esses estados.
 - Tipografia no modelo Fiori (`update-rebic-foundation-typography-fiori-sizes`): os widgets passam aos estilos novos
   de `RebicTypographyTokens`, sem mudar a própria API. `RebicText` mapeia cada variante para um estilo Fiori
   (`display` → `header1`, `headline` → `header2`, `title` → `header3`, `subtitle` → `header4`, `body` e `label` →

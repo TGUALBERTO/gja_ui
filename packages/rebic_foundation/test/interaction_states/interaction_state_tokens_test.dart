@@ -18,6 +18,12 @@ const _disabled = RebicInteractionState.disabled;
 RebicStateColors _s(Color background, Color border, Color text) =>
     RebicStateColors(background: background, border: border, text: text);
 
+const _semanticFamilies = [
+  (RebicControlFamily.accept, RebicValueState.success),
+  (RebicControlFamily.reject, RebicValueState.error),
+  (RebicControlFamily.attention, RebicValueState.warning),
+];
+
 RebicControlColors _of(RebicControlFamily f) =>
     RebicControlColors.of(f, _light);
 
@@ -62,17 +68,28 @@ void main() {
     });
 
     test('Famílias de controle — Famílias accept, reject e attention', () {
-      final active = _s(c.highlight, c.highlight, c.contrastText);
-      for (final (family, state) in [
-        (RebicControlFamily.accept, RebicValueState.success),
-        (RebicControlFamily.reject, RebicValueState.error),
-        (RebicControlFamily.attention, RebicValueState.warning),
-      ]) {
+      for (final (family, state) in _semanticFamilies) {
         final f = _of(family);
         final s = c.stateColors(state);
         expect(f.normal, _s(s.background, s.border, s.foreground));
-        expect(f.hover, _s(c.hoverBackground, s.border, s.foreground));
+        expect(f.hover, _s(s.hoverBackground, s.border, s.foreground));
+        final active = _s(s.foreground, s.foreground, s.background);
         expect([f.active, f.selected, f.selectedHover], everyElement(active));
+      }
+    });
+
+    test('Famílias de controle — Ações semânticas sem cores da marca', () {
+      final other = _light.copyWith(
+        brand: RebicColorPrimitives.cyan700,
+        highlight: RebicColorPrimitives.cyan900,
+        hoverBackground: RebicColorPrimitives.neutral300,
+      );
+      for (final (family, _) in _semanticFamilies) {
+        expect(
+          RebicControlColors.of(family, other),
+          RebicControlColors.of(family, _light),
+          reason: family.name,
+        );
       }
     });
 

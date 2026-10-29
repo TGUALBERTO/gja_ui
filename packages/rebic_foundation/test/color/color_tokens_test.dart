@@ -182,6 +182,7 @@ void main() {
       expect(error, _light.error);
       expect(error.foreground, isNot(success.foreground));
       expect(error.background, isNot(success.background));
+      expect(error.hoverBackground, isNot(success.hoverBackground));
       expect(error.border, isNot(success.border));
     });
 
@@ -191,8 +192,34 @@ void main() {
         final none = tokens.stateColors(RebicValueState.none);
         expect(
           neutral,
-          containsAll([none.foreground, none.background, none.border]),
+          containsAll([
+            none.foreground,
+            none.background,
+            none.hoverBackground,
+            none.border,
+          ]),
         );
+      }
+    });
+
+    test('Estado semântico de valor — Hover distinto do fundo', () {
+      for (final tokens in [_light, _dark]) {
+        for (final state in RebicValueState.values) {
+          final colors = tokens.stateColors(state);
+          expect(
+            colors.hoverBackground,
+            isNot(colors.background),
+            reason: state.name,
+          );
+          final scale = RebicColorPrimitives.scales.values.singleWhere(
+            (s) => s.containsValue(colors.background),
+          );
+          expect(
+            scale.values,
+            contains(colors.hoverBackground),
+            reason: state.name,
+          );
+        }
       }
     });
   });

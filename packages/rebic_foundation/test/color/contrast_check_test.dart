@@ -35,6 +35,10 @@ void main() {
         ),
         greaterThanOrEqualTo(4.5),
       );
+      expect(
+        rebicContrastRatio(_dark.error.foreground, _dark.error.hoverBackground),
+        greaterThanOrEqualTo(4.5),
+      );
     });
 
     test('Contraste mínimo dos papéis — Pares não textuais', () {

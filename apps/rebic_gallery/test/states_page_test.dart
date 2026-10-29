@@ -48,6 +48,18 @@ void main() {
         }
       }
     }
+    expect(RebicControlFamily.values.map((f) => f.name), [
+      'standard',
+      'emphasized',
+      'transparent',
+      'accept',
+      'reject',
+      'attention',
+      'list',
+    ]);
+    for (final family in RebicControlFamily.values) {
+      expect(find.text(family.name), findsNWidgets(2), reason: family.name);
+    }
     for (final (label, _) in StatesPage.samples) {
       expect(
         find.text(label),

@@ -1,6 +1,9 @@
-/// Estado de interação de um componente.
+/// Estado de interação de um componente, como os estados de controle do Fiori.
 ///
 /// Nível: semântico.
+///
+/// Não há estado de arraste: no Fiori, o item arrastado usa a sombra `dragged`
+/// de elevação e as cores de [pressed].
 ///
 /// Um componente pode estar em vários estados ao mesmo tempo; as regras de
 /// `RebicInteractionStateTokens` recebem o conjunto de estados ativos, e o
@@ -17,9 +20,6 @@ enum RebicInteractionState {
 
   /// Componente selecionado ou marcado.
   selected,
-
-  /// Componente sendo arrastado.
-  dragged,
 
   /// Componente desabilitado.
   disabled,

@@ -15,6 +15,7 @@ class RebicValueStateColors extends RebicTokenSet<RebicValueStateColors> {
   const RebicValueStateColors({
     required this.foreground,
     required this.background,
+    required this.hoverBackground,
     required this.border,
   });
 
@@ -24,6 +25,11 @@ class RebicValueStateColors extends RebicTokenSet<RebicValueStateColors> {
   /// Fundo suave do estado (mensagens, faixas).
   final Color background;
 
+  /// Fundo suave do estado em hover (como `sapButton_Accept_Hover_Background`).
+  ///
+  /// Texto em [foreground] sobre ele mantém ≥ 4,5:1.
+  final Color hoverBackground;
+
   /// Borda do estado (≥ 3:1 sobre as superfícies).
   final Color border;
 
@@ -31,11 +37,13 @@ class RebicValueStateColors extends RebicTokenSet<RebicValueStateColors> {
   RebicValueStateColors copyWith({
     Color? foreground,
     Color? background,
+    Color? hoverBackground,
     Color? border,
   }) {
     return RebicValueStateColors(
       foreground: foreground ?? this.foreground,
       background: background ?? this.background,
+      hoverBackground: hoverBackground ?? this.hoverBackground,
       border: border ?? this.border,
     );
   }
@@ -46,6 +54,7 @@ class RebicValueStateColors extends RebicTokenSet<RebicValueStateColors> {
     return RebicValueStateColors(
       foreground: Color.lerp(foreground, other.foreground, t)!,
       background: Color.lerp(background, other.background, t)!,
+      hoverBackground: Color.lerp(hoverBackground, other.hoverBackground, t)!,
       border: Color.lerp(border, other.border, t)!,
     );
   }
@@ -56,11 +65,13 @@ class RebicValueStateColors extends RebicTokenSet<RebicValueStateColors> {
     return other is RebicValueStateColors &&
         other.foreground == foreground &&
         other.background == background &&
+        other.hoverBackground == hoverBackground &&
         other.border == border;
   }
 
   @override
-  int get hashCode => Object.hash(foreground, background, border);
+  int get hashCode =>
+      Object.hash(foreground, background, hoverBackground, border);
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -68,6 +79,7 @@ class RebicValueStateColors extends RebicTokenSet<RebicValueStateColors> {
     properties
       ..add(ColorProperty('foreground', foreground))
       ..add(ColorProperty('background', background))
+      ..add(ColorProperty('hoverBackground', hoverBackground))
       ..add(ColorProperty('border', border));
   }
 }
@@ -136,26 +148,31 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
         none: const RebicValueStateColors(
           foreground: RebicColorPrimitives.neutral700,
           background: RebicColorPrimitives.neutral100,
+          hoverBackground: RebicColorPrimitives.neutral200,
           border: RebicColorPrimitives.neutral500,
         ),
         success: const RebicValueStateColors(
           foreground: RebicColorPrimitives.green700,
           background: RebicColorPrimitives.green50,
+          hoverBackground: RebicColorPrimitives.green100,
           border: RebicColorPrimitives.green600,
         ),
         warning: const RebicValueStateColors(
           foreground: RebicColorPrimitives.amber700,
           background: RebicColorPrimitives.amber50,
+          hoverBackground: RebicColorPrimitives.amber100,
           border: RebicColorPrimitives.amber600,
         ),
         error: const RebicValueStateColors(
           foreground: RebicColorPrimitives.red600,
           background: RebicColorPrimitives.red50,
+          hoverBackground: RebicColorPrimitives.red100,
           border: RebicColorPrimitives.red600,
         ),
         information: const RebicValueStateColors(
           foreground: RebicColorPrimitives.cyan700,
           background: RebicColorPrimitives.cyan50,
+          hoverBackground: RebicColorPrimitives.cyan100,
           border: RebicColorPrimitives.cyan600,
         ),
       );
@@ -185,26 +202,31 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
         none: const RebicValueStateColors(
           foreground: RebicColorPrimitives.neutral300,
           background: RebicColorPrimitives.neutral800,
+          hoverBackground: RebicColorPrimitives.neutral700,
           border: RebicColorPrimitives.neutral400,
         ),
         success: const RebicValueStateColors(
           foreground: RebicColorPrimitives.green300,
           background: RebicColorPrimitives.green900,
+          hoverBackground: RebicColorPrimitives.green800,
           border: RebicColorPrimitives.green400,
         ),
         warning: const RebicValueStateColors(
           foreground: RebicColorPrimitives.amber300,
           background: RebicColorPrimitives.amber900,
+          hoverBackground: RebicColorPrimitives.amber800,
           border: RebicColorPrimitives.amber400,
         ),
         error: const RebicValueStateColors(
           foreground: RebicColorPrimitives.red300,
           background: RebicColorPrimitives.red900,
+          hoverBackground: RebicColorPrimitives.red800,
           border: RebicColorPrimitives.red400,
         ),
         information: const RebicValueStateColors(
           foreground: RebicColorPrimitives.cyan300,
           background: RebicColorPrimitives.cyan900,
+          hoverBackground: RebicColorPrimitives.cyan800,
           border: RebicColorPrimitives.cyan400,
         ),
       );
