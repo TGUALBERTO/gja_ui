@@ -2,6 +2,30 @@
 
 ## Não lançado
 
+- **BREAKING** Ícones no modelo do IconPool (`update-rebic-foundation-iconography-fiori-iconpool`, spec
+  `rebic/foundation/iconography`): `RebicIcons` passa aos nomes do IconPool do SAPUI5 em camelCase. Os desenhos
+  continuam os da Lucide.
+
+    | Antes | Agora | Antes | Agora |
+    |---|---|---|---|
+    | `close` | `decline` | `clock` | `pending` |
+    | `check` | `accept` | `user` | `personPlaceholder` |
+    | `chevronUp`/`Down`/`Left`/`Right` | `slimArrowUp`/`Down`/`Left`/`Right` | `settings` | `actionSettings` |
+    | `arrowLeft` | `navBack` | `externalLink` | `popupWindow` |
+    | `arrowRight` | `navigationRightArrow` | `visibility` | `show` |
+    | `menu` | `menu2` | `visibilityOff` | `hide` |
+    | `moreHorizontal` | `overflow` | `logout` | `log` |
+    | `info` | `information` | `notification` | `bell` |
+    | `success` | `sysEnter2` | `file` | `document` |
+    | `help` | `sysHelp` | `folder` | `folderBlank` |
+
+  - Os nomes `add`, `search`, `edit`, `delete`, `warning`, `error`, `calendar`, `filter`, `sort`, `upload`,
+    `download`, `refresh`, `home` e `copy` não mudam.
+  - `moreVertical` foi removido: o IconPool não tem reticências verticais.
+  - Novo `RebicIcons.iconPoolNames`, com o nome `sap-icon://` de cada ícone.
+  - `RebicIconTokens.control` passa de 20 a 16 (`sapContent_IconHeight`).
+
+  Valores provisórios na ADR 0009.
 - **BREAKING** Raios no modelo Fiori (`update-rebic-foundation-radius-fiori-roles`, spec `rebic/foundation/radius`):
   os papéis `control` e `container` de `RebicRadiusTokens` dão lugar aos raios por tipo de controle do Horizon.
 

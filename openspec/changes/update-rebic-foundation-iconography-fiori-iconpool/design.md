@@ -40,10 +40,10 @@ O desenho Lucide de cada ícone não muda. `lucideNames` passa a ter as chaves n
 
 ### D2. `iconPoolNames`
 
-Novo mapa constante `RebicIcons.iconPoolNames` (`Map<String, String>`), com o nome do catálogo e o nome do IconPool
-em kebab-case (ex.: `'slimArrowDown': 'slim-arrow-down'`). O teste confere que cada ícone de `all` está no mapa e que
-o valor é a conversão de camelCase para kebab-case do nome. Números viram segmentos próprios: `sysEnter2` →
-`sys-enter-2`.
+Novo mapa constante `RebicIcons.iconPoolNames` (`Map<String, String>`), do nome do catálogo para o nome exato do
+IconPool (ex.: `'slimArrowDown': 'slim-arrow-down'`). O IconPool não segue uma regra única de hifenização: `menu2` não
+tem hífen, e `sys-enter-2` tem. Por isso o mapa traz o nome exato, e o teste confere a conversão no sentido inverso:
+o nome do IconPool, sem hífens e com a letra seguinte maiúscula, é o nome do catálogo.
 
 ### D3. `moreVertical`
 

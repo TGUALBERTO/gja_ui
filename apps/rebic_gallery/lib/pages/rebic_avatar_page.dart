@@ -47,9 +47,9 @@ class _RebicAvatarPageState extends State<RebicAvatarPage> {
             children: [
               RebicAvatar(initials: 'JS', shape: RebicAvatarShape.square),
               RebicAvatar(),
-              RebicAvatar(icon: RebicIcons.folder),
+              RebicAvatar(icon: RebicIcons.folderBlank),
               RebicAvatar(
-                icon: RebicIcons.file,
+                icon: RebicIcons.document,
                 shape: RebicAvatarShape.square,
               ),
             ],

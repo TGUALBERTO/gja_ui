@@ -104,7 +104,7 @@ class RebicPage extends StatelessWidget {
               children: [
                 if (onBack != null)
                   RebicIconButton(
-                    icon: RebicIcons.arrowLeft,
+                    icon: RebicIcons.navBack,
                     tooltip: RebicLocalizations.of(context).back,
                     onPressed: onBack,
                   ),

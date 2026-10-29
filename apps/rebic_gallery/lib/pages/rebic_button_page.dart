@@ -45,7 +45,7 @@ class _RebicButtonPageState extends State<RebicButtonPage> {
               RebicButton(
                 label: 'Salvar',
                 type: RebicButtonType.emphasized,
-                icon: RebicIcons.check,
+                icon: RebicIcons.accept,
                 onPressed: () {},
               ),
               RebicButton(

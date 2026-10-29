@@ -32,7 +32,7 @@ enum RebicAvatarShape {
 /// Representa uma pessoa ou um objeto, como o `sap.m.Avatar` do SAPUI5.
 ///
 /// Mostra, nesta ordem de preferência, a [image], as [initials] (de 1 a 3
-/// caracteres, em maiúsculas), o [icon] ou o ícone `user`. Se a imagem falha
+/// caracteres, em maiúsculas), o [icon] ou o ícone `personPlaceholder`. Se a imagem falha
 /// ao carregar, mostra as iniciais ou o ícone. O fundo é
 /// `colors.selectionBackground`, e as iniciais e o ícone `colors.brand`. O
 /// lado vem do [size] e não muda com a escala de texto. Com [onPressed], o
@@ -68,7 +68,7 @@ class RebicAvatar extends StatefulWidget {
   /// Iniciais, de 1 a 3 caracteres, mostradas em maiúsculas.
   final String? initials;
 
-  /// Ícone usado sem imagem e sem iniciais; nulo usa o ícone `user`.
+  /// Ícone usado sem imagem e sem iniciais; nulo usa o ícone `personPlaceholder`.
   final IconData? icon;
 
   /// Tamanho do avatar.
@@ -146,7 +146,7 @@ class _RebicAvatarState extends State<RebicAvatar> {
         );
       }
       return Icon(
-        widget.icon ?? RebicIcons.user,
+        widget.icon ?? RebicIcons.personPlaceholder,
         size: side * _iconFraction,
         color: colors.brand,
       );

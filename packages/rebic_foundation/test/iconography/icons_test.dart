@@ -13,22 +13,22 @@ Map<String, int> _codepoints() =>
         .cast<String, int>();
 
 const _minimum = [
-  'add', 'close', 'search', 'check', 'chevronUp', 'chevronDown', //
-  'chevronLeft', 'chevronRight', 'arrowLeft', 'arrowRight', 'menu',
-  'moreHorizontal', 'moreVertical', 'edit', 'delete', 'info', 'warning',
-  'error', 'success', 'help', 'calendar', 'clock', 'user', 'filter', 'sort',
-  'upload', 'download', 'refresh', 'settings', 'home', 'externalLink',
-  'visibility', 'visibilityOff', 'copy', 'logout', 'notification', 'file',
-  'folder',
+  'add', 'decline', 'search', 'accept', 'slimArrowUp', 'slimArrowDown', //
+  'slimArrowLeft', 'slimArrowRight', 'navBack', 'navigationRightArrow',
+  'menu2', 'overflow', 'edit', 'delete', 'information', 'warning', 'error',
+  'sysEnter2', 'sysHelp', 'calendar', 'pending', 'personPlaceholder',
+  'filter', 'sort', 'upload', 'download', 'refresh', 'actionSettings', 'home',
+  'popupWindow', 'show', 'hide', 'copy', 'log', 'bell', 'document',
+  'folderBlank',
 ];
 
 const _directional = {
-  'chevronLeft',
-  'chevronRight',
-  'arrowLeft',
-  'arrowRight',
-  'logout',
-  'externalLink',
+  'slimArrowLeft',
+  'slimArrowRight',
+  'navBack',
+  'navigationRightArrow',
+  'log',
+  'popupWindow',
 };
 
 /// Se o `Icon` inseriu o espelhamento horizontal (`Transform` com escala -1).
@@ -64,6 +64,33 @@ void main() {
         expect(codes.toSet(), hasLength(codes.length));
       },
     );
+
+    test('Catálogo semântico de ícones — Nomes do IconPool', () {
+      // Nome do IconPool em camelCase: sem hífens, letra seguinte maiúscula.
+      String camel(String pool) => pool.replaceAllMapped(
+        RegExp('-([a-z0-9])'),
+        (m) => m[1]!.toUpperCase(),
+      );
+      expect(RebicIcons.iconPoolNames.keys, RebicIcons.all.keys);
+      for (final MapEntry(key: name, value: pool)
+          in RebicIcons.iconPoolNames.entries) {
+        expect(camel(pool), name, reason: pool);
+      }
+      expect(RebicIcons.iconPoolNames['slimArrowDown'], 'slim-arrow-down');
+      expect(RebicIcons.iconPoolNames['sysEnter2'], 'sys-enter-2');
+      expect(RebicIcons.iconPoolNames['menu2'], 'menu2');
+      for (final old in [
+        'close',
+        'check',
+        'chevronDown',
+        'user',
+        'moreVertical',
+        'info',
+        'clock',
+      ]) {
+        expect(RebicIcons.all.keys, isNot(contains(old)), reason: old);
+      }
+    });
   });
 
   testWidgets('Espelhamento de ícones direcionais — Ícone direcional em RTL', (
@@ -77,8 +104,8 @@ void main() {
       );
     }
     for (final (icon, mirrored) in [
-      (RebicIcons.chevronRight, true),
-      (RebicIcons.check, false),
+      (RebicIcons.slimArrowRight, true),
+      (RebicIcons.accept, false),
     ]) {
       await tester.pumpWidget(
         Directionality(textDirection: TextDirection.rtl, child: Icon(icon)),
@@ -88,7 +115,7 @@ void main() {
     await tester.pumpWidget(
       const Directionality(
         textDirection: TextDirection.ltr,
-        child: Icon(RebicIcons.chevronRight),
+        child: Icon(RebicIcons.slimArrowRight),
       ),
     );
     expect(_isMirrored(tester), isFalse);

@@ -29,6 +29,14 @@ void main() {
         findsOneWidget,
         reason: name,
       );
+      expect(
+        find.descendant(
+          of: cell.first,
+          matching: find.text('sap-icon://${RebicIcons.iconPoolNames[name]}'),
+        ),
+        findsOneWidget,
+        reason: name,
+      );
     }
     expect(find.byType(Icon), findsNWidgets(RebicIcons.all.length));
   });

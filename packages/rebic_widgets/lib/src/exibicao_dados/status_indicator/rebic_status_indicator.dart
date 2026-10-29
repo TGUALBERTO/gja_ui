@@ -18,7 +18,7 @@ import '../../fundacao_layout/text/rebic_text.dart';
 /// RebicStatusIndicator(
 ///   title: 'Situação',
 ///   text: 'Aprovado',
-///   icon: RebicIcons.success,
+///   icon: RebicIcons.sysEnter2,
 ///   state: RebicValueState.success,
 /// )
 /// ```

@@ -10,7 +10,7 @@ import 'primitives/icon_primitives.dart';
 /// Nível: semântico.
 ///
 /// Widgets dimensionam ícones somente com estes valores. Os papéis [inline]
-/// (junto ao texto corrido) e [control] (dentro de botões e campos) podem ser
+/// (junto ao texto corrido) e [control] (dentro de botões e campos, `sapContent_IconHeight`) podem ser
 /// ajustados sem mexer na escala. Todos os valores devem ser finitos e
 /// positivos; [copyWith] verifica com `assert` em modo debug.
 @immutable
@@ -33,7 +33,7 @@ class RebicIconTokens extends RebicTokenSet<RebicIconTokens> {
         large: RebicIconPrimitives.size24,
         xLarge: RebicIconPrimitives.size32,
         inline: RebicIconPrimitives.size16,
-        control: RebicIconPrimitives.size20,
+        control: RebicIconPrimitives.size16,
       );
 
   /// Ícone pequeno.
@@ -51,7 +51,7 @@ class RebicIconTokens extends RebicTokenSet<RebicIconTokens> {
   /// Junto ao texto corrido.
   final double inline;
 
-  /// Dentro de botões e campos.
+  /// Dentro de botões e campos (`sapContent_IconHeight`, 1rem).
   final double control;
 
   /// Valores por nome, na ordem de declaração.

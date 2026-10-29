@@ -79,7 +79,7 @@ void main() {
         _host(
           const RebicStatusIndicator(
             title: 'Situação',
-            icon: RebicIcons.success,
+            icon: RebicIcons.sysEnter2,
             text: 'Aprovado',
             state: RebicValueState.success,
           ),
@@ -167,7 +167,7 @@ void main() {
         const SizedBox(
           width: 160,
           child: RebicStatusIndicator(
-            icon: RebicIcons.clock,
+            icon: RebicIcons.pending,
             text: _long,
             state: RebicValueState.information,
           ),
@@ -200,7 +200,7 @@ void main() {
         _host(
           RebicStatusIndicator(
             key: ValueKey(state),
-            icon: RebicIcons.info,
+            icon: RebicIcons.information,
             text: state.name,
             state: state,
           ),
@@ -255,7 +255,7 @@ void main() {
       await tester.pumpWidget(
         _host(
           textScale: 2,
-          const RebicStatusIndicator(icon: RebicIcons.info, text: 'Em análise'),
+          const RebicStatusIndicator(icon: RebicIcons.information, text: 'Em análise'),
         ),
       );
       expect(tester.takeException(), isNull);
@@ -296,7 +296,7 @@ void main() {
           children: [
             const RebicStatusIndicator(
               title: 'Situação',
-              icon: RebicIcons.success,
+              icon: RebicIcons.sysEnter2,
               text: 'Aprovado',
             ),
             RebicStatusIndicator(text: 'Atrasado', onPressed: () {}),
@@ -320,7 +320,7 @@ void main() {
     await tester.pumpWidget(
       _host(
         direction: TextDirection.rtl,
-        const RebicStatusIndicator(icon: RebicIcons.info, text: 'Em análise'),
+        const RebicStatusIndicator(icon: RebicIcons.information, text: 'Em análise'),
       ),
     );
     expect(
@@ -369,11 +369,11 @@ void main() {
       tester,
     ) async {
       const icons = {
-        RebicValueState.none: RebicIcons.info,
-        RebicValueState.success: RebicIcons.success,
+        RebicValueState.none: RebicIcons.information,
+        RebicValueState.success: RebicIcons.sysEnter2,
         RebicValueState.warning: RebicIcons.warning,
         RebicValueState.error: RebicIcons.error,
-        RebicValueState.information: RebicIcons.info,
+        RebicValueState.information: RebicIcons.information,
       };
       for (final (name, theme) in goldenThemes) {
         await expectGolden(
@@ -401,7 +401,7 @@ void main() {
                 ),
               const RebicStatusIndicator(
                 title: 'Situação',
-                icon: RebicIcons.success,
+                icon: RebicIcons.sysEnter2,
                 text: 'Aprovado',
                 state: RebicValueState.success,
               ),

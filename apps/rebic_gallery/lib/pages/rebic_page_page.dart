@@ -22,7 +22,7 @@ class RebicPagePage extends StatelessWidget {
       onBack: back,
       actions: const [
         RebicIcon(
-          RebicIcons.help,
+          RebicIcons.sysHelp,
           tone: RebicIconTone.brand,
           semanticLabel: 'Ajuda',
         ),

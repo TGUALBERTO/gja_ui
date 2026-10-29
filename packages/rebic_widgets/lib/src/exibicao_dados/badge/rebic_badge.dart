@@ -19,7 +19,7 @@ import '../../fundacao_layout/text/rebic_text.dart';
 ///   count: naoLidas,
 ///   semanticLabel: '$naoLidas notificações',
 ///   child: RebicIconButton(
-///     icon: RebicIcons.notification,
+///     icon: RebicIcons.bell,
 ///     tooltip: 'Notificações',
 ///     onPressed: abrir,
 ///   ),

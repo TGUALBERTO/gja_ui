@@ -44,7 +44,7 @@ enum RebicButtonType {
 /// RebicButton(
 ///   label: 'Salvar',
 ///   type: RebicButtonType.emphasized,
-///   icon: RebicIcons.check,
+///   icon: RebicIcons.accept,
 ///   onPressed: salvar,
 /// )
 /// ```

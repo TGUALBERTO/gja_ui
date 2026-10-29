@@ -18,7 +18,7 @@ class RebicIconButtonPage extends StatelessWidget {
     (RebicIcons.edit, 'Editar pedido'),
     (RebicIcons.delete, 'Excluir pedido'),
     (RebicIcons.download, 'Baixar PDF'),
-    (RebicIcons.moreHorizontal, 'Mais ações'),
+    (RebicIcons.overflow, 'Mais ações'),
   ];
 
   @override
@@ -43,13 +43,13 @@ class RebicIconButtonPage extends StatelessWidget {
             children: [
               for (final type in RebicButtonType.values)
                 RebicIconButton(
-                  icon: RebicIcons.check,
+                  icon: RebicIcons.accept,
                   tooltip: type.name,
                   type: type,
                   onPressed: () {},
                 ),
               const RebicIconButton(
-                icon: RebicIcons.check,
+                icon: RebicIcons.accept,
                 tooltip: 'Desabilitado',
                 onPressed: null,
               ),

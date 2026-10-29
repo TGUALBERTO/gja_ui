@@ -12,7 +12,7 @@ import '../spacing/rebic_spacing.dart';
 ///
 /// ```dart
 /// const RebicRow(
-///   children: [RebicIcon(RebicIcons.info), RebicText('Detalhes')],
+///   children: [RebicIcon(RebicIcons.information), RebicText('Detalhes')],
 /// )
 /// ```
 ///

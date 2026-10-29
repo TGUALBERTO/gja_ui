@@ -55,9 +55,12 @@ class IconsPage extends StatelessWidget {
                         SizedBox(height: spacing.xs),
                         Text(
                           name,
-                          style: typography.small.copyWith(
-                            color: colors.label,
-                          ),
+                          style: typography.small.copyWith(color: colors.label),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          'sap-icon://${RebicIcons.iconPoolNames[name]}',
+                          style: typography.small.copyWith(color: colors.label),
                           textAlign: TextAlign.center,
                         ),
                       ],

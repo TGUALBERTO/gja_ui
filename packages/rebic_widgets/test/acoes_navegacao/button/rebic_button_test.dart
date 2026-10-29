@@ -68,7 +68,7 @@ void main() {
         _host(
           RebicButton(
             label: 'Salvar',
-            icon: RebicIcons.check,
+            icon: RebicIcons.accept,
             onPressed: () {},
           ),
         ),
@@ -319,7 +319,7 @@ void main() {
           direction: TextDirection.rtl,
           RebicButton(
             label: 'Salvar',
-            icon: RebicIcons.check,
+            icon: RebicIcons.accept,
             onPressed: () {},
           ),
         ),
@@ -444,7 +444,7 @@ void main() {
                       RebicButton(
                         label: type.name,
                         type: type,
-                        icon: RebicIcons.check,
+                        icon: RebicIcons.accept,
                         onPressed: () {},
                       ),
                     ],

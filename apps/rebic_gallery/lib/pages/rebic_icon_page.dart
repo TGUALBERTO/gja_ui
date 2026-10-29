@@ -65,7 +65,7 @@ class RebicIconPage extends StatelessWidget {
             for (final tone in RebicIconTone.values)
               labeled(
                 RebicIcon(
-                  RebicIcons.info,
+                  RebicIcons.information,
                   size: RebicIconSize.large,
                   tone: tone,
                 ),
@@ -97,7 +97,7 @@ class RebicIconPage extends StatelessWidget {
           children: [
             labeled(
               const RebicIcon(
-                RebicIcons.chevronRight,
+                RebicIcons.slimArrowRight,
                 key: ltrKey,
                 size: RebicIconSize.large,
               ),
@@ -107,7 +107,7 @@ class RebicIconPage extends StatelessWidget {
               const Directionality(
                 textDirection: TextDirection.rtl,
                 child: RebicIcon(
-                  RebicIcons.chevronRight,
+                  RebicIcons.slimArrowRight,
                   key: rtlKey,
                   size: RebicIconSize.large,
                 ),

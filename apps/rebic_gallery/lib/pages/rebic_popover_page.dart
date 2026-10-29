@@ -93,7 +93,7 @@ class _RebicPopoverPageState extends State<RebicPopoverPage> {
                   'Pedido 4711, criado em 12/10 por Maria Barros.',
                 ),
                 child: RebicIconButton(
-                  icon: RebicIcons.info,
+                  icon: RebicIcons.information,
                   tooltip: 'Detalhes do pedido',
                   onPressed: _details.toggle,
                 ),

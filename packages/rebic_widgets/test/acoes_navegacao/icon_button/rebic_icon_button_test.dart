@@ -353,7 +353,7 @@ void main() {
       _app(
         direction: TextDirection.rtl,
         RebicIconButton(
-          icon: RebicIcons.arrowLeft,
+          icon: RebicIcons.navBack,
           tooltip: 'Voltar',
           onPressed: () {},
         ),

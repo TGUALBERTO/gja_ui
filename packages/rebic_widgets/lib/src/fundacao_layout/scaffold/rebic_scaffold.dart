@@ -183,7 +183,7 @@ class _RebicScaffoldState extends State<RebicScaffold> {
                   child: Semantics(
                     expanded: expanded,
                     child: RebicIconButton(
-                      icon: RebicIcons.menu,
+                      icon: RebicIcons.menu2,
                       tooltip: RebicLocalizations.of(context).navigation,
                       onPressed: () => _toggle(expanded),
                     ),

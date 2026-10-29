@@ -17,7 +17,7 @@ const _items = [
   RebicDropdownItem(
     value: 'aberto',
     label: 'Em aberto',
-    icon: RebicIcons.clock,
+    icon: RebicIcons.pending,
   ),
   RebicDropdownItem(value: 'aprovado', label: 'Aprovado', additionalText: '12'),
   RebicDropdownItem(value: 'arquivado', label: 'Arquivado', enabled: false),
@@ -124,7 +124,7 @@ void main() {
       final rejected = tester.getRect(_item('Rejeitado'));
       expect(open.bottom, lessThanOrEqualTo(approved.top));
       expect(approved.bottom, lessThanOrEqualTo(rejected.top));
-      final icon = tester.getRect(find.byIcon(RebicIcons.clock));
+      final icon = tester.getRect(find.byIcon(RebicIcons.pending));
       expect(
         icon.right,
         lessThanOrEqualTo(tester.getRect(find.text('Em aberto')).left),
@@ -304,7 +304,7 @@ void main() {
           closeTo(theme.density.controlHeight, 0.01),
         );
         expect(
-          tester.getRect(find.byIcon(RebicIcons.clock)).left,
+          tester.getRect(find.byIcon(RebicIcons.pending)).left,
           closeTo(
             tester.getRect(_item('Em aberto')).left + theme.spacing.m,
             0.01,
@@ -465,7 +465,7 @@ void main() {
       final open = tester.getRect(_item('Em aberto'));
       final approved = tester.getRect(_item('Aprovado'));
       expect(
-        tester.getRect(find.byIcon(RebicIcons.clock)).right,
+        tester.getRect(find.byIcon(RebicIcons.pending)).right,
         closeTo(open.right - _light.spacing.m, 0.01),
       );
       expect(

@@ -176,7 +176,7 @@ void main() {
       (tester) async {
         await tester.pumpWidget(_host(const RebicAvatar()));
         final icon = tester.widget<Icon>(find.byType(Icon));
-        expect(icon.icon, RebicIcons.user);
+        expect(icon.icon, RebicIcons.personPlaceholder);
         expect(icon.color, _light.colors.brand);
       },
     );
@@ -296,7 +296,7 @@ void main() {
         home: Column(
           children: [
             const RebicAvatar(initials: 'MB'),
-            const RebicAvatar(icon: RebicIcons.folder),
+            const RebicAvatar(icon: RebicIcons.folderBlank),
             RebicAvatar(initials: 'JS', onPressed: () {}),
           ],
         ),
@@ -342,9 +342,9 @@ void main() {
               const RebicRow(
                 children: [
                   RebicAvatar(),
-                  RebicAvatar(icon: RebicIcons.folder),
+                  RebicAvatar(icon: RebicIcons.folderBlank),
                   RebicAvatar(
-                    icon: RebicIcons.file,
+                    icon: RebicIcons.document,
                     shape: RebicAvatarShape.square,
                   ),
                 ],

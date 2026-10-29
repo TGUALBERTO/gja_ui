@@ -51,7 +51,7 @@ enum RebicSpace {
 ///
 /// ```dart
 /// Row(children: [
-///   const RebicIcon(RebicIcons.info),
+///   const RebicIcon(RebicIcons.information),
 ///   const RebicSpacing.horizontal(RebicSpace.inlineGap),
 ///   const RebicText('Detalhes'),
 /// ])

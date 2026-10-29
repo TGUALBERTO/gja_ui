@@ -74,7 +74,7 @@ Widget _sample() => Column(
           Padding(
             padding: const EdgeInsets.only(right: 8),
             child: RebicIcon(
-              RebicIcons.info,
+              RebicIcons.information,
               size: RebicIconSize.large,
               tone: t,
             ),
@@ -84,11 +84,11 @@ Widget _sample() => Column(
     const SizedBox(height: 16),
     const Row(
       children: [
-        RebicIcon(RebicIcons.chevronRight, size: RebicIconSize.large),
+        RebicIcon(RebicIcons.slimArrowRight, size: RebicIconSize.large),
         SizedBox(width: 16),
         Directionality(
           textDirection: TextDirection.rtl,
-          child: RebicIcon(RebicIcons.chevronRight, size: RebicIconSize.large),
+          child: RebicIcon(RebicIcons.slimArrowRight, size: RebicIconSize.large),
         ),
       ],
     ),
@@ -124,7 +124,7 @@ void main() {
   testWidgets('[API] Callbacks e controlador — Sem ação', (tester) async {
     final handle = tester.ensureSemantics();
     await tester.pumpWidget(
-      _themed(const RebicIcon(RebicIcons.info, semanticLabel: 'Detalhes')),
+      _themed(const RebicIcon(RebicIcons.information, semanticLabel: 'Detalhes')),
     );
     await tester.tap(find.byType(RebicIcon));
     await tester.pump();
@@ -142,8 +142,8 @@ void main() {
       _themed(
         const Row(
           children: [
-            RebicIcon(RebicIcons.chevronRight, key: Key('chevron')),
-            RebicIcon(RebicIcons.check, key: Key('check')),
+            RebicIcon(RebicIcons.slimArrowRight, key: Key('chevron')),
+            RebicIcon(RebicIcons.accept, key: Key('check')),
           ],
         ),
         direction: TextDirection.rtl,
@@ -153,7 +153,7 @@ void main() {
     expect(_mirrored(tester, find.byKey(const Key('check'))), isFalse);
 
     await tester.pumpWidget(
-      _themed(const RebicIcon(RebicIcons.chevronRight, key: Key('chevron'))),
+      _themed(const RebicIcon(RebicIcons.slimArrowRight, key: Key('chevron'))),
     );
     expect(_mirrored(tester, find.byKey(const Key('chevron'))), isFalse);
   });
@@ -223,7 +223,7 @@ void main() {
               focusNode: first,
               child: const SizedBox(width: 20, height: 20),
             ),
-            const RebicIcon(RebicIcons.info),
+            const RebicIcon(RebicIcons.information),
             Focus(
               focusNode: second,
               child: const SizedBox(width: 20, height: 20),
@@ -243,7 +243,7 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(
-      const RebicApp(home: Center(child: RebicIcon(RebicIcons.info))),
+      const RebicApp(home: Center(child: RebicIcon(RebicIcons.information))),
     );
     for (final key in [
       LogicalKeyboardKey.tab,
@@ -323,11 +323,11 @@ void main() {
               const Row(
                 children: [
                   RebicIcon(
-                    RebicIcons.info,
+                    RebicIcons.information,
                     key: Key('inline'),
                     size: RebicIconSize.inline,
                   ),
-                  RebicIcon(RebicIcons.info, key: Key('control')),
+                  RebicIcon(RebicIcons.information, key: Key('control')),
                 ],
               ),
             ),
@@ -351,10 +351,10 @@ void main() {
           _themed(
             const Row(
               children: [
-                RebicIcon(RebicIcons.info, key: Key('cozy')),
+                RebicIcon(RebicIcons.information, key: Key('cozy')),
                 RebicTheme.density(
                   density: RebicDensity.compact,
-                  child: RebicIcon(RebicIcons.info, key: Key('compact')),
+                  child: RebicIcon(RebicIcons.information, key: Key('compact')),
                 ),
               ],
             ),
@@ -374,12 +374,12 @@ void main() {
   ) async {
     final icons = [
       RebicIcons.add,
-      RebicIcons.close,
+      RebicIcons.decline,
       RebicIcons.search,
-      RebicIcons.check,
-      RebicIcons.chevronRight,
+      RebicIcons.accept,
+      RebicIcons.slimArrowRight,
       RebicIcons.warning,
-      RebicIcons.info,
+      RebicIcons.information,
       RebicIcons.home,
     ];
     await tester.pumpWidget(

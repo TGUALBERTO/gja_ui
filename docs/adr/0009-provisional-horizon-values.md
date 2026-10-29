@@ -38,6 +38,8 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Espaçamento | Margem de página por classe de tamanho | 16, 32, 32 e 48 (S, M, L, XL), pela largura da `RebicPage` | `sapUiResponsivePadding` e padding da `sap.f.DynamicPage` (1rem, 2rem, 2rem, 3rem) | `update-rebic-foundation-spacing-fiori-margins` |
 | Raios | Papéis por tipo de controle | `button` 8, `field` 4, `popover` 8, `element` 12, `tile` 16 | `sapButton_`, `sapField_`, `sapPopover_`, `sapElement_` e `sapTile_BorderCornerRadius` (0.5, 0.25, 0.5, 0.75 e 1rem) | `update-rebic-foundation-radius-fiori-roles` |
 | Raios | Anel de foco do link | `xs` (2) | contorno de foco do `sap.m.Link`, sem parâmetro próprio | `update-rebic-foundation-radius-fiori-roles` |
+| Ícones | Tamanho do ícone de controle | 16 | `sapContent_IconHeight` (1rem) | `update-rebic-foundation-iconography-fiori-iconpool` |
+| Ícones | Nomes do IconPool onde há mais de uma opção | `menu2`, `navBack`, `sysEnter2`, `pending`, `popupWindow` (nomes não conferidos com a versão atual do IconPool) | ícones usados pelo `sap.f.ShellBar`, `sap.m.Page` e `sap.m.MessageStrip` | `update-rebic-foundation-iconography-fiori-iconpool` |
 
 ## Alternativas consideradas
 

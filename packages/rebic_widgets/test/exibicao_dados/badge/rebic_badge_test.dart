@@ -250,7 +250,7 @@ void main() {
               count: 3,
               semanticLabel: '3 novas',
               child: RebicIconButton(
-                icon: RebicIcons.notification,
+                icon: RebicIcons.bell,
                 tooltip: 'Notificações',
                 onPressed: () {},
               ),
@@ -319,7 +319,7 @@ void main() {
             RebicBadge(
               count: 3,
               child: RebicIconButton(
-                icon: RebicIcons.notification,
+                icon: RebicIcons.bell,
                 tooltip: 'Notificações',
                 onPressed: () {},
               ),
@@ -370,9 +370,9 @@ void main() {
                       gap: RebicSpace.xxl,
                       children: [
                         for (final (icon, count) in [
-                          (RebicIcons.notification, 3),
-                          (RebicIcons.file, 42),
-                          (RebicIcons.user, 1500),
+                          (RebicIcons.bell, 3),
+                          (RebicIcons.document, 42),
+                          (RebicIcons.personPlaceholder, 1500),
                         ])
                           RebicBadge(
                             count: count,

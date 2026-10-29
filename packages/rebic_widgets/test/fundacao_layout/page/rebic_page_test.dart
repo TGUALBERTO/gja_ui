@@ -436,7 +436,7 @@ void main() {
     expect(tester.getRect(_back).right, closeTo(800 - m, 0.01));
     expect(_rect(tester, 'action').left, closeTo(m, 0.01));
     expect(_rect(tester, 'f1').left, closeTo(m, 0.01));
-    expect(RebicIcons.arrowLeft.matchTextDirection, isTrue);
+    expect(RebicIcons.navBack.matchTextDirection, isTrue);
   });
 
   testWidgets(
@@ -507,7 +507,7 @@ void main() {
             onBack: () {},
             actions: const [
               RebicIcon(RebicIcons.edit, tone: RebicIconTone.brand),
-              RebicIcon(RebicIcons.moreHorizontal, tone: RebicIconTone.brand),
+              RebicIcon(RebicIcons.overflow, tone: RebicIconTone.brand),
             ],
             footerActions: const [
               RebicText('Cancelar', tone: RebicTextTone.muted),

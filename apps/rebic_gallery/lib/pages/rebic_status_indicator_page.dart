@@ -28,11 +28,11 @@ class _RebicStatusIndicatorPageState extends State<RebicStatusIndicatorPage> {
   bool _opened = false;
 
   static const _examples = [
-    (RebicValueState.success, RebicIcons.success, 'Aprovado'),
+    (RebicValueState.success, RebicIcons.sysEnter2, 'Aprovado'),
     (RebicValueState.warning, RebicIcons.warning, 'Atrasado'),
     (RebicValueState.error, RebicIcons.error, 'Rejeitado'),
-    (RebicValueState.information, RebicIcons.clock, 'Em análise'),
-    (RebicValueState.none, RebicIcons.file, 'Rascunho'),
+    (RebicValueState.information, RebicIcons.pending, 'Em análise'),
+    (RebicValueState.none, RebicIcons.document, 'Rascunho'),
   ];
 
   @override
@@ -56,7 +56,7 @@ class _RebicStatusIndicatorPageState extends State<RebicStatusIndicatorPage> {
           const RebicText('Com título', variant: RebicTextVariant.title),
           const RebicStatusIndicator(
             title: 'Situação',
-            icon: RebicIcons.success,
+            icon: RebicIcons.sysEnter2,
             text: 'Aprovado',
             state: RebicValueState.success,
           ),

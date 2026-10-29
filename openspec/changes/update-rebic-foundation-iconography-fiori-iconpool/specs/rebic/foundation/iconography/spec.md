@@ -13,7 +13,7 @@ O fundamento SHALL fornecer um catálogo de ícones constantes com os nomes do I
 
 #### Scenario: Nomes do IconPool
 - **WHEN** o nome do IconPool de cada ícone do catálogo é consultado
-- **THEN** ele é o nome do ícone em kebab-case (ex.: `slimArrowDown` → `slim-arrow-down`, `sysEnter2` → `sys-enter-2`), e nenhum nome do catálogo é `close`, `check`, `chevronDown`, `user` ou outro nome anterior sem equivalente no IconPool
+- **THEN** o nome do catálogo é o nome do IconPool sem hífens, com a letra seguinte maiúscula (ex.: `slim-arrow-down` → `slimArrowDown`, `sys-enter-2` → `sysEnter2`, `menu2` → `menu2`), e nenhum nome do catálogo é `close`, `check`, `chevronDown`, `user` ou outro nome anterior sem equivalente no IconPool
 
 ### Requirement: Espelhamento de ícones direcionais
 Os ícones que indicam direção horizontal (`slimArrowLeft`, `slimArrowRight`, `navBack`, `navigationRightArrow`, `log` e `popupWindow`) MUST ser espelhados quando o texto é da direita para a esquerda. Os demais ícones MUST NOT ser espelhados.

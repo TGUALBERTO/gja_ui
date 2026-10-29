@@ -241,7 +241,7 @@ void main() {
             controller,
             _items([]),
             anchor: RebicIconButton(
-              icon: RebicIcons.moreHorizontal,
+              icon: RebicIcons.overflow,
               tooltip: 'Mais ações',
               onPressed: controller.toggle,
             ),

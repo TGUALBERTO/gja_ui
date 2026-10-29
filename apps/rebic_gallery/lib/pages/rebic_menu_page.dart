@@ -98,12 +98,12 @@ class _RebicMenuPageState extends State<RebicMenuPage> {
                   ),
                   RebicMenuItem(
                     label: 'Configurações',
-                    icon: RebicIcons.settings,
+                    icon: RebicIcons.actionSettings,
                     onPressed: _record('Configurações'),
                   ),
                 ],
                 child: RebicIconButton(
-                  icon: RebicIcons.moreHorizontal,
+                  icon: RebicIcons.overflow,
                   tooltip: 'Mais ações',
                   onPressed: _more.toggle,
                 ),

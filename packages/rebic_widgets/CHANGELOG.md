@@ -2,6 +2,12 @@
 
 ## Não lançado
 
+- Ícones no modelo do IconPool (`update-rebic-foundation-iconography-fiori-iconpool`):
+  - os widgets usam os nomes novos de `RebicIcons`: `RebicScaffold` usa `menu2`, `RebicPage` usa `navBack` e o ícone
+    padrão de `RebicAvatar` é `personPlaceholder`;
+  - ícones de controle (botões, botões de ícone, barra do scaffold, dropdown, menu e o progresso circular padrão)
+    passam de 20 a 16;
+  - 48 goldens foram regerados.
 - **BREAKING** Raios no modelo Fiori (`update-rebic-foundation-radius-fiori-roles`):
   - `RebicRadius` (de `RebicContainer`) troca `control` e `container` por `button`, `field`, `popover`, `element` e
     `tile`.

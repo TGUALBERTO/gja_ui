@@ -25,13 +25,13 @@ const _statuses = [
   RebicDropdownItem(
     value: 'aberto',
     label: 'Em aberto',
-    icon: RebicIcons.clock,
+    icon: RebicIcons.pending,
     additionalText: '8',
   ),
   RebicDropdownItem(
     value: 'aprovado',
     label: 'Aprovado',
-    icon: RebicIcons.success,
+    icon: RebicIcons.sysEnter2,
     additionalText: '12',
   ),
   RebicDropdownItem(
@@ -43,7 +43,7 @@ const _statuses = [
   RebicDropdownItem(
     value: 'arquivado',
     label: 'Arquivado',
-    icon: RebicIcons.folder,
+    icon: RebicIcons.folderBlank,
     enabled: false,
   ),
 ];
@@ -108,7 +108,7 @@ class _RebicDropdownPageState extends State<RebicDropdownPage> {
                 items: _actions,
                 onSelected: (value) => setState(() => _action = value),
                 child: RebicIconButton(
-                  icon: RebicIcons.moreHorizontal,
+                  icon: RebicIcons.overflow,
                   tooltip: 'Mais ações',
                   onPressed: _more.toggle,
                 ),
@@ -159,7 +159,7 @@ class _StatusField extends StatelessWidget {
                       Expanded(
                         child: ExcludeSemantics(child: RebicText(label)),
                       ),
-                      const RebicIcon(RebicIcons.chevronDown),
+                      const RebicIcon(RebicIcons.slimArrowDown),
                     ],
                   ),
                 ),

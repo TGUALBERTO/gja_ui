@@ -28,7 +28,7 @@ Widget _buttons(RebicThemeData theme, {double textScale = 1}) => RebicTheme(
                   RebicButton(
                     label: type.name,
                     type: type,
-                    icon: RebicIcons.check,
+                    icon: RebicIcons.accept,
                     onPressed: () {},
                   ),
               ],

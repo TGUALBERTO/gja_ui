@@ -705,7 +705,7 @@ void main() {
                       content: const RebicText(
                         'Pedido 4711, criado em 12/10 por Maria Barros.',
                       ),
-                      child: const RebicIcon(RebicIcons.info),
+                      child: const RebicIcon(RebicIcons.information),
                     ),
                   ),
                 ],

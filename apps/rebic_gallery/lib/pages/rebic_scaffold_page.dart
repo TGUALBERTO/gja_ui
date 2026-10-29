@@ -59,9 +59,9 @@ class _DemoNavigation extends StatelessWidget {
 
   static const _items = [
     (RebicIcons.home, 'Início'),
-    (RebicIcons.file, 'Pedidos'),
-    (RebicIcons.user, 'Fornecedores'),
-    (RebicIcons.settings, 'Configurações'),
+    (RebicIcons.document, 'Pedidos'),
+    (RebicIcons.personPlaceholder, 'Fornecedores'),
+    (RebicIcons.actionSettings, 'Configurações'),
   ];
 
   @override

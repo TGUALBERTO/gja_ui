@@ -607,8 +607,8 @@ class _GoldenScaffold extends StatelessWidget {
       logo: const RebicIcon(RebicIcons.home, tone: RebicIconTone.brand),
       title: 'Compras',
       actions: const [
-        RebicIcon(RebicIcons.notification),
-        RebicIcon(RebicIcons.user),
+        RebicIcon(RebicIcons.bell),
+        RebicIcon(RebicIcons.personPlaceholder),
       ],
       navigation: SizedBox(
         width: 240,
@@ -617,8 +617,8 @@ class _GoldenScaffold extends StatelessWidget {
             gap: RebicSpace.none,
             children: [
               item(context, RebicIcons.home, 'Início'),
-              item(context, RebicIcons.file, 'Pedidos'),
-              item(context, RebicIcons.settings, 'Configurações'),
+              item(context, RebicIcons.document, 'Pedidos'),
+              item(context, RebicIcons.actionSettings, 'Configurações'),
             ],
           ),
         ),

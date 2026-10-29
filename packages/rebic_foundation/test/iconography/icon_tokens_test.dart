@@ -20,6 +20,7 @@ void main() {
       }
       expect(steps, contains(_fallback.inline));
       expect(steps, contains(_fallback.control));
+      expect(_fallback.control, 16);
       final primitives = RebicIconPrimitives.sizes.values.toSet();
       for (final MapEntry(key: name, value: value)
           in _fallback.values.entries) {
