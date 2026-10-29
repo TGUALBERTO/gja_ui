@@ -19,7 +19,7 @@ Cada widget público do framework SHALL possuir exatamente uma spec própria no 
 - **THEN** a revisão rejeita a change e exige uma spec separada para cada widget
 
 ### Requirement: Specs próprias para fundamentos e núcleo
-Cada fundamento compartilhado SHALL ter spec própria em `rebic/foundation/<fundamento>`, e cada infraestrutura compartilhada do núcleo SHALL ter spec própria em `rebic/core/<infraestrutura>`. Os fundamentos obrigatórios são: design-tokens, color, typography, spacing, radius, elevation, iconography, theming, density, interaction-states, breakpoints e accessibility.
+Cada fundamento compartilhado SHALL ter spec própria em `rebic/foundation/<fundamento>`, e cada infraestrutura compartilhada do núcleo SHALL ter spec própria em `rebic/core/<infraestrutura>`. Os fundamentos obrigatórios são: design-tokens, color, typography, spacing, radius, shadows, iconography, theming, density, interaction-states, breakpoints e accessibility.
 
 #### Scenario: Fundamento especificado antes do consumidor
 - **GIVEN** um widget que consome tokens de tipografia

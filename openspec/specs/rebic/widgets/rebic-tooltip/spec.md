@@ -78,11 +78,11 @@ Abrir uma dica MUST fechar qualquer outra dica aberta.
 - **THEN** só a dica do segundo elemento está aberta
 
 ### Requirement: [Aparência] Tokens de componente
-A dica SHALL usar a superfície `colors.base` com a borda `colors.separator`, o raio `radius.s`, a sombra `elevation.popover`, os espaços internos `spacing.s` (horizontal) e `spacing.xs` (vertical) e o texto na variante `label` de `rebic/widgets/rebic-text`. A largura máxima SHALL ser derivada de `spacing.xxxl`, e mensagens mais longas MUST quebrar em linhas.
+A dica SHALL usar a superfície `colors.base` com a borda `colors.separator`, o raio `radius.s`, a sombra `shadows.popover`, os espaços internos `spacing.s` (horizontal) e `spacing.xs` (vertical) e o texto na variante `label` de `rebic/widgets/rebic-text`. A largura máxima SHALL ser derivada de `spacing.xxxl`, e mensagens mais longas MUST quebrar em linhas.
 
 #### Scenario: Aparência da dica
 - **WHEN** a dica aberta é renderizada nos temas claro e escuro
-- **THEN** o fundo é `colors.base`, a borda é `colors.separator`, há a sombra `elevation.popover`, e o texto está na variante `label`
+- **THEN** o fundo é `colors.base`, a borda é `colors.separator`, há a sombra `shadows.popover`, e o texto está na variante `label`
 
 ### Requirement: [Aparência] Movimento da dica
 Com movimento reduzido, os atrasos de abertura e fechamento SHALL ser zero, conforme `rebic/foundation/accessibility`.
@@ -134,7 +134,7 @@ A dica MUST ficar dentro da tela, com a inversão de lado e o limite de bordas d
 - **THEN** ela aparece acima do filho, dentro da tela, com a largura no máximo igual à largura máxima
 
 ### Requirement: [Integração] Dependências
-`RebicTooltip` SHALL depender somente de `rebic/core/overlay`, `rebic/widgets/rebic-text`, `rebic/widgets/rebic-container`, `rebic/foundation/color`, `rebic/foundation/elevation`, `rebic/foundation/radius`, `rebic/foundation/spacing`, `rebic/foundation/design-tokens`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+`RebicTooltip` SHALL depender somente de `rebic/core/overlay`, `rebic/widgets/rebic-text`, `rebic/widgets/rebic-container`, `rebic/foundation/color`, `rebic/foundation/shadows`, `rebic/foundation/radius`, `rebic/foundation/spacing`, `rebic/foundation/design-tokens`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Tooltip sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`

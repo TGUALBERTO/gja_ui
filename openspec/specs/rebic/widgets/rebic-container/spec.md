@@ -15,7 +15,7 @@
 | `surface` | `RebicSurface` | `none` |
 | `border` | `bool` | `false` |
 | `radius` | `RebicRadius` | `none` |
-| `elevation` | `RebicElevation` | `none` |
+| `shadow` | `RebicShadow` | `none` |
 | `padding` | `RebicSpace?` | nulo (sem espaço) |
 
 #### Scenario: Uso mínimo
@@ -24,10 +24,10 @@
 - **THEN** ele não pinta fundo, borda nem sombra, e o filho ocupa a mesma área que ocuparia sem o contêiner
 
 ### Requirement: [API] Valores dos papéis
-`RebicSurface` SHALL ter `none`, `background`, `base`, `header` e `shell`. `RebicRadius` SHALL ter os passos e papéis do raio (`none`, `xs`, `s`, `m`, `l`, `xl`, `full`, `control`, `container`). `RebicElevation` SHALL ter `none` e os papéis de sombra (`card`, `popover`, `dialog`, `dragged`, `header`).
+`RebicSurface` SHALL ter `none`, `background`, `base`, `header` e `shell`. `RebicRadius` SHALL ter os passos e papéis do raio (`none`, `xs`, `s`, `m`, `l`, `xl`, `full`, `control`, `container`). `RebicShadow` SHALL ter `none` e os papéis de sombra (`card`, `popover`, `dialog`, `dragged`, `header`).
 
 #### Scenario: Papéis do fundamento
-- **WHEN** os valores de `RebicRadius` e os papéis de `RebicElevation` são comparados com os nomes dos tokens de raio e de elevação
+- **WHEN** os valores de `RebicRadius` e os papéis de `RebicShadow` são comparados com os nomes dos tokens de raio e de sombra
 - **THEN** cada valor tem um token de mesmo nome
 
 ### Requirement: [API] Callbacks e controlador
@@ -51,10 +51,10 @@ Com `radius` diferente de `none`, `RebicContainer` SHALL recortar o conteúdo no
 - **THEN** não há recorte do conteúdo
 
 ### Requirement: [Aparência] Tokens de componente
-`RebicContainer` SHALL obter o fundo de `colors.background`, `colors.base`, `colors.headerBackground` ou `colors.shell`, a borda de `colors.separator` com 1 px, o raio de `radius.<valor>`, a sombra de `elevation.shadowsFor(elevation.<papel>, colors.shadow)` e o espaço de `spacing.<valor>`, todos do tema ativo, sem valores literais.
+`RebicContainer` SHALL obter o fundo de `colors.background`, `colors.base`, `colors.headerBackground` ou `colors.shell`, a borda de `colors.separator` com 1 px, o raio de `radius.<valor>`, a sombra de `shadows.boxShadows(shadows.<papel>, colors.shadow)` e o espaço de `spacing.<valor>`, todos do tema ativo, sem valores literais.
 
 #### Scenario: Troca de tema
-- **GIVEN** `RebicContainer` com `surface` `base`, `border` e `elevation` `card` no tema claro
+- **GIVEN** `RebicContainer` com `surface` `base`, `border` e `shadow` `card` no tema claro
 - **WHEN** o tema ativo muda para escuro
 - **THEN** o fundo, a borda e a cor da sombra passam aos valores do escuro, sem recriar o widget com outros parâmetros
 
@@ -63,7 +63,7 @@ Com `radius` diferente de `none`, `RebicContainer` SHALL recortar o conteúdo no
 - **THEN** o fundo é transparente em `none` e, nos demais, a cor de mesmo papel em `colors`
 
 #### Scenario: Raio e sombra
-- **WHEN** cada valor de `RebicRadius` e cada papel de `RebicElevation` são renderizados no tema claro
+- **WHEN** cada valor de `RebicRadius` e cada papel de `RebicShadow` são renderizados no tema claro
 - **THEN** o raio dos cantos é o token de mesmo nome, e as sombras são as do papel com a cor `shadow`
 
 ### Requirement: [Estados] Sem estados de interação
@@ -102,7 +102,7 @@ O `padding` SHALL usar o espaçamento da densidade ativa. Raio e sombra MUST ser
 - **THEN** o espaço interno é o `l` compacto dentro e o `l` confortável fora, com o mesmo raio e a mesma sombra
 
 ### Requirement: [Integração] Dependências
-`RebicContainer` SHALL depender somente de `rebic/foundation/color`, `rebic/foundation/radius`, `rebic/foundation/elevation`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/theming` e `rebic/widgets/rebic-spacing` (os valores de `RebicSpace`).
+`RebicContainer` SHALL depender somente de `rebic/foundation/color`, `rebic/foundation/radius`, `rebic/foundation/shadows`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/theming` e `rebic/widgets/rebic-spacing` (os valores de `RebicSpace`).
 
 #### Scenario: Funciona sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`
@@ -125,7 +125,7 @@ O `padding` SHALL usar o espaçamento da densidade ativa. Raio e sombra MUST ser
 
 #### Scenario: Página RebicContainer na galeria
 - **WHEN** a página "RebicContainer" é aberta
-- **THEN** ela exibe as cinco superfícies, os raios, os seis valores de elevação e o exemplo de cartão
+- **THEN** ela exibe as cinco superfícies, os raios, os seis valores de sombra e o exemplo de cartão
 
 ### Requirement: [Restrições] Fora do escopo
 `RebicContainer` SHALL NOT aceitar cor, raio, sombra ou espaço literais, nem definir tamanho próprio ou ser clicável.

@@ -78,11 +78,11 @@ Na classe `small`, a navegação recolhida SHALL ficar oculta, e o corpo MUST oc
 - **THEN** o corpo volta a aparecer com o contador em 3
 
 ### Requirement: [Aparência] Tokens de componente
-A barra SHALL usar o fundo `colors.shell` e a sombra `elevation.header`. A área de navegação SHALL usar o fundo `colors.base`, e o separador SHALL ser o de `rebic/widgets/rebic-divider` com tom sutil. Os espaços internos da barra SHALL vir de `spacing`, o botão MUST ter a família `transparent` de `rebic/foundation/interaction-states` e o ícone `menu` de `rebic/foundation/iconography`, sem valores literais.
+A barra SHALL usar o fundo `colors.shell` e a sombra `shadows.header`. A área de navegação SHALL usar o fundo `colors.base`, e o separador SHALL ser o de `rebic/widgets/rebic-divider` com tom sutil. Os espaços internos da barra SHALL vir de `spacing`, o botão MUST ter a família `transparent` de `rebic/foundation/interaction-states` e o ícone `menu` de `rebic/foundation/iconography`, sem valores literais.
 
 #### Scenario: Cores da barra e da navegação
 - **WHEN** o scaffold com barra e navegação é renderizado nos temas claro e escuro
-- **THEN** o fundo da barra é `colors.shell`, o da navegação é `colors.base`, e a barra tem a sombra `elevation.header` de cada tema
+- **THEN** o fundo da barra é `colors.shell`, o da navegação é `colors.base`, e a barra tem a sombra `shadows.header` de cada tema
 
 ### Requirement: [Aparência] Movimento da navegação
 A mudança de largura da navegação ao lado do corpo SHALL ser animada com `motion.medium` e a curva `motion.standard`. Com movimento reduzido, a mudança MUST ser imediata.
@@ -141,7 +141,7 @@ Dos widgets e do núcleo, `RebicScaffold` SHALL depender somente de `rebic/widge
 - **THEN** não ocorrem exceções relacionadas a ancestrais Material ou Cupertino
 
 ### Requirement: [Integração] Dependências de fundamentos
-Dos fundamentos, `RebicScaffold` SHALL depender somente de `rebic/foundation/color`, `rebic/foundation/elevation`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/iconography`, `rebic/foundation/interaction-states`, `rebic/foundation/design-tokens`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+Dos fundamentos, `RebicScaffold` SHALL depender somente de `rebic/foundation/color`, `rebic/foundation/shadows`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/iconography`, `rebic/foundation/interaction-states`, `rebic/foundation/design-tokens`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Barra pelo tema da subárvore
 - **GIVEN** um scaffold numa subárvore com o tema escuro e densidade compacta, dentro de uma aplicação clara e confortável
