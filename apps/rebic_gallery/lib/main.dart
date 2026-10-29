@@ -18,6 +18,7 @@ import 'pages/rebic_button_page.dart';
 import 'pages/rebic_card_page.dart';
 import 'pages/rebic_container_page.dart';
 import 'pages/rebic_divider_page.dart';
+import 'pages/rebic_dropdown_page.dart';
 import 'pages/rebic_grid_page.dart';
 import 'pages/rebic_icon_button_page.dart';
 import 'pages/rebic_icon_page.dart';
@@ -249,6 +250,11 @@ final galleryPages = <GalleryPage>[
     title: RebicPopoverPage.title,
     route: RebicPopoverPage.route,
     builder: (_) => const RebicPopoverPage(),
+  ),
+  GalleryPage(
+    title: RebicDropdownPage.title,
+    route: RebicDropdownPage.route,
+    builder: (_) => const RebicDropdownPage(),
   ),
 ];
 

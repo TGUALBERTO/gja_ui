@@ -25,6 +25,7 @@ Widget _app(
 }) => RebicApp(
   theme: theme,
   darkTheme: theme,
+  density: theme?.density.density,
   builder: (context, child) => MediaQuery(
     data: MediaQuery.of(
       context,
@@ -228,6 +229,35 @@ void main() {
       tester.getRect(_panel()).width,
       closeTo(_light.spacing.xxxl * 12, 0.01),
     );
+  });
+
+  testWidgets('[API] Posição e largura — Popover na largura da âncora', (
+    tester,
+  ) async {
+    for (final steps in [10, 1]) {
+      final controller = _controller();
+      final width = _light.spacing.xxxl * steps;
+      await tester.pumpWidget(
+        _app(
+          _anchored(
+            RebicPopover(
+              key: ValueKey(steps),
+              controller: controller,
+              semanticLabel: 'Lista',
+              width: RebicPopoverWidth.anchor,
+              content: _box('content'),
+              child: SizedBox(width: width, height: 24),
+            ),
+          ),
+        ),
+      );
+      controller.open();
+      await tester.pumpAndSettle();
+      expect(
+        tester.getRect(_panel()).width,
+        closeTo(_light.spacing.xxxl * (steps == 10 ? 10 : 4), 0.01),
+      );
+    }
   });
 
   group('[Comportamento] Posição, largura e rolagem', () {
@@ -614,7 +644,7 @@ void main() {
         'rebic/widgets/rebic-popover',
         'add-rebic-popover',
       );
-      expect(names, hasLength(22));
+      expect(names, hasLength(23));
       expect(untestedScenarios(names), isEmpty);
     });
 

@@ -20,6 +20,7 @@ void main() {
               key: ValueKey((theme.brightness, density)),
               theme: theme,
               darkTheme: theme,
+              density: density,
               home: RebicContainer(
                 surface: RebicSurface.background,
                 child: Align(

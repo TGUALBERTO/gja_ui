@@ -22,6 +22,7 @@ Widget _app(Widget home, {RebicThemeData? theme, bool reduceMotion = false}) =>
     RebicApp(
       theme: theme,
       darkTheme: theme,
+      density: theme?.density.density,
       builder: (context, child) => MediaQuery(
         data: MediaQuery.of(context).copyWith(disableAnimations: reduceMotion),
         child: RepaintBoundary(key: const Key('golden'), child: child!),

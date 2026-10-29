@@ -77,8 +77,8 @@ class RebicDropdown<T> extends StatefulWidget {
 RebicPopover(controller, semanticLabel, width: anchor, padded: false, side, onDismiss, child: âncora)
 └─ content: Focus(onKeyEvent: setas, Home, End, letra)
    └─ Column(min, stretch)
-      └─ [para cada item] RebicInteractable(
-            focusNode: _nodes[i], autofocus: i == inicial,
+      └─ [para cada item] MergeSemantics → RebicInteractable(
+            focusNode: _nodes[i],
             selected: item.value == selected,
             onPressed: item.enabled ? () => _choose(item) : null,
             semanticLabel: additionalText == null ? label : '$label, $additionalText',
@@ -92,8 +92,11 @@ RebicPopover(controller, semanticLabel, width: anchor, padded: false, side, onDi
 
 - **`_choose`:** chama `controller.close()` e depois `onSelected(value)`. O núcleo devolve o foco à âncora ao fechar.
   `onDismiss` não é chamado, porque não é dispensa.
-- **Foco inicial:** o item selecionado e habilitado, ou o primeiro habilitado, recebe `autofocus`. O
-  `RebicInitialFocus` do núcleo não o sobrepõe.
+- **Foco inicial:** o item selecionado e habilitado, ou o primeiro habilitado, recebe o foco por `requestFocus`
+  depois do primeiro quadro da lista. O `autofocus` foi descartado na implementação: o `RebicInitialFocus` do núcleo
+  roda depois dele e leva o foco ao primeiro focável.
+- **Semântica:** cada item fica em `MergeSemantics`, como no `RebicButton`, para que o nó de foco interno do
+  `RebicInteractable` não apareça como um alvo sem rótulo.
 - **Teclado:**
   - O `Focus` em volta da lista trata as setas para cima e para baixo: próximo item habilitado na direção, sem dar a
     volta.
@@ -116,7 +119,8 @@ RebicPopover(controller, semanticLabel, width: anchor, padded: false, side, onDi
 - **Semântica:** por `getSemantics` dos rótulos, com `isSelected`, `isButton` e `isEnabled`.
 - **Acessibilidade:** um arquivo sem a Inter, com contraste, alvo rotulado e alvo mínimo nos temas claro e escuro e
   nas duas densidades, sobre `background`.
-- **Goldens:** 720 × 480, com um dropdown aberto sob uma âncora de 6 passos `spacing.xxxl`. Os itens são "Em aberto"
+- **Goldens:** 720 × 480, com um dropdown aberto sob uma âncora no formato de campo, de 6 passos `spacing.xxxl`, com o
+  texto alinhado ao dos itens. Os itens são "Em aberto"
   (ícone), "Aprovado" (selecionado, "12"), "Arquivado" (desabilitado) e "Rejeitado". São gerados nos temas claro e
   escuro × confortável e compacto.
 - **Galeria:** página "RebicDropdown" (`rebic_dropdown_page.dart`), com `RebicPage`:
@@ -126,6 +130,9 @@ RebicPopover(controller, semanticLabel, width: anchor, padded: false, side, onDi
   O cenário se chama "Página RebicDropdown na galeria".
 - **Popover:** o cenário novo "Popover na largura da âncora" vai para os testes do popover, e a rastreabilidade do
   popover passa a 23 cenários.
+- **Densidade nos testes:** o `RebicApp` aplica a densidade recomendada pela plataforma quando `density` é omitido.
+  Por isso, os testes passam `density` junto do tema. A mesma correção vale para os testes do popover e do tooltip,
+  cujos goldens compactos eram iguais aos confortáveis.
 - **Catálogo:** `implemented`, com as dependências do `[Integração]`.
 
 ## Risks / Trade-offs

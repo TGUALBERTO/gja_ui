@@ -895,9 +895,19 @@ items:
     category: feedback-sobreposicoes
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
       - rebic/widgets/rebic-popover
+      - rebic/widgets/rebic-text
+      - rebic/widgets/rebic-icon
+      - rebic/core/interaction
+      - rebic/foundation/color
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/typography
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-dialog
     name: "RebicDialog"
     kind: widget
