@@ -29,7 +29,7 @@ Widget _themed(
   ),
 );
 
-RebicSpacingTokens get _comfortable => RebicThemeData.light().spacing;
+RebicSpacingTokens get _cozy => RebicThemeData.light().spacing;
 
 Rect _rect(WidgetTester tester, String key) =>
     tester.getRect(find.byKey(Key(key)));
@@ -38,7 +38,7 @@ void main() {
   testWidgets('[API] Propriedades — Linha mínima', (tester) async {
     await tester.pumpWidget(
       RebicApp(
-        density: RebicDensity.comfortable,
+        density: RebicDensity.cozy,
         home: Align(
           alignment: Alignment.topLeft,
           child: SizedBox(
@@ -53,7 +53,7 @@ void main() {
     final a = _rect(tester, 'a');
     final b = _rect(tester, 'b');
     final box = _rect(tester, 'box');
-    expect(b.left - a.right, _comfortable.inlineGap);
+    expect(b.left - a.right, _cozy.inlineGap);
     expect(a.left, box.left);
     expect(a.center.dy, box.center.dy);
   });
@@ -89,7 +89,7 @@ void main() {
         ),
       );
       final row = _rect(tester, 'row');
-      expect(row.width, 60 + 2 * _comfortable.l);
+      expect(row.width, 60 + 2 * _cozy.l);
       expect(_rect(tester, 'a').left, row.left);
       expect(_rect(tester, 'c').right, row.right);
     },
@@ -155,7 +155,7 @@ void main() {
     final rows = {for (var i = 0; i < 5; i++) _rect(tester, 'q$i').top}.toList()
       ..sort();
     expect(rows.length, greaterThan(1));
-    expect(rows[1] - first.bottom, _comfortable.s);
+    expect(rows[1] - first.bottom, _cozy.s);
   });
 
   testWidgets('RebicRow.wrap rejeita filho expansível', (tester) async {
@@ -182,7 +182,7 @@ void main() {
         width: 200,
       ),
     );
-    expect(_rect(tester, 'e').width, 200 - 20 - _comfortable.m);
+    expect(_rect(tester, 'e').width, 200 - 20 - _cozy.m);
   });
 
   testWidgets(
@@ -193,8 +193,8 @@ void main() {
         theme: RebicThemeData.light(density: density),
       );
       double gap() => _rect(tester, 'b').left - _rect(tester, 'a').right;
-      await tester.pumpWidget(app(RebicDensity.comfortable));
-      expect(gap(), _comfortable.l);
+      await tester.pumpWidget(app(RebicDensity.cozy));
+      expect(gap(), _cozy.l);
       await tester.pumpWidget(app(RebicDensity.compact));
       await tester.pumpAndSettle();
       expect(
@@ -316,10 +316,7 @@ void main() {
           ),
         );
         await tester.pumpAndSettle();
-        expect(
-          _rect(tester, 'b').left - _rect(tester, 'a').right,
-          _comfortable.l,
-        );
+        expect(_rect(tester, 'b').left - _rect(tester, 'a').right, _cozy.l);
         expect(
           _rect(tester, 'd').left - _rect(tester, 'c').right,
           RebicThemeData.light(density: RebicDensity.compact).spacing.l,

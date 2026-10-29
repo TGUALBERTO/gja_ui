@@ -31,7 +31,7 @@ Widget _themed(
   ),
 );
 
-RebicSpacingTokens get _comfortable => RebicThemeData.light().spacing;
+RebicSpacingTokens get _cozy => RebicThemeData.light().spacing;
 
 /// Retângulo da linha pintada (o `ColoredBox`) do divisor de chave [_d].
 Rect _stroke(WidgetTester tester) => tester.getRect(
@@ -139,10 +139,7 @@ void main() {
         ),
       ),
     );
-    expect(
-      tester.getSize(find.byKey(_d)),
-      Size(_line + 2 * _comfortable.s, 40),
-    );
+    expect(tester.getSize(find.byKey(_d)), Size(_line + 2 * _cozy.s, 40));
   });
 
   testWidgets('[Comportamento] Recuo direcional — Recuo em LTR e RTL', (
@@ -152,8 +149,8 @@ void main() {
       _themed(const RebicDivider(key: _d, indent: RebicSpace.l)),
     );
     final ltr = _stroke(tester);
-    expect(ltr.left, _comfortable.l);
-    expect(ltr.width, 300 - _comfortable.l);
+    expect(ltr.left, _cozy.l);
+    expect(ltr.width, 300 - _cozy.l);
 
     await tester.pumpWidget(
       _themed(
@@ -162,8 +159,8 @@ void main() {
       ),
     );
     final rtl = _stroke(tester);
-    expect(rtl.right, 300 - _comfortable.l);
-    expect(rtl.width, 300 - _comfortable.l);
+    expect(rtl.right, 300 - _cozy.l);
+    expect(rtl.width, 300 - _cozy.l);
   });
 
   group('[Aparência] Tokens de componente', () {
@@ -311,7 +308,7 @@ void main() {
       _themed(
         const Column(
           children: [
-            RebicDivider(key: Key('comfortable'), spacing: RebicSpace.l),
+            RebicDivider(key: Key('cozy'), spacing: RebicSpace.l),
             RebicTheme.density(
               density: RebicDensity.compact,
               child: RebicDivider(key: Key('compact'), spacing: RebicSpace.l),
@@ -323,8 +320,8 @@ void main() {
     await tester.pumpAndSettle();
     final compact = RebicThemeData.light(density: RebicDensity.compact).spacing;
     expect(
-      tester.getSize(find.byKey(const Key('comfortable'))).height,
-      _line + 2 * _comfortable.l,
+      tester.getSize(find.byKey(const Key('cozy'))).height,
+      _line + 2 * _cozy.l,
     );
     expect(
       tester.getSize(find.byKey(const Key('compact'))).height,

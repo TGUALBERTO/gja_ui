@@ -3,7 +3,7 @@ import 'package:rebic_ui/rebic_ui.dart';
 import 'gallery_comparison.dart';
 
 /// Página "RebicTheme": troca animada entre claro e escuro, e uma subárvore
-/// compacta ao lado de uma confortável.
+/// compacta ao lado de uma cozy.
 ///
 /// Tudo abaixo do seletor fica num `RebicTheme` local; a prévia e os
 /// elementos leem o tema ativo, sem receber valores visuais. As dimensões da
@@ -21,8 +21,8 @@ class RebicThemePage extends StatefulWidget {
   /// Chave da prévia, cuja cor é a `base` do tema ativo.
   static const previewKey = Key('rebic-theme-preview');
 
-  /// Chave do elemento interativo da coluna confortável.
-  static const comfortableKey = Key('rebic-theme-comfortable');
+  /// Chave do elemento interativo da coluna cozy.
+  static const cozyKey = Key('rebic-theme-cozy');
 
   /// Chave do elemento interativo da coluna compacta.
   static const compactKey = Key('rebic-theme-compact');
@@ -97,7 +97,7 @@ class _Preview extends StatelessWidget {
               Expanded(
                 child: _DensityColumn(
                   label: 'Confortável',
-                  targetKey: RebicThemePage.comfortableKey,
+                  targetKey: RebicThemePage.cozyKey,
                 ),
               ),
               Expanded(

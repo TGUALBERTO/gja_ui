@@ -6,7 +6,7 @@ import 'package:rebic_foundation/rebic_primitives.dart';
 
 import '../support/token_set_contract.dart';
 
-const _comfortable = RebicDensityTokens.comfortable();
+const _cozy = RebicDensityTokens.cozy();
 const _compact = RebicDensityTokens.compact();
 
 Map<String, double> _spacingValues(RebicSpacingTokens s) => {
@@ -27,26 +27,27 @@ Map<String, double> _spacingValues(RebicSpacingTokens s) => {
 
 void main() {
   test('Modos de densidade — Mapeamento por modo', () {
-    expect(RebicDensity.values, [
-      RebicDensity.comfortable,
-      RebicDensity.compact,
-    ]);
+    expect(RebicDensity.values, [RebicDensity.cozy, RebicDensity.compact]);
     for (final mode in RebicDensity.values) {
       expect(RebicDensityTokens.of(mode).density, mode);
     }
-    expect(_comfortable, isNot(_compact));
+    expect(_cozy, isNot(_compact));
+  });
+
+  test('Modos de densidade — Nomes do Fiori', () {
+    expect(RebicDensity.values.map((d) => d.name), ['cozy', 'compact']);
   });
 
   group('Dimensões de controle por densidade', () {
     test('Dimensões de controle por densidade — Valores de referência', () {
-      expect(_comfortable.controlHeight, 40);
-      expect(_comfortable.listItemHeight, 48);
-      expect(_comfortable.minTargetSize, 48);
-      expect(_compact.controlHeight, 32);
+      expect(_cozy.controlHeight, 36);
+      expect(_cozy.listItemHeight, 44);
+      expect(_cozy.minTargetSize, 44);
+      expect(_compact.controlHeight, 26);
       expect(_compact.listItemHeight, 32);
-      expect(_compact.minTargetSize, 24);
-      final primitives = RebicSpacingPrimitives.values.values.toSet();
-      for (final tokens in [_comfortable, _compact]) {
+      expect(_compact.minTargetSize, 32);
+      final primitives = RebicDensityPrimitives.sizes.values.toSet();
+      for (final tokens in [_cozy, _compact]) {
         for (final MapEntry(key: name, value: value)
             in tokens.dimensions.entries) {
           expect(primitives, contains(value), reason: name);
@@ -61,7 +62,7 @@ void main() {
             in _compact.dimensions.entries) {
           expect(
             value,
-            lessThanOrEqualTo(_comfortable.dimensions[name]!),
+            lessThanOrEqualTo(_cozy.dimensions[name]!),
             reason: name,
           );
         }
@@ -69,9 +70,20 @@ void main() {
     );
   });
 
+  test(
+    'Dimensões de controle por densidade — Escala primitiva de densidade',
+    () {
+      final sizes = RebicDensityPrimitives.sizes;
+      expect(sizes.values, [26, 32, 36, 44]);
+      for (final MapEntry(key: name, value: value) in sizes.entries) {
+        expect(name, 'size${value.round()}');
+      }
+    },
+  );
+
   group('Alvo mínimo de interação', () {
     test('Alvo mínimo de interação — Alvos dos mapeamentos de referência', () {
-      expect(_comfortable.minTargetSize, greaterThanOrEqualTo(48));
+      expect(_cozy.minTargetSize, greaterThanOrEqualTo(44));
       expect(_compact.minTargetSize, greaterThanOrEqualTo(24));
     });
 
@@ -101,15 +113,15 @@ void main() {
 
   group('Espaçamento por densidade', () {
     test('Espaçamento por densidade — Espaçamento confortável', () {
-      expect(_comfortable.spacing, const RebicSpacingTokens.fallback());
+      expect(_cozy.spacing, const RebicSpacingTokens.fallback());
     });
 
     test('Espaçamento por densidade — Espaçamento compacto', () {
       final compact = _spacingValues(_compact.spacing);
-      final comfortable = _spacingValues(_comfortable.spacing);
+      final cozy = _spacingValues(_cozy.spacing);
       final primitives = RebicSpacingPrimitives.values.values.toSet();
       for (final MapEntry(key: name, value: value) in compact.entries) {
-        expect(value, lessThanOrEqualTo(comfortable[name]!), reason: name);
+        expect(value, lessThanOrEqualTo(cozy[name]!), reason: name);
         expect(primitives, contains(value), reason: name);
       }
       final steps = compact.values.take(9).toList();
@@ -134,19 +146,19 @@ void main() {
 
   group('Tipografia preservada', () {
     test('Tipografia preservada — Rótulo cabe no controle', () {
-      final label = const RebicTypographyTokens.fallback().baseSemibold;
-      final labelLine = label.fontSize! * label.height!;
-      for (final tokens in [_comfortable, _compact]) {
+      final base = const RebicTypographyTokens.fallback().base;
+      final baseLine = base.fontSize! * base.height!;
+      for (final tokens in [_cozy, _compact]) {
         expect(
           tokens.controlHeight,
-          greaterThanOrEqualTo(labelLine + 2 * tokens.spacing.xs - 1e-9),
+          greaterThanOrEqualTo(baseLine + 2 * tokens.spacing.xxs - 1e-9),
           reason: tokens.density.name,
         );
       }
     });
 
     test('Tipografia preservada — Densidade sem estilos de texto', () {
-      for (final tokens in [_comfortable, _compact]) {
+      for (final tokens in [_cozy, _compact]) {
         final builder = DiagnosticPropertiesBuilder();
         tokens.debugFillProperties(builder);
         for (final property in builder.properties) {
@@ -164,10 +176,10 @@ void main() {
   group('Contrato do conjunto de densidade', () {
     test('Contrato do conjunto de densidade — Contrato verificado', () {
       expectTokenSetContract(
-        a: _comfortable,
+        a: _cozy,
         // Instância não canônica, para testar a igualdade por valor.
         // ignore: prefer_const_constructors
-        aCopy: RebicDensityTokens.comfortable(),
+        aCopy: RebicDensityTokens.cozy(),
         b: _compact,
       );
     });
@@ -175,28 +187,25 @@ void main() {
     test(
       'Contrato do conjunto de densidade — Interpolação entre densidades',
       () {
-        final mid = _comfortable.lerp(_compact, 0.5);
-        expect(mid.controlHeight, 36);
+        final mid = _cozy.lerp(_compact, 0.5);
+        expect(mid.controlHeight, 31);
         expect(mid.density, RebicDensity.compact);
-        expect(
-          _comfortable.lerp(_compact, 0.49).density,
-          RebicDensity.comfortable,
-        );
+        expect(_cozy.lerp(_compact, 0.49).density, RebicDensity.cozy);
         expect(mid.spacing.m, 10);
       },
     );
 
     test('igualdade e copyWith consideram cada campo isoladamente', () {
       final variants = [
-        _comfortable.copyWith(density: RebicDensity.compact),
-        _comfortable.copyWith(controlHeight: 44),
-        _comfortable.copyWith(listItemHeight: 56),
-        _comfortable.copyWith(minTargetSize: 44),
-        _comfortable.copyWith(spacing: _compact.spacing),
+        _cozy.copyWith(density: RebicDensity.compact),
+        _cozy.copyWith(controlHeight: 44),
+        _cozy.copyWith(listItemHeight: 56),
+        _cozy.copyWith(minTargetSize: 52),
+        _cozy.copyWith(spacing: _compact.spacing),
       ];
       for (final (i, variant) in variants.indexed) {
-        expect(variant, isNot(_comfortable), reason: 'campo $i');
-        expect(variant.lerp(_comfortable, 1), _comfortable, reason: 'campo $i');
+        expect(variant, isNot(_cozy), reason: 'campo $i');
+        expect(variant.lerp(_cozy, 1), _cozy, reason: 'campo $i');
       }
     });
 

@@ -17,8 +17,8 @@ void main() {
     await tester.pumpAndSettle();
 
     const expected = {
-      RebicDensity.comfortable: (40.0, 'controle 40 · item 48 · alvo 48'),
-      RebicDensity.compact: (32.0, 'controle 32 · item 32 · alvo 24'),
+      RebicDensity.cozy: (36.0, 'controle 36 · item 44 · alvo 44'),
+      RebicDensity.compact: (26.0, 'controle 26 · item 32 · alvo 32'),
     };
     for (final MapEntry(key: density, value: (height, measures))
         in expected.entries) {

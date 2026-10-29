@@ -133,7 +133,7 @@ void main() {
       _CounterState.created = 0;
       await tester.pumpWidget(
         RebicApp(
-          density: RebicDensity.comfortable,
+          density: RebicDensity.cozy,
           home: _Page(probe, child: const _Counter()),
         ),
       );
@@ -169,7 +169,7 @@ void main() {
           TargetPlatform.windows ||
           TargetPlatform.macOS ||
           TargetPlatform.linux => RebicDensity.compact,
-          _ => RebicDensity.comfortable,
+          _ => RebicDensity.cozy,
         };
         expect(probe.theme.density.density, expected);
       },
@@ -184,9 +184,9 @@ void main() {
       (tester) async {
         final probe = _Probe();
         await tester.pumpWidget(
-          RebicApp(density: RebicDensity.comfortable, home: _Page(probe)),
+          RebicApp(density: RebicDensity.cozy, home: _Page(probe)),
         );
-        expect(probe.theme.density.density, RebicDensity.comfortable);
+        expect(probe.theme.density.density, RebicDensity.cozy);
       },
       variant: TargetPlatformVariant.only(TargetPlatform.windows),
     );
@@ -214,7 +214,7 @@ void main() {
       await tester.pumpWidget(
         RebicApp(
           theme: theme,
-          density: RebicDensity.comfortable,
+          density: RebicDensity.cozy,
           builder: direction == null
               ? null
               : (context, child) =>

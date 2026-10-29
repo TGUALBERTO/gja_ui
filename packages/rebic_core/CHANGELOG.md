@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- **BREAKING** Densidade no modelo Fiori (`update-rebic-foundation-density-fiori-cozy`, spec `rebic/core/responsive`):
+  `RebicResponsive.recommendedDensity` recomenda `RebicDensity.cozy` (antes `comfortable`) em Android, iOS e
+  Fuchsia. A área mínima de `RebicInteractable` passa a 44 no cozy e a 32 no compacto, pelos tokens de densidade.
 - Interação (`add-rebic-link`): `RebicInteractable.link` expõe o papel de link em vez do de botão ao leitor de tela,
   com o padrão `false` inalterado.
 - Localização (`add-rebic-page`): novo texto `back` ("Voltar" / "Back"), rótulo do botão de voltar da `RebicPage`.

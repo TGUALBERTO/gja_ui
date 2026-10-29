@@ -2,6 +2,21 @@
 
 ## Não lançado
 
+- **BREAKING** Densidade no modelo Fiori (`update-rebic-foundation-density-fiori-cozy`, spec `rebic/foundation/density`):
+  `RebicDensity.comfortable` passa a `RebicDensity.cozy` (`sapUiSizeCozy`), e `RebicDensityTokens.comfortable()` a
+  `RebicDensityTokens.cozy()`. Medidas dos parâmetros `sapElement_*`:
+
+    | | Cozy (antes → agora) | Compact (antes → agora) |
+    |---|---|---|
+    | `controlHeight` | 40 → 36 | 32 → 26 |
+    | `listItemHeight` | 48 → 44 | 32 |
+    | `minTargetSize` | 48 → 44 | 24 → 32 |
+
+  - Novos primitivos `RebicDensityPrimitives` (`size26`, `size32`, `size36`, `size44`).
+  - `RebicAccessibility.defaultMinTargetSize` passa a 44.
+  - A regra "o rótulo cabe no controle" passa a usar a linha de `base` mais 2 × `xxs`.
+
+  Valores provisórios na ADR 0009.
 - **BREAKING** Movimento no modelo SAPUI5 (`update-rebic-foundation-design-tokens-fiori-motion`, specs
   `rebic/foundation/design-tokens`, `rebic/foundation/accessibility` e `rebic/foundation/theming`):
 

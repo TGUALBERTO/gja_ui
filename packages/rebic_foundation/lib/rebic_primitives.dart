@@ -9,6 +9,7 @@ library;
 export 'src/tokens/primitives/motion_primitives.dart';
 export 'src/color/primitives/color_primitives.dart';
 export 'src/spacing/primitives/spacing_primitives.dart';
+export 'src/density/primitives/density_primitives.dart';
 export 'src/typography/primitives/typography_primitives.dart';
 export 'src/radius/primitives/radius_primitives.dart';
 export 'src/breakpoints/primitives/breakpoint_primitives.dart';

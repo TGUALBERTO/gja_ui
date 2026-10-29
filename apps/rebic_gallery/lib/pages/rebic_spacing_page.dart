@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
 
 /// Página "RebicSpacing": cada passo e papel em escala, e o mesmo padding nas
-/// densidades confortável e compacta.
+/// densidades cozy e compacta.
 ///
 /// Todo o espaço da página vem de `RebicSpacing`; a altura das barras é a do
 /// passo `s`, e a largura, o próprio valor exibido.
@@ -54,7 +54,7 @@ class RebicSpacingPage extends StatelessWidget {
               const RebicSpacing.vertical(RebicSpace.s),
               const Wrap(
                 children: [
-                  _PaddedSample(RebicDensity.comfortable),
+                  _PaddedSample(RebicDensity.cozy),
                   RebicSpacing.horizontal(RebicSpace.l),
                   RebicTheme.density(
                     density: RebicDensity.compact,

@@ -283,8 +283,14 @@ void main() {
       _app(_recorder([], onPressed: () => count++, side: 16)),
     );
     final size = tester.getSize(find.byType(RebicInteractable));
-    expect(size.width, greaterThanOrEqualTo(48));
-    expect(size.height, greaterThanOrEqualTo(48));
+    expect(
+      size.width,
+      greaterThanOrEqualTo(RebicAccessibility.defaultMinTargetSize),
+    );
+    expect(
+      size.height,
+      greaterThanOrEqualTo(RebicAccessibility.defaultMinTargetSize),
+    );
     await tester.tapAt(
       tester.getCenter(find.byType(RebicInteractable)) + const Offset(20, 0),
     );

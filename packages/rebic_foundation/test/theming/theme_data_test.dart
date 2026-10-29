@@ -65,7 +65,7 @@ void main() {
     expect(light.brightness, Brightness.light);
     expect(light.colors, const RebicColorTokens.light());
     expect(light.typography, const RebicTypographyTokens.fallback());
-    expect(light.density, const RebicDensityTokens.comfortable());
+    expect(light.density, const RebicDensityTokens.cozy());
     expect(light.spacing, light.density.spacing);
     expect(light.radius, const RebicRadiusTokens.fallback());
     expect(light.shadows, const RebicShadowTokens.fallback());
@@ -92,6 +92,11 @@ void main() {
       expect(compact.density, const RebicDensityTokens.compact());
       expect(compact.spacing, const RebicDensityTokens.compact().spacing);
       expect(compact.copyWith(density: light.density), light);
+    });
+
+    test('Temas de referência claro e escuro — Densidade padrão', () {
+      expect(RebicThemeData.light().density.density, RebicDensity.cozy);
+      expect(RebicThemeData.dark().density.density, RebicDensity.cozy);
     });
   });
 

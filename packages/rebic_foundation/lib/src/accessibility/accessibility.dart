@@ -1,6 +1,6 @@
 import '../color/contrast_check.dart';
 import '../density/density_tokens.dart';
-import '../spacing/primitives/spacing_primitives.dart';
+import '../density/primitives/density_primitives.dart';
 import '../tokens/motion_tokens.dart';
 import 'animation_mode.dart';
 
@@ -45,9 +45,9 @@ abstract final class RebicAccessibility {
   /// Menor alvo de interação permitido em qualquer densidade (WCAG 2.5.8).
   static const minTargetSizeFloor = RebicDensityTokens.minTargetSizeFloor;
 
-  /// Alvo mínimo padrão (densidade confortável de referência), constante
+  /// Alvo mínimo padrão (densidade `cozy` de referência), constante
   /// para uso como valor padrão de parâmetros.
-  static const defaultMinTargetSize = RebicSpacingPrimitives.space48;
+  static const defaultMinTargetSize = RebicDensityPrimitives.size44;
 
   /// Referência do critério de tamanho de alvo, para diretrizes de teste.
   static const targetSizeLink =

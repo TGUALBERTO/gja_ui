@@ -3,22 +3,26 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/foundation.dart';
 
 import '../spacing/primitives/spacing_primitives.dart';
+import 'primitives/density_primitives.dart';
 import '../spacing/spacing_tokens.dart';
 import '../tokens/lerp.dart';
 import '../tokens/token_set.dart';
 
-/// Modo de densidade de conteúdo.
+/// Modo de densidade de conteúdo, como as densidades do Fiori.
 ///
 /// Nível: semântico.
 enum RebicDensity {
-  /// Entrada por toque: controles e alvos maiores.
-  comfortable,
+  /// Densidade confortável, para entrada por toque: controles e alvos
+  /// maiores (`sapUiSizeCozy`).
+  cozy,
 
-  /// Entrada por ponteiro: controles e espaçamentos reduzidos.
+  /// Entrada por ponteiro: controles e espaçamentos reduzidos
+  /// (`sapUiSizeCompact`).
   compact,
 }
 
 typedef _S = RebicSpacingPrimitives;
+typedef _D = RebicDensityPrimitives;
 
 /// Espaçamento da densidade compacta: passos e papéis reduzidos, na mesma
 /// escala primitiva (grade de 4 px).
@@ -57,30 +61,33 @@ class RebicDensityTokens extends RebicTokenSet<RebicDensityTokens> {
     required this.spacing,
   });
 
-  /// Mapeamento de referência para toque: controle 40, item 48, alvo 48.
-  const RebicDensityTokens.comfortable()
+  /// Mapeamento de referência cozy: controle 36 (`sapElement_Height`), item e
+  /// alvo 44 (`sapElement_LineHeight`).
+  const RebicDensityTokens.cozy()
     : this(
-        density: RebicDensity.comfortable,
-        controlHeight: _S.space40,
-        listItemHeight: _S.space48,
-        minTargetSize: _S.space48,
+        density: RebicDensity.cozy,
+        controlHeight: _D.size36,
+        listItemHeight: _D.size44,
+        minTargetSize: _D.size44,
         spacing: const RebicSpacingTokens.fallback(),
       );
 
-  /// Mapeamento de referência para ponteiro: controle 32, item 32, alvo 24.
+  /// Mapeamento de referência compacto: controle 26
+  /// (`sapElement_Compact_Height`), item e alvo 32
+  /// (`sapElement_Compact_LineHeight`).
   const RebicDensityTokens.compact()
     : this(
         density: RebicDensity.compact,
-        controlHeight: _S.space32,
-        listItemHeight: _S.space32,
-        minTargetSize: _S.space24,
+        controlHeight: _D.size26,
+        listItemHeight: _D.size32,
+        minTargetSize: _D.size32,
         spacing: _compactSpacing,
       );
 
   /// Mapeamento de referência de [density].
   static RebicDensityTokens of(RebicDensity density) {
     return switch (density) {
-      RebicDensity.comfortable => const RebicDensityTokens.comfortable(),
+      RebicDensity.cozy => const RebicDensityTokens.cozy(),
       RebicDensity.compact => const RebicDensityTokens.compact(),
     };
   }
@@ -91,13 +98,14 @@ class RebicDensityTokens extends RebicTokenSet<RebicDensityTokens> {
   /// Modo desta densidade.
   final RebicDensity density;
 
-  /// Altura de botões, campos e seleções.
+  /// Altura de botões, campos e seleções (`sapElement_Height`).
   final double controlHeight;
 
   /// Altura de um item de lista de uma linha.
   final double listItemHeight;
 
-  /// Tamanho mínimo, em largura e altura, da área de interação.
+  /// Tamanho mínimo, em largura e altura, da área de interação: a caixa
+  /// externa do controle, com a altura de linha (`sapElement_LineHeight`).
   final double minTargetSize;
 
   /// Espaçamento desta densidade.

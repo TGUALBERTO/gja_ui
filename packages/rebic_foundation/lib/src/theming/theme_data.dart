@@ -50,7 +50,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
 
   /// Tema claro de referência, na densidade [density].
   factory RebicThemeData.light({
-    RebicDensity density = RebicDensity.comfortable,
+    RebicDensity density = RebicDensity.cozy,
   }) => RebicThemeData._reference(
     Brightness.light,
     const RebicColorTokens.light(),
@@ -59,7 +59,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
 
   /// Tema escuro de referência, na densidade [density].
   factory RebicThemeData.dark({
-    RebicDensity density = RebicDensity.comfortable,
+    RebicDensity density = RebicDensity.cozy,
   }) => RebicThemeData._reference(
     Brightness.dark,
     const RebicColorTokens.dark(),

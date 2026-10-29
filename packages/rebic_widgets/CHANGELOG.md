@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- **BREAKING** Densidade no modelo Fiori (`update-rebic-foundation-density-fiori-cozy`): `RebicDensity.comfortable`
+  passa a `RebicDensity.cozy`, também no parâmetro `density` de `RebicApp`. Botões e botões de ícone medem 36 no cozy
+  e 26 no compacto, dentro de uma área de interação de 44 e 32. Os goldens `*_comfortable.png` passam a `*_cozy.png`
+  e foram regerados, junto com os compactos que mudaram de medida.
 - Movimento no modelo SAPUI5 (`update-rebic-foundation-design-tokens-fiori-motion`): as animações usam as curvas CSS
   do SAPUI5. O `animationMode` do tema também desliga a troca animada de `RebicTheme` e a transição de página de
   `RebicApp`, além do pedido do sistema. Os testes de golden de popover, menu e dropdown passam a capturar cada tema

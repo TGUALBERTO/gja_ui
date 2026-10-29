@@ -29,7 +29,7 @@ Widget _themed(
   ),
 );
 
-RebicSpacingTokens get _comfortable => RebicThemeData.light().spacing;
+RebicSpacingTokens get _cozy => RebicThemeData.light().spacing;
 
 Rect _rect(WidgetTester tester, String key) =>
     tester.getRect(find.byKey(Key(key)));
@@ -38,7 +38,7 @@ void main() {
   testWidgets('[API] Propriedades — Coluna mínima', (tester) async {
     await tester.pumpWidget(
       RebicApp(
-        density: RebicDensity.comfortable,
+        density: RebicDensity.cozy,
         home: Align(
           alignment: Alignment.topLeft,
           child: SizedBox(
@@ -52,7 +52,7 @@ void main() {
     );
     final a = _rect(tester, 'a');
     final box = _rect(tester, 'box');
-    expect(_rect(tester, 'b').top - a.bottom, _comfortable.stackGap);
+    expect(_rect(tester, 'b').top - a.bottom, _cozy.stackGap);
     expect(a.topLeft, box.topLeft);
   });
 
@@ -88,7 +88,7 @@ void main() {
         ),
       );
       final col = _rect(tester, 'col');
-      expect(col.height, 60 + 2 * _comfortable.l);
+      expect(col.height, 60 + 2 * _cozy.l);
       expect(_rect(tester, 'a').top, col.top);
       expect(_rect(tester, 'c').bottom, col.bottom);
     },
@@ -146,7 +146,7 @@ void main() {
           height: 200,
         ),
       );
-      expect(_rect(tester, 'e').height, 200 - 20 - _comfortable.m);
+      expect(_rect(tester, 'e').height, 200 - 20 - _cozy.m);
     },
   );
 
@@ -158,8 +158,8 @@ void main() {
         theme: RebicThemeData.light(density: density),
       );
       double gap() => _rect(tester, 'b').top - _rect(tester, 'a').bottom;
-      await tester.pumpWidget(app(RebicDensity.comfortable));
-      expect(gap(), _comfortable.l);
+      await tester.pumpWidget(app(RebicDensity.cozy));
+      expect(gap(), _cozy.l);
       await tester.pumpWidget(app(RebicDensity.compact));
       await tester.pumpAndSettle();
       expect(
@@ -290,10 +290,7 @@ void main() {
           ),
         );
         await tester.pumpAndSettle();
-        expect(
-          _rect(tester, 'b').top - _rect(tester, 'a').bottom,
-          _comfortable.l,
-        );
+        expect(_rect(tester, 'b').top - _rect(tester, 'a').bottom, _cozy.l);
         expect(
           _rect(tester, 'd').top - _rect(tester, 'c').bottom,
           RebicThemeData.light(density: RebicDensity.compact).spacing.l,

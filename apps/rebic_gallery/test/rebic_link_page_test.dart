@@ -13,6 +13,8 @@ void main() {
     await tester.pumpWidget(const RebicGalleryApp());
 
     await tester.scrollUntilVisible(find.text(RebicLinkPage.title), 200);
+    await tester.ensureVisible(find.text(RebicLinkPage.title));
+    await tester.pumpAndSettle();
     await tester.tap(find.text(RebicLinkPage.title));
     await tester.pumpAndSettle();
     expect(find.text(RebicLinkPage.opened), findsNothing);

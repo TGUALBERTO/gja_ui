@@ -152,7 +152,7 @@ void main() {
     expect(inside.last.density.density, RebicDensity.compact);
     expect(inside.last.colors, light.colors);
     expect(inside.last.typography, light.typography);
-    expect(outside.last.density.density, RebicDensity.comfortable);
+    expect(outside.last.density.density, RebicDensity.cozy);
   });
 
   testWidgets('[Aparência] Texto e ícone padrão — Troca de tema', (

@@ -27,21 +27,21 @@ void main() {
     expect(_previewColor(tester), RebicThemeData.dark().colors.base);
 
     final compact = RebicThemeData.light(density: RebicDensity.compact);
-    final comfortable = RebicThemeData.light();
+    final cozy = RebicThemeData.light();
     expect(
       tester.getSize(find.byKey(RebicThemePage.compactKey)).height,
       greaterThanOrEqualTo(compact.density.minTargetSize),
     );
     expect(
-      tester.getSize(find.byKey(RebicThemePage.comfortableKey)).height,
-      greaterThanOrEqualTo(comfortable.density.minTargetSize),
+      tester.getSize(find.byKey(RebicThemePage.cozyKey)).height,
+      greaterThanOrEqualTo(cozy.density.minTargetSize),
     );
     expect(
       find.text('Alvo mínimo: ${compact.density.minTargetSize.round()}'),
       findsOneWidget,
     );
     expect(
-      find.text('Alvo mínimo: ${comfortable.density.minTargetSize.round()}'),
+      find.text('Alvo mínimo: ${cozy.density.minTargetSize.round()}'),
       findsOneWidget,
     );
   });

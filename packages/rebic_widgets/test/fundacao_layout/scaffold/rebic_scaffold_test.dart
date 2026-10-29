@@ -101,6 +101,15 @@ Finder get _button => find.descendant(
   matching: find.byType(RebicInteractable),
 );
 
+/// Visual do botão de navegação, dentro da área de interação (que tem o alvo
+/// mínimo da densidade).
+Finder get _buttonBox => find
+    .descendant(
+      of: find.byType(RebicIconButton),
+      matching: find.byType(DecoratedBox),
+    )
+    .first;
+
 Rect _rect(WidgetTester tester, String key) =>
     tester.getRect(find.byKey(Key(key)));
 
@@ -501,7 +510,7 @@ void main() {
       final dark = RebicThemeData.dark(density: RebicDensity.compact);
       await tester.pumpWidget(
         RebicApp(
-          density: RebicDensity.comfortable,
+          density: RebicDensity.cozy,
           home: RebicTheme(
             data: dark,
             child: const RebicScaffold(
@@ -525,7 +534,10 @@ void main() {
                   .decoration
               as BoxDecoration;
       expect(bar.color, dark.colors.shell);
-      expect(tester.getSize(_button), Size.square(dark.density.controlHeight));
+      expect(
+        tester.getSize(_buttonBox),
+        Size.square(dark.density.controlHeight),
+      );
     },
   );
 

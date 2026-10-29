@@ -32,7 +32,7 @@ abstract final class RebicResponsive {
 
   /// Densidade inicial recomendada para [platform] (por padrão,
   /// `defaultTargetPlatform`): compacta em desktop, de entrada por ponteiro,
-  /// e confortável em dispositivos de toque.
+  /// e `cozy` (confortável) em dispositivos de toque.
   ///
   /// É só um padrão: a aplicação escolhe a densidade do tema.
   static RebicDensity recommendedDensity([TargetPlatform? platform]) {
@@ -42,7 +42,7 @@ abstract final class RebicResponsive {
       TargetPlatform.linux => RebicDensity.compact,
       TargetPlatform.android ||
       TargetPlatform.iOS ||
-      TargetPlatform.fuchsia => RebicDensity.comfortable,
+      TargetPlatform.fuchsia => RebicDensity.cozy,
     };
   }
 }

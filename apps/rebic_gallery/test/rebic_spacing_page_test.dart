@@ -13,7 +13,7 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(const RebicGalleryApp());
 
-      await tester.tap(find.text('Densidade: confortável'));
+      await tester.tap(find.text('Densidade: cozy'));
       await tester.pumpAndSettle();
       await tester.tap(find.text(RebicSpacingPage.title));
       await tester.pumpAndSettle();
@@ -39,7 +39,7 @@ void main() {
       }
 
       final compact = RebicThemeData.light(density: RebicDensity.compact);
-      expect(inset(RebicDensity.comfortable), spacing.l);
+      expect(inset(RebicDensity.cozy), spacing.l);
       expect(inset(RebicDensity.compact), compact.spacing.l);
     },
   );

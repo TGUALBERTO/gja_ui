@@ -52,18 +52,18 @@ void main() {
   test('alvo mínimo padrão é o da densidade confortável de referência', () {
     expect(
       RebicAccessibility.defaultMinTargetSize,
-      const RebicDensityTokens.comfortable().minTargetSize,
+      const RebicDensityTokens.cozy().minTargetSize,
     );
   });
 
   test('Alvo mínimo de interação por densidade — Alvo por densidade', () {
     expect(
-      RebicAccessibility.minTargetSize(const RebicDensityTokens.comfortable()),
-      48,
+      RebicAccessibility.minTargetSize(const RebicDensityTokens.cozy()),
+      44,
     );
     expect(
       RebicAccessibility.minTargetSize(const RebicDensityTokens.compact()),
-      24,
+      32,
     );
   });
 
@@ -126,7 +126,7 @@ void main() {
     (tester) async {
       final handle = tester.ensureSemantics();
       final densities = [
-        const RebicDensityTokens.comfortable(),
+        const RebicDensityTokens.cozy(),
         const RebicDensityTokens.compact(),
       ];
 

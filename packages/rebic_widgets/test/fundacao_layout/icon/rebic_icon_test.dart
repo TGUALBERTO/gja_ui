@@ -104,7 +104,7 @@ void main() {
     await tester.pumpWidget(
       RebicApp(
         themeMode: RebicThemeMode.light,
-        density: RebicDensity.comfortable,
+        density: RebicDensity.cozy,
         home: const Center(
           child: RebicIcon(RebicIcons.search, key: Key('icon')),
         ),
@@ -351,7 +351,7 @@ void main() {
           _themed(
             const Row(
               children: [
-                RebicIcon(RebicIcons.info, key: Key('comfortable')),
+                RebicIcon(RebicIcons.info, key: Key('cozy')),
                 RebicTheme.density(
                   density: RebicDensity.compact,
                   child: RebicIcon(RebicIcons.info, key: Key('compact')),
@@ -363,7 +363,7 @@ void main() {
         await tester.pumpAndSettle();
         expect(
           tester.getSize(find.byKey(const Key('compact'))),
-          tester.getSize(find.byKey(const Key('comfortable'))),
+          tester.getSize(find.byKey(const Key('cozy'))),
         );
       },
     );

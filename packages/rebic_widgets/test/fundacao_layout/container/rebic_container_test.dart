@@ -412,7 +412,7 @@ void main() {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             RebicContainer(
-              key: Key('comfortable'),
+              key: Key('cozy'),
               radius: RebicRadius.container,
               shadow: RebicShadow.card,
               padding: RebicSpace.l,
@@ -433,13 +433,13 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    final comfortable = RebicThemeData.light().spacing.l;
+    final cozy = RebicThemeData.light().spacing.l;
     final compact = RebicThemeData.light(
       density: RebicDensity.compact,
     ).spacing.l;
     expect(
-      tester.getSize(find.byKey(const Key('comfortable'))),
-      Size.square(20 + comfortable * 2),
+      tester.getSize(find.byKey(const Key('cozy'))),
+      Size.square(20 + cozy * 2),
     );
     expect(
       tester.getSize(find.byKey(const Key('compact'))),
@@ -457,8 +457,8 @@ void main() {
                 )
                 .decoration
             as BoxDecoration;
-    expect(deco('compact').borderRadius, deco('comfortable').borderRadius);
-    expect(deco('compact').boxShadow, deco('comfortable').boxShadow);
+    expect(deco('compact').borderRadius, deco('cozy').borderRadius);
+    expect(deco('compact').boxShadow, deco('cozy').boxShadow);
   });
 
   testWidgets('[Integração] Dependências — Funciona sem Material', (

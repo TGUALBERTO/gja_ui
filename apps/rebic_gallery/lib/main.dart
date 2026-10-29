@@ -360,7 +360,7 @@ class _GalleryIndex extends StatelessWidget {
           children: [
             for (final (density, label) in const [
               (null, 'Densidade: recomendada'),
-              (RebicDensity.comfortable, 'Densidade: confortável'),
+              (RebicDensity.cozy, 'Densidade: cozy'),
               (RebicDensity.compact, 'Densidade: compacta'),
             ])
               _Option(

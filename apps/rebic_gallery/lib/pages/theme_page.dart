@@ -27,7 +27,7 @@ class ThemePage extends StatefulWidget {
     required bool compact,
     required bool brand,
   }) {
-    final density = compact ? RebicDensity.compact : RebicDensity.comfortable;
+    final density = compact ? RebicDensity.compact : RebicDensity.cozy;
     var theme = dark
         ? RebicThemeData.dark(density: density)
         : RebicThemeData.light(density: density);

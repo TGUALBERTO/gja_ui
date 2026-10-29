@@ -25,7 +25,7 @@ Widget _themed(
   ),
 );
 
-RebicSpacingTokens get _comfortable => RebicThemeData.light().spacing;
+RebicSpacingTokens get _cozy => RebicThemeData.light().spacing;
 RebicSpacingTokens get _compact =>
     RebicThemeData.light(density: RebicDensity.compact).spacing;
 
@@ -47,7 +47,7 @@ void main() {
   testWidgets('[API] Propriedades — Uso mínimo', (tester) async {
     await tester.pumpWidget(
       RebicApp(
-        density: RebicDensity.comfortable,
+        density: RebicDensity.cozy,
         home: const Align(
           alignment: Alignment.topLeft,
           child: Column(
@@ -64,7 +64,7 @@ void main() {
     final gap =
         tester.getTopLeft(find.byKey(_b)).dy -
         tester.getBottomLeft(find.byKey(_a)).dy;
-    expect(gap, _comfortable.m);
+    expect(gap, _cozy.m);
     expect(tester.getSize(find.byKey(const Key('gap'))).width, 0);
   });
 
@@ -108,7 +108,7 @@ void main() {
     final gap =
         tester.getTopLeft(find.byKey(_b)).dx -
         tester.getTopRight(find.byKey(_a)).dx;
-    expect(gap, _comfortable.inlineGap);
+    expect(gap, _cozy.inlineGap);
     expect(tester.getSize(find.byKey(const Key('row'))).height, 20);
   });
 
@@ -126,7 +126,7 @@ void main() {
           ),
         ),
       );
-      final s = _comfortable;
+      final s = _cozy;
       expect(_insets(tester), EdgeInsets.fromLTRB(s.xl, s.s, s.l, s.s));
     });
 
@@ -142,7 +142,7 @@ void main() {
           direction: TextDirection.rtl,
         ),
       );
-      expect(_insets(tester), EdgeInsets.only(right: _comfortable.l));
+      expect(_insets(tester), EdgeInsets.only(right: _cozy.l));
     });
   });
 
@@ -154,8 +154,8 @@ void main() {
         const RebicSpacing.vertical(RebicSpace.sectionGap, key: _a),
         theme: RebicThemeData.light(density: density),
       );
-      await tester.pumpWidget(app(RebicDensity.comfortable));
-      expect(tester.getSize(find.byKey(_a)).height, _comfortable.sectionGap);
+      await tester.pumpWidget(app(RebicDensity.cozy));
+      expect(tester.getSize(find.byKey(_a)).height, _cozy.sectionGap);
       await tester.pumpWidget(app(RebicDensity.compact));
       await tester.pumpAndSettle();
       expect(tester.getSize(find.byKey(_a)).height, _compact.sectionGap);
@@ -172,29 +172,26 @@ void main() {
         await tester.pumpWidget(_themed(RebicSpacing.vertical(space, key: _a)));
         expect(
           tester.getSize(find.byKey(_a)).height,
-          RebicSpacing.resolve(_comfortable, space),
+          RebicSpacing.resolve(_cozy, space),
           reason: space.name,
         );
       }
       expect(
+        [for (final v in RebicSpace.values) RebicSpacing.resolve(_cozy, v)],
         [
-          for (final v in RebicSpace.values)
-            RebicSpacing.resolve(_comfortable, v),
-        ],
-        [
-          _comfortable.none,
-          _comfortable.xxs,
-          _comfortable.xs,
-          _comfortable.s,
-          _comfortable.m,
-          _comfortable.l,
-          _comfortable.xl,
-          _comfortable.xxl,
-          _comfortable.xxxl,
-          _comfortable.inlineGap,
-          _comfortable.stackGap,
-          _comfortable.sectionGap,
-          _comfortable.pageMargin,
+          _cozy.none,
+          _cozy.xxs,
+          _cozy.xs,
+          _cozy.s,
+          _cozy.m,
+          _cozy.l,
+          _cozy.xl,
+          _cozy.xxl,
+          _cozy.xxxl,
+          _cozy.inlineGap,
+          _cozy.stackGap,
+          _cozy.sectionGap,
+          _cozy.pageMargin,
         ],
       );
     });
@@ -284,7 +281,7 @@ void main() {
           child: _themed(const RebicSpacing.vertical(RebicSpace.m, key: _a)),
         ),
       );
-      expect(tester.getSize(find.byKey(_a)).height, _comfortable.m);
+      expect(tester.getSize(find.byKey(_a)).height, _cozy.m);
     });
   });
 
@@ -306,7 +303,7 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    expect(tester.getSize(find.byKey(_a)).width, _comfortable.l);
+    expect(tester.getSize(find.byKey(_a)).width, _cozy.l);
     expect(tester.getSize(find.byKey(_b)).width, _compact.l);
   });
 

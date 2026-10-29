@@ -34,6 +34,7 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Sombras | Papel `dragged` | `shadow3` | o SAPUI5 não define sombra de item arrastado | `update-rebic-foundation-elevation-horizon-shadows` |
 | Movimento | Durações `short`, `medium` e `long` | 100, 200 e 300 ms (sem mudança) | o SAPUI5 não publica durações como parâmetros de tema | `update-rebic-foundation-design-tokens-fiori-motion` |
 | Movimento | Efeito dos modos de animação | `basic` = `full`; `minimal` = `none` (durações zero, indeterminado parado) | `sap.ui.core.AnimationMode` (`basic` sem efeitos caros; `minimal` mantém o indicador de ocupado) | `update-rebic-foundation-design-tokens-fiori-motion` |
+| Densidade | Alvo mínimo (`minTargetSize`) | altura de linha: 44 no cozy, 32 no compacto, aplicada à altura e à largura pela `RebicInteractable` | caixa externa do `sap.m.Button` com `sapElement_LineHeight` (só na altura) | `update-rebic-foundation-density-fiori-cozy` |
 
 ## Alternativas consideradas
 

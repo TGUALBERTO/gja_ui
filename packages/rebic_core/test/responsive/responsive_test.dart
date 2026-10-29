@@ -202,9 +202,9 @@ void main() {
       TargetPlatform.windows: RebicDensity.compact,
       TargetPlatform.macOS: RebicDensity.compact,
       TargetPlatform.linux: RebicDensity.compact,
-      TargetPlatform.android: RebicDensity.comfortable,
-      TargetPlatform.iOS: RebicDensity.comfortable,
-      TargetPlatform.fuchsia: RebicDensity.comfortable,
+      TargetPlatform.android: RebicDensity.cozy,
+      TargetPlatform.iOS: RebicDensity.cozy,
+      TargetPlatform.fuchsia: RebicDensity.cozy,
     };
     expect(expected.keys, unorderedEquals(TargetPlatform.values));
     for (final MapEntry(key: platform, value: density) in expected.entries) {
