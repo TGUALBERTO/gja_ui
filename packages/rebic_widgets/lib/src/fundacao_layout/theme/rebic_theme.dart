@@ -5,7 +5,7 @@ import 'package:rebic_foundation/rebic_foundation.dart';
 ///
 /// Publica [data] para os widgets e para o núcleo (lido com
 /// [RebicTheme.of]), anima a troca de tema e define o estilo de texto padrão
-/// (`body` com a cor `text`) e o ícone padrão (cor `text`, tamanho `control`).
+/// (`base` com a cor `text`) e o ícone padrão (cor `text`, tamanho `control`).
 /// Não pinta nada e não é interativo.
 ///
 /// Use [RebicTheme.density] para trocar só a densidade de uma subárvore, como
@@ -109,7 +109,7 @@ class _AnimatedRebicThemeState
     return RebicThemeScope(
       data: theme,
       child: DefaultTextStyle.merge(
-        style: theme.typography.body.copyWith(color: theme.colors.text),
+        style: theme.typography.base.copyWith(color: theme.colors.text),
         child: IconTheme.merge(
           data: IconThemeData(
             color: theme.colors.text,

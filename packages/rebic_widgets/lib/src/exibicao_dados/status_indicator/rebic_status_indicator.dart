@@ -80,7 +80,7 @@ class RebicStatusIndicator extends StatelessWidget {
     final foreground = state == RebicValueState.none
         ? theme.colors.text
         : colors.foreground;
-    final body = theme.typography.body;
+    final body = theme.typography.base;
     final lineHeight =
         MediaQuery.textScalerOf(context).scale(body.fontSize!) *
         (body.height ?? 1);

@@ -67,11 +67,11 @@ class _InteractionPageState extends State<InteractionPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(label, style: typography.label.copyWith(color: content)),
+                  Text(label, style: typography.base.copyWith(color: content)),
                   Text(
                     InteractionPage.describe(states),
                     key: statesKey,
-                    style: typography.caption.copyWith(color: content),
+                    style: typography.small.copyWith(color: content),
                   ),
                 ],
               ),
@@ -84,7 +84,7 @@ class _InteractionPageState extends State<InteractionPage> {
     return ColoredBox(
       color: colors.base,
       child: DefaultTextStyle(
-        style: typography.body.copyWith(color: colors.text),
+        style: typography.base.copyWith(color: colors.text),
         child: ListView(
           padding: EdgeInsets.all(spacing.pageMargin),
           children: [
@@ -93,7 +93,7 @@ class _InteractionPageState extends State<InteractionPage> {
               child: Semantics(button: true, child: const Text('← Voltar')),
             ),
             SizedBox(height: spacing.stackGap),
-            Text(InteractionPage.title, style: typography.headline),
+            Text(InteractionPage.title, style: typography.header2),
             SizedBox(height: spacing.sectionGap),
             Wrap(
               spacing: spacing.l,
@@ -112,7 +112,7 @@ class _InteractionPageState extends State<InteractionPage> {
             Text('Ativações: $_count'),
             Text(
               'Use Tab para ver o anel de foco; Enter ou Espaço ativam.',
-              style: typography.caption.copyWith(color: colors.label),
+              style: typography.small.copyWith(color: colors.label),
             ),
           ],
         ),

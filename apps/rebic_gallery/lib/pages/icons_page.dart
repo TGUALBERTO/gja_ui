@@ -25,7 +25,7 @@ class IconsPage extends StatelessWidget {
     return ColoredBox(
       color: colors.base,
       child: DefaultTextStyle(
-        style: typography.body.copyWith(color: colors.text),
+        style: typography.base.copyWith(color: colors.text),
         child: ListView(
           padding: EdgeInsets.all(spacing.pageMargin),
           children: [
@@ -34,7 +34,7 @@ class IconsPage extends StatelessWidget {
               child: Semantics(button: true, child: const Text('← Voltar')),
             ),
             SizedBox(height: spacing.stackGap),
-            Text(title, style: typography.headline),
+            Text(title, style: typography.header2),
             SizedBox(height: spacing.sectionGap),
             Wrap(
               spacing: spacing.l,
@@ -55,7 +55,7 @@ class IconsPage extends StatelessWidget {
                         SizedBox(height: spacing.xs),
                         Text(
                           name,
-                          style: typography.caption.copyWith(
+                          style: typography.small.copyWith(
                             color: colors.label,
                           ),
                           textAlign: TextAlign.center,

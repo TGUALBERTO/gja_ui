@@ -29,7 +29,7 @@ class ElevationPage extends StatelessWidget {
     return ColoredBox(
       color: light.base,
       child: DefaultTextStyle(
-        style: typography.body.copyWith(color: light.text),
+        style: typography.base.copyWith(color: light.text),
         child: ListView(
           padding: EdgeInsets.all(spacing.pageMargin),
           children: [
@@ -38,7 +38,7 @@ class ElevationPage extends StatelessWidget {
               child: Semantics(button: true, child: const Text('← Voltar')),
             ),
             SizedBox(height: spacing.stackGap),
-            Text(title, style: typography.headline),
+            Text(title, style: typography.header2),
             SizedBox(height: spacing.sectionGap),
             const GalleryComparison(
               child: _ModeStrip(
@@ -77,11 +77,11 @@ class _ModeStrip extends StatelessWidget {
       padding: EdgeInsets.all(spacing.xl),
       color: colors.background,
       child: DefaultTextStyle(
-        style: typography.body.copyWith(color: colors.text),
+        style: typography.base.copyWith(color: colors.text),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(mode, style: typography.title),
+            Text(mode, style: typography.header3),
             SizedBox(height: spacing.l),
             Wrap(
               spacing: spacing.xl,
@@ -99,7 +99,7 @@ class _ModeStrip extends StatelessWidget {
                       borderRadius: BorderRadius.circular(radius.container),
                       boxShadow: elevation.shadowsFor(level, colors.shadow),
                     ),
-                    child: Text(name, style: typography.label),
+                    child: Text(name, style: typography.base),
                   ),
               ],
             ),

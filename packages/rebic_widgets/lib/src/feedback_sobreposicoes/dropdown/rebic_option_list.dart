@@ -254,7 +254,7 @@ class _RebicOptionListState extends State<RebicOptionList> {
                             Expanded(
                               child: Text(
                                 item.label,
-                                style: theme.typography.body.copyWith(
+                                style: theme.typography.base.copyWith(
                                   color: c.text,
                                 ),
                                 maxLines: 1,
@@ -264,7 +264,7 @@ class _RebicOptionListState extends State<RebicOptionList> {
                             if (additionalText != null)
                               Text(
                                 additionalText,
-                                style: theme.typography.body.copyWith(
+                                style: theme.typography.base.copyWith(
                                   color: muted,
                                 ),
                                 maxLines: 1,

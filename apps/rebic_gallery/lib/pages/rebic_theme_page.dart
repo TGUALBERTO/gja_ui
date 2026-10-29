@@ -48,7 +48,7 @@ class _RebicThemePageState extends State<RebicThemePage> {
             child: Semantics(button: true, child: const Text('← Voltar')),
           ),
           SizedBox(height: spacing.stackGap),
-          Text(RebicThemePage.title, style: page.typography.headline),
+          Text(RebicThemePage.title, style: page.typography.header2),
           SizedBox(height: spacing.stackGap),
           Align(
             alignment: Alignment.centerLeft,
@@ -130,7 +130,7 @@ class _DensityColumn extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: t.typography.title),
+        Text(label, style: t.typography.header3),
         SizedBox(height: t.spacing.s),
         Text('Alvo mínimo: ${t.density.minTargetSize.round()}'),
         SizedBox(height: t.spacing.s),
@@ -168,7 +168,7 @@ class _Button extends StatelessWidget {
             border: Border.all(color: c.border),
             borderRadius: BorderRadius.circular(t.radius.control),
           ),
-          child: Text(label, style: t.typography.label.copyWith(color: c.text)),
+          child: Text(label, style: t.typography.base.copyWith(color: c.text)),
         );
       },
     );

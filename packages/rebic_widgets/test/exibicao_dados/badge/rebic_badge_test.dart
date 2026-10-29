@@ -60,7 +60,10 @@ void main() {
       await tester.pumpWidget(_host(const RebicBadge(count: 5)));
       expect(find.text('5'), findsOneWidget);
       final text = tester.widget<RebicText>(find.byType(RebicText));
-      expect(text.variant, RebicTextVariant.label);
+      // `caption` usa o estilo `typography.small`.
+      expect(text.variant, RebicTextVariant.caption);
+      final style = tester.widget<Text>(find.text('5')).style!;
+      expect(style.fontSize, _light.typography.small.fontSize);
       final error = _light.colors.stateColors(RebicValueState.error);
       expect(_decoration(tester).color, error.background);
       expect(_decoration(tester).border!.top.color, error.border);

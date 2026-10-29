@@ -54,6 +54,9 @@ abstract final class RebicTypographyPrimitives {
   /// 40 px.
   static const size40 = 40.0;
 
+  /// 48 px.
+  static const size48 = 48.0;
+
   /// Escala de tamanhos, em ordem crescente.
   static const sizes = <String, double>{
     'size12': size12,
@@ -65,6 +68,7 @@ abstract final class RebicTypographyPrimitives {
     'size28': size28,
     'size32': size32,
     'size40': size40,
+    'size48': size48,
   };
 
   /// Altura de linha de 16 px.
@@ -91,6 +95,9 @@ abstract final class RebicTypographyPrimitives {
   /// Altura de linha de 48 px.
   static const lineHeight48 = 48.0;
 
+  /// Altura de linha de 60 px.
+  static const lineHeight60 = 60.0;
+
   /// Escala de alturas de linha, em ordem crescente.
   static const lineHeights = <String, double>{
     'lineHeight16': lineHeight16,
@@ -101,6 +108,7 @@ abstract final class RebicTypographyPrimitives {
     'lineHeight36': lineHeight36,
     'lineHeight40': lineHeight40,
     'lineHeight48': lineHeight48,
+    'lineHeight60': lineHeight60,
   };
 
   /// Peso 400.

@@ -175,7 +175,7 @@ void main() {
         light.copyWith(brightness: Brightness.dark),
         light.copyWith(colors: dark.colors),
         light.copyWith(
-          typography: light.typography.copyWith(body: light.typography.caption),
+          typography: light.typography.copyWith(base: light.typography.small),
         ),
         light.copyWith(density: const RebicDensityTokens.compact()),
         light.copyWith(radius: light.radius.copyWith(control: 6)),

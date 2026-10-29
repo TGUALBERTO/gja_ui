@@ -30,7 +30,7 @@ class BreakpointsPage extends StatelessWidget {
     return ColoredBox(
       color: colors.base,
       child: DefaultTextStyle(
-        style: typography.body.copyWith(color: colors.text),
+        style: typography.base.copyWith(color: colors.text),
         child: ListView(
           padding: EdgeInsets.all(spacing.pageMargin),
           children: [
@@ -39,16 +39,16 @@ class BreakpointsPage extends StatelessWidget {
               child: Semantics(button: true, child: const Text('← Voltar')),
             ),
             SizedBox(height: spacing.stackGap),
-            Text(title, style: typography.headline),
+            Text(title, style: typography.header2),
             SizedBox(height: spacing.stackGap),
             Text('Largura da janela: ${width.toStringAsFixed(0)} px'),
             Text(
               'Classe atual: ${current.name}',
               key: currentClassKey,
-              style: typography.title,
+              style: typography.header3,
             ),
             SizedBox(height: spacing.sectionGap),
-            Text('Limiares', style: typography.subtitle),
+            Text('Limiares', style: typography.header4),
             SizedBox(height: spacing.s),
             for (final sizeClass in RebicSizeClass.values)
               Padding(
@@ -57,7 +57,7 @@ class BreakpointsPage extends StatelessWidget {
                   '${sizeClass.name} ≥ '
                   '${breakpoints.minWidthOf(sizeClass).toStringAsFixed(0)} px',
                   style: sizeClass == current
-                      ? typography.bodyStrong.copyWith(color: colors.brand)
+                      ? typography.baseSemibold.copyWith(color: colors.brand)
                       : null,
                 ),
               ),

@@ -3,30 +3,31 @@ import 'package:rebic_foundation/rebic_foundation.dart';
 
 /// Estilo da escala tipográfica de um [RebicText].
 ///
-/// Os nomes são os dos estilos semânticos de `RebicTypographyTokens`.
+/// Cada variante usa um estilo Fiori de `RebicTypographyTokens`, indicado
+/// na própria variante.
 enum RebicTextVariant {
-  /// Número de destaque ou título de tela inicial.
+  /// Número de destaque ou título de tela inicial (`header1`).
   display,
 
-  /// Título de página.
+  /// Título de página (`header2`).
   headline,
 
-  /// Título de seção, cartão ou diálogo.
+  /// Título de seção, cartão ou diálogo (`header3`).
   title,
 
-  /// Subtítulo ou título de grupo.
+  /// Subtítulo ou título de grupo (`header4`).
   subtitle,
 
-  /// Texto corrido (padrão).
+  /// Texto corrido (`base`, padrão).
   body,
 
-  /// Texto corrido em destaque.
+  /// Texto corrido em destaque (`baseSemibold`).
   bodyStrong,
 
-  /// Rótulo de controle ou de campo.
+  /// Rótulo de controle ou de campo (`base`).
   label,
 
-  /// Texto auxiliar, como notas e metadados.
+  /// Texto auxiliar, como notas e metadados (`small`).
   caption,
 }
 
@@ -56,7 +57,7 @@ enum RebicTextTone {
 
 /// Exibe texto do Rebic, como o `sap.m.Text` e o `sap.m.Title` do SAPUI5.
 ///
-/// O estilo vem de `typography.<variant>` e a cor, do [tone], ambos do tema
+/// O estilo vem do estilo Fiori da [variant] e a cor, do [tone], ambos do tema
 /// ativo. Com [maxLines], o texto termina com reticências quando não cabe;
 /// o leitor de tela lê o texto completo. As variantes `display`, `headline` e
 /// `title` são anunciadas como cabeçalho, o que [heading] pode trocar.
@@ -100,14 +101,14 @@ class RebicText extends StatelessWidget {
 
   static TextStyle _style(RebicTypographyTokens t, RebicTextVariant variant) =>
       switch (variant) {
-        RebicTextVariant.display => t.display,
-        RebicTextVariant.headline => t.headline,
-        RebicTextVariant.title => t.title,
-        RebicTextVariant.subtitle => t.subtitle,
-        RebicTextVariant.body => t.body,
-        RebicTextVariant.bodyStrong => t.bodyStrong,
-        RebicTextVariant.label => t.label,
-        RebicTextVariant.caption => t.caption,
+        RebicTextVariant.display => t.header1,
+        RebicTextVariant.headline => t.header2,
+        RebicTextVariant.title => t.header3,
+        RebicTextVariant.subtitle => t.header4,
+        RebicTextVariant.body => t.base,
+        RebicTextVariant.bodyStrong => t.baseSemibold,
+        RebicTextVariant.label => t.base,
+        RebicTextVariant.caption => t.small,
       };
 
   static Color _color(RebicColorTokens c, RebicTextTone tone) => switch (tone) {

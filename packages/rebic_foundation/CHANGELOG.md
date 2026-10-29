@@ -2,6 +2,22 @@
 
 ## Não lançado
 
+- **BREAKING** Tipografia no modelo Fiori (`update-rebic-foundation-typography-fiori-sizes`, spec
+  `rebic/foundation/typography`): os estilos de `RebicTypographyTokens` passam aos nomes dos parâmetros de tamanho de
+  fonte do SAPUI5 (`sapFontHeader1Size`…`6Size`, `sapFontLargeSize`, `sapFontSize`, `sapFontSmallSize`), com títulos em
+  negrito; novos primitivos `size48` e `lineHeight60`. Valores provisórios na ADR 0009.
+
+    | Antes | Agora |
+    |---|---|
+    | `display` (40/48, 600) | `header1` (48/60, 700) |
+    | `headline` (32/40, 600) | `header2` (32/40, 700) |
+    | `title` (24/32, 600) | `header3` (24/32, 700) |
+    | `subtitle` (18/24, 600) | `header4` (20/24, 700) |
+    | `body` | `base` |
+    | `bodyStrong` | `baseSemibold` |
+    | `label` (14/20, 500) | `base` (rótulos se distinguem pela cor `label`) |
+    | `caption` | `small` |
+    | — | novos: `header5` (16/20), `header6` (14/20), `large` (16/24), `baseBold` (14/20, 700) |
 - Estados de interação (`add-rebic-button`): famílias de controle `accept`, `reject` e `attention`, derivadas das cores
   dos estados de valor `success`, `error` e `warning`, para os tipos de botão Accept, Reject e Attention do Fiori.
 - Tema na árvore (`add-rebic-theme`, spec `rebic/foundation/theming`): `RebicThemeScope` publica o tema para a

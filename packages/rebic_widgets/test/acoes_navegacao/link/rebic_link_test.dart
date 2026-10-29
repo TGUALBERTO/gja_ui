@@ -56,8 +56,8 @@ void main() {
     expect(text.data, 'Ver pedido');
     expect(text.maxLines, 1);
     expect(text.style!.color, _light.colors.link);
-    expect(text.style!.fontSize, _light.typography.body.fontSize);
-    expect(text.style!.fontWeight, _light.typography.body.fontWeight);
+    expect(text.style!.fontSize, _light.typography.base.fontSize);
+    expect(text.style!.fontWeight, _light.typography.base.fontWeight);
     expect(text.style!.decoration, TextDecoration.none);
   });
 
@@ -165,7 +165,7 @@ void main() {
     expect(_text(tester, 0).style!.color, _light.colors.text);
     final emphasized = _text(tester, 1).style!;
     expect(emphasized.color, _light.colors.link);
-    expect(emphasized.fontWeight, _light.typography.bodyStrong.fontWeight);
+    expect(emphasized.fontWeight, _light.typography.baseBold.fontWeight);
   });
 
   testWidgets('[Aparência] Tokens de componente — Cor do link nos temas', (

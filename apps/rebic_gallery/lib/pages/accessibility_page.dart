@@ -49,7 +49,7 @@ class AccessibilityPage extends StatelessWidget {
     return ColoredBox(
       color: colors.base,
       child: DefaultTextStyle(
-        style: typography.body.copyWith(color: colors.text),
+        style: typography.base.copyWith(color: colors.text),
         child: ListView(
           padding: EdgeInsets.all(spacing.pageMargin),
           children: [
@@ -58,9 +58,9 @@ class AccessibilityPage extends StatelessWidget {
               child: Semantics(button: true, child: const Text('← Voltar')),
             ),
             SizedBox(height: spacing.stackGap),
-            Text(title, style: typography.headline),
+            Text(title, style: typography.header2),
             SizedBox(height: spacing.sectionGap),
-            Text('Limites', style: typography.subtitle),
+            Text('Limites', style: typography.header4),
             SizedBox(height: spacing.s),
             for (final line in limits())
               Padding(
@@ -68,16 +68,16 @@ class AccessibilityPage extends StatelessWidget {
                 child: Text(line),
               ),
             SizedBox(height: spacing.sectionGap),
-            Text('Movimento', style: typography.subtitle),
+            Text('Movimento', style: typography.header4),
             SizedBox(height: spacing.s),
             Text('Normal: ${durations(motion)}'),
             Text('Com redução: ${durations(reduced)}'),
             Text(
               'Plataforma pede redução: ${platformReduces ? 'sim' : 'não'}',
-              style: typography.caption.copyWith(color: colors.label),
+              style: typography.small.copyWith(color: colors.label),
             ),
             SizedBox(height: spacing.sectionGap),
-            Text('Escala de texto', style: typography.subtitle),
+            Text('Escala de texto', style: typography.header4),
             SizedBox(height: spacing.s),
             const Text(sample),
           ],

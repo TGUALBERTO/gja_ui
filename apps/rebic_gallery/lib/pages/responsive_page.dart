@@ -43,7 +43,7 @@ class ResponsivePage extends StatelessWidget {
     return ColoredBox(
       color: colors.base,
       child: DefaultTextStyle(
-        style: typography.body.copyWith(color: colors.text),
+        style: typography.base.copyWith(color: colors.text),
         child: ListView(
           padding: EdgeInsets.all(spacing.pageMargin),
           children: [
@@ -52,7 +52,7 @@ class ResponsivePage extends StatelessWidget {
               child: Semantics(button: true, child: const Text('← Voltar')),
             ),
             SizedBox(height: spacing.stackGap),
-            Text(title, style: typography.headline),
+            Text(title, style: typography.header2),
             SizedBox(height: spacing.sectionGap),
             Text('Classe da tela: ${screen.name}', key: screenKey),
             SizedBox(height: spacing.xs),
@@ -61,7 +61,7 @@ class ResponsivePage extends StatelessWidget {
               '${RebicResponsive.recommendedDensity().name}',
             ),
             SizedBox(height: spacing.sectionGap),
-            Text('Colunas pela tela: $count', style: typography.title),
+            Text('Colunas pela tela: $count', style: typography.header3),
             SizedBox(height: spacing.s),
             Row(
               children: [
@@ -79,7 +79,7 @@ class ResponsivePage extends StatelessWidget {
               ],
             ),
             SizedBox(height: spacing.sectionGap),
-            Text('Painel de 320', style: typography.title),
+            Text('Painel de 320', style: typography.header3),
             SizedBox(height: spacing.s),
             Align(
               alignment: Alignment.centerLeft,

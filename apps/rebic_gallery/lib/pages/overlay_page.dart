@@ -64,7 +64,7 @@ class _OverlayPageState extends State<OverlayPage> {
             border: Border.all(color: c.border),
             borderRadius: BorderRadius.circular(t.radius.control),
           ),
-          child: Text(label, style: t.typography.label.copyWith(color: c.text)),
+          child: Text(label, style: t.typography.base.copyWith(color: c.text)),
         );
       },
     );
@@ -80,7 +80,7 @@ class _OverlayPageState extends State<OverlayPage> {
         boxShadow: t.elevation.shadowsFor(t.elevation.dialog, t.colors.shadow),
       ),
       child: DefaultTextStyle(
-        style: t.typography.body.copyWith(color: t.colors.text),
+        style: t.typography.base.copyWith(color: t.colors.text),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +94,7 @@ class _OverlayPageState extends State<OverlayPage> {
     final result = await RebicModal.show<String>(
       context,
       builder: (context) => _panel([
-        Text('Enviar pedido?', style: _theme.typography.title),
+        Text('Enviar pedido?', style: _theme.typography.header3),
         SizedBox(height: _theme.spacing.l),
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -114,7 +114,7 @@ class _OverlayPageState extends State<OverlayPage> {
       context,
       dismissible: false,
       builder: (context) => _panel([
-        Text('Leia antes de continuar', style: _theme.typography.title),
+        Text('Leia antes de continuar', style: _theme.typography.header3),
         SizedBox(height: _theme.spacing.l),
         _button('Concluir', () => Navigator.of(context).pop()),
       ]),
@@ -127,7 +127,7 @@ class _OverlayPageState extends State<OverlayPage> {
     return ColoredBox(
       color: t.colors.base,
       child: DefaultTextStyle(
-        style: t.typography.body.copyWith(color: t.colors.text),
+        style: t.typography.base.copyWith(color: t.colors.text),
         child: ListView(
           padding: EdgeInsets.all(t.spacing.pageMargin),
           children: [
@@ -136,7 +136,7 @@ class _OverlayPageState extends State<OverlayPage> {
               child: Semantics(button: true, child: const Text('← Voltar')),
             ),
             SizedBox(height: t.spacing.stackGap),
-            Text(OverlayPage.title, style: t.typography.headline),
+            Text(OverlayPage.title, style: t.typography.header2),
             SizedBox(height: t.spacing.sectionGap),
             Wrap(
               spacing: t.spacing.s,
@@ -149,7 +149,7 @@ class _OverlayPageState extends State<OverlayPage> {
             SizedBox(height: t.spacing.s),
             Text('Resultado: $_result', key: OverlayPage.resultKey),
             SizedBox(height: t.spacing.sectionGap),
-            Text('Lado preferido', style: t.typography.title),
+            Text('Lado preferido', style: t.typography.header3),
             SizedBox(height: t.spacing.s),
             Wrap(
               spacing: t.spacing.s,

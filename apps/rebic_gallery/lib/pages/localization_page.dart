@@ -63,7 +63,7 @@ class _LocalizationPageState extends State<LocalizationPage> {
     return ColoredBox(
       color: colors.base,
       child: DefaultTextStyle(
-        style: typography.body.copyWith(color: colors.text),
+        style: typography.base.copyWith(color: colors.text),
         child: ListView(
           padding: EdgeInsets.all(spacing.pageMargin),
           children: [
@@ -72,7 +72,7 @@ class _LocalizationPageState extends State<LocalizationPage> {
               child: Semantics(button: true, child: const Text('← Voltar')),
             ),
             SizedBox(height: spacing.stackGap),
-            Text(LocalizationPage.title, style: typography.headline),
+            Text(LocalizationPage.title, style: typography.header2),
             SizedBox(height: spacing.stackGap),
             Wrap(
               spacing: spacing.s,
@@ -113,7 +113,7 @@ class _Samples extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: theme.typography.title),
+          Text(title, style: theme.typography.header3),
           SizedBox(height: theme.spacing.s),
           ...rows,
         ],

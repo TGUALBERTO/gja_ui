@@ -339,7 +339,7 @@ class _GalleryIndex extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.all(spacing.pageMargin),
       children: [
-        Text(RebicGalleryApp.title, style: theme.typography.headline),
+        Text(RebicGalleryApp.title, style: theme.typography.header2),
         SizedBox(height: spacing.stackGap),
         _Options(
           children: [
@@ -434,7 +434,7 @@ class _Option extends StatelessWidget {
             border: Border.all(color: c.border),
             borderRadius: BorderRadius.circular(t.radius.control),
           ),
-          child: Text(label, style: t.typography.label.copyWith(color: c.text)),
+          child: Text(label, style: t.typography.base.copyWith(color: c.text)),
         );
       },
     );

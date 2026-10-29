@@ -62,7 +62,7 @@ void main() {
         style.color,
         _light.colors.stateColors(RebicValueState.success).foreground,
       );
-      expect(style.fontSize, _light.typography.body.fontSize);
+      expect(style.fontSize, _light.typography.base.fontSize);
       expect(
         find.descendant(
           of: find.byType(RebicStatusIndicator),

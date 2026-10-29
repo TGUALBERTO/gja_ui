@@ -6,43 +6,70 @@ import 'primitives/typography_primitives.dart';
 
 typedef _P = RebicTypographyPrimitives;
 
-const _display = TextStyle(
+const _header1 = TextStyle(
   fontFamily: _P.fontFamily,
   fontFamilyFallback: _P.fontFamilyFallback,
   leadingDistribution: TextLeadingDistribution.even,
-  fontSize: _P.size40,
-  height: _P.lineHeight48 / _P.size40,
-  fontWeight: _P.semibold,
+  fontSize: _P.size48,
+  height: _P.lineHeight60 / _P.size48,
+  fontWeight: _P.bold,
 );
 
-const _headline = TextStyle(
+const _header2 = TextStyle(
   fontFamily: _P.fontFamily,
   fontFamilyFallback: _P.fontFamilyFallback,
   leadingDistribution: TextLeadingDistribution.even,
   fontSize: _P.size32,
   height: _P.lineHeight40 / _P.size32,
-  fontWeight: _P.semibold,
+  fontWeight: _P.bold,
 );
 
-const _title = TextStyle(
+const _header3 = TextStyle(
   fontFamily: _P.fontFamily,
   fontFamilyFallback: _P.fontFamilyFallback,
   leadingDistribution: TextLeadingDistribution.even,
   fontSize: _P.size24,
   height: _P.lineHeight32 / _P.size24,
-  fontWeight: _P.semibold,
+  fontWeight: _P.bold,
 );
 
-const _subtitle = TextStyle(
+const _header4 = TextStyle(
   fontFamily: _P.fontFamily,
   fontFamilyFallback: _P.fontFamilyFallback,
   leadingDistribution: TextLeadingDistribution.even,
-  fontSize: _P.size18,
-  height: _P.lineHeight24 / _P.size18,
-  fontWeight: _P.semibold,
+  fontSize: _P.size20,
+  height: _P.lineHeight24 / _P.size20,
+  fontWeight: _P.bold,
 );
 
-const _body = TextStyle(
+const _header5 = TextStyle(
+  fontFamily: _P.fontFamily,
+  fontFamilyFallback: _P.fontFamilyFallback,
+  leadingDistribution: TextLeadingDistribution.even,
+  fontSize: _P.size16,
+  height: _P.lineHeight20 / _P.size16,
+  fontWeight: _P.bold,
+);
+
+const _header6 = TextStyle(
+  fontFamily: _P.fontFamily,
+  fontFamilyFallback: _P.fontFamilyFallback,
+  leadingDistribution: TextLeadingDistribution.even,
+  fontSize: _P.size14,
+  height: _P.lineHeight20 / _P.size14,
+  fontWeight: _P.bold,
+);
+
+const _large = TextStyle(
+  fontFamily: _P.fontFamily,
+  fontFamilyFallback: _P.fontFamilyFallback,
+  leadingDistribution: TextLeadingDistribution.even,
+  fontSize: _P.size16,
+  height: _P.lineHeight24 / _P.size16,
+  fontWeight: _P.regular,
+);
+
+const _base = TextStyle(
   fontFamily: _P.fontFamily,
   fontFamilyFallback: _P.fontFamilyFallback,
   leadingDistribution: TextLeadingDistribution.even,
@@ -51,7 +78,7 @@ const _body = TextStyle(
   fontWeight: _P.regular,
 );
 
-const _bodyStrong = TextStyle(
+const _baseSemibold = TextStyle(
   fontFamily: _P.fontFamily,
   fontFamilyFallback: _P.fontFamilyFallback,
   leadingDistribution: TextLeadingDistribution.even,
@@ -60,16 +87,16 @@ const _bodyStrong = TextStyle(
   fontWeight: _P.semibold,
 );
 
-const _label = TextStyle(
+const _baseBold = TextStyle(
   fontFamily: _P.fontFamily,
   fontFamilyFallback: _P.fontFamilyFallback,
   leadingDistribution: TextLeadingDistribution.even,
   fontSize: _P.size14,
   height: _P.lineHeight20 / _P.size14,
-  fontWeight: _P.medium,
+  fontWeight: _P.bold,
 );
 
-const _caption = TextStyle(
+const _small = TextStyle(
   fontFamily: _P.fontFamily,
   fontFamilyFallback: _P.fontFamilyFallback,
   leadingDistribution: TextLeadingDistribution.even,
@@ -78,98 +105,124 @@ const _caption = TextStyle(
   fontWeight: _P.regular,
 );
 
-/// Estilos semânticos de texto.
+/// Estilos semânticos de texto, nomeados pelos parâmetros de tema Fiori.
 ///
 /// Nível: semântico.
 ///
 /// Widgets usam somente estes estilos (ou tokens de componente derivados),
 /// combinados com uma cor dos papéis de cor (ex.:
-/// `typography.body.copyWith(color: colors.text)`). Nenhum estilo define
-/// cor ou fundo. Tamanhos e alturas são pixels lógicos antes da escala de
-/// texto do sistema.
+/// `typography.base.copyWith(color: colors.text)`). Nenhum estilo define
+/// cor ou fundo. Os títulos `header1`…`header6` são negritos; `large`, `base`
+/// e `small` são regulares, e rótulos se distinguem pela cor
+/// `colors.label`, como no `sap.m.Label`. Tamanhos e alturas são pixels
+/// lógicos antes da escala de texto do sistema.
 @immutable
 class RebicTypographyTokens extends RebicTokenSet<RebicTypographyTokens> {
   /// Cria um mapeamento tipográfico.
   const RebicTypographyTokens({
-    required this.display,
-    required this.headline,
-    required this.title,
-    required this.subtitle,
-    required this.body,
-    required this.bodyStrong,
-    required this.label,
-    required this.caption,
+    required this.header1,
+    required this.header2,
+    required this.header3,
+    required this.header4,
+    required this.header5,
+    required this.header6,
+    required this.large,
+    required this.base,
+    required this.baseSemibold,
+    required this.baseBold,
+    required this.small,
   });
 
   /// Mapeamento de referência, com a Inter empacotada.
   const RebicTypographyTokens.fallback()
     : this(
-        display: _display,
-        headline: _headline,
-        title: _title,
-        subtitle: _subtitle,
-        body: _body,
-        bodyStrong: _bodyStrong,
-        label: _label,
-        caption: _caption,
+        header1: _header1,
+        header2: _header2,
+        header3: _header3,
+        header4: _header4,
+        header5: _header5,
+        header6: _header6,
+        large: _large,
+        base: _base,
+        baseSemibold: _baseSemibold,
+        baseBold: _baseBold,
+        small: _small,
       );
 
-  /// Destaque de página (números de painel, telas vazias).
-  final TextStyle display;
+  /// Título de nível 1 (`sapFontHeader1Size`, 3rem).
+  final TextStyle header1;
 
-  /// Título de página.
-  final TextStyle headline;
+  /// Título de nível 2 (`sapFontHeader2Size`, 2rem): título de página.
+  final TextStyle header2;
 
-  /// Título de seção ou de cartão.
-  final TextStyle title;
+  /// Título de nível 3 (`sapFontHeader3Size`, 1,5rem).
+  final TextStyle header3;
 
-  /// Subtítulo e cabeçalho de grupo.
-  final TextStyle subtitle;
+  /// Título de nível 4 (`sapFontHeader4Size`, 1,25rem): título de cartão ou de popover.
+  final TextStyle header4;
 
-  /// Texto corrido.
-  final TextStyle body;
+  /// Título de nível 5 (`sapFontHeader5Size`, 1rem).
+  final TextStyle header5;
 
-  /// Texto corrido com ênfase.
-  final TextStyle bodyStrong;
+  /// Título de nível 6 (`sapFontHeader6Size`, 0,875rem).
+  final TextStyle header6;
 
-  /// Rótulos de controles (botões, campos, abas).
-  final TextStyle label;
+  /// Texto grande (`sapFontLargeSize`, 1rem).
+  final TextStyle large;
 
-  /// Texto auxiliar (legendas, mensagens de campo).
-  final TextStyle caption;
+  /// Texto base (`sapFontSize`, 0,875rem): texto corrido e rótulos.
+  final TextStyle base;
+
+  /// Texto base em semibold (`sapFontSize` com a família semibold): texto de botões.
+  final TextStyle baseSemibold;
+
+  /// Texto base em negrito (`sapFontSize` com `sapFontBoldFamily`): texto enfatizado.
+  final TextStyle baseBold;
+
+  /// Texto pequeno (`sapFontSmallSize`, 0,75rem): legendas e contadores.
+  final TextStyle small;
 
   /// Estilos por nome, na ordem de declaração.
   Map<String, TextStyle> get styles => {
-    'display': display,
-    'headline': headline,
-    'title': title,
-    'subtitle': subtitle,
-    'body': body,
-    'bodyStrong': bodyStrong,
-    'label': label,
-    'caption': caption,
+    'header1': header1,
+    'header2': header2,
+    'header3': header3,
+    'header4': header4,
+    'header5': header5,
+    'header6': header6,
+    'large': large,
+    'base': base,
+    'baseSemibold': baseSemibold,
+    'baseBold': baseBold,
+    'small': small,
   };
 
   @override
   RebicTypographyTokens copyWith({
-    TextStyle? display,
-    TextStyle? headline,
-    TextStyle? title,
-    TextStyle? subtitle,
-    TextStyle? body,
-    TextStyle? bodyStrong,
-    TextStyle? label,
-    TextStyle? caption,
+    TextStyle? header1,
+    TextStyle? header2,
+    TextStyle? header3,
+    TextStyle? header4,
+    TextStyle? header5,
+    TextStyle? header6,
+    TextStyle? large,
+    TextStyle? base,
+    TextStyle? baseSemibold,
+    TextStyle? baseBold,
+    TextStyle? small,
   }) {
     return RebicTypographyTokens(
-      display: display ?? this.display,
-      headline: headline ?? this.headline,
-      title: title ?? this.title,
-      subtitle: subtitle ?? this.subtitle,
-      body: body ?? this.body,
-      bodyStrong: bodyStrong ?? this.bodyStrong,
-      label: label ?? this.label,
-      caption: caption ?? this.caption,
+      header1: header1 ?? this.header1,
+      header2: header2 ?? this.header2,
+      header3: header3 ?? this.header3,
+      header4: header4 ?? this.header4,
+      header5: header5 ?? this.header5,
+      header6: header6 ?? this.header6,
+      large: large ?? this.large,
+      base: base ?? this.base,
+      baseSemibold: baseSemibold ?? this.baseSemibold,
+      baseBold: baseBold ?? this.baseBold,
+      small: small ?? this.small,
     );
   }
 
@@ -178,14 +231,17 @@ class RebicTypographyTokens extends RebicTokenSet<RebicTypographyTokens> {
     if (other == null) return this;
     TextStyle mix(TextStyle a, TextStyle b) => TextStyle.lerp(a, b, t)!;
     return RebicTypographyTokens(
-      display: mix(display, other.display),
-      headline: mix(headline, other.headline),
-      title: mix(title, other.title),
-      subtitle: mix(subtitle, other.subtitle),
-      body: mix(body, other.body),
-      bodyStrong: mix(bodyStrong, other.bodyStrong),
-      label: mix(label, other.label),
-      caption: mix(caption, other.caption),
+      header1: mix(header1, other.header1),
+      header2: mix(header2, other.header2),
+      header3: mix(header3, other.header3),
+      header4: mix(header4, other.header4),
+      header5: mix(header5, other.header5),
+      header6: mix(header6, other.header6),
+      large: mix(large, other.large),
+      base: mix(base, other.base),
+      baseSemibold: mix(baseSemibold, other.baseSemibold),
+      baseBold: mix(baseBold, other.baseBold),
+      small: mix(small, other.small),
     );
   }
 
@@ -193,26 +249,32 @@ class RebicTypographyTokens extends RebicTokenSet<RebicTypographyTokens> {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is RebicTypographyTokens &&
-        other.display == display &&
-        other.headline == headline &&
-        other.title == title &&
-        other.subtitle == subtitle &&
-        other.body == body &&
-        other.bodyStrong == bodyStrong &&
-        other.label == label &&
-        other.caption == caption;
+        other.header1 == header1 &&
+        other.header2 == header2 &&
+        other.header3 == header3 &&
+        other.header4 == header4 &&
+        other.header5 == header5 &&
+        other.header6 == header6 &&
+        other.large == large &&
+        other.base == base &&
+        other.baseSemibold == baseSemibold &&
+        other.baseBold == baseBold &&
+        other.small == small;
   }
 
   @override
   int get hashCode => Object.hash(
-    display,
-    headline,
-    title,
-    subtitle,
-    body,
-    bodyStrong,
-    label,
-    caption,
+    header1,
+    header2,
+    header3,
+    header4,
+    header5,
+    header6,
+    large,
+    base,
+    baseSemibold,
+    baseBold,
+    small,
   );
 
   @override

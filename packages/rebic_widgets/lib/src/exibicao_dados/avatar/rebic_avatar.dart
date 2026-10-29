@@ -110,11 +110,11 @@ class _RebicAvatarState extends State<RebicAvatar> {
   }
 
   TextStyle _initialsStyle(RebicTypographyTokens t) => switch (widget.size) {
-    RebicAvatarSize.xs => t.label,
-    RebicAvatarSize.s => t.subtitle,
-    RebicAvatarSize.m => t.title,
-    RebicAvatarSize.l => t.headline,
-    RebicAvatarSize.xl => t.display,
+    RebicAvatarSize.xs => t.small,
+    RebicAvatarSize.s => t.header4,
+    RebicAvatarSize.m => t.header3,
+    RebicAvatarSize.l => t.header2,
+    RebicAvatarSize.xl => t.header1,
   };
 
   @override

@@ -11,14 +11,17 @@ const _fallback = RebicTypographyTokens.fallback();
 double _lineHeightPx(TextStyle s) => s.fontSize! * s.height!;
 
 RebicTypographyTokens _bigger(RebicTypographyTokens t) => RebicTypographyTokens(
-  display: t.display.copyWith(fontSize: t.display.fontSize! + 4),
-  headline: t.headline.copyWith(fontSize: t.headline.fontSize! + 4),
-  title: t.title.copyWith(fontSize: t.title.fontSize! + 4),
-  subtitle: t.subtitle.copyWith(fontSize: t.subtitle.fontSize! + 4),
-  body: t.body.copyWith(fontSize: t.body.fontSize! + 4),
-  bodyStrong: t.bodyStrong.copyWith(fontSize: t.bodyStrong.fontSize! + 4),
-  label: t.label.copyWith(fontSize: t.label.fontSize! + 4),
-  caption: t.caption.copyWith(fontSize: t.caption.fontSize! + 4),
+  header1: t.header1.copyWith(fontSize: t.header1.fontSize! + 4),
+  header2: t.header2.copyWith(fontSize: t.header2.fontSize! + 4),
+  header3: t.header3.copyWith(fontSize: t.header3.fontSize! + 4),
+  header4: t.header4.copyWith(fontSize: t.header4.fontSize! + 4),
+  header5: t.header5.copyWith(fontSize: t.header5.fontSize! + 4),
+  header6: t.header6.copyWith(fontSize: t.header6.fontSize! + 4),
+  large: t.large.copyWith(fontSize: t.large.fontSize! + 4),
+  base: t.base.copyWith(fontSize: t.base.fontSize! + 4),
+  baseSemibold: t.baseSemibold.copyWith(fontSize: t.baseSemibold.fontSize! + 4),
+  baseBold: t.baseBold.copyWith(fontSize: t.baseBold.fontSize! + 4),
+  small: t.small.copyWith(fontSize: t.small.fontSize! + 4),
 );
 
 void main() {
@@ -39,14 +42,17 @@ void main() {
   group('Estilos semânticos de texto', () {
     test('Estilos semânticos de texto — Estilo completo e sem cor', () {
       expect(_fallback.styles.keys, [
-        'display',
-        'headline',
-        'title',
-        'subtitle',
-        'body',
-        'bodyStrong',
-        'label',
-        'caption',
+        'header1',
+        'header2',
+        'header3',
+        'header4',
+        'header5',
+        'header6',
+        'large',
+        'base',
+        'baseSemibold',
+        'baseBold',
+        'small',
       ]);
       for (final MapEntry(key: name, value: s) in _fallback.styles.entries) {
         expect(s.fontFamily, isNotNull, reason: name);
@@ -63,25 +69,59 @@ void main() {
 
     test('Estilos semânticos de texto — Hierarquia de tamanhos', () {
       final t = _fallback;
-      final ordered = [
-        t.display,
-        t.headline,
-        t.title,
-        t.subtitle,
-        t.body,
-        t.caption,
-      ];
-      for (var i = 1; i < ordered.length; i++) {
-        expect(
-          ordered[i].fontSize,
-          lessThanOrEqualTo(ordered[i - 1].fontSize!),
-        );
+      final headers = [t.header1, t.header2, t.header3, t.header4, t.header5];
+      for (var i = 1; i < headers.length; i++) {
+        expect(headers[i].fontSize, lessThan(headers[i - 1].fontSize!));
       }
-      expect(t.bodyStrong.fontSize, t.body.fontSize);
-      expect(
-        t.bodyStrong.fontWeight!.value,
-        greaterThan(t.body.fontWeight!.value),
-      );
+      expect(t.header6.fontSize, lessThan(t.header5.fontSize!));
+      expect(t.header6.fontSize, greaterThanOrEqualTo(t.small.fontSize!));
+      expect(t.large.fontSize, greaterThan(t.base.fontSize!));
+      expect(t.base.fontSize, greaterThan(t.small.fontSize!));
+    });
+
+    test('Estilos semânticos de texto — Pesos do texto base', () {
+      final t = _fallback;
+      for (final s in [t.baseSemibold, t.baseBold]) {
+        expect(s.fontSize, t.base.fontSize);
+        expect(s.height, t.base.height);
+      }
+      expect([t.base, t.baseSemibold, t.baseBold].map((s) => s.fontWeight), [
+        FontWeight.w400,
+        FontWeight.w600,
+        FontWeight.w700,
+      ]);
+    });
+
+    test('Estilos semânticos de texto — Sem nomes do Material', () {
+      const material = [
+        'display',
+        'headline',
+        'title',
+        'subtitle',
+        'body',
+        'label',
+        'caption',
+      ];
+      for (final name in _fallback.styles.keys) {
+        expect(material, isNot(contains(name)), reason: name);
+      }
+    });
+
+    test('títulos são negritos e o texto é regular', () {
+      final t = _fallback;
+      for (final s in [
+        t.header1,
+        t.header2,
+        t.header3,
+        t.header4,
+        t.header5,
+        t.header6,
+      ]) {
+        expect(s.fontWeight, FontWeight.w700);
+      }
+      for (final s in [t.large, t.base, t.small]) {
+        expect(s.fontWeight, FontWeight.w400);
+      }
     });
   });
 
@@ -126,9 +166,9 @@ void main() {
     });
 
     test('Contrato do conjunto tipográfico — Interpolação de tamanho', () {
-      final a = _fallback.copyWith(body: _fallback.body.copyWith(fontSize: 14));
-      final b = _fallback.copyWith(body: _fallback.body.copyWith(fontSize: 18));
-      expect(a.lerp(b, 0.5).body.fontSize, 16);
+      final a = _fallback.copyWith(base: _fallback.base.copyWith(fontSize: 14));
+      final b = _fallback.copyWith(base: _fallback.base.copyWith(fontSize: 18));
+      expect(a.lerp(b, 0.5).base.fontSize, 16);
     });
 
     test('Contrato do conjunto tipográfico — Valores vêm dos primitivos', () {
@@ -150,14 +190,17 @@ void main() {
     test('igualdade e copyWith consideram cada estilo isoladamente', () {
       const other = TextStyle(fontSize: 99);
       final variants = [
-        _fallback.copyWith(display: other),
-        _fallback.copyWith(headline: other),
-        _fallback.copyWith(title: other),
-        _fallback.copyWith(subtitle: other),
-        _fallback.copyWith(body: other),
-        _fallback.copyWith(bodyStrong: other),
-        _fallback.copyWith(label: other),
-        _fallback.copyWith(caption: other),
+        _fallback.copyWith(header1: other),
+        _fallback.copyWith(header2: other),
+        _fallback.copyWith(header3: other),
+        _fallback.copyWith(header4: other),
+        _fallback.copyWith(header5: other),
+        _fallback.copyWith(header6: other),
+        _fallback.copyWith(large: other),
+        _fallback.copyWith(base: other),
+        _fallback.copyWith(baseSemibold: other),
+        _fallback.copyWith(baseBold: other),
+        _fallback.copyWith(small: other),
       ];
       for (final (i, variant) in variants.indexed) {
         expect(variant, isNot(_fallback), reason: 'estilo $i');

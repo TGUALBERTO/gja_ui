@@ -2,6 +2,12 @@
 
 ## Não lançado
 
+- Tipografia no modelo Fiori (`update-rebic-foundation-typography-fiori-sizes`): os widgets passam aos estilos novos
+  de `RebicTypographyTokens`, sem mudar a própria API. `RebicText` mapeia cada variante para um estilo Fiori
+  (`display` → `header1`, `headline` → `header2`, `title` → `header3`, `subtitle` → `header4`, `body` e `label` →
+  `base`, `bodyStrong` → `baseSemibold`, `caption` → `small`); `RebicButton` usa `baseSemibold`; `RebicLink` usa
+  `base` e, enfatizado, `baseBold`; `RebicStatusIndicator` usa `base`; `RebicBadge` usa `small`; as iniciais de
+  `RebicAvatar` usam `small` e `header4`…`header1`. Títulos ficam em negrito, e os goldens com texto foram regerados.
 - `RebicMenu` e `RebicMenuItem` (`add-rebic-menu`, spec `rebic/widgets/rebic-menu`): menu de ações ancorado no modelo
   do `sap.m.Menu`, com ícone, atalho exibido (`shortcut`), seções (`startsSection`), itens desabilitados
   (`onPressed: null`), navegação pelo teclado e papéis semânticos `menu` e `menuItem`. A lista do `RebicDropdown` passa

@@ -34,7 +34,7 @@ class DensityPage extends StatelessWidget {
     return ColoredBox(
       color: colors.base,
       child: DefaultTextStyle(
-        style: typography.body.copyWith(color: colors.text),
+        style: typography.base.copyWith(color: colors.text),
         child: ListView(
           padding: EdgeInsets.all(spacing.pageMargin),
           children: [
@@ -43,7 +43,7 @@ class DensityPage extends StatelessWidget {
               child: Semantics(button: true, child: const Text('← Voltar')),
             ),
             SizedBox(height: spacing.stackGap),
-            Text(title, style: typography.headline),
+            Text(title, style: typography.header2),
             SizedBox(height: spacing.sectionGap),
             Wrap(
               spacing: spacing.xl,
@@ -79,10 +79,10 @@ class _DensityColumn extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(tokens.density.name, style: typography.title),
+          Text(tokens.density.name, style: typography.header3),
           Text(
             DensityPage.measures(tokens),
-            style: typography.caption.copyWith(color: colors.label),
+            style: typography.small.copyWith(color: colors.label),
           ),
           SizedBox(height: spacing.stackGap),
           Container(
@@ -95,7 +95,7 @@ class _DensityColumn extends StatelessWidget {
               border: Border.all(color: colors.fieldBorder),
               borderRadius: BorderRadius.circular(radius.control),
             ),
-            child: Text('Campo', style: typography.label),
+            child: Text('Campo', style: typography.base),
           ),
           SizedBox(height: spacing.stackGap),
           for (final item in ['Item 1', 'Item 2'])

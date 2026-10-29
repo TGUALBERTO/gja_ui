@@ -72,7 +72,7 @@ class RebicBadge extends StatelessWidget {
     final colors = theme.colors.stateColors(state);
     // Lado mínimo: a altura da linha do texto (na escala atual), nunca menor
     // que `icons.small`, para que um dígito forme um círculo.
-    final label = theme.typography.label;
+    final label = theme.typography.small;
     final lineHeight =
         MediaQuery.textScalerOf(context).scale(label.fontSize!) *
         (label.height ?? 1);
@@ -99,7 +99,7 @@ class RebicBadge extends StatelessWidget {
               heightFactor: 1,
               child: RebicText(
                 text,
-                variant: RebicTextVariant.label,
+                variant: RebicTextVariant.caption,
                 tone: _tone(state),
                 maxLines: 1,
               ),

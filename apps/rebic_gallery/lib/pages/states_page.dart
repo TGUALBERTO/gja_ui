@@ -51,7 +51,7 @@ class StatesPage extends StatelessWidget {
     return ColoredBox(
       color: light.base,
       child: DefaultTextStyle(
-        style: typography.body.copyWith(color: light.text),
+        style: typography.base.copyWith(color: light.text),
         child: ListView(
           padding: EdgeInsets.all(spacing.pageMargin),
           children: [
@@ -60,7 +60,7 @@ class StatesPage extends StatelessWidget {
               child: Semantics(button: true, child: const Text('← Voltar')),
             ),
             SizedBox(height: spacing.stackGap),
-            Text(title, style: typography.headline),
+            Text(title, style: typography.header2),
             SizedBox(height: spacing.sectionGap),
             const GalleryComparison(
               child: _ModeStrip(
@@ -99,12 +99,12 @@ class _ModeStrip extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(mode, style: typography.title.copyWith(color: colors.text)),
+          Text(mode, style: typography.header3.copyWith(color: colors.text)),
           for (final family in RebicControlFamily.values) ...[
             SizedBox(height: spacing.l),
             Text(
               family.name,
-              style: typography.label.copyWith(color: colors.label),
+              style: typography.base.copyWith(color: colors.label),
             ),
             SizedBox(height: spacing.s),
             Wrap(
@@ -177,7 +177,7 @@ class _Sample extends StatelessWidget {
             border: Border.all(color: c.border),
             borderRadius: BorderRadius.circular(radius.control),
           ),
-          child: Text(label, style: typography.label.copyWith(color: c.text)),
+          child: Text(label, style: typography.base.copyWith(color: c.text)),
         ),
       ),
     );

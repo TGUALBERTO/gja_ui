@@ -105,7 +105,7 @@ class _ThemePageState extends State<ThemePage> {
     return ColoredBox(
       color: page.colors.base,
       child: DefaultTextStyle(
-        style: page.typography.body.copyWith(color: page.colors.text),
+        style: page.typography.base.copyWith(color: page.colors.text),
         child: ListView(
           padding: EdgeInsets.all(page.spacing.pageMargin),
           children: [
@@ -114,7 +114,7 @@ class _ThemePageState extends State<ThemePage> {
               child: Semantics(button: true, child: const Text('← Voltar')),
             ),
             SizedBox(height: page.spacing.stackGap),
-            Text(ThemePage.title, style: page.typography.headline),
+            Text(ThemePage.title, style: page.typography.header2),
             SizedBox(height: page.spacing.stackGap),
             Wrap(
               spacing: page.spacing.s,
@@ -137,7 +137,7 @@ class _ThemePageState extends State<ThemePage> {
                   ? 'Problemas de acessibilidade: nenhum'
                   : 'Problemas de acessibilidade: ${issues.join('; ')}',
               key: ThemePage.issuesKey,
-              style: page.typography.caption.copyWith(color: page.colors.label),
+              style: page.typography.small.copyWith(color: page.colors.label),
             ),
           ],
         ),
@@ -167,15 +167,15 @@ class _Preview extends StatelessWidget {
           boxShadow: t.elevation.shadowsFor(t.elevation.card, t.colors.shadow),
         ),
         child: DefaultTextStyle(
-          style: t.typography.body.copyWith(color: t.colors.text),
+          style: t.typography.base.copyWith(color: t.colors.text),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Pedido de material', style: t.typography.title),
+              Text('Pedido de material', style: t.typography.header3),
               SizedBox(height: t.spacing.xs),
               Text(
                 'Prévia montada só com o tema escolhido.',
-                style: t.typography.body.copyWith(color: t.colors.label),
+                style: t.typography.base.copyWith(color: t.colors.label),
               ),
               SizedBox(height: t.spacing.stackGap),
               Container(
@@ -187,7 +187,7 @@ class _Preview extends StatelessWidget {
                   border: Border.all(color: t.colors.fieldBorder),
                   borderRadius: BorderRadius.circular(t.radius.control),
                 ),
-                child: Text('Código do material', style: t.typography.label),
+                child: Text('Código do material', style: t.typography.base),
               ),
               SizedBox(height: t.spacing.stackGap),
               Container(
@@ -200,7 +200,7 @@ class _Preview extends StatelessWidget {
                 ),
                 child: Text(
                   'Enviar',
-                  style: t.typography.label.copyWith(
+                  style: t.typography.base.copyWith(
                     color: t.colors.contrastText,
                   ),
                 ),

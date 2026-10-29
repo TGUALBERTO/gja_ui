@@ -71,7 +71,7 @@ void main() {
         ),
       );
       final style = _style(tester, 'Pedido 4711');
-      expect(style.fontSize, theme.typography.body.fontSize);
+      expect(style.fontSize, theme.typography.base.fontSize);
       expect(style.color, theme.colors.text);
       final text = tester.widget<Text>(find.text('Pedido 4711'));
       expect(text.maxLines, isNull);
@@ -179,13 +179,24 @@ void main() {
             .stateColors(RebicValueState.information)
             .foreground,
       };
+      // Estilo Fiori de cada variante (design D2).
+      const fiori = {
+        RebicTextVariant.display: 'header1',
+        RebicTextVariant.headline: 'header2',
+        RebicTextVariant.title: 'header3',
+        RebicTextVariant.subtitle: 'header4',
+        RebicTextVariant.body: 'base',
+        RebicTextVariant.bodyStrong: 'baseSemibold',
+        RebicTextVariant.label: 'base',
+        RebicTextVariant.caption: 'small',
+      };
       for (final variant in RebicTextVariant.values) {
         for (final tone in RebicTextTone.values) {
           final label = '${variant.name}/${tone.name}';
           await tester.pumpWidget(
             _themed(RebicText(label, variant: variant, tone: tone)),
           );
-          final expected = theme.typography.styles[variant.name]!;
+          final expected = theme.typography.styles[fiori[variant]]!;
           final style = _style(tester, label);
           expect(style.fontSize, expected.fontSize, reason: label);
           expect(style.height, expected.height, reason: label);
@@ -282,8 +293,8 @@ void main() {
         expect(tester.takeException(), isNull);
         final paragraph = _paragraph(tester, _long);
         expect(
-          paragraph.textScaler.scale(theme.typography.body.fontSize!),
-          theme.typography.body.fontSize! * 2,
+          paragraph.textScaler.scale(theme.typography.base.fontSize!),
+          theme.typography.base.fontSize! * 2,
         );
       },
     );

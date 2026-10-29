@@ -165,7 +165,7 @@ void main() {
     await tester.pumpAndSettle();
     final style = DefaultTextStyle.of(tester.element(find.text('texto'))).style;
     expect(style.color, dark.colors.text);
-    expect(style.fontSize, dark.typography.body.fontSize);
+    expect(style.fontSize, dark.typography.base.fontSize);
     final icon = IconTheme.of(tester.element(find.byKey(const Key('icon'))));
     expect(icon.color, dark.colors.text);
     expect(icon.size, dark.icons.control);

@@ -30,12 +30,12 @@ class TypographyPage extends StatelessWidget {
     final typography = RebicThemeData.of(context).typography;
     final colors = RebicThemeData.of(context).colors;
     final spacing = RebicThemeData.of(context).spacing;
-    final caption = typography.caption.copyWith(color: colors.label);
+    final caption = typography.small.copyWith(color: colors.label);
 
     return ColoredBox(
       color: colors.base,
       child: DefaultTextStyle(
-        style: typography.body.copyWith(color: colors.text),
+        style: typography.base.copyWith(color: colors.text),
         child: ListView(
           padding: EdgeInsets.all(spacing.pageMargin),
           children: [
@@ -44,7 +44,7 @@ class TypographyPage extends StatelessWidget {
               child: Semantics(button: true, child: const Text('← Voltar')),
             ),
             SizedBox(height: spacing.stackGap),
-            Text(title, style: typography.headline),
+            Text(title, style: typography.header2),
             SizedBox(height: spacing.sectionGap),
             for (final MapEntry(key: name, value: style)
                 in typography.styles.entries)

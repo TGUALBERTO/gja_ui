@@ -134,7 +134,7 @@ void main() {
 
   group('Tipografia preservada', () {
     test('Tipografia preservada — Rótulo cabe no controle', () {
-      final label = const RebicTypographyTokens.fallback().label;
+      final label = const RebicTypographyTokens.fallback().baseSemibold;
       final labelLine = label.fontSize! * label.height!;
       for (final tokens in [_comfortable, _compact]) {
         expect(

@@ -134,7 +134,7 @@ class RebicButton extends StatelessWidget {
                           Flexible(
                             child: Text(
                               label,
-                              style: theme.typography.bodyStrong.copyWith(
+                              style: theme.typography.baseSemibold.copyWith(
                                 color: c.text,
                               ),
                               maxLines: 1,

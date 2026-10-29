@@ -57,7 +57,7 @@ class _DesignTokensPageState extends State<DesignTokensPage>
     return ColoredBox(
       color: page.colors.base,
       child: DefaultTextStyle(
-        style: page.typography.body.copyWith(color: page.colors.text),
+        style: page.typography.base.copyWith(color: page.colors.text),
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, _) {

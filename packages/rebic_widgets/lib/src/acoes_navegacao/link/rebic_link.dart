@@ -5,7 +5,7 @@ import 'package:rebic_foundation/rebic_foundation.dart';
 /// Link de ação, como o `sap.m.Link` do SAPUI5.
 ///
 /// Mostra o [text] na cor `colors.link` (ou `colors.text`, com [subtle]) e no
-/// estilo `typography.body` (ou `bodyStrong`, com [emphasized]), sublinhado
+/// estilo `typography.base` (ou `baseBold`, com [emphasized]), sublinhado
 /// no hover e no pressionado. Sem [wrapping], fica numa linha e termina com
 /// reticências quando não cabe. Com [onPressed] nulo, fica desabilitado. O
 /// leitor de tela o anuncia como link, não como botão.
@@ -32,7 +32,7 @@ class RebicLink extends StatelessWidget {
   /// Ação do link; nula desabilita o link.
   final VoidCallback? onPressed;
 
-  /// Se o texto fica em negrito (`typography.bodyStrong`).
+  /// Se o texto fica em negrito (`typography.baseBold`).
   final bool emphasized;
 
   /// Se o texto usa a cor do texto (`colors.text`) em vez da de link.
@@ -45,8 +45,8 @@ class RebicLink extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = RebicThemeData.of(context);
     final base = emphasized
-        ? theme.typography.bodyStrong
-        : theme.typography.body;
+        ? theme.typography.baseBold
+        : theme.typography.base;
     final color = subtle ? theme.colors.text : theme.colors.link;
     // Um só nó: o foco e o toque do detector se juntam ao link rotulado.
     return MergeSemantics(
