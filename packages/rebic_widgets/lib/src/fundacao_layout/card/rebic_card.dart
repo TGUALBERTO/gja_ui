@@ -78,7 +78,7 @@ class RebicCard extends StatelessWidget {
       surface: RebicSurface.base,
       border: true,
       radius: RebicRadius.container,
-      elevation: RebicElevation.card,
+      shadow: RebicShadow.card,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,

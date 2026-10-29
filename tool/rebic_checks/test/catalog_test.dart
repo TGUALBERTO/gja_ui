@@ -57,6 +57,19 @@ void main() {
     expect(messages(checkCatalog(repo)), [contains('não está no catálogo')]);
   });
 
+  test('spec principal retirada por change ativa pode sair do catálogo', () {
+    const removed = '## REMOVED Requirements\n\n### Requirement: Algo\n'
+        '**Reason**: renomeado.\n**Migration**: use a spec nova.\n';
+    Map<String, String> files({required bool retire}) => {
+          catalogFile: _catalog([]),
+          'openspec/specs/rebic/foundation/elevation/spec.md': componentSpec(),
+          'openspec/changes/update-x/.openspec.yaml': 'schema: spec-driven\n${retire ? 'retire_capabilities: true\n' : ''}',
+          'openspec/changes/update-x/specs/rebic/foundation/elevation/spec.md': removed,
+        };
+    expect(checkCatalog(fixtureRepo(files(retire: true))), isEmpty);
+    expect(messages(checkCatalog(fixtureRepo(files(retire: false)))), [contains('não está no catálogo')]);
+  });
+
   test('prioridade mais urgente que a dependência é rejeitada', () {
     final repo = fixtureRepo({
       catalogFile: _catalog([

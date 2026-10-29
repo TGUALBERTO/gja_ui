@@ -92,18 +92,18 @@ Widget _sample() => Column(
     Row(
       children: [
         for (final e in [
-          RebicElevation.card,
-          RebicElevation.popover,
-          RebicElevation.dialog,
-          RebicElevation.dragged,
-          RebicElevation.header,
+          RebicShadow.card,
+          RebicShadow.popover,
+          RebicShadow.dialog,
+          RebicShadow.dragged,
+          RebicShadow.header,
         ])
           RebicSpacing.padding(
             end: RebicSpace.l,
             child: RebicContainer(
               surface: RebicSurface.base,
               radius: RebicRadius.control,
-              elevation: e,
+              shadow: e,
               padding: RebicSpace.l,
             ),
           ),
@@ -114,7 +114,7 @@ Widget _sample() => Column(
       surface: RebicSurface.base,
       border: true,
       radius: RebicRadius.container,
-      elevation: RebicElevation.card,
+      shadow: RebicShadow.card,
       padding: RebicSpace.l,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,9 +153,9 @@ void main() {
     for (final r in RebicRadius.values) {
       expect(radius, contains(r.name), reason: r.name);
     }
-    final elevation = _diagnosticNames(const RebicElevationTokens.fallback());
-    for (final e in RebicElevation.values) {
-      expect(elevation, contains(e.name), reason: e.name);
+    final shadow = _diagnosticNames(const RebicShadowTokens.fallback());
+    for (final e in RebicShadow.values) {
+      expect(shadow, contains(e.name), reason: e.name);
     }
     expect(RebicSurface.values.map((s) => s.name), [
       'none',
@@ -230,7 +230,7 @@ void main() {
           key: _c,
           surface: RebicSurface.base,
           border: true,
-          elevation: RebicElevation.card,
+          shadow: RebicShadow.card,
           child: _box,
         ),
         theme: theme,
@@ -248,7 +248,7 @@ void main() {
         );
         expect(
           d.boxShadow,
-          theme.elevation.shadowsFor(theme.elevation.card, theme.colors.shadow),
+          theme.shadows.boxShadows(theme.shadows.card, theme.colors.shadow),
           reason: reason,
         );
       }
@@ -298,22 +298,22 @@ void main() {
           reason: r.name,
         );
       }
-      final e = theme.elevation;
+      final e = theme.shadows;
       final shadows = {
-        RebicElevation.none: e.none,
-        RebicElevation.card: e.card,
-        RebicElevation.popover: e.popover,
-        RebicElevation.dialog: e.dialog,
-        RebicElevation.dragged: e.dragged,
-        RebicElevation.header: e.header,
+        RebicShadow.none: e.none,
+        RebicShadow.card: e.card,
+        RebicShadow.popover: e.popover,
+        RebicShadow.dialog: e.dialog,
+        RebicShadow.dragged: e.dragged,
+        RebicShadow.header: e.header,
       };
       for (final MapEntry(key: role, value: layers) in shadows.entries) {
         await tester.pumpWidget(
-          _themed(RebicContainer(key: _c, elevation: role, child: _box)),
+          _themed(RebicContainer(key: _c, shadow: role, child: _box)),
         );
         expect(
           _decoration(tester).boxShadow,
-          e.shadowsFor(layers, theme.colors.shadow),
+          e.boxShadows(layers, theme.colors.shadow),
           reason: role.name,
         );
       }
@@ -388,7 +388,7 @@ void main() {
           surface: RebicSurface.base,
           border: true,
           radius: RebicRadius.container,
-          elevation: RebicElevation.card,
+          shadow: RebicShadow.card,
           padding: RebicSpace.l,
           child: RebicText('Pedido'),
         ),
@@ -414,7 +414,7 @@ void main() {
             RebicContainer(
               key: Key('comfortable'),
               radius: RebicRadius.container,
-              elevation: RebicElevation.card,
+              shadow: RebicShadow.card,
               padding: RebicSpace.l,
               child: _box,
             ),
@@ -423,7 +423,7 @@ void main() {
               child: RebicContainer(
                 key: Key('compact'),
                 radius: RebicRadius.container,
-                elevation: RebicElevation.card,
+                shadow: RebicShadow.card,
                 padding: RebicSpace.l,
                 child: _box,
               ),
@@ -473,7 +473,7 @@ void main() {
                 surface: s,
                 border: true,
                 radius: RebicRadius.control,
-                elevation: RebicElevation.card,
+                shadow: RebicShadow.card,
                 padding: RebicSpace.s,
                 child: RebicText(s.name),
               ),

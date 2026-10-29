@@ -2,6 +2,23 @@
 
 ## Não lançado
 
+- **BREAKING** Sombras no modelo Horizon (`update-rebic-foundation-elevation-horizon-shadows`, spec
+  `rebic/foundation/shadows`, que substitui `rebic/foundation/elevation`):
+
+    | Antes | Agora |
+    |---|---|
+    | `src/elevation/` | `src/shadows/` |
+    | `RebicElevationTokens` | `RebicShadowTokens` |
+    | `RebicElevationPrimitives.shadows` | `RebicShadowPrimitives.values` |
+    | `RebicThemeData.elevation` | `RebicThemeData.shadows` |
+    | `shadowsFor(level, color)` | `boxShadows(shadow, color)` |
+
+  - Geometria dos parâmetros `sapContent_Shadow*`: `shadow0` com duas camadas difusas curtas; `shadow1` a `shadow3`
+    com contorno de 1 px e uma camada difusa (2/8, 10/30 e 20/80). Sai o par "contato + ambiente" do Material.
+  - Papéis como no Horizon: `popover` passa de `shadow1` a `shadow2`, `dialog` de `shadow2` a `shadow3`, e `dragged`
+    fica em `shadow3`.
+
+  Valores provisórios na ADR 0009.
 - **BREAKING** Estados de interação no modelo Fiori (`update-rebic-foundation-interaction-states-fiori-alignment`,
   specs `rebic/foundation/interaction-states` e `rebic/foundation/color`):
   - `RebicInteractionState.dragged` removido. O item arrastado usa a sombra `dragged` de elevação e as cores de

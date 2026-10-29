@@ -133,6 +133,24 @@ List<SpecFile> loadChangeSpecs(Repo repo) {
   return result;
 }
 
+/// Capacidades retiradas por changes ativas.
+///
+/// Uma capacidade é retirada quando a change declara `retire_capabilities: true`
+/// no `.openspec.yaml` e o delta dela só tem `## REMOVED Requirements`. A spec
+/// principal continua existindo até o arquivamento.
+Set<String> retiredCapabilities(Repo repo) {
+  final result = <String>{};
+  final retiring = RegExp(r'^retire_capabilities:\s*true\s*$', multiLine: true);
+  final section = RegExp(r'^##\s+(ADDED|MODIFIED|REMOVED|RENAMED)\s+Requirements\s*$', multiLine: true);
+  for (final spec in loadChangeSpecs(repo)) {
+    final config = File(repo.path('openspec/changes/${spec.change}/.openspec.yaml'));
+    if (!config.existsSync() || !retiring.hasMatch(config.readAsStringSync())) continue;
+    final sections = {for (final m in section.allMatches(spec.text)) m.group(1)};
+    if (sections.length == 1 && sections.single == 'REMOVED') result.add(spec.id);
+  }
+  return result;
+}
+
 Iterable<SpecFile> _specsUnder(Repo repo, String relativeRoot, String? change) sync* {
   final root = Directory(repo.path(relativeRoot));
   if (!root.existsSync()) return;

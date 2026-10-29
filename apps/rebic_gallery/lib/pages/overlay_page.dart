@@ -77,7 +77,7 @@ class _OverlayPageState extends State<OverlayPage> {
       decoration: BoxDecoration(
         color: t.colors.base,
         borderRadius: BorderRadius.circular(t.radius.container),
-        boxShadow: t.elevation.shadowsFor(t.elevation.dialog, t.colors.shadow),
+        boxShadow: t.shadows.boxShadows(t.shadows.dialog, t.colors.shadow),
       ),
       child: DefaultTextStyle(
         style: t.typography.base.copyWith(color: t.colors.text),

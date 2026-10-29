@@ -164,7 +164,7 @@ class _Preview extends StatelessWidget {
         decoration: BoxDecoration(
           color: t.colors.base,
           borderRadius: BorderRadius.circular(t.radius.container),
-          boxShadow: t.elevation.shadowsFor(t.elevation.card, t.colors.shadow),
+          boxShadow: t.shadows.boxShadows(t.shadows.card, t.colors.shadow),
         ),
         child: DefaultTextStyle(
           style: t.typography.base.copyWith(color: t.colors.text),

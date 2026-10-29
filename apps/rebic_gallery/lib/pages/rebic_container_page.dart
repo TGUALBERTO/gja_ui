@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
 
-/// Página "RebicContainer": superfícies, raios, elevações e um cartão de
+/// Página "RebicContainer": superfícies, raios, sombras e um cartão de
 /// exemplo.
 ///
 /// A página fica sobre `background`, para que as superfícies `base` e as
@@ -84,17 +84,17 @@ class RebicContainerPage extends StatelessWidget {
                 ],
               ),
               const RebicSpacing.vertical(RebicSpace.sectionGap),
-              const RebicText('Elevações', variant: RebicTextVariant.title),
+              const RebicText('Sombras', variant: RebicTextVariant.title),
               const RebicSpacing.vertical(RebicSpace.s),
               Wrap(
                 children: [
-                  for (final elevation in RebicElevation.values)
+                  for (final shadow in RebicShadow.values)
                     sample(
-                      elevation.name,
+                      shadow.name,
                       RebicContainer(
                         surface: RebicSurface.base,
                         radius: RebicRadius.control,
-                        elevation: elevation,
+                        shadow: shadow,
                         padding: RebicSpace.xl,
                       ),
                     ),
@@ -110,7 +110,7 @@ class RebicContainerPage extends StatelessWidget {
                   surface: RebicSurface.base,
                   border: true,
                   radius: RebicRadius.container,
-                  elevation: RebicElevation.card,
+                  shadow: RebicShadow.card,
                   padding: RebicSpace.l,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -163,7 +163,7 @@ class _RebicPopoverState extends State<RebicPopover> {
         child: RebicContainer(
           surface: RebicSurface.base,
           radius: RebicRadius.container,
-          elevation: RebicElevation.popover,
+          shadow: RebicShadow.popover,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,

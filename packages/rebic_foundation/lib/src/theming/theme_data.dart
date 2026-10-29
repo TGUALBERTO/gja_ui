@@ -6,7 +6,7 @@ import '../breakpoints/breakpoint_tokens.dart';
 import '../color/color_tokens.dart';
 import '../color/contrast_check.dart';
 import '../density/density_tokens.dart';
-import '../elevation/elevation_tokens.dart';
+import '../shadows/shadow_tokens.dart';
 import '../iconography/icon_tokens.dart';
 import '../interaction_states/interaction_state_tokens.dart';
 import '../interaction_states/state_contrast_check.dart';
@@ -37,7 +37,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
     required this.typography,
     required this.density,
     required this.radius,
-    required this.elevation,
+    required this.shadows,
     required this.motion,
     required this.icons,
     required this.interaction,
@@ -74,7 +74,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
     typography: const RebicTypographyTokens.fallback(),
     density: RebicDensityTokens.of(density),
     radius: const RebicRadiusTokens.fallback(),
-    elevation: const RebicElevationTokens.fallback(),
+    shadows: const RebicShadowTokens.fallback(),
     motion: const RebicMotionTokens.fallback(),
     icons: const RebicIconTokens.fallback(),
     interaction: const RebicInteractionStateTokens.fallback(),
@@ -96,8 +96,8 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
   /// Raios de borda.
   final RebicRadiusTokens radius;
 
-  /// Níveis e papéis de elevação.
-  final RebicElevationTokens elevation;
+  /// Sombras e papéis de sombra.
+  final RebicShadowTokens shadows;
 
   /// Durações e curvas de animação.
   final RebicMotionTokens motion;
@@ -177,7 +177,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
     RebicTypographyTokens? typography,
     RebicDensityTokens? density,
     RebicRadiusTokens? radius,
-    RebicElevationTokens? elevation,
+    RebicShadowTokens? shadows,
     RebicMotionTokens? motion,
     RebicIconTokens? icons,
     RebicInteractionStateTokens? interaction,
@@ -191,7 +191,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
       typography: typography ?? this.typography,
       density: density ?? this.density,
       radius: radius ?? this.radius,
-      elevation: elevation ?? this.elevation,
+      shadows: shadows ?? this.shadows,
       motion: motion ?? this.motion,
       icons: icons ?? this.icons,
       interaction: interaction ?? this.interaction,
@@ -213,7 +213,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
       typography: typography.lerp(other.typography, t),
       density: density.lerp(other.density, t),
       radius: radius.lerp(other.radius, t),
-      elevation: elevation.lerp(other.elevation, t),
+      shadows: shadows.lerp(other.shadows, t),
       motion: motion.lerp(other.motion, t),
       icons: icons.lerp(other.icons, t),
       interaction: interaction.lerp(other.interaction, t),
@@ -232,7 +232,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
         other.typography == typography &&
         other.density == density &&
         other.radius == radius &&
-        other.elevation == elevation &&
+        other.shadows == shadows &&
         other.motion == motion &&
         other.icons == icons &&
         other.interaction == interaction &&
@@ -248,7 +248,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
     typography,
     density,
     radius,
-    elevation,
+    shadows,
     motion,
     icons,
     interaction,
@@ -268,7 +268,7 @@ class RebicThemeData extends RebicTokenSet<RebicThemeData> {
       )
       ..add(DiagnosticsProperty<RebicDensityTokens>('density', density))
       ..add(DiagnosticsProperty<RebicRadiusTokens>('radius', radius))
-      ..add(DiagnosticsProperty<RebicElevationTokens>('elevation', elevation))
+      ..add(DiagnosticsProperty<RebicShadowTokens>('shadows', shadows))
       ..add(DiagnosticsProperty<RebicMotionTokens>('motion', motion))
       ..add(DiagnosticsProperty<RebicIconTokens>('icons', icons))
       ..add(

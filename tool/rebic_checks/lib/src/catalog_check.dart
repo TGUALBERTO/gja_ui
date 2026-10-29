@@ -191,8 +191,12 @@ List<Violation> checkCatalog(Repo repo) {
     }
   }
 
+  // Uma spec principal que uma change ativa está retirando já saiu do catálogo.
+  final retired = retiredCapabilities(repo);
   for (final id in main.keys) {
-    if (!byId.containsKey(id)) fail('$id: spec existe em openspec/specs, mas não está no catálogo');
+    if (!byId.containsKey(id) && !retired.contains(id)) {
+      fail('$id: spec existe em openspec/specs, mas não está no catálogo');
+    }
   }
 
   final edges = {for (final item in items) item.id: item.dependsOn.toSet()};

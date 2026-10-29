@@ -45,7 +45,7 @@ void main() {
       'lib/src/breakpoints',
       'lib/src/iconography',
       'lib/src/density',
-      'lib/src/elevation',
+      'lib/src/shadows',
       'lib/src/interaction_states',
       'lib/src/accessibility',
       'lib/src/theming',

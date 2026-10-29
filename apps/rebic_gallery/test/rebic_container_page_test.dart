@@ -28,11 +28,11 @@ void main() {
       for (final radius in RebicRadius.values) {
         expect(find.text(radius.name), findsWidgets, reason: radius.name);
       }
-      for (final elevation in RebicElevation.values) {
+      for (final shadow in RebicShadow.values) {
         expect(
-          containers().where((c) => c.elevation == elevation),
+          containers().where((c) => c.shadow == shadow),
           isNotEmpty,
-          reason: elevation.name,
+          reason: shadow.name,
         );
       }
       final card = tester.widget<RebicContainer>(
@@ -41,7 +41,7 @@ void main() {
       expect(card.surface, RebicSurface.base);
       expect(card.border, isTrue);
       expect(card.radius, RebicRadius.container);
-      expect(card.elevation, RebicElevation.card);
+      expect(card.shadow, RebicShadow.card);
       expect(card.padding, RebicSpace.l);
     },
   );

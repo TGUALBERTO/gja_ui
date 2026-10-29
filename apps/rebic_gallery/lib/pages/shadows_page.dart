@@ -2,23 +2,23 @@ import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
 import 'gallery_comparison.dart';
 
-/// Página "Elevação": uma superfície por sombra e por papel, nos dois modos.
+/// Página "Sombras": uma superfície por sombra e por papel, nos dois modos.
 ///
-/// As sombras vêm de `RebicElevationTokens.shadowsFor` com a cor `shadow` de
+/// As sombras vêm de `RebicShadowTokens.boxShadows` com a cor `shadow` de
 /// cada modo. As dimensões do cartão são literais da galeria.
-class ElevationPage extends StatelessWidget {
+class ShadowsPage extends StatelessWidget {
   /// Cria a página.
-  const ElevationPage({super.key});
+  const ShadowsPage({super.key});
 
   /// Título no índice e no cabeçalho.
-  static const title = 'Elevação';
+  static const title = 'Sombras';
 
   /// Rota nomeada.
-  static const route = '/elevation';
+  static const route = '/shadows';
 
-  /// Chave do cartão da sombra ou papel [level] no modo [mode].
-  static Key cardKey(String mode, String level) =>
-      ValueKey('elevation-$mode-$level');
+  /// Chave do cartão da sombra ou papel [shadow] no modo [mode].
+  static Key cardKey(String mode, String shadow) =>
+      ValueKey('shadows-$mode-$shadow');
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class _ModeStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final elevation = RebicThemeData.of(context).elevation;
+    final shadows = RebicThemeData.of(context).shadows;
     final radius = RebicThemeData.of(context).radius;
     final spacing = RebicThemeData.of(context).spacing;
     final typography = RebicThemeData.of(context).typography;
@@ -87,17 +87,17 @@ class _ModeStrip extends StatelessWidget {
               spacing: spacing.xl,
               runSpacing: spacing.xl,
               children: [
-                for (final MapEntry(key: name, value: level)
-                    in elevation.values.entries)
+                for (final MapEntry(key: name, value: shadow)
+                    in shadows.values.entries)
                   Container(
-                    key: ElevationPage.cardKey(mode, name),
+                    key: ShadowsPage.cardKey(mode, name),
                     width: 120,
                     height: 72,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: colors.base,
                       borderRadius: BorderRadius.circular(radius.container),
-                      boxShadow: elevation.shadowsFor(level, colors.shadow),
+                      boxShadow: shadows.boxShadows(shadow, colors.shadow),
                     ),
                     child: Text(name, style: typography.base),
                   ),

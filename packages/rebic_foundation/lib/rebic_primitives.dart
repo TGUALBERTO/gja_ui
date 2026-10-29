@@ -13,5 +13,5 @@ export 'src/typography/primitives/typography_primitives.dart';
 export 'src/radius/primitives/radius_primitives.dart';
 export 'src/breakpoints/primitives/breakpoint_primitives.dart';
 export 'src/iconography/primitives/icon_primitives.dart';
-export 'src/elevation/primitives/elevation_primitives.dart';
+export 'src/shadows/primitives/shadow_primitives.dart';
 export 'src/interaction_states/primitives/interaction_primitives.dart';

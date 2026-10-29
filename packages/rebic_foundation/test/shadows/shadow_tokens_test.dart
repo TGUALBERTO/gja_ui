@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart' show Color;
 import 'package:flutter_test/flutter_test.dart';
@@ -6,22 +8,22 @@ import 'package:rebic_foundation/rebic_primitives.dart';
 
 import '../support/token_set_contract.dart';
 
-const _fallback = RebicElevationTokens.fallback();
+const _fallback = RebicShadowTokens.fallback();
 
 void main() {
-  test('Níveis e papéis de elevação — Papéis do mapeamento de referência', () {
+  test('Sombras e papéis — Papéis do mapeamento de referência', () {
     final roles = [
       (_fallback.card, _fallback.shadow0),
-      (_fallback.popover, _fallback.shadow1),
-      (_fallback.dialog, _fallback.shadow2),
+      (_fallback.popover, _fallback.shadow2),
+      (_fallback.dialog, _fallback.shadow3),
       (_fallback.dragged, _fallback.shadow3),
-      (_fallback.header, RebicElevationPrimitives.header),
+      (_fallback.header, RebicShadowPrimitives.header),
     ];
     for (final (i, (role, expected)) in roles.indexed) {
       expect(listEquals(role, expected), isTrue, reason: 'papel $i');
     }
     for (final MapEntry(key: name, value: primitive)
-        in RebicElevationPrimitives.shadows.entries) {
+        in RebicShadowPrimitives.values.entries) {
       expect(
         listEquals(_fallback.values[name], primitive),
         isTrue,
@@ -30,12 +32,39 @@ void main() {
     }
   });
 
+  test('Sombras e papéis — Sem vocabulário do Material', () {
+    final names = [
+      ..._fallback.values.keys,
+      ...RebicShadowPrimitives.values.keys,
+    ];
+    expect(names.where((n) => n.toLowerCase().contains('elevation')), isEmpty);
+    // Nomes públicos declarados no código do fundamento (classes, membros,
+    // arquivos e exports), fora dos comentários.
+    final sources = [
+      File('lib/rebic_foundation.dart'),
+      File('lib/rebic_primitives.dart'),
+      ...Directory('lib/src').listSync(recursive: true).whereType<File>(),
+    ];
+    for (final file in sources) {
+      expect(file.path.toLowerCase(), isNot(contains('elevation')));
+      final code = file
+          .readAsLinesSync()
+          .where((line) => !line.trimLeft().startsWith('//'))
+          .join('\n');
+      expect(
+        RegExp('elevation', caseSensitive: false).hasMatch(code),
+        isFalse,
+        reason: file.path,
+      );
+    }
+  });
+
   group('Sombras com a cor do tema', () {
     test('Sombras com a cor do tema — Sombra com a cor do modo', () {
       final lightShadow = const RebicColorTokens.light().shadow;
       final darkShadow = const RebicColorTokens.dark().shadow;
-      final light = _fallback.shadowsFor(_fallback.card, lightShadow);
-      final dark = _fallback.shadowsFor(_fallback.card, darkShadow);
+      final light = _fallback.boxShadows(_fallback.card, lightShadow);
+      final dark = _fallback.boxShadows(_fallback.card, darkShadow);
       expect(light, hasLength(_fallback.card.length));
       expect(dark, hasLength(_fallback.card.length));
       for (var i = 0; i < light.length; i++) {
@@ -50,26 +79,26 @@ void main() {
       }
     });
 
-    test('Sombras com a cor do tema — Nível sem sombra', () {
+    test('Sombras com a cor do tema — Sombra vazia', () {
       for (final color in [const Color(0xFF000000), const Color(0x66123456)]) {
-        expect(_fallback.shadowsFor(_fallback.none, color), isEmpty);
+        expect(_fallback.boxShadows(_fallback.none, color), isEmpty);
       }
     });
   });
 
-  group('Contrato do conjunto de elevação', () {
-    test('Contrato do conjunto de elevação — Contrato verificado', () {
+  group('Contrato do conjunto de sombras', () {
+    test('Contrato do conjunto de sombras — Contrato verificado', () {
       expectTokenSetContract(
         a: _fallback,
         // Instância não canônica, para testar a igualdade por valor.
         // ignore: prefer_const_constructors
-        aCopy: RebicElevationTokens.fallback(),
+        aCopy: RebicShadowTokens.fallback(),
         b: _fallback.copyWith(card: _fallback.shadow1),
       );
     });
 
     test(
-      'Contrato do conjunto de elevação — Interpolação a partir de nível sem sombra',
+      'Contrato do conjunto de sombras — Interpolação a partir de sombra vazia',
       () {
         final from = _fallback.copyWith(card: _fallback.none);
         final to = _fallback.copyWith(card: _fallback.shadow1);

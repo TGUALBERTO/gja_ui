@@ -335,7 +335,7 @@ void main() {
                 as BoxDecoration;
         final bar = decoration(_bar);
         expect(bar.color, theme.colors.shell);
-        expect(bar.boxShadow, hasLength(theme.elevation.header.length));
+        expect(bar.boxShadow, hasLength(theme.shadows.header.length));
         expect(bar.boxShadow, isNotEmpty);
         final nav = decoration(_side);
         expect(nav.color, theme.colors.base);

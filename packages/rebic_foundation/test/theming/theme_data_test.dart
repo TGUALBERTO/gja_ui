@@ -47,7 +47,7 @@ Map<String, Object> _nonColorSets(RebicThemeData t) => {
   'typography': t.typography,
   'density': t.density,
   'radius': t.radius,
-  'elevation': t.elevation,
+  'shadows': t.shadows,
   'motion': t.motion,
   'icons': t.icons,
   'interaction': t.interaction,
@@ -67,7 +67,7 @@ void main() {
     expect(light.density, const RebicDensityTokens.comfortable());
     expect(light.spacing, light.density.spacing);
     expect(light.radius, const RebicRadiusTokens.fallback());
-    expect(light.elevation, const RebicElevationTokens.fallback());
+    expect(light.shadows, const RebicShadowTokens.fallback());
     expect(light.motion, const RebicMotionTokens.fallback());
     expect(light.icons, const RebicIconTokens.fallback());
     expect(light.interaction, const RebicInteractionStateTokens.fallback());
@@ -180,7 +180,7 @@ void main() {
         light.copyWith(density: const RebicDensityTokens.compact()),
         light.copyWith(radius: light.radius.copyWith(control: 6)),
         light.copyWith(
-          elevation: light.elevation.copyWith(card: light.elevation.shadow1),
+          shadows: light.shadows.copyWith(card: light.shadows.shadow1),
         ),
         light.copyWith(
           motion: light.motion.copyWith(
@@ -211,7 +211,7 @@ void main() {
         'typography',
         'density',
         'radius',
-        'elevation', //
+        'shadows', //
         'motion',
         'icons',
         'interaction',

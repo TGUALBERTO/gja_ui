@@ -52,15 +52,15 @@ enum RebicRadius {
   container,
 }
 
-/// Sombra de um [RebicContainer], por papel de `RebicElevationTokens`.
-enum RebicElevation {
+/// Sombra de um [RebicContainer], por papel de `RebicShadowTokens`.
+enum RebicShadow {
   /// Sem sombra.
   none,
 
   /// Cartões e blocos.
   card,
 
-  /// Menus, listas suspensas e popovers.
+  /// Popovers, menus, listas suspensas e dicas.
   popover,
 
   /// Diálogos e painéis modais.
@@ -78,7 +78,7 @@ enum RebicElevation {
 ///
 /// Cada aspecto é um papel do tema ativo: fundo ([surface]), borda
 /// `separator` de 1 px ([border]), cantos ([radius], com recorte do
-/// conteúdo), sombra ([elevation], com a cor `shadow`) e espaço interno
+/// conteúdo), sombra ([shadow], com a cor `shadow`) e espaço interno
 /// ([padding], pela densidade). Não há valores literais nem tamanho próprio.
 ///
 /// ```dart
@@ -86,7 +86,7 @@ enum RebicElevation {
 ///   surface: RebicSurface.base,
 ///   border: true,
 ///   radius: RebicRadius.container,
-///   elevation: RebicElevation.card,
+///   shadow: RebicShadow.card,
 ///   padding: RebicSpace.l,
 ///   child: RebicText('Pedido 4711'),
 /// )
@@ -101,7 +101,7 @@ class RebicContainer extends StatelessWidget {
     this.surface = RebicSurface.none,
     this.border = false,
     this.radius = RebicRadius.none,
-    this.elevation = RebicElevation.none,
+    this.shadow = RebicShadow.none,
     this.padding,
     super.key,
   });
@@ -119,7 +119,7 @@ class RebicContainer extends StatelessWidget {
   final RebicRadius radius;
 
   /// Papel de sombra.
-  final RebicElevation elevation;
+  final RebicShadow shadow;
 
   /// Espaço interno em todos os lados; nulo não acrescenta espaço.
   final RebicSpace? padding;
@@ -147,15 +147,15 @@ class RebicContainer extends StatelessWidget {
       };
 
   static List<RebicShadowLayer> _shadow(
-    RebicElevationTokens e,
-    RebicElevation elevation,
-  ) => switch (elevation) {
-    RebicElevation.none => e.none,
-    RebicElevation.card => e.card,
-    RebicElevation.popover => e.popover,
-    RebicElevation.dialog => e.dialog,
-    RebicElevation.dragged => e.dragged,
-    RebicElevation.header => e.header,
+    RebicShadowTokens e,
+    RebicShadow shadow,
+  ) => switch (shadow) {
+    RebicShadow.none => e.none,
+    RebicShadow.card => e.card,
+    RebicShadow.popover => e.popover,
+    RebicShadow.dialog => e.dialog,
+    RebicShadow.dragged => e.dragged,
+    RebicShadow.header => e.header,
   };
 
   @override
@@ -180,8 +180,8 @@ class RebicContainer extends StatelessWidget {
         color: _surface(t.colors, surface),
         border: border ? Border.all(color: t.colors.separator) : null,
         borderRadius: rounded ? corners : null,
-        boxShadow: t.elevation.shadowsFor(
-          _shadow(t.elevation, elevation),
+        boxShadow: t.shadows.boxShadows(
+          _shadow(t.shadows, shadow),
           t.colors.shadow,
         ),
       ),

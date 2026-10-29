@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 ///
 /// O deslocamento é só vertical (luz vinda de cima). A cor vem do papel
 /// `shadow` do tema, com a opacidade multiplicada por [opacity] (ver
-/// `RebicElevationTokens.shadowsFor`).
+/// `RebicShadowTokens.shadowsFor`).
 @immutable
 class RebicShadowLayer with Diagnosticable {
   /// Cria uma camada.

@@ -6,7 +6,7 @@ import 'pages/breakpoints_page.dart';
 import 'pages/color_page.dart';
 import 'pages/density_page.dart';
 import 'pages/design_tokens_page.dart';
-import 'pages/elevation_page.dart';
+import 'pages/shadows_page.dart';
 import 'pages/icons_page.dart';
 import 'pages/interaction_page.dart';
 import 'pages/localization_page.dart';
@@ -108,9 +108,9 @@ final galleryPages = <GalleryPage>[
     builder: (_) => const DensityPage(),
   ),
   GalleryPage(
-    title: ElevationPage.title,
-    route: ElevationPage.route,
-    builder: (_) => const ElevationPage(),
+    title: ShadowsPage.title,
+    route: ShadowsPage.route,
+    builder: (_) => const ShadowsPage(),
   ),
   GalleryPage(
     title: StatesPage.title,

@@ -170,7 +170,7 @@ class _RebicScaffoldState extends State<RebicScaffold> {
     } else {
       final bar = RebicContainer(
         surface: RebicSurface.shell,
-        elevation: RebicElevation.header,
+        shadow: RebicShadow.header,
         child: RebicSpacing.padding(
           horizontal: RebicSpace.m,
           vertical: RebicSpace.xs,

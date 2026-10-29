@@ -267,7 +267,7 @@ void main() {
       expect(container.surface, RebicSurface.base);
       expect(container.border, isTrue);
       expect(container.radius, RebicRadius.s);
-      expect(container.elevation, RebicElevation.popover);
+      expect(container.shadow, RebicShadow.popover);
       final decoration =
           tester
                   .widget<DecoratedBox>(
@@ -282,7 +282,7 @@ void main() {
               as BoxDecoration;
       expect(decoration.color, theme.colors.base);
       expect(decoration.border!.top.color, theme.colors.separator);
-      expect(decoration.boxShadow, hasLength(theme.elevation.popover.length));
+      expect(decoration.boxShadow, hasLength(theme.shadows.popover.length));
       expect(
         tester.widget<RebicText>(find.byType(RebicText)).variant,
         RebicTextVariant.label,

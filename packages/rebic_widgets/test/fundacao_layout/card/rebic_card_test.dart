@@ -171,7 +171,7 @@ void main() {
         expect(container.surface, RebicSurface.base);
         expect(container.border, isTrue);
         expect(container.radius, RebicRadius.container);
-        expect(container.elevation, RebicElevation.card);
+        expect(container.shadow, RebicShadow.card);
         final decoration =
             tester
                     .widget<DecoratedBox>(
@@ -186,7 +186,7 @@ void main() {
                 as BoxDecoration;
         expect(decoration.color, theme.colors.base);
         expect(decoration.border!.top.color, theme.colors.separator);
-        expect(decoration.boxShadow, hasLength(theme.elevation.card.length));
+        expect(decoration.boxShadow, hasLength(theme.shadows.card.length));
       }
     });
 

@@ -169,7 +169,7 @@ class _RebicTooltipState extends State<RebicTooltip> {
             surface: RebicSurface.base,
             border: true,
             radius: RebicRadius.s,
-            elevation: RebicElevation.popover,
+            shadow: RebicShadow.popover,
             child: RebicSpacing.padding(
               horizontal: RebicSpace.s,
               vertical: RebicSpace.xs,

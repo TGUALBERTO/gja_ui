@@ -90,15 +90,15 @@ BoxDecoration decoration() {
     });
   });
 
-  group('Uso de elevação sem literais nos widgets', () {
+  group('Uso de sombras sem literais nos widgets', () {
     test(
-      'Uso de elevação sem literais nos widgets — Widget usa sombra dos tokens',
+      'Uso de sombras sem literais nos widgets — Widget usa sombra dos tokens',
       () {
         final repo = fixtureRepo({
           _file: '''
 BoxDecoration decoration() {
   return BoxDecoration(
-    boxShadow: elevation.shadowsFor(elevation.card, colors.shadow),
+    boxShadow: shadows.boxShadows(shadows.card, colors.shadow),
   );
 }
 ''',
@@ -108,7 +108,7 @@ BoxDecoration decoration() {
     );
 
     test(
-      'Uso de elevação sem literais nos widgets — Widget com sombra literal',
+      'Uso de sombras sem literais nos widgets — Widget com sombra literal',
       () {
         final repo = fixtureRepo({
           _file:

@@ -11,12 +11,12 @@ void main() {
   group('Escala primitiva de sombras', () {
     test('Escala primitiva de sombras — Profundidade crescente', () {
       const levels = [
-        RebicElevationPrimitives.shadow0,
-        RebicElevationPrimitives.shadow1,
-        RebicElevationPrimitives.shadow2,
-        RebicElevationPrimitives.shadow3,
+        RebicShadowPrimitives.shadow0,
+        RebicShadowPrimitives.shadow1,
+        RebicShadowPrimitives.shadow2,
+        RebicShadowPrimitives.shadow3,
       ];
-      expect(RebicElevationPrimitives.none, isEmpty);
+      expect(RebicShadowPrimitives.none, isEmpty);
       for (var i = 1; i < levels.length; i++) {
         expect(
           _max(levels[i], (l) => l.blurRadius),
@@ -25,7 +25,7 @@ void main() {
         );
         expect(
           _max(levels[i], (l) => l.offsetY),
-          greaterThan(_max(levels[i - 1], (l) => l.offsetY)),
+          greaterThanOrEqualTo(_max(levels[i - 1], (l) => l.offsetY)),
           reason: 'deslocamento de shadow$i',
         );
       }
@@ -33,15 +33,38 @@ void main() {
 
     test('Escala primitiva de sombras — Fatores de opacidade válidos', () {
       for (final MapEntry(key: name, value: level)
-          in RebicElevationPrimitives.shadows.entries) {
+          in RebicShadowPrimitives.values.entries) {
         for (final layer in level) {
           expect(layer.isValid, isTrue, reason: name);
           expect(layer.opacity, inInclusiveRange(0, 1), reason: name);
         }
       }
-      expect(RebicElevationPrimitives.header, isNotEmpty);
+      expect(RebicShadowPrimitives.header, isNotEmpty);
+      expect(RebicShadowPrimitives.header.every((l) => l.offsetY > 0), isTrue);
+    });
+  });
+
+  group('Geometria no modelo Horizon', () {
+    bool isOutline(RebicShadowLayer l) =>
+        l.offsetY == 0 && l.blurRadius == 0 && l.spreadRadius == 1;
+
+    test(
+      'Geometria no modelo Horizon — Contorno nas sombras de sobreposição',
+      () {
+        for (final (name, shadow) in [
+          ('shadow1', RebicShadowPrimitives.shadow1),
+          ('shadow2', RebicShadowPrimitives.shadow2),
+          ('shadow3', RebicShadowPrimitives.shadow3),
+        ]) {
+          expect(shadow.where(isOutline), hasLength(1), reason: name);
+          expect(shadow.any((l) => l.blurRadius > 0), isTrue, reason: name);
+        }
+      },
+    );
+
+    test('Geometria no modelo Horizon — Cartão sem contorno', () {
       expect(
-        RebicElevationPrimitives.header.every((l) => l.offsetY > 0),
+        RebicShadowPrimitives.shadow0.every((l) => l.spreadRadius == 0),
         isTrue,
       );
     });

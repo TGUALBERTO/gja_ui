@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- **BREAKING** Sombras no modelo Horizon (`update-rebic-foundation-elevation-horizon-shadows`): `RebicElevation`
+  passa a `RebicShadow`, e a propriedade `RebicContainer.elevation` passa a `shadow`, com os mesmos valores. O popover,
+  o menu, o dropdown e a dica passam à sombra `shadow2`, com contorno de 1 px. Os goldens de dica, popover, menu,
+  dropdown, cartão e contêiner foram regerados.
 - Estados de interação no modelo Fiori (`update-rebic-foundation-interaction-states-fiori-alignment`): os botões
   `accept`, `reject` e `attention` de `RebicButton` ficam na própria cor em todos os estados. O hover usa um tom
   claro do estado, em vez do cinza neutro, e o pressionado usa o normal invertido, em vez do azul `highlight`. A API

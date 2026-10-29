@@ -30,6 +30,8 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Tipografia | Família semibold do texto de botões | Inter 600 | `sapButton_FontFamily` (72 semibold duplex) | `update-rebic-foundation-typography-fiori-sizes` |
 | Estados de interação | Fundo de hover de cada estado de valor | um tom acima do `background` do estado (claro: 100, `none` 200; escuro: 800, `none` 700) | `sapButton_Accept_Hover_Background`, `_Reject_`, `_Attention_` | `update-rebic-foundation-interaction-states-fiori-alignment` |
 | Estados de interação | Ativo, selecionado e selecionado com hover de Accept, Reject e Attention | normal invertido: fundo e borda `foreground`, texto `background` do estado | `sapButton_Accept_Active_Background` e `_Active_TextColor` (também no Horizon Evening) | `update-rebic-foundation-interaction-states-fiori-alignment` |
+| Sombras | Geometria de `shadow0`…`shadow3` | `shadow0`: (0, 2) e (2, 4); `shadow1`…`3`: contorno de 1 px e difusa (2, 8), (10, 30) e (20, 80), com fatores de opacidade 1 e 0,5 sobre `colors.shadow` | `sapContent_Shadow0`…`3` (cor de sombra e opacidades por camada não confirmadas) | `update-rebic-foundation-elevation-horizon-shadows` |
+| Sombras | Papel `dragged` | `shadow3` | o SAPUI5 não define sombra de item arrastado | `update-rebic-foundation-elevation-horizon-shadows` |
 
 ## Alternativas consideradas
 
