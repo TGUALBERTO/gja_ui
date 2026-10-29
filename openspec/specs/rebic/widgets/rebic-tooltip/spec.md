@@ -13,7 +13,7 @@
 |---|---|---|
 | `message` | `String` | obrigatória |
 | `child` | `Widget` | obrigatória |
-| `side` | `RebicOverlaySide` | `below` |
+| `placement` | `RebicPlacement` | `bottom` |
 | `excludeFromSemantics` | `bool` | `false` |
 
 #### Scenario: Tooltip mínimo

@@ -15,7 +15,7 @@
 | `child` (âncora) | `Widget` | obrigatória |
 | `items` | `List<RebicMenuItem>` | obrigatória |
 | `semanticLabel` | `String` | obrigatória |
-| `side` | `RebicOverlaySide` | `below` |
+| `placement` | `RebicPlacement` | `bottom` |
 | `onDismiss` | `VoidCallback?` | `null` |
 
 #### Scenario: Menu com itens

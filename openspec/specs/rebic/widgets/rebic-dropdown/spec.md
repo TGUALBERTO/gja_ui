@@ -17,7 +17,7 @@
 | `onSelected` | `ValueChanged<T>` | obrigatória |
 | `semanticLabel` | `String` | obrigatória |
 | `selected` | `T?` | `null` |
-| `side` | `RebicOverlaySide` | `below` |
+| `placement` | `RebicPlacement` | `bottom` |
 | `onDismiss` | `VoidCallback?` | `null` |
 
 #### Scenario: Dropdown com itens

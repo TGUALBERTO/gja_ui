@@ -7,7 +7,7 @@
 ## Requirements
 
 ### Requirement: [API] Propriedades
-`RebicPopover` SHALL expor, além de `side`, `alignment` e `width` (ver `[API] Posição e largura`):
+`RebicPopover` SHALL expor, além de `placement`, `alignment` e `width` (ver `[API] Posição e largura`):
 
 | Prop | Tipo | Padrão |
 |---|---|---|
@@ -30,7 +30,7 @@
 - **THEN** não há cabeçalho, rodapé nem divisores, e o conteúdo começa a `spacing.l` do topo do popover
 
 ### Requirement: [API] Posição e largura
-`RebicPopover` SHALL expor `side` (`RebicOverlaySide`, padrão `below`), `alignment` (`RebicOverlayAlignment`, padrão `start`) e `width` (`RebicPopoverWidth`, padrão `standard`). `RebicPopoverWidth` SHALL ter `anchor` (6 passos `spacing.xxxl`, para listas na largura da âncora), `standard` (8 passos) e `wide` (12 passos), para conteúdos largos como tabelas.
+`RebicPopover` SHALL expor `placement` (`RebicPlacement`, padrão `bottom`), `alignment` (`RebicOverlayAlignment`, padrão `start`) e `width` (`RebicPopoverWidth`, padrão `standard`). `RebicPopoverWidth` SHALL ter `anchor` (6 passos `spacing.xxxl`, para listas na largura da âncora), `standard` (8 passos) e `wide` (12 passos), para conteúdos largos como tabelas.
 
 #### Scenario: Popover largo
 - **GIVEN** `width` `wide` e uma âncora estreita, numa tela larga
@@ -63,10 +63,10 @@
 - **THEN** o popover fecha, `isOpen` é falso, e `onDismiss` foi chamado uma vez
 
 ### Requirement: [Comportamento] Posição, largura e rolagem
-O popover SHALL abrir no lado e no alinhamento pedidos, com a inversão, o afastamento e o limite de tela de `rebic/core/overlay`. A largura SHALL ser a maior entre a de `width` e a da âncora, limitada pela área da sobreposição, e MUST NOT seguir o conteúdo. A altura MUST caber na área: só o conteúdo rola, e cabeçalho e rodapé ficam visíveis.
+O popover SHALL abrir na posição e no alinhamento pedidos, com a inversão, o afastamento e o limite de tela de `rebic/core/overlay`. A largura SHALL ser a maior entre a de `width` e a da âncora, limitada pela área da sobreposição, e MUST NOT seguir o conteúdo. A altura MUST caber na área: só o conteúdo rola, e cabeçalho e rodapé ficam visíveis.
 
 #### Scenario: Popover abaixo da âncora
-- **GIVEN** uma âncora no alto da tela, `side` `below` e `alignment` `start`, em LTR
+- **GIVEN** uma âncora no alto da tela, `placement` `bottom` e `alignment` `start`, em LTR
 - **WHEN** o popover é aberto
 - **THEN** o topo do popover fica a `spacing.xs` abaixo da base da âncora, e as bordas iniciais coincidem
 
