@@ -51,7 +51,7 @@ Com `maxLines`, `RebicText` SHALL exibir no máximo esse número de linhas e ter
 - **THEN** ele ocupa as quatro linhas, sem reticências
 
 ### Requirement: [Aparência] Tokens de componente
-`RebicText` SHALL obter o estilo de `typography.<variant>` e a cor de `colors.text` (`standard`), `colors.label` (`muted`) ou do `foreground` do estado de valor correspondente (`success`, `warning`, `error`, `information`), todos do tema ativo, sem valores literais.
+`RebicText` SHALL obter o estilo da tipografia do tema: `display` → `header1`, `headline` → `header2`, `title` → `header3`, `subtitle` → `header4`, `body` → `base`, `bodyStrong` → `baseSemibold`, `label` → `base` e `caption` → `small`. A cor SHALL ser `colors.text` (`standard`), `colors.label` (`muted`) ou o `foreground` do estado de valor do `tone`, todos do tema ativo, sem valores literais.
 
 #### Scenario: Troca de tema
 - **GIVEN** `RebicText` com `tone` `error` renderizado no tema claro
@@ -60,7 +60,7 @@ Com `maxLines`, `RebicText` SHALL exibir no máximo esse número de linhas e ter
 
 #### Scenario: Variantes e tons
 - **WHEN** cada combinação de `variant` e `tone` é renderizada no tema claro
-- **THEN** o estilo tem o tamanho, a altura de linha e o peso de `typography.<variant>`, e a cor do papel do `tone`
+- **THEN** o estilo tem o tamanho, a altura de linha e o peso do estilo Fiori mapeado para a `variant`, e a cor do papel do `tone`
 
 ### Requirement: [Estados] Sem estados de interação
 `RebicText` SHALL NOT apresentar estados de hover, foco, pressionado, selecionado ou desabilitado, porque não é interativo. A cor do texto vem só de `tone`.

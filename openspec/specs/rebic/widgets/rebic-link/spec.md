@@ -19,7 +19,7 @@
 
 #### Scenario: Link mínimo
 - **WHEN** `RebicLink(text: 'Ver pedido', onPressed: …)` é renderizado
-- **THEN** o texto "Ver pedido" aparece numa linha, na cor `colors.link`, com o estilo `typography.body` e sem sublinhado
+- **THEN** o texto "Ver pedido" aparece numa linha, na cor `colors.link`, com o estilo `typography.base` e sem sublinhado
 
 ### Requirement: [API] Texto válido
 `text` MUST NOT ser vazio. Um texto vazio MUST falhar em modo debug.
@@ -54,11 +54,11 @@ Sem `wrapping`, o texto SHALL ficar numa linha e MUST terminar com reticências 
 - **THEN** o texto ocupa mais de uma linha, sem reticências
 
 ### Requirement: [Aparência] Variantes
-O link SHALL usar `colors.link` e o estilo `typography.body`. Com `subtle`, a cor SHALL ser `colors.text`. Com `emphasized`, o estilo SHALL ser `typography.bodyStrong`. As duas indicações podem ser combinadas.
+O link SHALL usar `colors.link` e o estilo `typography.base`. Com `subtle`, a cor SHALL ser `colors.text`. Com `emphasized`, o estilo SHALL ser `typography.baseBold`. As duas indicações podem ser combinadas.
 
 #### Scenario: Link sutil e enfatizado
 - **WHEN** um link `subtle` e um `emphasized` são renderizados
-- **THEN** o primeiro tem a cor `colors.text`, e o segundo tem a cor `colors.link` e o estilo `typography.bodyStrong`
+- **THEN** o primeiro tem a cor `colors.text`, e o segundo tem a cor `colors.link` e o estilo `typography.baseBold`
 
 ### Requirement: [Aparência] Tokens de componente
 A cor, o estilo e o raio do anel de foco SHALL vir do tema ativo (`colors`, `typography`, `radius.control`), sem valores literais.

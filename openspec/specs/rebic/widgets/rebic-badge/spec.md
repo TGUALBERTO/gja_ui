@@ -19,7 +19,7 @@
 
 #### Scenario: Contador avulso
 - **WHEN** `RebicBadge(count: 5)` é renderizado
-- **THEN** ele mostra "5" no estilo `typography.label`, com o fundo e a borda do estado `error`
+- **THEN** ele mostra "5" no estilo `typography.small`, com o fundo e a borda do estado `error`
 
 #### Scenario: Contador sobre um elemento
 - **GIVEN** um elemento de 40 × 40
@@ -60,7 +60,7 @@ O contador SHALL usar o fundo, a borda e a cor de frente do `state` em `colors.s
 - **THEN** o fundo e a borda de cada um são os do estado, e o texto tem a cor de frente do estado, exceto `none`, que usa `colors.text`
 
 ### Requirement: [Aparência] Tokens de componente
-O contador SHALL ser uma pílula com raio `radius.full`, texto `typography.label`, espaço horizontal `spacing.xs`, borda fina e lado mínimo `icons.small`, sem valores literais. Um único dígito MUST formar um círculo.
+O contador SHALL ser uma pílula com raio `radius.full`, texto `typography.small`, espaço horizontal `spacing.xs`, borda fina e lado mínimo `icons.small`, sem valores literais. Um único dígito MUST formar um círculo.
 
 #### Scenario: Forma do contador
 - **WHEN** contadores com "7" e "128" são renderizados

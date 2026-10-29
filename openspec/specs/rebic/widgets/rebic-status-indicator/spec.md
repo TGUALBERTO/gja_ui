@@ -20,7 +20,7 @@
 
 #### Scenario: Status mínimo
 - **WHEN** `RebicStatusIndicator(text: 'Aprovado', state: RebicValueState.success)` é renderizado
-- **THEN** "Aprovado" aparece na cor de frente do estado `success`, no estilo `typography.body`, sem fundo
+- **THEN** "Aprovado" aparece na cor de frente do estado `success`, no estilo `typography.base`, sem fundo
 
 #### Scenario: Status com título e ícone
 - **GIVEN** `title` "Situação", `icon` e `text` "Aprovado", em LTR
@@ -69,7 +69,7 @@ Com `inverted`, o status SHALL ser uma etiqueta com o fundo, a borda fina e a co
 - **THEN** ele tem o fundo e a borda do estado `error`, raio `radius.s`, e o texto na cor de frente do estado
 
 ### Requirement: [Aparência] Tokens de componente
-O texto SHALL usar `typography.body`, o ícone `icons.inline`, o espaço entre título, ícone e texto `spacing.xs`, sem valores literais.
+O texto SHALL usar `typography.base`, o ícone `icons.inline`, o espaço entre título, ícone e texto `spacing.xs`, sem valores literais.
 
 #### Scenario: Ícone acompanha a escala de texto
 - **GIVEN** a escala de texto 2,0
