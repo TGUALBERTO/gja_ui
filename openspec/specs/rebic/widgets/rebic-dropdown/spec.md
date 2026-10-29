@@ -61,7 +61,7 @@ O dropdown SHALL usar o popover com `width` `anchor`, sem título, sem ações e
 #### Scenario: Âncora estreita
 - **GIVEN** uma âncora de 40 de largura numa tela larga
 - **WHEN** o dropdown é aberto
-- **THEN** a lista tem 4 passos `spacing.xxxl` de largura
+- **THEN** a lista tem 6 passos `spacing.xxxl` de largura
 
 #### Scenario: Rótulo longo
 - **GIVEN** um item com rótulo muito maior que a lista e o texto adicional "12"
