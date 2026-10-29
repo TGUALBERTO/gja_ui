@@ -69,7 +69,7 @@ class RebicDropdown<T> extends StatelessWidget {
     required this.semanticLabel,
     required this.child,
     this.selected,
-    this.side = RebicOverlaySide.below,
+    this.placement = RebicPlacement.bottom,
     this.onDismiss,
     super.key,
   }) : assert(items.isNotEmpty, 'items não pode ser vazia'),
@@ -101,8 +101,8 @@ class RebicDropdown<T> extends StatelessWidget {
   /// Valor do item selecionado, ou nulo.
   final T? selected;
 
-  /// Lado preferido em relação à âncora.
-  final RebicOverlaySide side;
+  /// Posição preferida em relação à âncora.
+  final RebicPlacement placement;
 
   /// Chamado quando a lista fecha por toque fora ou Esc.
   final VoidCallback? onDismiss;
@@ -112,7 +112,7 @@ class RebicDropdown<T> extends StatelessWidget {
     return RebicOptionList(
       controller: controller,
       semanticLabel: semanticLabel,
-      side: side,
+      placement: placement,
       onDismiss: onDismiss,
       options: [
         for (final item in items)

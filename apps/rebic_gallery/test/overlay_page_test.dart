@@ -19,6 +19,10 @@ void main() {
     await tester.tap(find.text('Abrir modal'));
     await tester.pumpAndSettle();
     expect(find.text('Enviar pedido?'), findsOneWidget);
+    // Como no sap.m.Dialog, um toque na camada de bloqueio não fecha.
+    await tester.tapAt(const Offset(5, 990));
+    await tester.pumpAndSettle();
+    expect(find.text('Enviar pedido?'), findsOneWidget);
     await tester.sendKeyEvent(LogicalKeyboardKey.escape);
     await tester.pumpAndSettle();
     expect(find.text('Enviar pedido?'), findsNothing);

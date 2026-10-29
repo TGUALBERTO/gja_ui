@@ -70,7 +70,7 @@ class RebicMenu extends StatelessWidget {
     required this.items,
     required this.semanticLabel,
     required this.child,
-    this.side = RebicOverlaySide.below,
+    this.placement = RebicPlacement.bottom,
     this.onDismiss,
     super.key,
   }) : assert(items.isNotEmpty, 'items não pode ser vazia'),
@@ -92,8 +92,8 @@ class RebicMenu extends StatelessWidget {
   /// A âncora.
   final Widget child;
 
-  /// Lado preferido em relação à âncora.
-  final RebicOverlaySide side;
+  /// Posição preferida em relação à âncora.
+  final RebicPlacement placement;
 
   /// Chamado quando o menu fecha por toque fora ou Esc.
   final VoidCallback? onDismiss;
@@ -103,7 +103,7 @@ class RebicMenu extends StatelessWidget {
     return RebicOptionList(
       controller: controller,
       semanticLabel: semanticLabel,
-      side: side,
+      placement: placement,
       onDismiss: onDismiss,
       listRole: SemanticsRole.menu,
       itemRole: SemanticsRole.menuItem,

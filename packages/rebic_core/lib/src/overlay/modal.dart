@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
-import '../localization/localizations.dart';
 import 'initial_focus.dart';
 
 /// Abre conteúdos modais sobre a tela, com camada de bloqueio.
@@ -13,10 +12,11 @@ abstract final class RebicModal {
   /// Abre o conteúdo de [builder] como modal e espera o resultado.
   ///
   /// Feche com `Navigator.of(context).pop(resultado)` de dentro do conteúdo.
-  /// Quando [dismissible] é verdadeiro, Esc e um toque na camada fecham o
-  /// modal com resultado nulo, e a camada tem o rótulo `close` do idioma
-  /// ativo. A camada usa [barrierColor] ou, sem ele, o `blockLayer` do tema
-  /// ativo (`RebicThemeData.of`).
+  /// Como o `sap.m.Dialog`, quando [dismissible] é verdadeiro, Esc fecha o
+  /// modal com resultado nulo; sem ele, Esc é ignorado. A camada nunca é
+  /// interativa: um toque nela não fecha o modal, e ela não tem rótulo nem
+  /// ação na árvore de semântica. A camada usa [blockLayerColor] ou, sem ele,
+  /// o `blockLayer` do tema ativo (`RebicThemeData.of`).
   ///
   /// O foco inicial é o do elemento com `autofocus`; sem nenhum, o primeiro
   /// elemento focável do modal recebe o foco.
@@ -24,21 +24,37 @@ abstract final class RebicModal {
     BuildContext context, {
     required WidgetBuilder builder,
     bool dismissible = true,
-    Color? barrierColor,
+    Color? blockLayerColor,
     bool useRootNavigator = true,
   }) {
     final navigator = Navigator.of(context, rootNavigator: useRootNavigator);
     return navigator.push<T>(
-      RawDialogRoute<T>(
-        barrierDismissible: dismissible,
-        barrierColor:
-            barrierColor ?? RebicThemeData.of(context).colors.blockLayer,
-        barrierLabel: RebicLocalizations.of(context).close,
-        transitionDuration: Duration.zero,
+      _RebicModalRoute<T>(
+        dismissible: dismissible,
+        blockLayerColor:
+            blockLayerColor ?? RebicThemeData.of(context).colors.blockLayer,
         pageBuilder: (context, _, _) => SafeArea(
           child: Center(child: RebicInitialFocus(child: builder(context))),
         ),
       ),
     );
   }
+}
+
+/// Rota do modal: Esc fecha conforme [dismissible] (tratado pela própria
+/// rota), e a camada de bloqueio é inerte, sem toque nem semântica.
+class _RebicModalRoute<T> extends RawDialogRoute<T> {
+  _RebicModalRoute({
+    required bool dismissible,
+    required Color blockLayerColor,
+    required super.pageBuilder,
+  }) : super(
+         barrierDismissible: dismissible,
+         barrierColor: blockLayerColor,
+         transitionDuration: Duration.zero,
+       );
+
+  @override
+  Widget buildModalBarrier() =>
+      ModalBarrier(color: barrierColor, dismissible: false);
 }

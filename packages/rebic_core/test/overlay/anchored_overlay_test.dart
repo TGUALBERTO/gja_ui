@@ -26,7 +26,7 @@ Future<void> _pumpApp(WidgetTester tester, Widget home) {
 /// Âncora de 100×40 com a sobreposição; o conteúdo tem [contentSize].
 Widget _anchored(
   RebicAnchoredOverlayController controller, {
-  RebicOverlaySide side = RebicOverlaySide.below,
+  RebicPlacement placement = RebicPlacement.bottom,
   RebicOverlayAlignment alignment = RebicOverlayAlignment.start,
   Size contentSize = const Size(120, 80),
   double? margin,
@@ -38,7 +38,7 @@ Widget _anchored(
 }) {
   return RebicAnchoredOverlay(
     controller: controller,
-    side: side,
+    placement: placement,
     alignment: alignment,
     gap: 4,
     margin: margin,
@@ -77,6 +77,47 @@ void main() {
     controller.show();
     await tester.pumpAndSettle();
   }
+
+  group('Posição efetiva da sobreposição ancorada', () {
+    Widget probe(List<RebicPlacement?> seen) => Builder(
+      builder: (context) {
+        seen.add(RebicAnchoredOverlay.placementOf(context));
+        return const SizedBox(key: _contentKey, width: 120, height: 80);
+      },
+    );
+
+    testWidgets(
+      'Posição efetiva da sobreposição ancorada — Posição informada após a inversão',
+      (tester) async {
+        final seen = <RebicPlacement?>[];
+        await _pumpApp(
+          tester,
+          _at(
+            const Offset(50, 540),
+            _anchored(controller, contentBuilder: (_) => probe(seen)),
+          ),
+        );
+        await show(tester);
+        expect(seen.last, RebicPlacement.top);
+      },
+    );
+
+    testWidgets(
+      'Posição efetiva da sobreposição ancorada — Posição sem inversão',
+      (tester) async {
+        final seen = <RebicPlacement?>[];
+        await _pumpApp(
+          tester,
+          _at(
+            const Offset(50, 20),
+            _anchored(controller, contentBuilder: (_) => probe(seen)),
+          ),
+        );
+        await show(tester);
+        expect(seen.last, RebicPlacement.bottom);
+      },
+    );
+  });
 
   group('Sobreposição ancorada', () {
     testWidgets('Sobreposição ancorada — Posição preferida', (tester) async {
@@ -134,12 +175,45 @@ void main() {
       expect(after.top, tester.getRect(find.byKey(_anchorKey)).bottom + 4);
     });
 
+    testWidgets(
+      'Sobreposição ancorada — Acompanha a âncora que muda de tamanho',
+      (tester) async {
+        final height = ValueNotifier<double>(40);
+        addTearDown(height.dispose);
+        await _pumpApp(
+          tester,
+          _at(
+            const Offset(50, 20),
+            RebicAnchoredOverlay(
+              controller: controller,
+              gap: 4,
+              overlayBuilder: (_) =>
+                  const SizedBox(key: _contentKey, width: 120, height: 80),
+              child: ValueListenableBuilder<double>(
+                valueListenable: height,
+                builder: (_, h, _) =>
+                    SizedBox(key: _anchorKey, width: 100, height: h),
+              ),
+            ),
+          ),
+        );
+        await show(tester);
+        expect(tester.getRect(find.byKey(_contentKey)).top, 20 + 40 + 4);
+        height.value = 60;
+        await tester.pump();
+        await tester.pump();
+        final anchor = tester.getRect(find.byKey(_anchorKey));
+        expect(anchor.height, 60);
+        expect(tester.getRect(find.byKey(_contentKey)).top, anchor.bottom + 4);
+      },
+    );
+
     testWidgets('início e fim seguem a direção do texto', (tester) async {
       await _pumpApp(
         tester,
         _at(
           const Offset(300, 200),
-          _anchored(controller, side: RebicOverlaySide.end),
+          _anchored(controller, placement: RebicPlacement.end),
           textDirection: TextDirection.rtl,
         ),
       );

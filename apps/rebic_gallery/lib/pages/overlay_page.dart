@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
 
 /// Página "Sobreposições": modal dispensável, modal obrigatório e uma
-/// sobreposição ancorada com escolha do lado preferido.
+/// sobreposição ancorada com escolha da posição preferida.
 ///
 /// A aparência dos conteúdos é provisória da galeria; os widgets de diálogo e
 /// popover terão specs próprias. As dimensões são literais da galeria.
@@ -28,7 +28,7 @@ class OverlayPage extends StatefulWidget {
 
 class _OverlayPageState extends State<OverlayPage> {
   final _popover = RebicAnchoredOverlayController();
-  RebicOverlaySide _side = RebicOverlaySide.below;
+  RebicPlacement _placement = RebicPlacement.bottom;
   String _result = 'nenhum';
 
   RebicThemeData get _theme => RebicTheme.of(context);
@@ -149,17 +149,17 @@ class _OverlayPageState extends State<OverlayPage> {
             SizedBox(height: t.spacing.s),
             Text('Resultado: $_result', key: OverlayPage.resultKey),
             SizedBox(height: t.spacing.sectionGap),
-            Text('Lado preferido', style: t.typography.header3),
+            Text('Posição preferida', style: t.typography.header3),
             SizedBox(height: t.spacing.s),
             Wrap(
               spacing: t.spacing.s,
               runSpacing: t.spacing.s,
               children: [
-                for (final side in RebicOverlaySide.values)
+                for (final placement in RebicPlacement.values)
                   _button(
-                    side.name,
-                    () => setState(() => _side = side),
-                    selected: side == _side,
+                    placement.name,
+                    () => setState(() => _placement = placement),
+                    selected: placement == _placement,
                   ),
               ],
             ),
@@ -167,7 +167,7 @@ class _OverlayPageState extends State<OverlayPage> {
             Center(
               child: RebicAnchoredOverlay(
                 controller: _popover,
-                side: _side,
+                placement: _placement,
                 overlayBuilder: (context) => KeyedSubtree(
                   key: OverlayPage.popoverKey,
                   child: _panel([

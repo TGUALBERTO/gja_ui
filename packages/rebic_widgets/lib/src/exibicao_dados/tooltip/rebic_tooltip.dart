@@ -11,7 +11,7 @@ import '../../fundacao_layout/text/rebic_text.dart';
 
 /// Dica textual de um elemento, como o `tooltip` dos controles do SAPUI5.
 ///
-/// A dica com [message] abre junto de [child], no lado [side] e centralizada
+/// A dica com [message] abre junto de [child], na posição [placement] e centralizada
 /// nele:
 /// - com o ponteiro sobre o filho, após `motion.long`;
 /// - com o foco do teclado no filho, sem atraso;
@@ -36,7 +36,7 @@ class RebicTooltip extends StatefulWidget {
   const RebicTooltip({
     required this.message,
     required this.child,
-    this.side = RebicOverlaySide.below,
+    this.placement = RebicPlacement.bottom,
     this.excludeFromSemantics = false,
     super.key,
   }) : assert(message != '', 'message não pode ser vazia');
@@ -47,8 +47,8 @@ class RebicTooltip extends StatefulWidget {
   /// Elemento descrito pela dica.
   final Widget child;
 
-  /// Lado preferido da dica em relação ao filho.
-  final RebicOverlaySide side;
+  /// Posição preferida da dica em relação ao filho.
+  final RebicPlacement placement;
 
   /// Se a mensagem fica fora da semântica, quando o filho já a anuncia como
   /// rótulo (ex.: um botão de ícone cujo rótulo é a própria dica).
@@ -185,7 +185,7 @@ class _RebicTooltipState extends State<RebicTooltip> {
   Widget build(BuildContext context) {
     final overlay = RebicAnchoredOverlay(
       controller: _controller,
-      side: widget.side,
+      placement: widget.placement,
       alignment: RebicOverlayAlignment.center,
       focusOnShow: false,
       onDismiss: _hide,

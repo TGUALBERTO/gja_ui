@@ -2,6 +2,15 @@
 
 ## Não lançado
 
+- **BREAKING** Sobreposições no modelo do Popup do SAPUI5 (`update-rebic-core-overlay-fiori-popup`, spec
+  `rebic/core/overlay`):
+  - `RebicModal.show` fecha só com Esc (com `dismissible`), como o `sap.m.Dialog`. A camada de bloqueio nunca é
+    interativa: o toque nela é ignorado, e ela não tem rótulo nem ação na semântica. `barrierColor` passa a
+    `blockLayerColor`.
+  - `RebicOverlaySide` (`below`, `above`, `start`, `end`) passa a `RebicPlacement` (`bottom`, `top`, `start`,
+    `end`), e `RebicAnchoredOverlay.side` passa a `placement`, como o `placement` do Popover.
+  - `RebicAnchoredOverlay` acompanha a âncora quando ela se move ou muda de tamanho, e não só na rolagem.
+  - Novo `RebicAnchoredOverlay.placementOf(context)`, com a posição efetiva depois da inversão.
 - Raios no modelo Fiori (`update-rebic-foundation-radius-fiori-roles`, spec `rebic/core/interaction`): o anel de foco
   de `RebicInteractable` usa por padrão o raio `button` do tema (`sapButton_BorderCornerRadius`), no lugar de
   `control`.

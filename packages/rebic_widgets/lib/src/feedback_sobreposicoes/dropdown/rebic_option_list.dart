@@ -53,7 +53,7 @@ class RebicOptionList extends StatefulWidget {
     required this.options,
     required this.semanticLabel,
     required this.child,
-    this.side = RebicOverlaySide.below,
+    this.placement = RebicPlacement.bottom,
     this.onDismiss,
     this.listRole,
     this.itemRole,
@@ -72,8 +72,8 @@ class RebicOptionList extends StatefulWidget {
   /// A âncora.
   final Widget child;
 
-  /// Lado preferido em relação à âncora.
-  final RebicOverlaySide side;
+  /// Posição preferida em relação à âncora.
+  final RebicPlacement placement;
 
   /// Chamado quando a lista fecha por toque fora ou Esc.
   final VoidCallback? onDismiss;
@@ -302,7 +302,7 @@ class _RebicOptionListState extends State<RebicOptionList> {
       semanticLabel: widget.semanticLabel,
       width: RebicPopoverWidth.anchor,
       padded: false,
-      side: widget.side,
+      placement: widget.placement,
       onDismiss: widget.onDismiss,
       content: Builder(
         builder: (context) {

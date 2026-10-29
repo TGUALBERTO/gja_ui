@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- **BREAKING** Sobreposições no modelo do Popup do SAPUI5 (`update-rebic-core-overlay-fiori-popup`): a propriedade
+  `side` (`RebicOverlaySide`, padrão `below`) passa a `placement` (`RebicPlacement`, padrão `bottom`) em
+  `RebicPopover`, `RebicMenu`, `RebicDropdown` e `RebicTooltip`, como o `placement` do Popover. As posições padrão
+  e a aparência não mudam. O popover acompanha a âncora quando ela muda de tamanho.
 - Ícones no modelo do IconPool (`update-rebic-foundation-iconography-fiori-iconpool`):
   - os widgets usam os nomes novos de `RebicIcons`: `RebicScaffold` usa `menu2`, `RebicPage` usa `navBack` e o ícone
     padrão de `RebicAvatar` é `personPlaceholder`;

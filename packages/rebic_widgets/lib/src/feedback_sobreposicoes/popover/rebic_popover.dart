@@ -54,7 +54,7 @@ enum RebicPopoverWidth {
 
 /// Painel leve junto de uma âncora, como o `sap.m.Popover` do SAPUI5.
 ///
-/// O [controller] abre o popover junto de [child], no lado [side] e alinhado
+/// O [controller] abre o popover junto de [child], na posição [placement] e alinhado
 /// por [alignment], com a inversão e o limite de tela de
 /// `RebicAnchoredOverlay`. A superfície é `base`, sem borda, com raio
 /// `container` e sombra `popover`. Com [title], há um cabeçalho; com
@@ -92,7 +92,7 @@ class RebicPopover extends StatefulWidget {
     required this.child,
     this.title,
     this.actions = const [],
-    this.side = RebicOverlaySide.below,
+    this.placement = RebicPlacement.bottom,
     this.alignment = RebicOverlayAlignment.start,
     this.width = RebicPopoverWidth.standard,
     this.padded = true,
@@ -119,8 +119,8 @@ class RebicPopover extends StatefulWidget {
   /// Ações do rodapé, alinhadas ao fim; vazia omite o rodapé.
   final List<Widget> actions;
 
-  /// Lado preferido em relação à âncora.
-  final RebicOverlaySide side;
+  /// Posição preferida em relação à âncora.
+  final RebicPlacement placement;
 
   /// Alinhamento ao longo da âncora.
   final RebicOverlayAlignment alignment;
@@ -211,7 +211,7 @@ class _RebicPopoverState extends State<RebicPopover> {
   Widget build(BuildContext context) {
     return RebicAnchoredOverlay(
       controller: widget.controller,
-      side: widget.side,
+      placement: widget.placement,
       alignment: widget.alignment,
       onDismiss: widget.onDismiss,
       overlayBuilder: _panel,

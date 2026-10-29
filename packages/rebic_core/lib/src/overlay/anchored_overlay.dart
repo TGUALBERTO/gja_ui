@@ -6,13 +6,17 @@ import 'package:rebic_foundation/rebic_foundation.dart';
 
 import 'initial_focus.dart';
 
-/// Lado preferido da sobreposição ancorada em relação à âncora.
-enum RebicOverlaySide {
+/// Posição da sobreposição ancorada em relação à âncora, como o `placement`
+/// do Popover do SAPUI5 (`Bottom`, `Top`, `Start`, `End`).
+///
+/// A posição pedida é a preferida: sem espaço nela e com espaço na oposta, a
+/// sobreposição vai para a oposta (como `PreferredBottomOrFlip` etc.).
+enum RebicPlacement {
   /// Abaixo da âncora.
-  below,
+  bottom,
 
   /// Acima da âncora.
-  above,
+  top,
 
   /// No lado inicial da âncora (esquerda em LTR, direita em RTL).
   start,
@@ -59,10 +63,12 @@ class RebicAnchoredOverlayController extends OverlayPortalController
 
 /// Mostra um conteúdo junto de uma âncora, como o `Popover` do SAPUI5.
 ///
-/// O conteúdo de [overlayBuilder] aparece no lado [side] da âncora [child],
-/// alinhado por [alignment] e afastado [gap]. Sem espaço no lado preferido e
-/// com espaço no oposto, vai para o oposto; e fica sempre a pelo menos
-/// [margin] das bordas da área da sobreposição. Acompanha a âncora na rolagem.
+/// O conteúdo de [overlayBuilder] aparece na posição [placement] da âncora
+/// [child], alinhado por [alignment] e afastado [gap]. Sem espaço na posição
+/// preferida e com espaço na oposta, vai para a oposta; e fica sempre a pelo
+/// menos [margin] das bordas da área da sobreposição. Acompanha a âncora
+/// quando ela rola, se move ou muda de tamanho. O conteúdo lê a posição
+/// efetiva com [placementOf].
 ///
 /// Com [autoClose], fecha com um toque fora do conteúdo e da âncora, e com
 /// Esc, chamando [onDismiss]. Com [focusOnShow], o foco vai para o conteúdo
@@ -76,7 +82,7 @@ class RebicAnchoredOverlay extends StatefulWidget {
     required this.controller,
     required this.overlayBuilder,
     required this.child,
-    this.side = RebicOverlaySide.below,
+    this.placement = RebicPlacement.bottom,
     this.alignment = RebicOverlayAlignment.start,
     this.gap,
     this.margin,
@@ -95,8 +101,8 @@ class RebicAnchoredOverlay extends StatefulWidget {
   /// A âncora.
   final Widget child;
 
-  /// Lado preferido.
-  final RebicOverlaySide side;
+  /// Posição preferida.
+  final RebicPlacement placement;
 
   /// Alinhamento ao longo da âncora.
   final RebicOverlayAlignment alignment;
@@ -116,8 +122,24 @@ class RebicAnchoredOverlay extends StatefulWidget {
   /// Chamado quando a sobreposição é fechada por toque fora ou Esc.
   final VoidCallback? onDismiss;
 
+  /// Posição efetiva da sobreposição ancorada que contém [context], depois
+  /// da inversão, ou nulo fora de uma. Usada pelo conteúdo para, por exemplo,
+  /// desenhar a seta do lado da âncora.
+  static RebicPlacement? placementOf(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<_PlacementScope>()?.placement;
+
   @override
   State<RebicAnchoredOverlay> createState() => _RebicAnchoredOverlayState();
+}
+
+/// Publica a posição efetiva para o conteúdo da sobreposição.
+class _PlacementScope extends InheritedWidget {
+  const _PlacementScope({required this.placement, required super.child});
+
+  final RebicPlacement placement;
+
+  @override
+  bool updateShouldNotify(_PlacementScope old) => old.placement != placement;
 }
 
 class _RebicAnchoredOverlayState extends State<RebicAnchoredOverlay> {
@@ -125,6 +147,15 @@ class _RebicAnchoredOverlayState extends State<RebicAnchoredOverlay> {
   final List<ScrollPosition> _positions = [];
   FocusNode? _focusBeforeShow;
   bool _wasShowing = false;
+
+  /// Retângulo da âncora usado no último build do conteúdo.
+  Rect? _lastAnchorRect;
+
+  /// Se há um pós-quadro registrado para conferir a âncora.
+  bool _tracking = false;
+
+  /// Posição efetiva calculada no último layout do conteúdo.
+  RebicPlacement? _effective;
 
   @override
   void initState() {
@@ -180,10 +211,44 @@ class _RebicAnchoredOverlayState extends State<RebicAnchoredOverlay> {
       ..ensureVisualUpdate();
   }
 
+  /// Confere, depois de cada quadro com a sobreposição aberta, se a âncora
+  /// mudou de posição ou de tamanho, e reposiciona o conteúdo. Não agenda
+  /// quadros: só roda depois dos que já aconteceriam.
+  void _trackAnchor() {
+    if (_tracking) return;
+    _tracking = true;
+    SchedulerBinding.instance.addPostFrameCallback(_checkAnchor);
+  }
+
+  void _checkAnchor(Duration _) {
+    _tracking = false;
+    if (!mounted || !widget.controller.isShowing) return;
+    final rect = _anchorRect(context);
+    if (rect != null && rect != _lastAnchorRect) {
+      setState(() {});
+    }
+    _trackAnchor();
+  }
+
+  /// Guarda a posição efetiva do layout e reconstrói o conteúdo quando ela
+  /// muda, para que [RebicAnchoredOverlay.placementOf] a informe.
+  void _handleResolvedPlacement(RebicPlacement placement) {
+    if (placement == _effective) return;
+    _effective = placement;
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (mounted && widget.controller.isShowing) setState(() {});
+    });
+  }
+
   void _handleControllerChange() {
     final showing = widget.controller.isShowing;
     if (showing == _wasShowing) return;
     _wasShowing = showing;
+    if (showing) {
+      _trackAnchor();
+    } else {
+      _effective = null;
+    }
     if (!widget.focusOnShow) return;
     if (showing) {
       _focusBeforeShow = FocusManager.instance.primaryFocus;
@@ -215,8 +280,12 @@ class _RebicAnchoredOverlayState extends State<RebicAnchoredOverlay> {
 
   Widget _buildOverlay(BuildContext overlayContext) {
     final anchorRect = _anchorRect(overlayContext);
+    _lastAnchorRect = anchorRect;
     if (anchorRect == null) return const SizedBox.shrink();
-    Widget content = widget.overlayBuilder(overlayContext);
+    Widget content = _PlacementScope(
+      placement: _effective ?? widget.placement,
+      child: Builder(builder: widget.overlayBuilder),
+    );
     if (widget.focusOnShow) {
       content = FocusScope(child: RebicInitialFocus(child: content));
     }
@@ -239,7 +308,8 @@ class _RebicAnchoredOverlayState extends State<RebicAnchoredOverlay> {
     return CustomSingleChildLayout(
       delegate: _AnchoredLayoutDelegate(
         anchor: anchorRect,
-        side: widget.side,
+        placement: widget.placement,
+        onResolved: _handleResolvedPlacement,
         alignment: widget.alignment,
         gap: widget.gap ?? spacing.xs,
         margin: widget.margin ?? spacing.s,
@@ -266,7 +336,8 @@ class _RebicAnchoredOverlayState extends State<RebicAnchoredOverlay> {
 class _AnchoredLayoutDelegate extends SingleChildLayoutDelegate {
   _AnchoredLayoutDelegate({
     required this.anchor,
-    required this.side,
+    required this.placement,
+    required this.onResolved,
     required this.alignment,
     required this.gap,
     required this.margin,
@@ -274,7 +345,10 @@ class _AnchoredLayoutDelegate extends SingleChildLayoutDelegate {
   });
 
   final Rect anchor;
-  final RebicOverlaySide side;
+  final RebicPlacement placement;
+
+  /// Recebe a posição efetiva, depois da inversão.
+  final ValueChanged<RebicPlacement> onResolved;
   final RebicOverlayAlignment alignment;
   final double gap;
   final double margin;
@@ -313,32 +387,36 @@ class _AnchoredLayoutDelegate extends SingleChildLayoutDelegate {
 
     final double x;
     final double y;
-    switch (side) {
-      case RebicOverlaySide.below:
-      case RebicOverlaySide.above:
+    final RebicPlacement resolved;
+    switch (placement) {
+      case RebicPlacement.bottom:
+      case RebicPlacement.top:
         final belowY = anchor.bottom + gap;
         final aboveY = anchor.top - gap - h;
         final fitsBelow = belowY + h <= size.height - margin;
         final fitsAbove = aboveY >= margin;
-        final wantsBelow = side == RebicOverlaySide.below;
+        final wantsBelow = placement == RebicPlacement.bottom;
         final goBelow = wantsBelow
             ? (fitsBelow || !fitsAbove)
             : !(fitsAbove || !fitsBelow);
         y = goBelow ? belowY : aboveY;
+        resolved = goBelow ? RebicPlacement.bottom : RebicPlacement.top;
         x = along(anchor.left, anchor.right, w, horizontal: true);
-      case RebicOverlaySide.start:
-      case RebicOverlaySide.end:
+      case RebicPlacement.start:
+      case RebicPlacement.end:
         final rightX = anchor.right + gap;
         final leftX = anchor.left - gap - w;
         final fitsRight = rightX + w <= size.width - margin;
         final fitsLeft = leftX >= margin;
-        final wantsRight = (side == RebicOverlaySide.end) != rtl;
+        final wantsRight = (placement == RebicPlacement.end) != rtl;
         final goRight = wantsRight
             ? (fitsRight || !fitsLeft)
             : !(fitsLeft || !fitsRight);
         x = goRight ? rightX : leftX;
+        resolved = goRight != rtl ? RebicPlacement.end : RebicPlacement.start;
         y = along(anchor.top, anchor.bottom, h, horizontal: false);
     }
+    onResolved(resolved);
     return Offset(
       _clamp(x, margin, size.width - margin - w),
       _clamp(y, margin, size.height - margin - h),
@@ -351,7 +429,7 @@ class _AnchoredLayoutDelegate extends SingleChildLayoutDelegate {
   @override
   bool shouldRelayout(_AnchoredLayoutDelegate old) =>
       old.anchor != anchor ||
-      old.side != side ||
+      old.placement != placement ||
       old.alignment != alignment ||
       old.gap != gap ||
       old.margin != margin ||

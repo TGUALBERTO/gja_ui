@@ -123,16 +123,6 @@ void main() {
       await tester.pumpAndSettle();
       expect(await second, isNull);
     });
-
-    testWidgets('a camada dispensável tem o rótulo de fechar', (tester) async {
-      final semantics = tester.ensureSemantics();
-      await _pumpApp(tester, home);
-      unawaited(open(tester));
-      await tester.pumpAndSettle();
-      // O idioma do ambiente de teste é en-US: o rótulo vem do idioma ativo.
-      expect(_semanticLabels(tester), contains('Close'));
-      semantics.dispose();
-    });
   });
 
   group('Foco no modal', () {
@@ -206,12 +196,12 @@ void main() {
       expect(find.text('modal'), findsNothing);
       expect(await byEsc, isNull);
 
-      final byBarrier = open(tester);
+      // Como no sap.m.Dialog, a camada não é interativa.
+      unawaited(open(tester));
       await tester.pumpAndSettle();
       await tester.tapAt(const Offset(5, 5));
       await tester.pumpAndSettle();
-      expect(find.text('modal'), findsNothing);
-      expect(await byBarrier, isNull);
+      expect(find.text('modal'), findsOneWidget);
     });
 
     testWidgets('Dispensa do modal — Modal não dispensável', (tester) async {
@@ -223,6 +213,23 @@ void main() {
       await tester.tapAt(const Offset(5, 5));
       await tester.pumpAndSettle();
       expect(find.text('modal'), findsOneWidget);
+    });
+
+    testWidgets('Dispensa do modal — Camada sem semântica', (tester) async {
+      final semantics = tester.ensureSemantics();
+      await _pumpApp(tester, home);
+      unawaited(open(tester));
+      await tester.pumpAndSettle();
+      // O idioma do ambiente de teste é en-US.
+      expect(_semanticLabels(tester), isNot(contains('Close')));
+      // Camada não dispensável: sem toque nem ação na semântica.
+      expect(
+        tester
+            .widgetList<ModalBarrier>(find.byType(ModalBarrier))
+            .every((barrier) => !barrier.dismissible),
+        isTrue,
+      );
+      semantics.dispose();
     });
   });
 }
