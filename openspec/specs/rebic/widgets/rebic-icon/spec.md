@@ -34,7 +34,7 @@
 
 #### Scenario: Direcional em RTL
 - **GIVEN** a direção de texto da direita para a esquerda
-- **WHEN** `RebicIcon(RebicIcons.chevronRight)` e `RebicIcon(RebicIcons.check)` são renderizados
+- **WHEN** `RebicIcon(RebicIcons.slimArrowRight)` e `RebicIcon(RebicIcons.accept)` são renderizados
 - **THEN** o primeiro é desenhado espelhado, e o segundo não
 
 ### Requirement: [Aparência] Tokens de componente

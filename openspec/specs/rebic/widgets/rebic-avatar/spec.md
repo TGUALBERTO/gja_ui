@@ -13,7 +13,7 @@
 |---|---|---|
 | `image` | `ImageProvider?` | `null` |
 | `initials` | `String?` | `null` |
-| `icon` | `IconData?` | `null` (ícone `user`) |
+| `icon` | `IconData?` | `null` (ícone `personPlaceholder`) |
 | `size` | `RebicAvatarSize` | `s` |
 | `shape` | `RebicAvatarShape` | `circle` |
 | `semanticLabel` | `String?` | `null` (as iniciais) |
@@ -48,7 +48,7 @@ Com `onPressed`, o avatar SHALL ser ativo e chamar `onPressed` uma vez por ativa
 - **THEN** o foco vai ao segundo, sem parada no avatar
 
 ### Requirement: [Comportamento] Ordem e fallback
-O avatar SHALL mostrar, nesta ordem de preferência: a imagem, as iniciais, o `icon` e, sem nenhum deles, o ícone `user` do catálogo. Quando a imagem falha ao carregar, MUST mostrar as iniciais ou o ícone, como se não houvesse imagem.
+O avatar SHALL mostrar, nesta ordem de preferência: a imagem, as iniciais, o `icon` e, sem nenhum deles, o ícone `personPlaceholder` do catálogo. Quando a imagem falha ao carregar, MUST mostrar as iniciais ou o ícone, como se não houvesse imagem.
 
 #### Scenario: Imagem com erro mostra as iniciais
 - **GIVEN** uma imagem que falha ao carregar e as iniciais "MB"
@@ -57,7 +57,7 @@ O avatar SHALL mostrar, nesta ordem de preferência: a imagem, as iniciais, o `i
 
 #### Scenario: Avatar sem conteúdo mostra o ícone padrão
 - **WHEN** `RebicAvatar()` é renderizado
-- **THEN** ele mostra o ícone `user` em `colors.brand`
+- **THEN** ele mostra o ícone `personPlaceholder` em `colors.brand`
 
 ### Requirement: [Aparência] Tamanhos
 Os lados SHALL ser 1×, 1,5×, 2×, 2,5× e 3,5× `icons.xLarge` para `xs`, `s`, `m`, `l` e `xl`. As iniciais SHALL usar `typography.small`, `header4`, `header3`, `header2` e `header1`, respectivamente, e o ícone metade do lado.

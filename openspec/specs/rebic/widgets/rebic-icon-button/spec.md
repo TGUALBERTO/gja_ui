@@ -100,7 +100,7 @@ O botão SHALL ter tamanho fixo pela densidade. Em RTL, ícones direcionais (com
 
 #### Scenario: Ícone direcional em RTL
 - **GIVEN** a direção do texto da direita para a esquerda
-- **WHEN** um botão de ícone com `RebicIcons.arrowLeft` é renderizado
+- **WHEN** um botão de ícone com `RebicIcons.navBack` é renderizado
 - **THEN** o ícone é desenhado espelhado, apontando para a direita
 
 ### Requirement: [Integração] Dependências

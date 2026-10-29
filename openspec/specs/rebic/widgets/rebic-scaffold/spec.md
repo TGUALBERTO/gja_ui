@@ -78,7 +78,7 @@ Na classe `small`, a navegação recolhida SHALL ficar oculta, e o corpo MUST oc
 - **THEN** o corpo volta a aparecer com o contador em 3
 
 ### Requirement: [Aparência] Tokens de componente
-A barra SHALL usar o fundo `colors.shell` e a sombra `shadows.header`. A área de navegação SHALL usar o fundo `colors.base`, e o separador SHALL ser o de `rebic/widgets/rebic-divider` com tom sutil. Os espaços internos da barra SHALL vir de `spacing`, o botão MUST ter a família `transparent` de `rebic/foundation/interaction-states` e o ícone `menu` de `rebic/foundation/iconography`, sem valores literais.
+A barra SHALL usar o fundo `colors.shell` e a sombra `shadows.header`. A área de navegação SHALL usar o fundo `colors.base`, e o separador SHALL ser o de `rebic/widgets/rebic-divider` com tom sutil. Os espaços internos da barra SHALL vir de `spacing`, o botão MUST ter a família `transparent` de `rebic/foundation/interaction-states` e o ícone `menu2` de `rebic/foundation/iconography`, sem valores literais.
 
 #### Scenario: Cores da barra e da navegação
 - **WHEN** o scaffold com barra e navegação é renderizado nos temas claro e escuro

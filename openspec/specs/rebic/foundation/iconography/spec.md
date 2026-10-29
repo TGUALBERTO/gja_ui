@@ -19,7 +19,7 @@ O fundamento SHALL empacotar uma fonte de ícones de licença aberta, sem ícone
 - **THEN** a fonte, o texto da licença e o mapa de códigos estão na mesma pasta, e a fonte está declarada no pacote
 
 ### Requirement: Catálogo semântico de ícones
-O fundamento SHALL fornecer um catálogo de ícones constantes nomeados pelo significado, e não pela forma (ex.: `delete`, e não `trash`), com no mínimo os nomes listados no cenário "Catálogo completo e sem repetição". Cada ícone MUST apontar para a fonte empacotada e para um código existente no mapa oficial.
+O fundamento SHALL fornecer um catálogo de ícones constantes com os nomes do IconPool do SAPUI5 (`sap-icon://<nome>`) em camelCase, com no mínimo os nomes do cenário "Catálogo completo e sem repetição". Cada ícone MUST apontar para a fonte empacotada e para um código existente no mapa oficial. Os desenhos são da fonte empacotada, sem assets da SAP.
 
 #### Scenario: Códigos conferem com o mapa oficial
 - **WHEN** cada ícone do catálogo é comparado com o mapa de códigos empacotado
@@ -27,15 +27,19 @@ O fundamento SHALL fornecer um catálogo de ícones constantes nomeados pelo sig
 
 #### Scenario: Catálogo completo e sem repetição
 - **WHEN** o catálogo é inspecionado
-- **THEN** ele contém no mínimo `add`, `close`, `search`, `check`, `chevronUp`, `chevronDown`, `chevronLeft`, `chevronRight`, `arrowLeft`, `arrowRight`, `menu`, `moreHorizontal`, `moreVertical`, `edit`, `delete`, `info`, `warning`, `error`, `success`, `help`, `calendar`, `clock`, `user`, `filter`, `sort`, `upload`, `download`, `refresh`, `settings`, `home`, `externalLink`, `visibility`, `visibilityOff`, `copy`, `logout`, `notification`, `file` e `folder`, e dois nomes semânticos diferentes não apontam para o mesmo código
+- **THEN** ele contém no mínimo `add`, `decline`, `search`, `accept`, `slimArrowUp`, `slimArrowDown`, `slimArrowLeft`, `slimArrowRight`, `navBack`, `navigationRightArrow`, `menu2`, `overflow`, `edit`, `delete`, `information`, `warning`, `error`, `sysEnter2`, `sysHelp`, `calendar`, `pending`, `personPlaceholder`, `filter`, `sort`, `upload`, `download`, `refresh`, `actionSettings`, `home`, `popupWindow`, `show`, `hide`, `copy`, `log`, `bell`, `document` e `folderBlank`, e dois nomes diferentes não apontam para o mesmo código
+
+#### Scenario: Nomes do IconPool
+- **WHEN** o nome do IconPool de cada ícone do catálogo é consultado
+- **THEN** o nome do catálogo é o nome do IconPool sem hífens, com a letra seguinte maiúscula (ex.: `slim-arrow-down` → `slimArrowDown`, `sys-enter-2` → `sysEnter2`, `menu2` → `menu2`), e nenhum nome do catálogo é `close`, `check`, `chevronDown`, `user` ou outro nome anterior sem equivalente no IconPool
 
 ### Requirement: Espelhamento de ícones direcionais
-Os ícones que indicam direção horizontal (`chevronLeft`, `chevronRight`, `arrowLeft`, `arrowRight`, `logout` e `externalLink`) MUST ser espelhados quando o texto é da direita para a esquerda. Os demais ícones MUST NOT ser espelhados.
+Os ícones que indicam direção horizontal (`slimArrowLeft`, `slimArrowRight`, `navBack`, `navigationRightArrow`, `log` e `popupWindow`) MUST ser espelhados quando o texto é da direita para a esquerda. Os demais ícones MUST NOT ser espelhados.
 
 #### Scenario: Ícone direcional em RTL
-- **GIVEN** `chevronRight` renderizado com direção de texto da direita para a esquerda
+- **GIVEN** `slimArrowRight` renderizado com direção de texto da direita para a esquerda
 - **WHEN** o ícone é desenhado
-- **THEN** ele aparece espelhado horizontalmente, e `check` no mesmo contexto não é espelhado
+- **THEN** ele aparece espelhado horizontalmente, e `accept` no mesmo contexto não é espelhado
 
 ### Requirement: Uso de ícones fora do catálogo
 O fundamento SHALL expor, na biblioteca de primitivos, a família e o pacote da fonte, para que uma aplicação possa declarar como constante qualquer outro ícone da fonte empacotada, pelo código do mapa oficial.
@@ -53,11 +57,11 @@ O fundamento SHALL fornecer, na biblioteca de primitivos, uma escala de tamanhos
 - **THEN** cada valor é maior que o anterior, e o número do nome é igual ao valor
 
 ### Requirement: Passos e papéis de tamanho de ícone
-O conjunto semântico SHALL ter os passos `small`, `medium`, `large` e `xLarge` e os papéis `inline` (junto ao texto corrido) e `control` (dentro de botões e campos). No mapeamento de referência, os passos MUST ser estritamente crescentes, cada papel MUST ter o valor de um passo e todos os valores MUST vir da escala primitiva. Os valores MUST ser finitos e positivos em qualquer mapeamento.
+O conjunto semântico SHALL ter os passos `small`, `medium`, `large` e `xLarge` e os papéis `inline` (junto ao texto corrido) e `control` (dentro de botões e campos, como `sapContent_IconHeight`). Na referência, os passos MUST ser estritamente crescentes, cada papel MUST ter o valor de um passo, `control` MUST valer 16 (1rem) e todos os valores MUST vir da escala primitiva, finitos e positivos.
 
 #### Scenario: Mapeamento de referência
 - **WHEN** o mapeamento de referência é inspecionado
-- **THEN** `small < medium < large < xLarge`, `inline` e `control` são iguais a algum passo, e cada valor existe na escala primitiva
+- **THEN** `small < medium < large < xLarge`, `inline` e `control` são iguais a algum passo, `control` vale 16, e cada valor existe na escala primitiva
 
 #### Scenario: Tamanho inválido rejeitado
 - **WHEN** um conjunto é derivado com `copyWith` usando um tamanho zero ou negativo
