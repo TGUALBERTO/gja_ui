@@ -445,6 +445,8 @@ void main() {
       tester.getSize(find.byKey(const Key('compact'))),
       Size.square(20 + compact * 2),
     );
+    // Como no Fiori, a densidade não muda o espaçamento.
+    expect(compact, cozy);
     BoxDecoration deco(String key) =>
         tester
                 .widget<DecoratedBox>(

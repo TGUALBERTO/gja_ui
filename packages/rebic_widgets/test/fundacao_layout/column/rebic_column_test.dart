@@ -162,10 +162,20 @@ void main() {
       expect(gap(), _cozy.l);
       await tester.pumpWidget(app(RebicDensity.compact));
       await tester.pumpAndSettle();
-      expect(
-        gap(),
-        RebicThemeData.light(density: RebicDensity.compact).spacing.l,
+      // Como no Fiori, a densidade não muda o espaçamento.
+      expect(gap(), _cozy.l);
+      final base = RebicThemeData.light();
+      final other = base.copyWith(
+        density: base.density.copyWith(spacing: base.spacing.copyWith(l: 24)),
       );
+      await tester.pumpWidget(
+        _themed(
+          RebicColumn(gap: RebicSpace.l, children: [_sq('a'), _sq('b')]),
+          theme: other,
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(gap(), 24);
       expect(
         find.descendant(
           of: find.byType(RebicColumn),
@@ -291,10 +301,7 @@ void main() {
         );
         await tester.pumpAndSettle();
         expect(_rect(tester, 'b').top - _rect(tester, 'a').bottom, _cozy.l);
-        expect(
-          _rect(tester, 'd').top - _rect(tester, 'c').bottom,
-          RebicThemeData.light(density: RebicDensity.compact).spacing.l,
-        );
+        expect(_rect(tester, 'd').top - _rect(tester, 'c').bottom, _cozy.l);
       },
     );
   });

@@ -61,6 +61,15 @@ Nenhuma.
 - `rebic/foundation/density`: as duas densidades usam o mesmo espaçamento de referência.
 - `rebic/widgets/rebic-page`: margem do conteúdo pela classe de tamanho da página, e dependência de
   `rebic/foundation/breakpoints`.
+- `rebic/widgets/rebic-column`, `rebic/widgets/rebic-row`, `rebic/widgets/rebic-container`,
+  `rebic/widgets/rebic-divider` e `rebic/widgets/rebic-spacing`: os requisitos e cenários de densidade passam a dizer
+  que o espaço é o mesmo nas duas densidades. Os cenários de troca de densidade passam a conferir também a troca
+  para um tema com outro espaçamento, para continuar verificando que o widget segue o tema ativo.
+
+Esta change toca seis specs de widget, acima do limite de `rebic/spec-governance`. A exceção se justifica como nas
+changes de tipografia e sombras: igualar o espaçamento das densidades torna falsa a premissa ("compacto menor") dos
+cenários de densidade desses widgets. Sem atualizá-los na mesma change, eles passariam a comparar valores iguais sem
+dizer isso. Nenhum widget muda de API, e só `RebicPage` muda de comportamento.
 
 ## Impact
 

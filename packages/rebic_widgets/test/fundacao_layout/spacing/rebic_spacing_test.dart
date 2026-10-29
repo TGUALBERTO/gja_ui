@@ -158,7 +158,22 @@ void main() {
       expect(tester.getSize(find.byKey(_a)).height, _cozy.sectionGap);
       await tester.pumpWidget(app(RebicDensity.compact));
       await tester.pumpAndSettle();
-      expect(tester.getSize(find.byKey(_a)).height, _compact.sectionGap);
+      // Como no Fiori, a densidade não muda o espaçamento.
+      expect(tester.getSize(find.byKey(_a)).height, _cozy.sectionGap);
+      final base = RebicThemeData.light();
+      final other = base.copyWith(
+        density: base.density.copyWith(
+          spacing: base.spacing.copyWith(sectionGap: 48),
+        ),
+      );
+      await tester.pumpWidget(
+        _themed(
+          const RebicSpacing.vertical(RebicSpace.sectionGap, key: _a),
+          theme: other,
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(tester.getSize(find.byKey(_a)).height, 48);
       expect(
         find.descendant(of: find.byKey(_a), matching: find.byType(CustomPaint)),
         findsNothing,
@@ -304,7 +319,8 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(tester.getSize(find.byKey(_a)).width, _cozy.l);
-    expect(tester.getSize(find.byKey(_b)).width, _compact.l);
+    expect(tester.getSize(find.byKey(_b)).width, _cozy.l);
+    expect(_compact.l, _cozy.l);
   });
 
   testWidgets('[Integração] Dependências — Funciona sem Material', (

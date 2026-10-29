@@ -327,6 +327,8 @@ void main() {
       tester.getSize(find.byKey(const Key('compact'))).height,
       _line + 2 * compact.l,
     );
+    // Como no Fiori, a densidade não muda o espaçamento.
+    expect(compact.l, RebicThemeData.light().spacing.l);
   });
 
   testWidgets('[Integração] Dependências — Divisor sem Material', (
