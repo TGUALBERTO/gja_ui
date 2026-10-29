@@ -62,12 +62,12 @@
 #### Scenario: Densidade recomendada
 - **GIVEN** a plataforma Windows e `RebicApp` sem `density`
 - **WHEN** uma página lê o tema
-- **THEN** a densidade é compacta; com a plataforma Android, é confortável
+- **THEN** a densidade é compacta; com a plataforma Android, é `cozy`
 
 #### Scenario: Densidade informada
 - **GIVEN** a plataforma Windows
-- **WHEN** `RebicApp` é criado com `density` `comfortable`
-- **THEN** a densidade publicada é confortável
+- **WHEN** `RebicApp` é criado com `density` `cozy`
+- **THEN** a densidade publicada é `cozy`
 
 ### Requirement: [Comportamento] Localização da aplicação
 `RebicApp` SHALL registrar os delegates da aplicação seguidos do delegate de `rebic/core/localization`, e usar como idiomas suportados os informados ou, sem eles, os do Rebic. `locale` informado MUST fixar o idioma.

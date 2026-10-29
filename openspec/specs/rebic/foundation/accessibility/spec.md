@@ -33,7 +33,7 @@ A área de interação de cada widget interativo MUST ter, em largura e altura, 
 
 #### Scenario: Alvo por densidade
 - **WHEN** o alvo mínimo é pedido para os mapeamentos de densidade de referência
-- **THEN** o confortável retorna 48 e o compacto, 24
+- **THEN** o cozy retorna 44 e o compacto, 32
 
 ### Requirement: Movimento reduzido
 O fundamento SHALL definir o modo de animação com `full`, `basic`, `minimal` e `none`, como `sap.ui.core.AnimationMode`. O movimento é reduzido quando o modo efetivo é `minimal` ou `none`, e então todas as durações de movimento MUST ser resolvidas como zero, mantendo as curvas. Com `full` ou `basic`, os tokens MUST ser usados sem alteração. Com animações desligadas na plataforma, o modo efetivo MUST ser `none`.

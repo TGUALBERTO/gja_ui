@@ -50,11 +50,11 @@ O núcleo SHALL fornecer um valor responsivo com um valor obrigatório para `sma
 - **THEN** os resultados são 2 e 1
 
 ### Requirement: Densidade recomendada
-O núcleo SHALL recomendar a densidade inicial pela plataforma: compacta em Windows, macOS e Linux (entrada por ponteiro), e confortável em Android, iOS e Fuchsia (entrada por toque). A recomendação MUST ser só um padrão: a aplicação escolhe a densidade que usa.
+O núcleo SHALL recomendar a densidade inicial pela plataforma: compacta em Windows, macOS e Linux (entrada por ponteiro), e cozy em Android, iOS e Fuchsia (entrada por toque). A recomendação MUST ser só um padrão: a aplicação escolhe a densidade que usa.
 
 #### Scenario: Plataformas
 - **WHEN** a densidade recomendada é pedida para cada plataforma
-- **THEN** Windows, macOS e Linux recebem `compact`, e Android, iOS e Fuchsia recebem `comfortable`
+- **THEN** Windows, macOS e Linux recebem `compact`, e Android, iOS e Fuchsia recebem `cozy`
 
 ### Requirement: Testes e documentação da responsividade
 Cada cenário desta spec MUST ter um teste automatizado com o nome `<requisito> — <cenário>`. Toda API pública MUST ter dartdoc. A galeria SHALL ter uma página "Responsividade" que mostra a classe da tela, a classe de um painel mais estreito, um valor responsivo resolvido e a densidade recomendada.
