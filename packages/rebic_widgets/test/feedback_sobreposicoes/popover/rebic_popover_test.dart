@@ -255,7 +255,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(
         tester.getRect(_panel()).width,
-        closeTo(_light.spacing.xxxl * (steps == 10 ? 10 : 4), 0.01),
+        closeTo(_light.spacing.xxxl * (steps == 10 ? 10 : 6), 0.01),
       );
     }
   });

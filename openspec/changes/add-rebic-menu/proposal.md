@@ -27,7 +27,7 @@ foco. Mas ele é uma lista de seleção, com valor e item selecionado. O design 
 - **Teclado e largura:** os mesmos do dropdown.
   - O foco abre no primeiro item habilitado.
   - Setas, Home, End e a primeira letra navegam pelos itens.
-  - A lista tem a largura da âncora, com o mínimo de 4 passos `spacing.xxxl`.
+  - A lista tem a largura da âncora, com o mínimo de 6 passos `spacing.xxxl` (288 na referência e 192 no compacto).
 - **Semântica:** a lista é exposta com o papel `menu` e cada item com o papel `menuItem` (`SemanticsRole`), com rótulo
   e atalho, dentro da rota nomeada do popover.
 - **Refatoração interna:** a lista do `RebicDropdown` (itens, cores da família `list`, teclado e foco inicial) passa
@@ -50,7 +50,11 @@ Fora do escopo:
 
 ### Modified Capabilities
 
-Nenhuma. A refatoração da lista do dropdown é interna e coberta pelos testes atuais do `RebicDropdown`.
+- `rebic/widgets/rebic-popover`: o mínimo de `RebicPopoverWidth.anchor` passa de 4 para 6 passos `spacing.xxxl`.
+  Com 4 passos, a densidade compacta dava 128 px, e um item com ícone, rótulo e atalho ficava cortado ("Cop…").
+- `rebic/widgets/rebic-dropdown`: o cenário "Âncora estreita" passa a esperar 6 passos.
+
+A refatoração da lista do dropdown é interna e coberta pelos testes atuais do `RebicDropdown`.
 
 ## Impact
 

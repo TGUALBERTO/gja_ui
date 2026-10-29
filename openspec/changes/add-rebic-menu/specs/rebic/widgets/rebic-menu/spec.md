@@ -47,7 +47,7 @@ Acionar um item habilitado SHALL fechar o menu pelo `controller` e chamar o `onP
 - **THEN** nenhuma ação é chamada, e o menu continua aberto
 
 ### Requirement: [Comportamento] Largura e texto
-O menu SHALL usar a largura da âncora, com o mínimo de 4 passos `spacing.xxxl`, como `rebic/widgets/rebic-dropdown`. Cada rótulo SHALL ficar em uma linha, com reticências, e o atalho MUST continuar visível.
+O menu SHALL usar a largura da âncora, com o mínimo de 6 passos `spacing.xxxl`, como `rebic/widgets/rebic-dropdown`. Cada rótulo SHALL ficar em uma linha, com reticências, e o atalho MUST continuar visível.
 
 #### Scenario: Menu na largura da âncora
 - **GIVEN** uma âncora de 300 de largura numa tela larga
@@ -57,7 +57,7 @@ O menu SHALL usar a largura da âncora, com o mínimo de 4 passos `spacing.xxxl`
 #### Scenario: Menu sob âncora estreita
 - **GIVEN** um botão de ícone como âncora, numa tela larga
 - **WHEN** o menu é aberto
-- **THEN** o menu tem 4 passos `spacing.xxxl` de largura, e a borda inicial dele coincide com a do botão
+- **THEN** o menu tem 6 passos `spacing.xxxl` de largura, e a borda inicial dele coincide com a do botão
 
 ### Requirement: [Aparência] Itens e seções
 Os itens SHALL ter a aparência dos itens de `rebic/widgets/rebic-dropdown`: cores da família `list`, altura mínima `density.controlHeight`, espaço horizontal `spacing.m` e espaço `spacing.s` entre ícone, rótulo e atalho, este no tom `muted`. O divisor de seção SHALL ser o sutil de `rebic/widgets/rebic-divider`, sem valores literais.

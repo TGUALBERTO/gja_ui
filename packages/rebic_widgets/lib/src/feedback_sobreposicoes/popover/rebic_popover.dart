@@ -32,10 +32,11 @@ class RebicPopoverController extends RebicAnchoredOverlayController {
 
 /// Largura de um [RebicPopover], igual entre popovers do mesmo tipo.
 enum RebicPopoverWidth {
-  /// Largura da âncora, para listas como a do `sap.m.Select`: no mínimo 4
-  /// passos `spacing.xxxl` (192 nos tokens de referência), para que âncoras
-  /// estreitas, como botões de ícone, ainda deem uma lista legível.
-  anchor(4),
+  /// Largura da âncora, para listas como a do `sap.m.Select`: no mínimo 6
+  /// passos `spacing.xxxl` (288 nos tokens de referência, 192 no compacto),
+  /// para que âncoras estreitas, como botões de ícone, ainda deem uma lista
+  /// com ícone, rótulo e atalho legíveis.
+  anchor(6),
 
   /// Largura padrão: 8 passos `spacing.xxxl` (384 nos tokens de referência),
   /// perto do `contentWidth` usual de um popover Fiori.

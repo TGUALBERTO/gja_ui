@@ -2,11 +2,17 @@
 
 ## Não lançado
 
+- `RebicMenu` e `RebicMenuItem` (`add-rebic-menu`, spec `rebic/widgets/rebic-menu`): menu de ações ancorado no modelo
+  do `sap.m.Menu`, com ícone, atalho exibido (`shortcut`), seções (`startsSection`), itens desabilitados
+  (`onPressed: null`), navegação pelo teclado e papéis semânticos `menu` e `menuItem`. A lista do `RebicDropdown` passa
+  para um widget interno compartilhado (`RebicOptionList`), sem mudar a API dele. O mínimo de
+  `RebicPopoverWidth.anchor` passa de 4 para 6 passos `spacing.xxxl` (192 no compacto), para que ícone, rótulo e atalho
+  caibam.
 - `RebicDropdown` e `RebicDropdownItem` (`add-rebic-dropdown`, spec `rebic/widgets/rebic-dropdown`): lista de itens
   selecionáveis num popover ancorado, no modelo da lista do `sap.m.Select`, com ícone, rótulo em uma linha e texto
   adicional, item selecionado, itens desabilitados, cores da família `list`, navegação por setas, Home, End e
   primeira letra, e semântica de botão com estado de selecionado. Novo valor `RebicPopoverWidth.anchor` (largura da
-  âncora, no mínimo 4 passos `spacing.xxxl`). Os testes do popover e do tooltip passam a renderizar de fato a
+  âncora, no mínimo 6 passos `spacing.xxxl`). Os testes do popover e do tooltip passam a renderizar de fato a
   densidade compacta (o `RebicApp` recebe `density`), e os goldens compactos foram regenerados.
 - `RebicPopoverWidth` e `RebicPopover.width` (`update-rebic-popover-width`): a largura do popover deixa de seguir o
   conteúdo e passa a ser a do tema, igual entre popovers (`standard`, 8 passos `spacing.xxxl`; `wide`, 12 passos,

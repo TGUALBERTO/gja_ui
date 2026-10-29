@@ -231,7 +231,7 @@ void main() {
       await _open(tester, controller);
       expect(
         tester.getRect(_panel()).width,
-        closeTo(_light.spacing.xxxl * 4, 0.01),
+        closeTo(_light.spacing.xxxl * 6, 0.01),
       );
     });
 

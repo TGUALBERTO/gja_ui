@@ -109,6 +109,13 @@ class RebicMenu extends StatelessWidget {
   O cenário se chama "Página RebicMenu na galeria".
 - **Catálogo:** `implemented`, com as dependências do `[Integração]`.
 
+### D5. Mínimo das listas: 6 passos
+
+- Os goldens compactos mostraram "Copiar  Ctrl+C" cortado como "Cop…". O mínimo de 4 passos dava 128 px, porque
+  `spacing.xxxl` vale 32 no compacto.
+- Por decisão do usuário, `RebicPopoverWidth.anchor` passa a 6 passos: 288 na referência e 192 no compacto.
+- O dropdown e o menu herdam o valor. Os goldens do dropdown não mudam, porque a âncora deles já tem 6 passos.
+
 ## Risks / Trade-offs
 
 - [Refatoração do dropdown na change do menu] → É só a extração da lista, sem mudança de API nem de comportamento. Os
