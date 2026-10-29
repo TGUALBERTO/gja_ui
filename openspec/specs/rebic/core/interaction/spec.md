@@ -84,7 +84,7 @@ Cada cenário desta spec MUST ter um teste automatizado com o nome `<requisito> 
 - **THEN** o contador de ativações aumenta, e os estados ativos são exibidos como texto
 
 ### Requirement: Valores do tema ativo
-Sem valores recebidos, o elemento interativo MUST usar os do tema ativo: os tokens de interação (opacidade de desabilitado, espessura e afastamento do foco), a cor `focus` e o raio `control` do anel. Um valor recebido MUST ter precedência sobre o do tema.
+Sem valores recebidos, o elemento interativo MUST usar os do tema ativo: os tokens de interação (opacidade de desabilitado, espessura e afastamento do foco), a cor `focus` e o raio `button` do anel. Um valor recebido MUST ter precedência sobre o do tema.
 
 #### Scenario: Tema com densidade compacta e marca própria
 - **GIVEN** um tema ativo compacto com a cor `focus` trocada

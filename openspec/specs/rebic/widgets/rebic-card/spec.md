@@ -52,11 +52,11 @@ O cartão SHALL ocupar a largura disponível. O título e o subtítulo SHALL ter
 - **THEN** o cartão mede 300 de largura, o título ocupa no máximo 2 linhas, e não há estouro
 
 ### Requirement: [Aparência] Superfície e cabeçalho
-O cartão SHALL usar a superfície `colors.base`, a borda `colors.separator`, o raio `radius.container` e a sombra `shadows.card`. O cabeçalho e o conteúdo com margem SHALL usar o espaço `spacing.l`, e o divisor SHALL ser o sutil de `rebic/widgets/rebic-divider`, sem valores literais.
+O cartão SHALL usar a superfície `colors.base`, a borda `colors.separator`, o raio `radius.tile` e a sombra `shadows.card`. O cabeçalho e o conteúdo com margem SHALL usar o espaço `spacing.l`, e o divisor SHALL ser o sutil de `rebic/widgets/rebic-divider`, sem valores literais.
 
 #### Scenario: Superfície do cartão
 - **WHEN** um cartão com cabeçalho é renderizado nos temas claro e escuro
-- **THEN** o fundo é `colors.base`, a borda `colors.separator`, o raio `radius.container`, e há a sombra `shadows.card` de cada tema
+- **THEN** o fundo é `colors.base`, a borda `colors.separator`, o raio `radius.tile`, e há a sombra `shadows.card` de cada tema
 
 #### Scenario: Conteúdo sem margem
 - **GIVEN** um cartão com cabeçalho e `padded` `false`

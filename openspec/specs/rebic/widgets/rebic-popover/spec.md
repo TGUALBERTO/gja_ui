@@ -85,11 +85,11 @@ O popover SHALL abrir no lado e no alinhamento pedidos, com a inversão, o afast
 - **THEN** não há estouro, o título e as ações continuam visíveis, e a última linha fica visível
 
 ### Requirement: [Aparência] Superfície, cabeçalho e rodapé
-O popover SHALL usar a superfície `colors.base`, sem borda, o raio `radius.container` e a sombra `shadows.popover`. Cabeçalho e conteúdo com margem SHALL usar `spacing.l`, o rodapé SHALL usar `spacing.s` com ações separadas por `spacing.xs`, e os divisores SHALL ser os sutis de `rebic/widgets/rebic-divider`, sem valores literais.
+O popover SHALL usar a superfície `colors.base`, sem borda, o raio `radius.popover` e a sombra `shadows.popover`. Cabeçalho e conteúdo com margem SHALL usar `spacing.l`, o rodapé SHALL usar `spacing.s` com ações separadas por `spacing.xs`, e os divisores SHALL ser os sutis de `rebic/widgets/rebic-divider`, sem valores literais.
 
 #### Scenario: Superfície do popover
 - **WHEN** um popover com cabeçalho é aberto nos temas claro e escuro
-- **THEN** o fundo é `colors.base`, não há borda, o raio é `radius.container`, e há a sombra `shadows.popover` de cada tema
+- **THEN** o fundo é `colors.base`, não há borda, o raio é `radius.popover`, e há a sombra `shadows.popover` de cada tema
 
 ### Requirement: [Estados] Aberto e fechado
 O popover SHALL ter só os estados aberto e fechado. Fechado, ele MUST NOT ocupar a tela nem receber toques ou foco. Ele SHALL NOT ter hover, pressionado ou desabilitado próprios; os estados ficam com os elementos do conteúdo e com a âncora.

@@ -61,7 +61,7 @@ O link SHALL usar `colors.link` e o estilo `typography.base`. Com `subtle`, a co
 - **THEN** o primeiro tem a cor `colors.text`, e o segundo tem a cor `colors.link` e o estilo `typography.baseBold`
 
 ### Requirement: [Aparência] Tokens de componente
-A cor, o estilo e o raio do anel de foco SHALL vir do tema ativo (`colors`, `typography`, `radius.control`), sem valores literais.
+A cor, o estilo e o raio do anel de foco SHALL vir do tema ativo (`colors`, `typography`, `radius.xs`), sem valores literais.
 
 #### Scenario: Cor do link nos temas
 - **WHEN** o link é renderizado nos temas claro e escuro

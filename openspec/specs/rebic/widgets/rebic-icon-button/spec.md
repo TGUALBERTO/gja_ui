@@ -62,7 +62,7 @@ Cada tipo SHALL usar a família de controle de mesmo nome de `rebic/foundation/i
 - **THEN** o fundo, a borda e a cor do ícone de cada um são os do normal da família correspondente
 
 ### Requirement: [Aparência] Tokens de componente
-O lado SHALL ser `density.controlHeight`, o raio `radius.control` e o ícone `icons.control`, com a borda fina do framework, sem valores literais. A escala de texto MUST NOT alterar o tamanho.
+O lado SHALL ser `density.controlHeight`, o raio `radius.button` e o ícone `icons.control`, com a borda fina do framework, sem valores literais. A escala de texto MUST NOT alterar o tamanho.
 
 #### Scenario: Botão de ícone na densidade compacta
 - **GIVEN** um botão de ícone numa subárvore compacta, com escala de texto 2,0

@@ -69,7 +69,7 @@ Cada tipo SHALL usar a família de controle de mesmo nome de `rebic/foundation/i
 - **THEN** o fundo, a borda e o texto de cada um são os do normal da família correspondente
 
 ### Requirement: [Aparência] Tokens de componente
-A altura SHALL ser `density.controlHeight`, o espaço horizontal interno `spacing.m`, o espaço entre ícone e rótulo `spacing.xs`, o raio `radius.control`, o ícone `icons.control` e o rótulo `typography.baseSemibold`. A borda SHALL ter a espessura fina do framework. Nenhum valor MUST ser literal.
+A altura SHALL ser `density.controlHeight`, o espaço horizontal interno `spacing.m`, o espaço entre ícone e rótulo `spacing.xs`, o raio `radius.button`, o ícone `icons.control` e o rótulo `typography.baseSemibold`. A borda SHALL ter a espessura fina do framework. Nenhum valor MUST ser literal.
 
 #### Scenario: Medidas da densidade compacta
 - **GIVEN** um botão numa subárvore compacta
