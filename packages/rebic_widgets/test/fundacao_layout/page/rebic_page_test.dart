@@ -57,6 +57,10 @@ BoxDecoration _decoration(WidgetTester tester, Finder of) =>
 final _light = RebicThemeData.light();
 final _line = const BorderSide().width;
 
+/// Margem de página de [theme] para uma página de largura [width].
+double _margin(RebicThemeData theme, [double width = 800]) =>
+    theme.spacing.pageMarginFor(theme.breakpoints.classify(width));
+
 void main() {
   group('[API] Propriedades', () {
     testWidgets('[API] Propriedades — Página mínima', (tester) async {
@@ -99,7 +103,7 @@ void main() {
       expect(subtitle.left, title.left);
       expect(title.right, lessThanOrEqualTo(_rect(tester, 'a1').left));
       expect(_rect(tester, 'a1').right, lessThan(_rect(tester, 'a2').left));
-      final m = _light.spacing.pageMargin;
+      final m = _margin(_light);
       expect(_rect(tester, 'a2').right, closeTo(800 - m, 0.01));
       final footer = tester.getRect(_base.last);
       expect(_rect(tester, 'f1').top, greaterThan(footer.top));
@@ -193,7 +197,7 @@ void main() {
         );
         final title = tester.getRect(_base.first);
         final footer = tester.getRect(_base.last);
-        final m = _light.spacing.pageMargin;
+        final m = _margin(_light);
         expect(maxHeight!.isFinite, isTrue);
         expect(
           maxHeight,
@@ -221,6 +225,34 @@ void main() {
     expect(body.left, 0);
     expect(body.top, closeTo(tester.getRect(_base).bottom + _line, 0.01));
   });
+
+  testWidgets(
+    '[Comportamento] Margem do conteúdo — Margem pela largura da página',
+    (tester) async {
+      for (final (width, expected) in [
+        (400.0, 16.0),
+        (800.0, 32.0),
+        (1200.0, 32.0),
+        (1600.0, 48.0),
+      ]) {
+        _view(tester, width);
+        await tester.pumpWidget(
+          _host(
+            const RebicPage(
+              title: 'Pedidos',
+              body: SizedBox(key: Key('body'), height: 50),
+            ),
+          ),
+        );
+        expect(
+          _rect(tester, 'body').left,
+          closeTo(expected, 0.01),
+          reason: '$width',
+        );
+        expect(_margin(_light, width), expected, reason: '$width');
+      }
+    },
+  );
 
   group('[Aparência] Tokens de componente', () {
     testWidgets('[Aparência] Tokens de componente — Cores da página', (
@@ -265,7 +297,7 @@ void main() {
             ),
           ),
         );
-        final m = compact.spacing.pageMargin;
+        final m = _margin(compact);
         final body = _rect(tester, 'body');
         expect(body.left, closeTo(m, 0.01));
         expect(
@@ -400,7 +432,7 @@ void main() {
         ),
       ),
     );
-    final m = _light.spacing.pageMargin;
+    final m = _margin(_light);
     expect(tester.getRect(_back).right, closeTo(800 - m, 0.01));
     expect(_rect(tester, 'action').left, closeTo(m, 0.01));
     expect(_rect(tester, 'f1').left, closeTo(m, 0.01));
@@ -455,7 +487,7 @@ void main() {
   group('[Testes] Cobertura exigida', () {
     test('[Testes] Cobertura exigida — Rastreabilidade da página', () {
       final names = scenarioNames('rebic/widgets/rebic-page', 'add-rebic-page');
-      expect(names, hasLength(21));
+      expect(names, hasLength(22));
       expect(untestedScenarios(names), isEmpty);
     });
 

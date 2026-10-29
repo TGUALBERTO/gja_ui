@@ -9,22 +9,6 @@ import '../support/token_set_contract.dart';
 const _cozy = RebicDensityTokens.cozy();
 const _compact = RebicDensityTokens.compact();
 
-Map<String, double> _spacingValues(RebicSpacingTokens s) => {
-  'none': s.none,
-  'xxs': s.xxs,
-  'xs': s.xs,
-  's': s.s,
-  'm': s.m,
-  'l': s.l,
-  'xl': s.xl,
-  'xxl': s.xxl,
-  'xxxl': s.xxxl,
-  'inlineGap': s.inlineGap,
-  'stackGap': s.stackGap,
-  'sectionGap': s.sectionGap,
-  'pageMargin': s.pageMargin,
-};
-
 void main() {
   test('Modos de densidade — Mapeamento por modo', () {
     expect(RebicDensity.values, [RebicDensity.cozy, RebicDensity.compact]);
@@ -117,30 +101,17 @@ void main() {
     });
 
     test('Espaçamento por densidade — Espaçamento compacto', () {
-      final compact = _spacingValues(_compact.spacing);
-      final cozy = _spacingValues(_cozy.spacing);
-      final primitives = RebicSpacingPrimitives.values.values.toSet();
-      for (final MapEntry(key: name, value: value) in compact.entries) {
-        expect(value, lessThanOrEqualTo(cozy[name]!), reason: name);
-        expect(primitives, contains(value), reason: name);
-      }
-      final steps = compact.values.take(9).toList();
-      expect(compact['none'], 0);
-      for (var i = 1; i < steps.length; i++) {
-        expect(
-          steps[i],
-          greaterThanOrEqualTo(steps[i - 1]),
-          reason: 'passo $i',
-        );
-      }
-      for (final role in [
-        'inlineGap',
-        'stackGap',
-        'sectionGap',
-        'pageMargin',
-      ]) {
-        expect(steps, contains(compact[role]), reason: role);
-      }
+      expect(_compact.spacing, const RebicSpacingTokens.fallback());
+      expect(_compact.spacing, _cozy.spacing);
+      expect(
+        _compact.copyWith(
+          controlHeight: _cozy.controlHeight,
+          listItemHeight: _cozy.listItemHeight,
+          minTargetSize: _cozy.minTargetSize,
+          density: RebicDensity.cozy,
+        ),
+        _cozy,
+      );
     });
   });
 
@@ -191,7 +162,7 @@ void main() {
         expect(mid.controlHeight, 31);
         expect(mid.density, RebicDensity.compact);
         expect(_cozy.lerp(_compact, 0.49).density, RebicDensity.cozy);
-        expect(mid.spacing.m, 10);
+        expect(mid.spacing, _cozy.spacing);
       },
     );
 
@@ -201,7 +172,7 @@ void main() {
         _cozy.copyWith(controlHeight: 44),
         _cozy.copyWith(listItemHeight: 56),
         _cozy.copyWith(minTargetSize: 52),
-        _cozy.copyWith(spacing: _compact.spacing),
+        _cozy.copyWith(spacing: _cozy.spacing.copyWith(l: 20)),
       ];
       for (final (i, variant) in variants.indexed) {
         expect(variant, isNot(_cozy), reason: 'campo $i');

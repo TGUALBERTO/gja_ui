@@ -2,6 +2,16 @@
 
 ## Não lançado
 
+- Espaçamento no modelo Fiori (`update-rebic-foundation-spacing-fiori-margins`, specs `rebic/foundation/spacing` e
+  `rebic/foundation/density`):
+  - `RebicSpacingTokens` ganha `pageMarginMedium`, `pageMarginLarge`, `pageMarginExtraLarge` e
+    `pageMarginFor(RebicSizeClass)`, com 16, 32, 32 e 48 na referência (`sapUiResponsivePadding`). `pageMargin`
+    continua sendo a margem da classe S.
+  - O dartdoc dos passos `s`, `l`, `xxl` e `xxxl` cita as classes de margem `sapUiTinyMargin`…`sapUiLargeMargin`.
+  - **BREAKING (visual)** A densidade compacta passa a usar o espaçamento de referência. A densidade muda só as alturas
+    de elemento, como no Fiori.
+
+  Valores provisórios na ADR 0009.
 - **BREAKING** Densidade no modelo Fiori (`update-rebic-foundation-density-fiori-cozy`, spec `rebic/foundation/density`):
   `RebicDensity.comfortable` passa a `RebicDensity.cozy` (`sapUiSizeCozy`), e `RebicDensityTokens.comfortable()` a
   `RebicDensityTokens.cozy()`. Medidas dos parâmetros `sapElement_*`:

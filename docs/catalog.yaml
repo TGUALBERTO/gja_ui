@@ -392,6 +392,7 @@ items:
       - rebic/foundation/color
       - rebic/foundation/spacing
       - rebic/foundation/density
+      - rebic/foundation/breakpoints
       - rebic/foundation/iconography
       - rebic/foundation/interaction-states
       - rebic/foundation/theming

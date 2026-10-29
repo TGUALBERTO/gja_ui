@@ -62,7 +62,8 @@ class RebicPage extends StatelessWidget {
   /// Ações da página, no fim da área de título.
   final List<Widget> actions;
 
-  /// Se o conteúdo tem a margem `spacing.pageMargin`.
+  /// Se o conteúdo tem a margem de página da classe de tamanho da página
+  /// (`spacing.pageMarginFor`).
   final bool padded;
 
   /// Se o conteúdo rola; `false` lhe dá a altura disponível.
@@ -73,58 +74,10 @@ class RebicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = RebicThemeData.of(context);
+    final spacing = theme.spacing;
     final onBack = this.onBack;
     final subtitle = this.subtitle;
-    final titleArea = RebicContainer(
-      surface: RebicSurface.base,
-      child: RebicSpacing.padding(
-        horizontal: RebicSpace.pageMargin,
-        vertical: RebicSpace.m,
-        child: RebicRow(
-          gap: RebicSpace.s,
-          children: [
-            if (onBack != null)
-              RebicIconButton(
-                icon: RebicIcons.arrowLeft,
-                tooltip: RebicLocalizations.of(context).back,
-                onPressed: onBack,
-              ),
-            Expanded(
-              child: RebicColumn(
-                gap: RebicSpace.xxs,
-                shrinkWrap: true,
-                children: [
-                  RebicText(
-                    title,
-                    variant: RebicTextVariant.headline,
-                    maxLines: 2,
-                  ),
-                  if (subtitle != null)
-                    RebicText(subtitle, tone: RebicTextTone.muted, maxLines: 1),
-                ],
-              ),
-            ),
-            ...actions,
-          ],
-        ),
-      ),
-    );
-
-    Widget content = body;
-    if (scrollable) {
-      if (padded) {
-        content = RebicSpacing.padding(
-          all: RebicSpace.pageMargin,
-          child: content,
-        );
-      }
-      content = SingleChildScrollView(child: content);
-    } else if (padded) {
-      content = RebicSpacing.padding(
-        all: RebicSpace.pageMargin,
-        child: content,
-      );
-    }
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -133,6 +86,59 @@ class RebicPage extends StatelessWidget {
           'RebicPage precisa de altura limitada: use-a como corpo do '
           'RebicScaffold ou como página de uma rota, não dentro de uma rolagem',
         );
+        // Margem da classe de tamanho da própria página, como o padding
+        // responsivo da `sap.f.DynamicPage`.
+        final margin = spacing.pageMarginFor(
+          theme.breakpoints.classify(constraints.maxWidth),
+        );
+
+        final titleArea = RebicContainer(
+          surface: RebicSurface.base,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: margin,
+              vertical: spacing.m,
+            ),
+            child: RebicRow(
+              gap: RebicSpace.s,
+              children: [
+                if (onBack != null)
+                  RebicIconButton(
+                    icon: RebicIcons.arrowLeft,
+                    tooltip: RebicLocalizations.of(context).back,
+                    onPressed: onBack,
+                  ),
+                Expanded(
+                  child: RebicColumn(
+                    gap: RebicSpace.xxs,
+                    shrinkWrap: true,
+                    children: [
+                      RebicText(
+                        title,
+                        variant: RebicTextVariant.headline,
+                        maxLines: 2,
+                      ),
+                      if (subtitle != null)
+                        RebicText(
+                          subtitle,
+                          tone: RebicTextTone.muted,
+                          maxLines: 1,
+                        ),
+                    ],
+                  ),
+                ),
+                ...actions,
+              ],
+            ),
+          ),
+        );
+
+        Widget content = body;
+        if (padded) {
+          content = Padding(padding: EdgeInsets.all(margin), child: content);
+        }
+        if (scrollable) content = SingleChildScrollView(child: content);
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -143,9 +149,11 @@ class RebicPage extends StatelessWidget {
               const RebicDivider(),
               RebicContainer(
                 surface: RebicSurface.base,
-                child: RebicSpacing.padding(
-                  horizontal: RebicSpace.pageMargin,
-                  vertical: RebicSpace.s,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: margin,
+                    vertical: spacing.s,
+                  ),
                   child: RebicRow(
                     gap: RebicSpace.s,
                     mainAlignment: RebicMainAlignment.end,

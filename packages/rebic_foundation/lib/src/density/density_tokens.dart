@@ -2,7 +2,6 @@ import 'dart:ui' show lerpDouble;
 
 import 'package:flutter/foundation.dart';
 
-import '../spacing/primitives/spacing_primitives.dart';
 import 'primitives/density_primitives.dart';
 import '../spacing/spacing_tokens.dart';
 import '../tokens/lerp.dart';
@@ -16,31 +15,12 @@ enum RebicDensity {
   /// maiores (`sapUiSizeCozy`).
   cozy,
 
-  /// Entrada por ponteiro: controles e espaçamentos reduzidos
+  /// Entrada por ponteiro: controles menores, com o mesmo espaçamento
   /// (`sapUiSizeCompact`).
   compact,
 }
 
-typedef _S = RebicSpacingPrimitives;
 typedef _D = RebicDensityPrimitives;
-
-/// Espaçamento da densidade compacta: passos e papéis reduzidos, na mesma
-/// escala primitiva (grade de 4 px).
-const _compactSpacing = RebicSpacingTokens(
-  none: _S.space0,
-  xxs: _S.space2,
-  xs: _S.space4,
-  s: _S.space4,
-  m: _S.space8,
-  l: _S.space12,
-  xl: _S.space16,
-  xxl: _S.space24,
-  xxxl: _S.space32,
-  inlineGap: _S.space4,
-  stackGap: _S.space8,
-  sectionGap: _S.space24,
-  pageMargin: _S.space12,
-);
 
 /// Dimensões e espaçamento de uma densidade.
 ///
@@ -81,7 +61,7 @@ class RebicDensityTokens extends RebicTokenSet<RebicDensityTokens> {
         controlHeight: _D.size26,
         listItemHeight: _D.size32,
         minTargetSize: _D.size32,
-        spacing: _compactSpacing,
+        spacing: const RebicSpacingTokens.fallback(),
       );
 
   /// Mapeamento de referência de [density].

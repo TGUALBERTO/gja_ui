@@ -39,6 +39,9 @@ RebicSpacingTokens _doubled(RebicSpacingTokens t) => RebicSpacingTokens(
   stackGap: t.stackGap * 2,
   sectionGap: t.sectionGap * 2,
   pageMargin: t.pageMargin * 2,
+  pageMarginMedium: t.pageMarginMedium * 2,
+  pageMarginLarge: t.pageMarginLarge * 2,
+  pageMarginExtraLarge: t.pageMarginExtraLarge * 2,
 );
 
 void main() {
@@ -87,6 +90,28 @@ void main() {
       expect(_fallback.inlineGap, lessThanOrEqualTo(_fallback.stackGap));
       expect(_fallback.stackGap, lessThanOrEqualTo(_fallback.sectionGap));
     });
+
+    test('Papéis de layout — Margem de página por classe de tamanho', () {
+      expect(
+        [for (final c in RebicSizeClass.values) _fallback.pageMarginFor(c)],
+        [16, 32, 32, 48],
+      );
+      expect(
+        _fallback.pageMarginFor(RebicSizeClass.small),
+        _fallback.pageMargin,
+      );
+      final steps = _steps(_fallback).toSet();
+      for (final c in RebicSizeClass.values) {
+        expect(steps, contains(_fallback.pageMarginFor(c)), reason: c.name);
+      }
+    });
+  });
+
+  test('Classes de margem do Fiori — Passos e classes de margem', () {
+    expect(
+      [_fallback.s, _fallback.l, _fallback.xxl, _fallback.xxxl],
+      [8, 16, 32, 48],
+    );
   });
 
   group('Contrato do conjunto de espaçamento', () {
@@ -134,6 +159,9 @@ void main() {
         _fallback.copyWith(stackGap: 13),
         _fallback.copyWith(sectionGap: 33),
         _fallback.copyWith(pageMargin: 17),
+        _fallback.copyWith(pageMarginMedium: 33),
+        _fallback.copyWith(pageMarginLarge: 33),
+        _fallback.copyWith(pageMarginExtraLarge: 49),
       ];
       for (final (i, variant) in variants.indexed) {
         expect(variant, isNot(_fallback), reason: 'campo $i');

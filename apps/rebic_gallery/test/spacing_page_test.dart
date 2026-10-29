@@ -27,6 +27,10 @@ void main() {
       'stackGap': '12 px',
       'sectionGap': '32 px',
       'pageMargin': '16 px',
+      'margem S': '16 px',
+      'margem M': '32 px',
+      'margem L': '32 px',
+      'margem XL': '48 px',
     };
     for (final MapEntry(key: name, value: value) in expected.entries) {
       final row = find.ancestor(

@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- Espaçamento no modelo Fiori (`update-rebic-foundation-spacing-fiori-margins`): `RebicPage` usa a margem de página
+  da classe de tamanho da própria largura (16, 32, 32 e 48 de S a XL), como a `sap.f.DynamicPage`, no conteúdo, na
+  área de título e no rodapé. Na densidade compacta, os widgets passam a ter o mesmo espaçamento da cozy, e os goldens
+  compactos e os da página foram regerados.
 - **BREAKING** Densidade no modelo Fiori (`update-rebic-foundation-density-fiori-cozy`): `RebicDensity.comfortable`
   passa a `RebicDensity.cozy`, também no parâmetro `density` de `RebicApp`. Botões e botões de ícone medem 36 no cozy
   e 26 no compacto, dentro de uma área de interação de 44 e 32. Os goldens `*_comfortable.png` passam a `*_cozy.png`

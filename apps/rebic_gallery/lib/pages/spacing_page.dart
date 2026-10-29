@@ -13,6 +13,14 @@ class SpacingPage extends StatelessWidget {
   /// Título no índice e no cabeçalho.
   static const title = 'Espaçamentos';
 
+  /// Classes de tamanho exibidas na seção de margem de página, com o rótulo.
+  static const marginClasses = <(String, RebicSizeClass)>[
+    ('margem S', RebicSizeClass.small),
+    ('margem M', RebicSizeClass.medium),
+    ('margem L', RebicSizeClass.large),
+    ('margem XL', RebicSizeClass.extraLarge),
+  ];
+
   /// Rota nomeada.
   static const route = '/spacing';
 
@@ -67,6 +75,13 @@ class SpacingPage extends StatelessWidget {
           const Text('Papéis de layout', style: TextStyle(fontSize: 20)),
           for (final MapEntry(key: name, value: value) in layout.entries)
             row(name, value),
+          SizedBox(height: spacing.sectionGap),
+          const Text(
+            'Margem de página por classe de tamanho',
+            style: TextStyle(fontSize: 20),
+          ),
+          for (final (label, sizeClass) in marginClasses)
+            row(label, spacing.pageMarginFor(sizeClass)),
         ],
       ),
     );
