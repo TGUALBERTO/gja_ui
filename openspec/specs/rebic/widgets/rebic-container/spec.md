@@ -94,12 +94,12 @@ Com `radius` diferente de `none`, `RebicContainer` SHALL recortar o conteúdo no
 - **THEN** a diretriz passa
 
 ### Requirement: [Responsividade] Densidade
-O `padding` SHALL usar o espaçamento da densidade ativa. Raio e sombra MUST ser os mesmos nas duas densidades. O contêiner MUST se ajustar à largura disponível, sem tamanho próprio.
+O `padding` SHALL usar o espaçamento do tema ativo, que é o mesmo nas densidades cozy e compacta, conforme `rebic/foundation/density`. Raio e sombra MUST ser os mesmos nas duas densidades. O contêiner MUST se ajustar à largura disponível, sem tamanho próprio.
 
 #### Scenario: Densidade compacta
 - **GIVEN** um `RebicContainer` com `padding` `l`, dentro e fora de uma subárvore compacta
 - **WHEN** os dois são renderizados
-- **THEN** o espaço interno é o `l` compacto dentro e o `l` confortável fora, com o mesmo raio e a mesma sombra
+- **THEN** o espaço interno é o mesmo `l` dentro e fora, com o mesmo raio e a mesma sombra
 
 ### Requirement: [Integração] Dependências
 `RebicContainer` SHALL depender somente de `rebic/foundation/color`, `rebic/foundation/radius`, `rebic/foundation/shadows`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/theming` e `rebic/widgets/rebic-spacing` (os valores de `RebicSpace`).

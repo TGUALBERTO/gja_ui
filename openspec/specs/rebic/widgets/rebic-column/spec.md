@@ -63,9 +63,9 @@ Em `RebicColumn`, um filho `Expanded` ou `Flexible` SHALL ocupar o espaço verti
 `RebicColumn` SHALL obter `gap` de `spacing.<valor>` do tema ativo, sem valores literais, e SHALL NOT pintar nada.
 
 #### Scenario: Troca de densidade da coluna
-- **GIVEN** `RebicColumn` com `gap` `l` na densidade confortável
-- **WHEN** o tema ativo passa para a densidade compacta
-- **THEN** o espaço entre os filhos passa ao `l` compacto, sem recriar o widget com outros parâmetros
+- **GIVEN** `RebicColumn` com `gap` `l` na densidade cozy
+- **WHEN** o tema ativo passa para a densidade compacta e, depois, para um tema com `l` de 24
+- **THEN** o espaço entre os filhos continua o `l` de referência na compacta e passa a 24 no último tema, sem recriar o widget com outros parâmetros
 
 ### Requirement: [Estados] Sem estados visuais
 `RebicColumn` SHALL NOT apresentar estados de interação, porque não é interativo.
@@ -91,7 +91,7 @@ A ordem de foco dos filhos de `RebicColumn` SHALL seguir a ordem visual, de cima
 - **THEN** as duas árvores têm os mesmos rótulos, na mesma ordem
 
 ### Requirement: [Responsividade] Direção e densidade
-O alinhamento cruzado de `RebicColumn` SHALL seguir a direção do texto: em RTL, `start` é à direita. O `gap` SHALL usar o espaçamento da densidade ativa.
+O alinhamento cruzado de `RebicColumn` SHALL seguir a direção do texto: em RTL, `start` é à direita. O `gap` SHALL usar o espaçamento do tema ativo, que é o mesmo nas densidades cozy e compacta, conforme `rebic/foundation/density`.
 
 #### Scenario: Coluna em RTL
 - **GIVEN** a direção do texto da direita para a esquerda
@@ -101,7 +101,7 @@ O alinhamento cruzado de `RebicColumn` SHALL seguir a direção do texto: em RTL
 #### Scenario: Densidade compacta na coluna
 - **GIVEN** um `RebicColumn` com `gap` `l`, dentro e fora de uma subárvore compacta
 - **WHEN** os dois são renderizados
-- **THEN** o espaço é o `l` compacto dentro e o `l` confortável fora
+- **THEN** o espaço é o mesmo `l` dentro e fora
 
 ### Requirement: [Integração] Dependências
 `RebicColumn` SHALL depender somente de `rebic/widgets/rebic-spacing`, `rebic/foundation/spacing`, `rebic/foundation/density` e `rebic/foundation/theming`, e do widget nativo `Flex`.

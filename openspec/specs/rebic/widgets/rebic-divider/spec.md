@@ -87,12 +87,12 @@
 - **THEN** todas são ≥ 3:1
 
 ### Requirement: [Responsividade] Densidade
-O `spacing` e o recuo SHALL usar o espaçamento da densidade ativa. A espessura MUST ser a mesma nas duas densidades e em qualquer escala de texto.
+O `spacing` e o recuo SHALL usar o espaçamento do tema ativo, que é o mesmo nas densidades cozy e compacta, conforme `rebic/foundation/density`. A espessura MUST ser a mesma nas duas densidades e em qualquer escala de texto.
 
 #### Scenario: Densidade compacta do divisor
 - **GIVEN** um `RebicDivider(spacing: l)`, dentro e fora de uma subárvore compacta
 - **WHEN** os dois são renderizados
-- **THEN** a altura é a linha fina mais 2 × `l` compacto dentro, e mais 2 × `l` confortável fora
+- **THEN** a altura é a linha fina mais 2 × `l` nos dois casos
 
 ### Requirement: [Integração] Dependências
 `RebicDivider` SHALL depender somente de `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/theming`, `rebic/foundation/accessibility` e `rebic/widgets/rebic-spacing`.

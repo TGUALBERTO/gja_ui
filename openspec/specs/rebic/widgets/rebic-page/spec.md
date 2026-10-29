@@ -58,12 +58,16 @@ Com `scrollable` `true`, o conteúdo SHALL rolar verticalmente entre a área de 
 - **THEN** o conteúdo recebe uma altura limitada, igual à distância entre a área de título e o rodapé
 
 ### Requirement: [Comportamento] Margem do conteúdo
-Com `padded` `true`, o conteúdo SHALL ter a margem `spacing.pageMargin` nos quatro lados. Com `padded` `false`, MUST NOT haver margem.
+Com `padded` `true`, o conteúdo SHALL ter nos quatro lados a margem de página da classe de tamanho da largura da própria página (`spacing.pageMarginFor`), como o padding responsivo da `sap.f.DynamicPage`. Com `padded` `false`, MUST NOT haver margem.
 
 #### Scenario: Conteúdo sem margem
 - **GIVEN** uma página com `padded` `false`
 - **WHEN** a página é renderizada
 - **THEN** o conteúdo começa na borda inicial da página, logo abaixo da área de título
+
+#### Scenario: Margem pela largura da página
+- **WHEN** páginas com `padded` `true` são renderizadas com larguras de 400, 800, 1200 e 1600
+- **THEN** o conteúdo começa a 16, 32, 32 e 48 da borda inicial, respectivamente
 
 ### Requirement: [Aparência] Tokens de componente
 A área de título e o rodapé SHALL usar o fundo `colors.base` e ser separados do conteúdo por divisores sutis de `rebic/widgets/rebic-divider`. O conteúdo SHALL NOT pintar fundo próprio. O título SHALL usar a variante `headline` e o subtítulo a variante `body` com o tom `muted` de `rebic/widgets/rebic-text`. Os espaços SHALL vir de `spacing`, sem valores literais.
@@ -75,7 +79,7 @@ A área de título e o rodapé SHALL usar o fundo `colors.base` e ser separados 
 #### Scenario: Margem da densidade compacta
 - **GIVEN** uma página numa subárvore compacta
 - **WHEN** a página é renderizada
-- **THEN** o conteúdo começa a `pageMargin` compacta das bordas da área de conteúdo
+- **THEN** o conteúdo começa à margem de página do espaçamento compacto para a classe de tamanho da página, igual à da densidade cozy
 
 ### Requirement: [Estados] Botão de voltar
 O botão de voltar SHALL apresentar os estados normal, hover, pressionado e foco do teclado de `rebic/core/interaction`, com as cores da família `transparent`. A página SHALL NOT apresentar outros estados de interação.
@@ -126,7 +130,7 @@ Dos widgets, `RebicPage` SHALL depender somente de `rebic/widgets/rebic-text`, `
 - **THEN** não ocorrem exceções relacionadas a ancestrais Material ou Cupertino, a área de título da página começa abaixo da barra, e o rodapé termina na borda inferior da tela
 
 ### Requirement: [Integração] Dependências de núcleo e fundamentos
-Do núcleo e dos fundamentos, `RebicPage` SHALL depender somente de `rebic/core/interaction`, `rebic/core/localization`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/iconography`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+Do núcleo e dos fundamentos, `RebicPage` SHALL depender somente de `rebic/core/interaction`, `rebic/core/localization`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/breakpoints`, `rebic/foundation/iconography`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Página pelo tema da subárvore
 - **GIVEN** uma página numa subárvore com o tema escuro, dentro de uma aplicação clara

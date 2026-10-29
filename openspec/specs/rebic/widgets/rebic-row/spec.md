@@ -73,9 +73,9 @@ Em `RebicRow` sem quebra, um filho `Expanded` ou `Flexible` SHALL ocupar o espa�
 `RebicRow` SHALL obter `gap` de `spacing.<valor>` do tema ativo, sem valores literais, e SHALL NOT pintar nada.
 
 #### Scenario: Troca de densidade da linha
-- **GIVEN** `RebicRow` com `gap` `l` na densidade confortável
-- **WHEN** o tema ativo passa para a densidade compacta
-- **THEN** o espaço entre os filhos passa ao `l` compacto, sem recriar o widget com outros parâmetros
+- **GIVEN** `RebicRow` com `gap` `l` na densidade cozy
+- **WHEN** o tema ativo passa para a densidade compacta e, depois, para um tema com `l` de 24
+- **THEN** o espaço entre os filhos continua o `l` de referência na compacta e passa a 24 no último tema, sem recriar o widget com outros parâmetros
 
 ### Requirement: [Estados] Sem estados visuais
 `RebicRow` SHALL NOT apresentar estados de interação, porque não é interativo.
@@ -101,7 +101,7 @@ A ordem de foco dos filhos de `RebicRow` SHALL seguir a ordem visual, inclusive 
 - **THEN** as duas árvores têm os mesmos rótulos, na mesma ordem
 
 ### Requirement: [Responsividade] Direção e densidade
-`RebicRow` SHALL seguir a direção do texto: em RTL, o início é à direita. O `gap` SHALL usar o espaçamento da densidade ativa. Para larguras pequenas, `RebicRow.wrap` é a forma de evitar estouro.
+`RebicRow` SHALL seguir a direção do texto: em RTL, o início é à direita. O `gap` SHALL usar o espaçamento do tema ativo, que é o mesmo nas densidades cozy e compacta, conforme `rebic/foundation/density`. Para larguras pequenas, `RebicRow.wrap` é a forma de evitar estouro.
 
 #### Scenario: Linha em RTL
 - **GIVEN** a direção do texto da direita para a esquerda
@@ -111,7 +111,7 @@ A ordem de foco dos filhos de `RebicRow` SHALL seguir a ordem visual, inclusive 
 #### Scenario: Densidade compacta na linha
 - **GIVEN** um `RebicRow` com `gap` `l`, dentro e fora de uma subárvore compacta
 - **WHEN** os dois são renderizados
-- **THEN** o espaço é o `l` compacto dentro e o `l` confortável fora
+- **THEN** o espaço é o mesmo `l` dentro e fora
 
 ### Requirement: [Integração] Dependências
 `RebicRow` SHALL depender somente de `rebic/widgets/rebic-spacing`, `rebic/foundation/spacing`, `rebic/foundation/density` e `rebic/foundation/theming`, e dos widgets nativos `Flex` e `Wrap`.

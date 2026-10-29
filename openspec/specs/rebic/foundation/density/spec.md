@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define a densidade do Rebic: os modos `comfortable` e `compact`, as dimensões de controle, item e alvo de interação de cada modo e o espaçamento compacto, preservando a tipografia. Usa a escala e o contrato de `rebic/foundation/spacing` e os estilos de `rebic/foundation/typography`.
+Define a densidade do Rebic: os modos `cozy` e `compact` das densidades de conteúdo do Fiori e as dimensões de controle, item e alvo de interação de cada modo, com o mesmo espaçamento nos dois, preservando a tipografia. Usa a escala e o contrato de `rebic/foundation/spacing` e os estilos de `rebic/foundation/typography`.
 
 ## Requirements
 
@@ -44,15 +44,15 @@ O alvo mínimo MUST ser de pelo menos 44 px lógicos no modo `cozy` (altura de l
 - **THEN** a criação falha em modo debug com mensagem que cita o mínimo de 24
 
 ### Requirement: Espaçamento por densidade
-Cada mapeamento de densidade SHALL conter um conjunto de espaçamento completo. O cozy MUST usar o mapeamento de referência de espaçamento. O compacto MUST ter cada passo e papel menor ou igual ao do cozy, com passos não decrescentes, `none` igual a zero, cada papel de layout igual a algum passo e todos os valores vindos da escala primitiva de espaçamento.
+Cada mapeamento de densidade SHALL conter um conjunto de espaçamento completo. Os mapeamentos de referência cozy e compacto MUST usar o mesmo mapeamento de referência de espaçamento: como no Fiori, a densidade muda as alturas de elemento, e as classes de margem valem o mesmo em Cozy e Compact.
 
 #### Scenario: Espaçamento confortável
 - **WHEN** o espaçamento do mapeamento cozy é comparado com o mapeamento de referência de espaçamento
 - **THEN** eles são iguais
 
 #### Scenario: Espaçamento compacto
-- **WHEN** o espaçamento compacto é inspecionado
-- **THEN** cada valor é ≤ ao cozy correspondente, os passos são não decrescentes, `none` vale 0, os papéis apontam para passos e os valores existem na escala primitiva
+- **WHEN** o espaçamento compacto é comparado com o mapeamento de referência de espaçamento
+- **THEN** eles são iguais, e o compacto difere do cozy só nas dimensões de controle, item e alvo
 
 ### Requirement: Tipografia preservada
 A densidade MUST NOT alterar tamanhos de fonte nem alturas de linha. Em cada mapeamento de referência, a altura de controle MUST comportar a linha do estilo `base` da tipografia de referência mais o passo `xxs` do próprio espaçamento acima e abaixo.
