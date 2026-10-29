@@ -36,15 +36,19 @@ A área de interação de cada widget interativo MUST ter, em largura e altura, 
 - **THEN** o confortável retorna 48 e o compacto, 24
 
 ### Requirement: Movimento reduzido
-Quando a plataforma pede redução de animações, todas as durações de movimento MUST ser resolvidas como zero, mantendo as curvas. Sem esse pedido, os tokens de movimento MUST ser usados sem alteração.
+O fundamento SHALL definir o modo de animação com `full`, `basic`, `minimal` e `none`, como `sap.ui.core.AnimationMode`. O movimento é reduzido quando o modo efetivo é `minimal` ou `none`, e então todas as durações de movimento MUST ser resolvidas como zero, mantendo as curvas. Com `full` ou `basic`, os tokens MUST ser usados sem alteração. Com animações desligadas na plataforma, o modo efetivo MUST ser `none`.
 
 #### Scenario: Animações desativadas
-- **WHEN** os tokens de movimento de referência são resolvidos com redução de animações
-- **THEN** `instant`, `short`, `medium` e `long` valem zero, e as curvas são as originais
+- **WHEN** os tokens de movimento de referência são resolvidos com o modo `minimal` e com o modo `none`
+- **THEN** nos dois casos `instant`, `short`, `medium` e `long` valem zero, e as curvas são as originais
 
 #### Scenario: Animações ativas
-- **WHEN** os tokens são resolvidos sem redução de animações
-- **THEN** o resultado é igual aos tokens de entrada
+- **WHEN** os tokens são resolvidos com o modo `full` e com o modo `basic`
+- **THEN** nos dois casos o resultado é igual aos tokens de entrada
+
+#### Scenario: Modo efetivo
+- **WHEN** o modo efetivo é calculado para cada modo pedido, com e sem animações desligadas na plataforma
+- **THEN** sem o pedido da plataforma ele é o modo pedido, e com o pedido ele é `none`
 
 ### Requirement: Semântica dos widgets interativos
 Todo widget interativo MUST expor ao leitor de tela rótulo, papel, estado (habilitado, selecionado, marcado, expandido, conforme o caso) e valor, quando houver. Ícones decorativos MUST ficar fora da árvore semântica. Um erro de estado de valor MUST ser anunciado junto com o rótulo do campo.
@@ -62,8 +66,8 @@ Cada widget interativo MUST ter testes que apliquem `textContrastGuideline`, `la
 - **THEN** ela passa nas duas densidades, e uma superfície de 20 × 20 px falha nas duas
 
 ### Requirement: Testes e documentação da acessibilidade
-Cada cenário desta spec MUST ter um teste automatizado com o nome `<requisito> — <cenário>`. Toda API pública do fundamento MUST ter dartdoc com a linha de nível. A galeria SHALL ter uma página "Acessibilidade" com os limites, uma demonstração do movimento reduzido e uma amostra de texto que acompanha a escala do sistema.
+Cada cenário desta spec MUST ter um teste automatizado com o nome `<requisito> — <cenário>`. Toda API pública do fundamento MUST ter dartdoc com a linha de nível. A galeria SHALL ter uma página "Acessibilidade" com os limites, uma demonstração do movimento em cada modo de animação e uma amostra de texto que acompanha a escala do sistema.
 
 #### Scenario: Página na galeria
 - **WHEN** a página "Acessibilidade" é aberta
-- **THEN** ela exibe a meta WCAG 2.2 AA, os limites de contraste, escala e alvo, e as durações de movimento com e sem redução de animações
+- **THEN** ela exibe a meta WCAG 2.2 AA, os limites de contraste, escala e alvo, e as durações de movimento nos modos `full`, `basic`, `minimal` e `none`

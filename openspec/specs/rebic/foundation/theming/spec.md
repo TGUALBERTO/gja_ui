@@ -7,11 +7,11 @@ Define o tema centralizado do Rebic: um único objeto que reúne todos os fundam
 ## Requirements
 
 ### Requirement: Tema centralizado
-O fundamento SHALL fornecer um objeto de tema imutável que reúna o brilho e um conjunto de cada fundamento: `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/density` (com o espaçamento de `rebic/foundation/spacing`), `rebic/foundation/radius`, `rebic/foundation/shadows`, o movimento de `rebic/foundation/design-tokens`, `rebic/foundation/iconography`, `rebic/foundation/interaction-states` e `rebic/foundation/breakpoints`.
+O tema SHALL ser um objeto imutável com o brilho, o modo de animação (`full` por padrão) e um conjunto de cada fundamento: `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/density` (com o espaçamento de `rebic/foundation/spacing`), `rebic/foundation/radius`, `rebic/foundation/shadows`, o movimento de `rebic/foundation/design-tokens`, `rebic/foundation/iconography`, `rebic/foundation/interaction-states` e `rebic/foundation/breakpoints`.
 
 #### Scenario: Tema completo
 - **WHEN** o tema claro de referência é inspecionado
-- **THEN** ele expõe brilho, cores, tipografia, densidade, espaçamento, raios, sombras, movimento, ícones, estados de interação e breakpoints, e o espaçamento é o da densidade
+- **THEN** ele expõe brilho, modo de animação `full`, cores, tipografia, densidade, espaçamento, raios, sombras, movimento, ícones, estados de interação e breakpoints, e o espaçamento é o da densidade
 
 ### Requirement: Temas de referência claro e escuro
 O fundamento SHALL fornecer os temas de referência claro e escuro. Eles MUST usar os mapeamentos de cor claro e escuro, respectivamente, e MUST ter os mesmos valores em todos os outros conjuntos. Ambos MUST aceitar a densidade, sendo `comfortable` o padrão.
@@ -45,11 +45,20 @@ O tema SHALL permitir substituir qualquer conjunto por `copyWith`, sem alterar o
 - **THEN** o par `contrastText`/`brand` é listado com a razão encontrada e o mínimo exigido
 
 ### Requirement: Movimento reduzido no tema
-O tema SHALL oferecer a resolução para o contexto da plataforma: com redução de animações, o resultado MUST ter todas as durações de movimento zeradas. Sem ela, o resultado MUST ser o próprio tema.
+O tema SHALL oferecer a resolução para o contexto da plataforma. O modo efetivo MUST ser o do tema ou, com animações desligadas na plataforma, `none`. O resultado MUST ter esse modo e o movimento resolvido para ele, conforme `rebic/foundation/accessibility`. Com o modo efetivo igual ao do tema e sem redução, o resultado MUST ser o próprio tema.
 
 #### Scenario: Tema resolvido com redução
-- **WHEN** o tema claro é resolvido com redução de animações
-- **THEN** as durações de movimento valem zero, e todos os outros conjuntos são iguais
+- **WHEN** o tema claro é resolvido com animações desligadas na plataforma
+- **THEN** o modo é `none`, as durações de movimento valem zero, e todos os outros conjuntos são iguais
+
+#### Scenario: Modo do tema sem pedido da plataforma
+- **GIVEN** o tema claro com modo de animação `minimal`
+- **WHEN** ele é resolvido sem animações desligadas na plataforma
+- **THEN** o modo continua `minimal`, e as durações de movimento valem zero
+
+#### Scenario: Tema sem redução
+- **WHEN** o tema claro, com modo `full`, é resolvido sem animações desligadas na plataforma
+- **THEN** o resultado é o próprio tema
 
 ### Requirement: Tokens de componente e extensões
 O tema SHALL conter duas coleções tipadas: `components`, para os tokens de componente dos widgets do framework, e `extensions`, para os tokens da aplicação. Buscar um tipo registrado MUST retornar a instância, e um tipo ausente MUST retornar nulo, para que o widget use os tokens padrão derivados dos semânticos.
@@ -79,7 +88,7 @@ Cada cenário desta spec MUST ter um teste automatizado com o nome `<requisito> 
 - **THEN** a prévia passa a usar a cor `base` do tema escuro, sem recriar a página com parâmetros visuais diferentes
 
 ### Requirement: Tema na árvore de widgets
-O fundamento SHALL fornecer um escopo herdado que publica um tema para a subárvore e a leitura do tema ativo a partir de um contexto. A leitura MUST retornar o tema do escopo mais próximo e, sem escopo, o tema claro de referência. Quando o sistema pede animações desligadas, a leitura MUST retornar o tema resolvido com movimento reduzido. Quem lê MUST ser reconstruído quando o tema do escopo muda.
+O fundamento SHALL fornecer um escopo herdado que publica um tema para a subárvore e a leitura do tema ativo a partir de um contexto. A leitura MUST retornar o tema do escopo mais próximo e, sem escopo, o tema claro de referência, sempre resolvido para a plataforma pela regra de "Movimento reduzido no tema". Quem lê MUST ser reconstruído quando o tema do escopo muda.
 
 #### Scenario: Tema mais próximo
 - **GIVEN** um escopo com o tema escuro dentro de um escopo com o tema claro
@@ -92,6 +101,11 @@ O fundamento SHALL fornecer um escopo herdado que publica um tema para a subárv
 
 #### Scenario: Animações desligadas pelo sistema
 - **GIVEN** um escopo com o tema claro e o sistema com animações desligadas
+- **WHEN** o tema ativo é lido
+- **THEN** todas as durações de movimento dele valem zero, e o modo de animação é `none`
+
+#### Scenario: Animações desligadas pelo tema
+- **GIVEN** um escopo com o tema claro com modo de animação `none` e o sistema com animações ligadas
 - **WHEN** o tema ativo é lido
 - **THEN** todas as durações de movimento dele valem zero
 

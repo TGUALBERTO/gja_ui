@@ -24,7 +24,7 @@ Os testes seguem o nome `<requisito> — <cenário>` das specs alteradas.
 
 - [x] 5.1 Acrescentar à ADR 0009 as linhas de D7.
 - [x] 5.2 Atualizar os CHANGELOGs de `rebic_foundation` (**BREAKING**: curvas primitivas e `resolveMotion`; `RebicAnimationMode` e `RebicThemeData.animationMode` novos) e de `rebic_widgets` (o modo do tema também desliga as transições de `RebicApp` e `RebicTheme`).
-- [ ] 5.3 Executar `tool/ci`. Verificação: código de saída 0.
+- [x] 5.3 Executar `tool/ci`. Verificação: código de saída 0.
 
 ## Workflow follow-up
 
