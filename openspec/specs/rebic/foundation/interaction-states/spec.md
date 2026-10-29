@@ -7,11 +7,15 @@ Define os estados visuais de interação do Rebic no modelo Fiori: famílias de 
 ## Requirements
 
 ### Requirement: Estados de interação
-O fundamento SHALL definir exatamente os estados `hovered`, `focused`, `pressed`, `selected`, `dragged` e `disabled`. Um componente pode estar em vários estados ao mesmo tempo, e as regras deste fundamento SHALL receber o conjunto de estados ativos.
+O fundamento SHALL definir exatamente os estados `hovered`, `focused`, `pressed`, `selected` e `disabled`, como os estados de controle do Fiori. Ele MUST NOT definir estados de cor sem equivalente no Fiori, como `dragged`. Um componente pode estar em vários estados ao mesmo tempo, e as regras deste fundamento SHALL receber o conjunto de estados ativos.
 
 #### Scenario: Conjunto de estados
 - **WHEN** os estados definidos são listados
-- **THEN** são exatamente os seis estados, e o conjunto vazio representa o estado normal
+- **THEN** são exatamente os cinco estados, e o conjunto vazio representa o estado normal
+
+#### Scenario: Sem estado de arraste
+- **WHEN** os nomes dos estados definidos são inspecionados
+- **THEN** nenhum deles é `dragged`
 
 ### Requirement: Anel de foco
 O anel de foco MUST aparecer se, e somente se, `focused` estiver ativo e `disabled` não. O conjunto semântico SHALL definir a espessura do anel (≥ 2 px lógicos) e o afastamento em relação à borda do componente. A cor do anel MUST ser o papel `focus` do tema, que já tem contraste ≥ 3:1 sobre as superfícies.
@@ -48,7 +52,7 @@ Cada cenário desta spec MUST ter um teste automatizado com o nome `<requisito> 
 
 #### Scenario: Página na galeria
 - **WHEN** a página "Estados" é aberta
-- **THEN** ela exibe, nos dois modos, as famílias `standard`, `emphasized`, `transparent` e `list` nos estados normal, hover, ativo, selecionado, selecionado com hover, foco e desabilitado, cada amostra com o rótulo do estado
+- **THEN** ela exibe, nos dois modos, as famílias `standard`, `emphasized`, `transparent`, `accept`, `reject`, `attention` e `list` nos estados normal, hover, ativo, selecionado, selecionado com hover, foco e desabilitado, cada amostra com o rótulo do estado
 
 ### Requirement: Famílias de controle
 O fundamento SHALL definir as famílias de controle `standard`, `emphasized`, `transparent`, `accept`, `reject`, `attention` e `list`, no modelo dos tipos de botão e dos itens de lista do Fiori. Cada família MUST ter fundo, borda e texto explícitos para os estados normal, hover, ativo, selecionado e selecionado com hover. Essas cores MUST ser derivadas dos papéis de `rebic/foundation/color`, para que uma troca de marca alcance todas as famílias.
@@ -72,10 +76,14 @@ O fundamento SHALL definir as famílias de controle `standard`, `emphasized`, `t
 
 #### Scenario: Famílias accept, reject e attention
 - **WHEN** as cores das famílias `accept`, `reject` e `attention` são derivadas
-- **THEN** cada uma usa as cores do estado de valor `success`, `error` e `warning`, respectivamente: normal = (fundo, borda e frente do estado), hover = (`hoverBackground`, borda do estado, frente do estado), e ativo, selecionado e selecionado com hover = (`highlight`, `highlight`, `contrastText`)
+- **THEN** cada uma usa só as cores do estado de valor `success`, `error` e `warning`, respectivamente: normal = (`background`, `border`, `foreground`), hover = (`hoverBackground`, `border`, `foreground`), e ativo, selecionado e selecionado com hover = (`foreground`, `foreground`, `background`)
+
+#### Scenario: Ações semânticas sem cores da marca
+- **WHEN** as cores das famílias `accept`, `reject` e `attention` são derivadas de um mapeamento com `brand`, `highlight` e `hoverBackground` trocados
+- **THEN** nenhum estado dessas famílias muda
 
 ### Requirement: Resolução de cores por estado
-As cores de uma família para um conjunto de estados MUST ser resolvidas nesta ordem de precedência: `disabled` usa as cores do normal (com a opacidade de desabilitado); `pressed` ou `dragged` usa o ativo; `selected` com `hovered` usa o selecionado com hover; `selected` usa o selecionado; `hovered` usa o hover; os demais usam o normal. `focused` MUST NOT alterar as cores.
+As cores de uma família para um conjunto de estados MUST ser resolvidas nesta ordem de precedência: `disabled` usa as cores do normal (com a opacidade de desabilitado); `pressed` usa o ativo; `selected` com `hovered` usa o selecionado com hover; `selected` usa o selecionado; `hovered` usa o hover; os demais usam o normal. `focused` MUST NOT alterar as cores.
 
 #### Scenario: Estados isolados
 - **WHEN** as cores da família `standard` são resolvidas para `{}`, `{hovered}`, `{pressed}`, `{hovered, pressed}` e `{focused}`
