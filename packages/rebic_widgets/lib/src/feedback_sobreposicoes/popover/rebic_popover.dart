@@ -7,7 +7,7 @@ import 'package:rebic_foundation/rebic_foundation.dart';
 import '../../fundacao_layout/container/rebic_container.dart';
 import '../../fundacao_layout/divider/rebic_divider.dart';
 import '../../fundacao_layout/spacing/rebic_spacing.dart';
-import '../../fundacao_layout/text/rebic_text.dart';
+import '../../fundacao_layout/title/rebic_title.dart';
 
 /// Abre e fecha um [RebicPopover], como o `openBy`/`close` do SAPUI5.
 ///
@@ -171,12 +171,7 @@ class _RebicPopoverState extends State<RebicPopover> {
               if (title != null) ...[
                 RebicSpacing.padding(
                   all: RebicSpace.l,
-                  child: RebicText(
-                    title,
-                    variant: RebicTextVariant.subtitle,
-                    heading: true,
-                    maxLines: 1,
-                  ),
+                  child: RebicTitle(title, titleStyle: RebicTitleLevel.h4),
                 ),
                 const RebicDivider(),
               ],

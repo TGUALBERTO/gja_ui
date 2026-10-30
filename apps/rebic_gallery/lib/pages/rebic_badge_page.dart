@@ -32,7 +32,11 @@ class _RebicBadgePageState extends State<RebicBadgePage> {
       body: RebicColumn(
         gap: RebicSpace.l,
         children: [
-          const RebicText('Por estado', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Por estado',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           RebicRow.wrap(
             children: [
               for (final state in RebicValueState.values)
@@ -40,9 +44,10 @@ class _RebicBadgePageState extends State<RebicBadgePage> {
               const RebicBadge(count: 1500),
             ],
           ),
-          const RebicText(
+          const RebicTitle(
             'Sobre botões de ícone',
-            variant: RebicTextVariant.title,
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
           ),
           RebicRow(
             gap: RebicSpace.xxl,

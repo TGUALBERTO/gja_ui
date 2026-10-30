@@ -1,9 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
 
-/// Página "RebicText": as oito variantes, os seis tons e um texto truncado.
-///
-/// Todo o texto da página, inclusive o cabeçalho, usa `RebicText`.
+/// Página "RebicText": um parágrafo livre, o mesmo truncado em duas linhas e
+/// em uma linha sem quebra.
 class RebicTextPage extends StatelessWidget {
   /// Cria a página.
   const RebicTextPage({super.key});
@@ -14,14 +13,20 @@ class RebicTextPage extends StatelessWidget {
   /// Rota nomeada.
   static const route = '/rebic-text';
 
-  /// Texto longo do exemplo de limite de linhas.
+  /// Texto longo dos exemplos.
   static const longText =
       'O pedido de compra 4711 aguarda aprovação do centro de custo antes de '
       'ser enviado ao fornecedor, e a entrega prevista depende da confirmação '
       'do estoque no depósito central.';
 
-  /// Chave do exemplo truncado.
+  /// Chave do exemplo livre.
+  static const freeKey = Key('rebic-text-free');
+
+  /// Chave do exemplo truncado em duas linhas.
   static const truncatedKey = Key('rebic-text-truncated');
+
+  /// Chave do exemplo sem quebra.
+  static const noWrapKey = Key('rebic-text-no-wrap');
 
   @override
   Widget build(BuildContext context) {
@@ -34,24 +39,32 @@ class RebicTextPage extends StatelessWidget {
           child: Semantics(button: true, child: const RebicText('← Voltar')),
         ),
         SizedBox(height: spacing.stackGap),
-        const RebicText(title, variant: RebicTextVariant.headline),
-        SizedBox(height: spacing.sectionGap),
-        const RebicText('Variantes', variant: RebicTextVariant.title),
-        SizedBox(height: spacing.s),
-        for (final variant in RebicTextVariant.values)
-          RebicText(variant.name, variant: variant),
-        SizedBox(height: spacing.sectionGap),
-        const RebicText('Tons', variant: RebicTextVariant.title),
-        SizedBox(height: spacing.s),
-        for (final tone in RebicTextTone.values)
-          RebicText('tom ${tone.name}', tone: tone),
-        SizedBox(height: spacing.sectionGap),
-        const RebicText('Limite de linhas', variant: RebicTextVariant.title),
-        SizedBox(height: spacing.s),
-        const SizedBox(
-          width: 320,
-          child: RebicText(longText, key: truncatedKey, maxLines: 2),
+        const RebicTitle(
+          title,
+          level: RebicTitleLevel.h1,
+          titleStyle: RebicTitleLevel.h2,
         ),
+        SizedBox(height: spacing.sectionGap),
+        for (final (heading, example) in const [
+          ('Texto livre', RebicText(longText, key: freeKey)),
+          (
+            'Limite de duas linhas',
+            RebicText(longText, key: truncatedKey, maxLines: 2),
+          ),
+          ('Sem quebra', RebicText(longText, key: noWrapKey, wrapping: false)),
+        ]) ...[
+          RebicTitle(
+            heading,
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
+          SizedBox(height: spacing.s),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: SizedBox(width: 320, child: example),
+          ),
+          SizedBox(height: spacing.sectionGap),
+        ],
       ],
     );
   }

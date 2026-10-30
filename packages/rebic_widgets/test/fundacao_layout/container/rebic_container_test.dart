@@ -64,7 +64,18 @@ Widget _sample() => Column(
               surface: s,
               border: true,
               padding: RebicSpace.m,
-              child: RebicText('s', variant: RebicTextVariant.caption),
+              // Tamanho `small`, como nos goldens de referência.
+              child: Builder(
+                builder: (context) {
+                  final theme = RebicThemeData.of(context);
+                  return Text(
+                    's',
+                    style: theme.typography.small.copyWith(
+                      color: theme.colors.text,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
       ],
@@ -119,9 +130,9 @@ Widget _sample() => Column(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          RebicText('Pedido 4711', variant: RebicTextVariant.title),
+          RebicTitle('Pedido 4711', titleStyle: RebicTitleLevel.h3),
           RebicSpacing.vertical(RebicSpace.xs),
-          RebicText('Aguardando aprovação', tone: RebicTextTone.muted),
+          RebicLabel('Aguardando aprovação'),
         ],
       ),
     ),

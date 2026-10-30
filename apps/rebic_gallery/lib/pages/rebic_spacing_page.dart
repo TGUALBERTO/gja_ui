@@ -41,16 +41,25 @@ class RebicSpacingPage extends StatelessWidget {
                 ),
               ),
               const RebicSpacing.vertical(RebicSpace.stackGap),
-              const RebicText(title, variant: RebicTextVariant.headline),
+              const RebicTitle(
+                title,
+                level: RebicTitleLevel.h1,
+                titleStyle: RebicTitleLevel.h2,
+              ),
               const RebicSpacing.vertical(RebicSpace.sectionGap),
-              const RebicText(
+              const RebicTitle(
                 'Passos e papéis',
-                variant: RebicTextVariant.title,
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
               ),
               const RebicSpacing.vertical(RebicSpace.s),
               for (final space in RebicSpace.values) _Bar(space),
               const RebicSpacing.vertical(RebicSpace.sectionGap),
-              const RebicText('Densidades', variant: RebicTextVariant.title),
+              const RebicTitle(
+                'Densidades',
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
+              ),
               const RebicSpacing.vertical(RebicSpace.s),
               const Wrap(
                 children: [
@@ -86,7 +95,7 @@ class _Bar extends StatelessWidget {
         children: [
           SizedBox(
             width: theme.spacing.xxxl * 2,
-            child: RebicText(space.name, variant: RebicTextVariant.caption),
+            child: RebicLabel(space.name),
           ),
           ColoredBox(
             key: RebicSpacingPage.barKey(space),
@@ -94,11 +103,7 @@ class _Bar extends StatelessWidget {
             child: SizedBox(width: value, height: theme.spacing.s),
           ),
           const RebicSpacing.horizontal(RebicSpace.s),
-          RebicText(
-            value.toStringAsFixed(0),
-            variant: RebicTextVariant.caption,
-            tone: RebicTextTone.muted,
-          ),
+          RebicLabel(value.toStringAsFixed(0)),
         ],
       ),
     );

@@ -29,7 +29,7 @@ class RebicContainerPage extends StatelessWidget {
         children: [
           box,
           const RebicSpacing.vertical(RebicSpace.xs),
-          RebicText(label, variant: RebicTextVariant.caption),
+          RebicLabel(label),
         ],
       ),
     );
@@ -49,9 +49,17 @@ class RebicContainerPage extends StatelessWidget {
                 ),
               ),
               const RebicSpacing.vertical(RebicSpace.stackGap),
-              const RebicText(title, variant: RebicTextVariant.headline),
+              const RebicTitle(
+                title,
+                level: RebicTitleLevel.h1,
+                titleStyle: RebicTitleLevel.h2,
+              ),
               const RebicSpacing.vertical(RebicSpace.sectionGap),
-              const RebicText('Superfícies', variant: RebicTextVariant.title),
+              const RebicTitle(
+                'Superfícies',
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
+              ),
               const RebicSpacing.vertical(RebicSpace.s),
               Wrap(
                 children: [
@@ -67,7 +75,11 @@ class RebicContainerPage extends StatelessWidget {
                 ],
               ),
               const RebicSpacing.vertical(RebicSpace.sectionGap),
-              const RebicText('Raios', variant: RebicTextVariant.title),
+              const RebicTitle(
+                'Raios',
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
+              ),
               const RebicSpacing.vertical(RebicSpace.s),
               Wrap(
                 children: [
@@ -84,7 +96,11 @@ class RebicContainerPage extends StatelessWidget {
                 ],
               ),
               const RebicSpacing.vertical(RebicSpace.sectionGap),
-              const RebicText('Sombras', variant: RebicTextVariant.title),
+              const RebicTitle(
+                'Sombras',
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
+              ),
               const RebicSpacing.vertical(RebicSpace.s),
               Wrap(
                 children: [
@@ -101,7 +117,11 @@ class RebicContainerPage extends StatelessWidget {
                 ],
               ),
               const RebicSpacing.vertical(RebicSpace.sectionGap),
-              const RebicText('Cartão', variant: RebicTextVariant.title),
+              const RebicTitle(
+                'Cartão',
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
+              ),
               const RebicSpacing.vertical(RebicSpace.s),
               const Align(
                 alignment: Alignment.centerLeft,
@@ -115,12 +135,13 @@ class RebicContainerPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      RebicText('Pedido 4711', variant: RebicTextVariant.title),
-                      RebicSpacing.vertical(RebicSpace.xs),
-                      RebicText(
-                        'Aguardando aprovação',
-                        tone: RebicTextTone.muted,
+                      RebicTitle(
+                        'Pedido 4711',
+                        level: RebicTitleLevel.h2,
+                        titleStyle: RebicTitleLevel.h3,
                       ),
+                      RebicSpacing.vertical(RebicSpace.xs),
+                      RebicLabel('Aguardando aprovação'),
                     ],
                   ),
                 ),

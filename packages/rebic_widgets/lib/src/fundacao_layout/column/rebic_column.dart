@@ -13,8 +13,8 @@ import '../spacing/rebic_spacing.dart';
 /// ```dart
 /// const RebicColumn(
 ///   children: [
-///     RebicText('Pedido 4711', variant: RebicTextVariant.title),
-///     RebicText('Aguardando aprovação', tone: RebicTextTone.muted),
+///     RebicTitle('Pedido 4711', titleStyle: RebicTitleLevel.h3),
+///     RebicLabel('Aguardando aprovação'),
 ///   ],
 /// )
 /// ```

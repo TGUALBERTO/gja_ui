@@ -31,7 +31,11 @@ class RebicTooltipPage extends StatelessWidget {
       body: RebicColumn(
         gap: RebicSpace.l,
         children: [
-          const RebicText('Ícones', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Ícones',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           RebicRow(
             gap: RebicSpace.l,
             children: [
@@ -47,7 +51,11 @@ class RebicTooltipPage extends StatelessWidget {
                 ),
             ],
           ),
-          const RebicText('Dica longa', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Dica longa',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           const RebicTooltip(
             message:
                 'Pedidos aguardando aprovação há mais de cinco dias úteis são '

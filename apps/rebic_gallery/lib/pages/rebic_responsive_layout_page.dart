@@ -44,15 +44,21 @@ class RebicResponsiveLayoutPage extends StatelessWidget {
                   child: const RebicText('← Voltar'),
                 ),
               ),
-              const RebicText(title, variant: RebicTextVariant.headline),
-              const RebicText(
+              const RebicTitle(
+                title,
+                level: RebicTitleLevel.h1,
+                titleStyle: RebicTitleLevel.h2,
+              ),
+              const RebicTitle(
                 'Pela classe da tela',
-                variant: RebicTextVariant.title,
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
               ),
               const _Form(key: screenKey, basis: RebicLayoutBasis.screen),
-              const RebicText(
+              const RebicTitle(
                 'Pela classe de um painel de 400',
-                variant: RebicTextVariant.title,
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
               ),
               const SizedBox(
                 width: 400,
@@ -93,21 +99,13 @@ class _Form extends StatelessWidget {
         basis: basis,
         small: (context) => const RebicColumn(
           children: [
-            RebicText(
-              RebicResponsiveLayoutPage.oneColumn,
-              variant: RebicTextVariant.caption,
-              tone: RebicTextTone.muted,
-            ),
+            RebicLabel(RebicResponsiveLayoutPage.oneColumn),
             ..._fields,
           ],
         ),
         medium: (context) => RebicColumn(
           children: [
-            const RebicText(
-              RebicResponsiveLayoutPage.twoColumns,
-              variant: RebicTextVariant.caption,
-              tone: RebicTextTone.muted,
-            ),
+            const RebicLabel(RebicResponsiveLayoutPage.twoColumns),
             for (var i = 0; i < _fields.length; i += 2)
               RebicRow(
                 gap: RebicSpace.l,
@@ -135,7 +133,7 @@ class _Field extends StatelessWidget {
     return RebicColumn(
       gap: RebicSpace.xs,
       children: [
-        RebicText(label, variant: RebicTextVariant.label),
+        RebicLabel(label),
         RebicContainer(
           border: true,
           radius: RebicRadius.field,

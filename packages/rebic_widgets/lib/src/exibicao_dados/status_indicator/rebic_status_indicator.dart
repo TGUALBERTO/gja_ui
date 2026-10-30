@@ -3,7 +3,7 @@ import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
 import '../../fundacao_layout/icon/rebic_icon.dart';
-import '../../fundacao_layout/text/rebic_text.dart';
+import '../../fundacao_layout/label/rebic_label.dart';
 
 /// Situação de um registro, como o `sap.m.ObjectStatus` do SAPUI5.
 ///
@@ -95,7 +95,7 @@ class RebicStatusIndicator extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: theme.spacing.xs,
         children: [
-          if (title != null) RebicText('$title:', tone: RebicTextTone.muted),
+          if (title != null) RebicLabel(title, showColon: true, wrapping: true),
           if (icon != null)
             // Recuo para centrar o ícone na primeira linha do texto.
             Padding(

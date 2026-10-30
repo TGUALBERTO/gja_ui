@@ -3,7 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rebic_gallery/main.dart';
 import 'package:rebic_gallery/pages/rebic_text_page.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+
+RenderParagraph _paragraph(WidgetTester tester, Key key) =>
+    tester.renderObject<RenderParagraph>(
+      find.descendant(of: find.byKey(key), matching: find.byType(RichText)),
+    );
 
 void main() {
   testWidgets('[Documentação] Exemplos mínimos — Página RebicText na galeria', (
@@ -17,19 +21,14 @@ void main() {
     await tester.tap(find.text(RebicTextPage.title));
     await tester.pumpAndSettle();
 
-    for (final variant in RebicTextVariant.values) {
-      expect(find.text(variant.name), findsOneWidget, reason: variant.name);
-    }
-    for (final tone in RebicTextTone.values) {
-      expect(find.text('tom ${tone.name}'), findsOneWidget, reason: tone.name);
-    }
-    final truncated = tester.renderObject<RenderParagraph>(
-      find.descendant(
-        of: find.byKey(RebicTextPage.truncatedKey),
-        matching: find.byType(RichText),
-      ),
-    );
+    final free = _paragraph(tester, RebicTextPage.freeKey);
+    expect(free.maxLines, isNull);
+    expect(free.didExceedMaxLines, isFalse);
+    final truncated = _paragraph(tester, RebicTextPage.truncatedKey);
     expect(truncated.maxLines, 2);
     expect(truncated.didExceedMaxLines, isTrue);
+    final noWrap = _paragraph(tester, RebicTextPage.noWrapKey);
+    expect(noWrap.maxLines, 1);
+    expect(noWrap.didExceedMaxLines, isTrue);
   });
 }

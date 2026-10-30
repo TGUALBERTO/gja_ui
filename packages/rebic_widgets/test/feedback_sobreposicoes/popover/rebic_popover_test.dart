@@ -125,7 +125,7 @@ void main() {
       controller.open();
       await tester.pumpAndSettle();
       expect(find.byType(RebicDivider), findsNothing);
-      expect(find.byType(RebicText), findsNothing);
+      expect(find.byType(RebicTitle), findsNothing);
       expect(
         _rect(tester, 'content').top - tester.getRect(_panel()).top,
         closeTo(_light.spacing.l, 0.01),

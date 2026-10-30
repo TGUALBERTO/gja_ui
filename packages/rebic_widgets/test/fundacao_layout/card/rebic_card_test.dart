@@ -138,10 +138,7 @@ void main() {
       );
       expect(tester.takeException(), isNull);
       expect(tester.getSize(find.byType(RebicCard)).width, 300);
-      expect(
-        tester.widget<RebicText>(find.widgetWithText(RebicText, long)).maxLines,
-        2,
-      );
+      expect(tester.widget<Text>(find.text(long)).maxLines, 2);
     },
   );
 

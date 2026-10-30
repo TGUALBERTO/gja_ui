@@ -35,14 +35,22 @@ class _RebicAvatarPageState extends State<RebicAvatarPage> {
       body: RebicColumn(
         gap: RebicSpace.l,
         children: [
-          const RebicText('Tamanhos', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Tamanhos',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           RebicRow.wrap(
             children: [
               for (final size in RebicAvatarSize.values)
                 RebicAvatar(initials: 'MB', size: size),
             ],
           ),
-          const RebicText('Formas e ícones', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Formas e ícones',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           const RebicRow.wrap(
             children: [
               RebicAvatar(initials: 'JS', shape: RebicAvatarShape.square),
@@ -54,7 +62,11 @@ class _RebicAvatarPageState extends State<RebicAvatarPage> {
               ),
             ],
           ),
-          const RebicText('Ativo', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Ativo',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           RebicAvatar(
             initials: 'MB',
             size: RebicAvatarSize.m,

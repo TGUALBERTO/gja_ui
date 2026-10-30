@@ -5,7 +5,6 @@ import 'package:rebic_foundation/rebic_foundation.dart';
 import '../container/rebic_container.dart';
 import '../divider/rebic_divider.dart';
 import '../spacing/rebic_spacing.dart';
-import '../text/rebic_text.dart';
 
 /// Cartão, como o `sap.f.Card` do SAPUI5.
 ///
@@ -109,24 +108,40 @@ class RebicCard extends StatelessWidget {
                 spacing: theme.spacing.xxs,
                 children: [
                   // O título de cartão é menor que o de página, como no Fiori,
-                  // e continua anunciado como cabeçalho.
-                  RebicText(
-                    title,
-                    variant: RebicTextVariant.subtitle,
-                    heading: true,
-                    maxLines: 2,
+                  // e continua anunciado como cabeçalho. Quebra em até duas
+                  // linhas, o que o RebicTitle não oferece; a change do
+                  // cartão revê o cabeçalho no modelo do SAPUI5.
+                  Semantics(
+                    header: true,
+                    child: Text(
+                      title,
+                      style: theme.typography.header4.copyWith(
+                        color: theme.colors.text,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   if (subtitle != null)
-                    RebicText(subtitle, tone: RebicTextTone.muted, maxLines: 2),
+                    Text(
+                      subtitle,
+                      style: theme.typography.base.copyWith(
+                        color: theme.colors.label,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                 ],
               ),
             ),
             if (status != null)
-              RebicText(
+              Text(
                 status,
-                variant: RebicTextVariant.label,
-                tone: RebicTextTone.muted,
+                style: theme.typography.base.copyWith(
+                  color: theme.colors.label,
+                ),
                 maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
           ],
         ),

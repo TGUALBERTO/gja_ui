@@ -625,10 +625,7 @@ class _GoldenScaffold extends StatelessWidget {
       ),
       body: const RebicSpacing.padding(
         all: RebicSpace.l,
-        child: RebicText(
-          'Pedidos em aberto',
-          variant: RebicTextVariant.headline,
-        ),
+        child: RebicTitle('Pedidos em aberto', titleStyle: RebicTitleLevel.h2),
       ),
     );
   }

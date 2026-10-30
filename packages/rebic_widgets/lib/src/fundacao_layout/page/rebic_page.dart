@@ -9,7 +9,6 @@ import '../divider/rebic_divider.dart';
 import '../flex/rebic_flex_alignment.dart';
 import '../row/rebic_row.dart';
 import '../spacing/rebic_spacing.dart';
-import '../text/rebic_text.dart';
 
 /// Página de conteúdo, como o `sap.m.Page` e o `sap.f.DynamicPage` do
 /// SAPUI5: área de título, conteúdo e rodapé fixo de ações.
@@ -113,16 +112,28 @@ class RebicPage extends StatelessWidget {
                     gap: RebicSpace.xxs,
                     shrinkWrap: true,
                     children: [
-                      RebicText(
-                        title,
-                        variant: RebicTextVariant.headline,
-                        maxLines: 2,
+                      // Quebra em até duas linhas, o que o RebicTitle não
+                      // oferece; a change da página revê o título no modelo
+                      // do SAPUI5.
+                      Semantics(
+                        header: true,
+                        child: Text(
+                          title,
+                          style: theme.typography.header2.copyWith(
+                            color: theme.colors.text,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       if (subtitle != null)
-                        RebicText(
+                        Text(
                           subtitle,
-                          tone: RebicTextTone.muted,
+                          style: theme.typography.base.copyWith(
+                            color: theme.colors.label,
+                          ),
                           maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                     ],
                   ),

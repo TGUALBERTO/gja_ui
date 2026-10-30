@@ -241,6 +241,33 @@ items:
       - rebic/foundation/density
       - rebic/foundation/accessibility
     proposed: true
+  - id: rebic/widgets/rebic-title
+    name: "RebicTitle"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/typography
+      - rebic/foundation/color
+      - rebic/foundation/theming
+      - rebic/foundation/density
+      - rebic/foundation/accessibility
+  - id: rebic/widgets/rebic-label
+    name: "RebicLabel"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/core/localization
+      - rebic/foundation/typography
+      - rebic/foundation/color
+      - rebic/foundation/theming
+      - rebic/foundation/density
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-icon
     name: "RebicIcon"
     kind: widget
@@ -357,7 +384,7 @@ items:
       - rebic/widgets/rebic-container
       - rebic/widgets/rebic-divider
       - rebic/widgets/rebic-icon
-      - rebic/widgets/rebic-text
+      - rebic/widgets/rebic-title
       - rebic/core/responsive
       - rebic/core/interaction
       - rebic/core/localization
@@ -746,7 +773,7 @@ items:
     status: implemented
     depends_on:
       - rebic/widgets/rebic-icon
-      - rebic/widgets/rebic-text
+      - rebic/widgets/rebic-label
       - rebic/core/interaction
       - rebic/foundation/color
       - rebic/foundation/typography
@@ -892,7 +919,7 @@ items:
       - rebic/core/overlay
       - rebic/core/interaction
       - rebic/widgets/rebic-container
-      - rebic/widgets/rebic-text
+      - rebic/widgets/rebic-title
       - rebic/widgets/rebic-divider
       - rebic/foundation/color
       - rebic/foundation/spacing

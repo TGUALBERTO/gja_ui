@@ -2,8 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
-import '../../fundacao_layout/text/rebic_text.dart';
-
 /// Contador, como o badge dos controles (`BadgeEnabler`) e o `count` do
 /// `IconTabFilter` do SAPUI5.
 ///
@@ -51,14 +49,6 @@ class RebicBadge extends StatelessWidget {
   /// Rótulo do leitor de tela; nulo usa o número exibido.
   final String? semanticLabel;
 
-  static RebicTextTone _tone(RebicValueState state) => switch (state) {
-    RebicValueState.none => RebicTextTone.standard,
-    RebicValueState.success => RebicTextTone.success,
-    RebicValueState.warning => RebicTextTone.warning,
-    RebicValueState.error => RebicTextTone.error,
-    RebicValueState.information => RebicTextTone.information,
-  };
-
   @override
   Widget build(BuildContext context) {
     final child = this.child;
@@ -97,11 +87,18 @@ class RebicBadge extends StatelessWidget {
             child: Center(
               widthFactor: 1,
               heightFactor: 1,
-              child: RebicText(
+              // Tamanho `small`, que os controles de texto não oferecem; a
+              // change do selo revê o contador no modelo do SAPUI5.
+              child: Text(
                 text,
-                variant: RebicTextVariant.caption,
-                tone: _tone(state),
+                style: label.copyWith(
+                  // Sem estado, o contador usa a cor de texto do tema.
+                  color: state == RebicValueState.none
+                      ? theme.colors.text
+                      : colors.foreground,
+                ),
                 maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),

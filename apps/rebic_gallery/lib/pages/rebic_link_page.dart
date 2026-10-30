@@ -35,7 +35,11 @@ class _RebicLinkPageState extends State<RebicLinkPage> {
       body: RebicColumn(
         gap: RebicSpace.l,
         children: [
-          const RebicText('Variantes', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Variantes',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           RebicLink(
             text: RebicLinkPage.orderLink,
             onPressed: () => setState(() => _opened = true),
@@ -48,7 +52,11 @@ class _RebicLinkPageState extends State<RebicLinkPage> {
             onPressed: () {},
           ),
           const RebicLink(text: 'Link desabilitado', onPressed: null),
-          const RebicText('Com quebra', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Com quebra',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           SizedBox(
             width: 240,
             child: RebicLink(

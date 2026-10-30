@@ -35,10 +35,15 @@ class RebicGridPage extends StatelessWidget {
                   child: const RebicText('← Voltar'),
                 ),
               ),
-              const RebicText(title, variant: RebicTextVariant.headline),
-              const RebicText(
+              const RebicTitle(
+                title,
+                level: RebicTitleLevel.h1,
+                titleStyle: RebicTitleLevel.h2,
+              ),
+              const RebicTitle(
                 'Span padrão (1, 2, 3 e 4 por linha), pela tela',
-                variant: RebicTextVariant.title,
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
               ),
               RebicGrid(
                 basis: RebicLayoutBasis.screen,
@@ -47,9 +52,10 @@ class RebicGridPage extends StatelessWidget {
                     _Card(key: cardKey(i), label: 'Pedido ${4711 + i}'),
                 ],
               ),
-              const RebicText(
+              const RebicTitle(
                 'Célula de destaque (small 12, large 8)',
-                variant: RebicTextVariant.title,
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
               ),
               const RebicGrid.cells(
                 basis: RebicLayoutBasis.screen,
@@ -86,8 +92,12 @@ class _Card extends StatelessWidget {
       child: RebicColumn(
         gap: RebicSpace.xs,
         children: [
-          RebicText(label, variant: RebicTextVariant.subtitle),
-          const RebicText('Aguardando aprovação', tone: RebicTextTone.muted),
+          RebicTitle(
+            label,
+            level: RebicTitleLevel.h3,
+            titleStyle: RebicTitleLevel.h4,
+          ),
+          const RebicLabel('Aguardando aprovação'),
         ],
       ),
     );

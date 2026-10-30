@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- Papel de cor `required` (`update-rebic-text-fiori-title-text-label`, spec `rebic/foundation/color`): cor do
+  asterisco de rótulo obrigatório, como o `sapField_RequiredColor`, com contraste ≥ 4,5:1 sobre `background`, `base`
+  e `headerBackground`. Valor provisório no ADR 0009. Quem cria `RebicColorTokens` pelo construtor passa a informar
+  `required`.
 - **BREAKING** Breakpoints no modelo SAPUI5 (`update-rebic-foundation-breakpoints-fiori-ranges`, spec
   `rebic/foundation/breakpoints`): `RebicBreakpointPrimitives` passa a ter só `width600`, `width1024` e `width1440`, os
   limites das faixas do `sap.ui.Device.media` (`SAP_STANDARD_EXTENDED`). Saem `width360`, `width840`, `width1280` e

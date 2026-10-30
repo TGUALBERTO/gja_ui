@@ -7,7 +7,7 @@ import '../container/rebic_container.dart';
 import '../divider/rebic_divider.dart';
 import '../row/rebic_row.dart';
 import '../spacing/rebic_spacing.dart';
-import '../text/rebic_text.dart';
+import '../title/rebic_title.dart';
 
 /// Estrutura da aplicação, como o `sap.tnt.ToolPage` do SAPUI5: barra
 /// superior, navegação lateral e corpo.
@@ -195,11 +195,7 @@ class _RebicScaffoldState extends State<RebicScaffold> {
                 Expanded(
                   child: Align(
                     alignment: AlignmentDirectional.centerStart,
-                    child: RebicText(
-                      title,
-                      variant: RebicTextVariant.title,
-                      maxLines: 1,
-                    ),
+                    child: RebicTitle(title, titleStyle: RebicTitleLevel.h3),
                   ),
                 )
               else

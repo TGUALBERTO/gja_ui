@@ -49,14 +49,19 @@ class RebicRowColumnPage extends StatelessWidget {
                   child: const RebicText('← Voltar'),
                 ),
               ),
-              const RebicText(title, variant: RebicTextVariant.headline),
+              const RebicTitle(
+                title,
+                level: RebicTitleLevel.h1,
+                titleStyle: RebicTitleLevel.h2,
+              ),
               const RebicSpacing.vertical(RebicSpace.l),
-              const RebicText(
+              const RebicTitle(
                 'RebicRow: alinhamento principal',
-                variant: RebicTextVariant.title,
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
               ),
               for (final alignment in RebicMainAlignment.values) ...[
-                RebicText(alignment.name, variant: RebicTextVariant.caption),
+                RebicLabel(alignment.name),
                 _Area(
                   child: RebicRow(
                     key: rowKey(alignment),
@@ -65,7 +70,7 @@ class RebicRowColumnPage extends StatelessWidget {
                   ),
                 ),
               ],
-              const RebicText('expandido', variant: RebicTextVariant.caption),
+              const RebicLabel('expandido'),
               const _Area(
                 child: RebicRow(
                   children: [
@@ -74,7 +79,7 @@ class RebicRowColumnPage extends StatelessWidget {
                   ],
                 ),
               ),
-              const RebicText('wrap', variant: RebicTextVariant.caption),
+              const RebicLabel('wrap'),
               SizedBox(
                 width: 240,
                 child: _Area(
@@ -85,9 +90,10 @@ class RebicRowColumnPage extends StatelessWidget {
                 ),
               ),
               const RebicSpacing.vertical(RebicSpace.l),
-              const RebicText(
+              const RebicTitle(
                 'RebicColumn: alinhamento cruzado',
-                variant: RebicTextVariant.title,
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
               ),
               RebicRow(
                 crossAlignment: RebicCrossAlignment.start,
@@ -97,10 +103,7 @@ class RebicRowColumnPage extends StatelessWidget {
                       child: RebicColumn(
                         gap: RebicSpace.xs,
                         children: [
-                          RebicText(
-                            alignment.name,
-                            variant: RebicTextVariant.caption,
-                          ),
+                          RebicLabel(alignment.name),
                           SizedBox(
                             height: 160,
                             child: _Area(
@@ -118,10 +121,7 @@ class RebicRowColumnPage extends StatelessWidget {
                     child: RebicColumn(
                       gap: RebicSpace.xs,
                       children: [
-                        RebicText(
-                          'expandido',
-                          variant: RebicTextVariant.caption,
-                        ),
+                        RebicLabel('expandido'),
                         SizedBox(
                           height: 160,
                           child: _Area(

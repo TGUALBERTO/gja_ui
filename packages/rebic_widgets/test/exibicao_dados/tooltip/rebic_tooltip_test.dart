@@ -283,10 +283,9 @@ void main() {
       expect(decoration.color, theme.colors.base);
       expect(decoration.border!.top.color, theme.colors.separator);
       expect(decoration.boxShadow, hasLength(theme.shadows.popover.length));
-      expect(
-        tester.widget<RebicText>(find.byType(RebicText)).variant,
-        RebicTextVariant.label,
-      );
+      final style = tester.widget<Text>(find.text(_message).last).style!;
+      expect(style.fontSize, theme.typography.base.fontSize);
+      expect(style.color, theme.colors.text);
       await tester.tapAt(const Offset(5, 5));
       await tester.pump();
     }

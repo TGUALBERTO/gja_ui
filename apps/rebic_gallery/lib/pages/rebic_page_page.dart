@@ -30,10 +30,7 @@ class RebicPagePage extends StatelessWidget {
       footerActions: [
         GestureDetector(
           onTap: back,
-          child: Semantics(
-            button: true,
-            child: const RebicText('Cancelar', tone: RebicTextTone.muted),
-          ),
+          child: Semantics(button: true, child: const RebicLabel('Cancelar')),
         ),
         GestureDetector(
           onTap: back,
@@ -43,13 +40,21 @@ class RebicPagePage extends StatelessWidget {
       body: const RebicColumn(
         gap: RebicSpace.l,
         children: [
-          RebicText('Quando usar', variant: RebicTextVariant.title),
+          RebicTitle(
+            'Quando usar',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           RebicText(
             'Use RebicPage como corpo do RebicScaffold ou como página de uma '
             'rota. O botão de voltar aparece quando há onBack, e o rodapé, '
             'quando há ações finais.',
           ),
-          RebicText('Rolagem', variant: RebicTextVariant.title),
+          RebicTitle(
+            'Rolagem',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           RebicText(
             'O conteúdo rola entre a área de título e o rodapé, que ficam '
             'fixos. Para listas e tabelas com rolagem própria, use '

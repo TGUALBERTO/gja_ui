@@ -114,6 +114,7 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
     required this.selectionBackground,
     required this.selectionHoverBackground,
     required this.focus,
+    required this.required,
     required this.shadow,
     required this.blockLayer,
     required this.none,
@@ -143,6 +144,7 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
         selectionBackground: RebicColorPrimitives.blue50,
         selectionHoverBackground: RebicColorPrimitives.blue100,
         focus: RebicColorPrimitives.blue600,
+        required: RebicColorPrimitives.red600,
         shadow: RebicColorPrimitives.blackAlpha16,
         blockLayer: RebicColorPrimitives.blackAlpha40,
         none: const RebicValueStateColors(
@@ -197,6 +199,7 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
         selectionBackground: RebicColorPrimitives.blue800,
         selectionHoverBackground: RebicColorPrimitives.blue900,
         focus: RebicColorPrimitives.blue300,
+        required: RebicColorPrimitives.red300,
         shadow: RebicColorPrimitives.blackAlpha40,
         blockLayer: RebicColorPrimitives.blackAlpha60,
         none: const RebicValueStateColors(
@@ -282,6 +285,9 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
   /// Contorno de foco do teclado (sapContent_FocusColor).
   final Color focus;
 
+  /// Asterisco de campo obrigatório em rótulos (sapField_RequiredColor).
+  final Color required;
+
   /// Cor das sombras, translúcida (sapContent_ShadowColor).
   final Color shadow;
 
@@ -333,6 +339,7 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
     'selectionBackground': selectionBackground,
     'selectionHoverBackground': selectionHoverBackground,
     'focus': focus,
+    'required': required,
     'shadow': shadow,
     'blockLayer': blockLayer,
   };
@@ -356,6 +363,7 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
     Color? selectionBackground,
     Color? selectionHoverBackground,
     Color? focus,
+    Color? required,
     Color? shadow,
     Color? blockLayer,
     RebicValueStateColors? none,
@@ -383,6 +391,7 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
       selectionHoverBackground:
           selectionHoverBackground ?? this.selectionHoverBackground,
       focus: focus ?? this.focus,
+      required: required ?? this.required,
       shadow: shadow ?? this.shadow,
       blockLayer: blockLayer ?? this.blockLayer,
       none: none ?? this.none,
@@ -426,6 +435,7 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
         t,
       )!,
       focus: Color.lerp(focus, other.focus, t)!,
+      required: Color.lerp(required, other.required, t)!,
       shadow: Color.lerp(shadow, other.shadow, t)!,
       blockLayer: Color.lerp(blockLayer, other.blockLayer, t)!,
       none: none.lerp(other.none, t),
@@ -457,6 +467,7 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
         other.selectionBackground == selectionBackground &&
         other.selectionHoverBackground == selectionHoverBackground &&
         other.focus == focus &&
+        other.required == required &&
         other.shadow == shadow &&
         other.blockLayer == blockLayer &&
         other.none == none &&
@@ -485,6 +496,7 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
     selectionBackground,
     selectionHoverBackground,
     focus,
+    required,
     shadow,
     blockLayer,
     none,
@@ -515,6 +527,7 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
       ..add(ColorProperty('selectionBackground', selectionBackground))
       ..add(ColorProperty('selectionHoverBackground', selectionHoverBackground))
       ..add(ColorProperty('focus', focus))
+      ..add(ColorProperty('required', required))
       ..add(ColorProperty('shadow', shadow))
       ..add(ColorProperty('blockLayer', blockLayer))
       ..add(DiagnosticsProperty<RebicValueStateColors>('none', none))

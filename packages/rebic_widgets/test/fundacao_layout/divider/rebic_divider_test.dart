@@ -62,7 +62,7 @@ Widget _sample() => const RebicColumn(
     RebicColumn(
       gap: RebicSpace.none,
       children: [
-        RebicText('Cabeçalho', variant: RebicTextVariant.title),
+        RebicTitle('Cabeçalho', titleStyle: RebicTitleLevel.h3),
         RebicDivider(
           tone: RebicDividerTone.strong,
           spacing: RebicSpace.s,

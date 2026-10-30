@@ -21,6 +21,10 @@ void main() {
         greaterThanOrEqualTo(4.5),
       );
       expect(
+        rebicContrastRatio(_dark.required, _dark.headerBackground),
+        greaterThanOrEqualTo(4.5),
+      );
+      expect(
         rebicContrastRatio(_dark.contrastText, _dark.highlight),
         greaterThanOrEqualTo(4.5),
       );

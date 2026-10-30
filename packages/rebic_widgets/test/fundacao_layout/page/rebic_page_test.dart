@@ -509,13 +509,10 @@ void main() {
               RebicIcon(RebicIcons.edit, tone: RebicIconTone.brand),
               RebicIcon(RebicIcons.overflow, tone: RebicIconTone.brand),
             ],
-            footerActions: const [
-              RebicText('Cancelar', tone: RebicTextTone.muted),
-              RebicText('Salvar'),
-            ],
+            footerActions: const [RebicLabel('Cancelar'), RebicText('Salvar')],
             body: const RebicColumn(
               children: [
-                RebicText('Itens', variant: RebicTextVariant.title),
+                RebicTitle('Itens', titleStyle: RebicTitleLevel.h3),
                 RebicText('3 itens, total de R\$ 1.250,00.'),
               ],
             ),

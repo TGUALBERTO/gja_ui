@@ -30,7 +30,11 @@ class RebicIconButtonPage extends StatelessWidget {
       body: RebicColumn(
         gap: RebicSpace.l,
         children: [
-          const RebicText('Barra de ações', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Barra de ações',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           RebicRow(
             gap: RebicSpace.xs,
             children: [
@@ -38,7 +42,11 @@ class RebicIconButtonPage extends StatelessWidget {
                 RebicIconButton(icon: icon, tooltip: tooltip, onPressed: () {}),
             ],
           ),
-          const RebicText('Tipos', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Tipos',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           RebicRow.wrap(
             children: [
               for (final type in RebicButtonType.values)

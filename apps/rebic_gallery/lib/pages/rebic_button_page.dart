@@ -32,14 +32,22 @@ class _RebicButtonPageState extends State<RebicButtonPage> {
       body: RebicColumn(
         gap: RebicSpace.l,
         children: [
-          const RebicText('Tipos', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Tipos',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           RebicRow.wrap(
             children: [
               for (final type in RebicButtonType.values)
                 RebicButton(label: type.name, type: type, onPressed: () {}),
             ],
           ),
-          const RebicText('Com ícone', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Com ícone',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           RebicRow.wrap(
             children: [
               RebicButton(
@@ -61,9 +69,10 @@ class _RebicButtonPageState extends State<RebicButtonPage> {
               ),
             ],
           ),
-          const RebicText(
+          const RebicTitle(
             'Desabilitado e ocupado',
-            variant: RebicTextVariant.title,
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
           ),
           RebicRow.wrap(
             children: [

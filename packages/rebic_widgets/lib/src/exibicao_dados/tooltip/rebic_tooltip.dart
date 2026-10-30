@@ -173,7 +173,7 @@ class _RebicTooltipState extends State<RebicTooltip> {
             child: RebicSpacing.padding(
               horizontal: RebicSpace.s,
               vertical: RebicSpace.xs,
-              child: RebicText(widget.message, variant: RebicTextVariant.label),
+              child: RebicText(widget.message),
             ),
           ),
         ),

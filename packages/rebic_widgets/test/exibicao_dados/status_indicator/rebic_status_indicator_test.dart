@@ -90,10 +90,9 @@ void main() {
       final text = tester.getRect(find.text('Aprovado'));
       expect(title.right, lessThanOrEqualTo(icon.left));
       expect(icon.right, lessThanOrEqualTo(text.left));
-      expect(
-        tester.widget<RebicText>(find.byType(RebicText)).tone,
-        RebicTextTone.muted,
-      );
+      final label = tester.widget<RebicLabel>(find.byType(RebicLabel));
+      expect(label.text, 'Situação');
+      expect(label.showColon, isTrue);
     });
   });
 
@@ -255,7 +254,10 @@ void main() {
       await tester.pumpWidget(
         _host(
           textScale: 2,
-          const RebicStatusIndicator(icon: RebicIcons.information, text: 'Em análise'),
+          const RebicStatusIndicator(
+            icon: RebicIcons.information,
+            text: 'Em análise',
+          ),
         ),
       );
       expect(tester.takeException(), isNull);
@@ -320,7 +322,10 @@ void main() {
     await tester.pumpWidget(
       _host(
         direction: TextDirection.rtl,
-        const RebicStatusIndicator(icon: RebicIcons.information, text: 'Em análise'),
+        const RebicStatusIndicator(
+          icon: RebicIcons.information,
+          text: 'Em análise',
+        ),
       ),
     );
     expect(

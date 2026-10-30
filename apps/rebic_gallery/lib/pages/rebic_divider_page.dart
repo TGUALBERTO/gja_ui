@@ -40,10 +40,15 @@ class RebicDividerPage extends StatelessWidget {
                   child: const RebicText('← Voltar'),
                 ),
               ),
-              const RebicText(title, variant: RebicTextVariant.headline),
-              const RebicText(
+              const RebicTitle(
+                title,
+                level: RebicTitleLevel.h1,
+                titleStyle: RebicTitleLevel.h2,
+              ),
+              const RebicTitle(
                 'Horizontal, tom sutil e espaço',
-                variant: RebicTextVariant.title,
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
               ),
               card(
                 const RebicColumn(
@@ -57,15 +62,20 @@ class RebicDividerPage extends StatelessWidget {
                   ],
                 ),
               ),
-              const RebicText(
+              const RebicTitle(
                 'Tom forte com recuo',
-                variant: RebicTextVariant.title,
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
               ),
               card(
                 const RebicColumn(
                   gap: RebicSpace.none,
                   children: [
-                    RebicText('Cabeçalho', variant: RebicTextVariant.subtitle),
+                    RebicTitle(
+                      'Cabeçalho',
+                      level: RebicTitleLevel.h3,
+                      titleStyle: RebicTitleLevel.h4,
+                    ),
                     RebicDivider(
                       tone: RebicDividerTone.strong,
                       spacing: RebicSpace.s,
@@ -76,7 +86,11 @@ class RebicDividerPage extends StatelessWidget {
                   ],
                 ),
               ),
-              const RebicText('Vertical', variant: RebicTextVariant.title),
+              const RebicTitle(
+                'Vertical',
+                level: RebicTitleLevel.h2,
+                titleStyle: RebicTitleLevel.h3,
+              ),
               card(
                 const SizedBox(
                   height: 32,

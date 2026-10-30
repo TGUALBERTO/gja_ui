@@ -25,7 +25,7 @@ const double rebicNonTextContrastMinimum = 3;
 ///
 /// Texto (≥ 4,5:1): `text` sobre `background`, `base`, `headerBackground`,
 /// `hoverBackground`, `selectionBackground` e `selectionHoverBackground`;
-/// `label` e `link` sobre `background`, `base` e `headerBackground`; `brand`
+/// `label`, `link` e `required` sobre `background`, `base` e `headerBackground`; `brand`
 /// sobre `background`, `base`, `hoverBackground`, `selectionBackground` e
 /// `selectionHoverBackground`; `contrastText` sobre `brand`, `brandHover` e
 /// `highlight`; o `foreground` de cada estado de valor sobre `base`,
@@ -67,6 +67,7 @@ List<RebicContrastIssue> rebicCheckContrast(RebicColorTokens tokens) {
   for (final bg in containers) {
     pair('label', bg, text);
     pair('link', bg, text);
+    pair('required', bg, text);
     pair('fieldBorder', bg, nonText);
     pair('focus', bg, nonText);
     pair('brand', bg, nonText);

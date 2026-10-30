@@ -33,7 +33,7 @@ class RebicIconPage extends StatelessWidget {
         children: [
           icon,
           SizedBox(height: spacing.xs),
-          RebicText(label, variant: RebicTextVariant.caption),
+          RebicLabel(label),
         ],
       ),
     );
@@ -46,9 +46,17 @@ class RebicIconPage extends StatelessWidget {
           child: Semantics(button: true, child: const RebicText('← Voltar')),
         ),
         SizedBox(height: spacing.stackGap),
-        const RebicText(title, variant: RebicTextVariant.headline),
+        const RebicTitle(
+          title,
+          level: RebicTitleLevel.h1,
+          titleStyle: RebicTitleLevel.h2,
+        ),
         SizedBox(height: spacing.sectionGap),
-        const RebicText('Tamanhos', variant: RebicTextVariant.title),
+        const RebicTitle(
+          'Tamanhos',
+          level: RebicTitleLevel.h2,
+          titleStyle: RebicTitleLevel.h3,
+        ),
         SizedBox(height: spacing.s),
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.end,
@@ -58,7 +66,11 @@ class RebicIconPage extends StatelessWidget {
           ],
         ),
         SizedBox(height: spacing.sectionGap),
-        const RebicText('Tons', variant: RebicTextVariant.title),
+        const RebicTitle(
+          'Tons',
+          level: RebicTitleLevel.h2,
+          titleStyle: RebicTitleLevel.h3,
+        ),
         SizedBox(height: spacing.s),
         Wrap(
           children: [
@@ -74,7 +86,11 @@ class RebicIconPage extends StatelessWidget {
           ],
         ),
         SizedBox(height: spacing.sectionGap),
-        const RebicText('Com rótulo', variant: RebicTextVariant.title),
+        const RebicTitle(
+          'Com rótulo',
+          level: RebicTitleLevel.h2,
+          titleStyle: RebicTitleLevel.h3,
+        ),
         SizedBox(height: spacing.s),
         Row(
           children: [
@@ -88,9 +104,10 @@ class RebicIconPage extends StatelessWidget {
           ],
         ),
         SizedBox(height: spacing.sectionGap),
-        const RebicText(
+        const RebicTitle(
           'Direcional em LTR e RTL',
-          variant: RebicTextVariant.title,
+          level: RebicTitleLevel.h2,
+          titleStyle: RebicTitleLevel.h3,
         ),
         SizedBox(height: spacing.s),
         Row(

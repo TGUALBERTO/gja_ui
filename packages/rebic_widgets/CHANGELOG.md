@@ -2,6 +2,26 @@
 
 ## Não lançado
 
+- **BREAKING** Título, texto e rótulo no modelo do SAPUI5 (`update-rebic-text-fiori-title-text-label`, specs
+  `rebic/widgets/rebic-text`, `rebic/widgets/rebic-title` e `rebic/widgets/rebic-label`):
+  - `RebicText` passa a ser o `sap.m.Text`: `text`, `maxLines`, `wrapping` (padrão `true`) e `textAlign`, sempre com
+    `typography.base` e `colors.text`. Saem `variant` (`RebicTextVariant`), `tone` (`RebicTextTone`) e `heading`;
+  - novo `RebicTitle`, como o `sap.m.Title`: `level` (semântica) e `titleStyle` (estilo), ambos `RebicTitleLevel`
+    (`auto`, `h1`…`h6`), e `wrapping` (padrão `false`, uma linha com reticências);
+  - novo `RebicLabel`, como o `sap.m.Label`: `design` (`RebicLabelDesign.standard`/`bold`), `required` (asterisco na
+    cor `required`, anunciado como "Obrigatório"), `showColon` e `wrapping` (padrão `false`);
+  - `RebicPopover` e `RebicScaffold` usam `RebicTitle`, `RebicTooltip` usa `RebicText` e `RebicStatusIndicator` usa
+    `RebicLabel` com `showColon`. `RebicCard`, `RebicPage` e `RebicBadge` desenham o texto com os tokens do tema.
+    Nenhum golden desses widgets mudou.
+
+    | Antes | Agora |
+    |---|---|
+    | `variant: display` / `headline` / `title` / `subtitle` | `RebicTitle` com `titleStyle` `h1` / `h2` / `h3` / `h4` |
+    | `variant: body` | `RebicText` |
+    | `variant: bodyStrong` | `RebicLabel` com `design: bold`, quando é rótulo |
+    | `variant: label` / `caption`, `tone: muted` | `RebicLabel` |
+    | `tone: success` / `warning` / `error` / `information` | `RebicStatusIndicator` |
+    | `heading: true` | `RebicTitle` (sempre cabeçalho; nível em `level`) |
 - **BREAKING** Sobreposições no modelo do Popup do SAPUI5 (`update-rebic-core-overlay-fiori-popup`): a propriedade
   `side` (`RebicOverlaySide`, padrão `below`) passa a `placement` (`RebicPlacement`, padrão `bottom`) em
   `RebicPopover`, `RebicMenu`, `RebicDropdown` e `RebicTooltip`, como o `placement` do Popover. As posições padrão

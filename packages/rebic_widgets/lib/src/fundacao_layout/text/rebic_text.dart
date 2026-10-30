@@ -1,80 +1,24 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
-/// Estilo da escala tipográfica de um [RebicText].
+/// Exibe texto corrido do Rebic, como o `sap.m.Text` do SAPUI5.
 ///
-/// Cada variante usa um estilo Fiori de `RebicTypographyTokens`, indicado
-/// na própria variante.
-enum RebicTextVariant {
-  /// Número de destaque ou título de tela inicial (`header1`).
-  display,
-
-  /// Título de página (`header2`).
-  headline,
-
-  /// Título de seção, cartão ou diálogo (`header3`).
-  title,
-
-  /// Subtítulo ou título de grupo (`header4`).
-  subtitle,
-
-  /// Texto corrido (`base`, padrão).
-  body,
-
-  /// Texto corrido em destaque (`baseSemibold`).
-  bodyStrong,
-
-  /// Rótulo de controle ou de campo (`base`).
-  label,
-
-  /// Texto auxiliar, como notas e metadados (`small`).
-  caption,
-}
-
-/// Cor de papel de um [RebicText].
-///
-/// Os tons são fixos para que todo texto mantenha o contraste verificado
-/// pelos fundamentos; não há cor livre.
-enum RebicTextTone {
-  /// Cor `text` do tema (padrão).
-  standard,
-
-  /// Cor `label` do tema, para texto secundário.
-  muted,
-
-  /// Cor do estado de valor `success`.
-  success,
-
-  /// Cor do estado de valor `warning`.
-  warning,
-
-  /// Cor do estado de valor `error`.
-  error,
-
-  /// Cor do estado de valor `information`.
-  information,
-}
-
-/// Exibe texto do Rebic, como o `sap.m.Text` e o `sap.m.Title` do SAPUI5.
-///
-/// O estilo vem do estilo Fiori da [variant] e a cor, do [tone], ambos do tema
-/// ativo. Com [maxLines], o texto termina com reticências quando não cabe;
-/// o leitor de tela lê o texto completo. As variantes `display`, `headline` e
-/// `title` são anunciadas como cabeçalho, o que [heading] pode trocar.
+/// Usa o estilo `base` e a cor `text` do tema ativo. Com [maxLines], o texto
+/// termina com reticências quando não cabe; sem [wrapping], fica em uma linha
+/// com reticências e [maxLines] é ignorado. O leitor de tela lê o texto
+/// completo. Títulos usam `RebicTitle`, e rótulos, `RebicLabel`.
 ///
 /// ```dart
-/// RebicText('Pedidos em aberto', variant: RebicTextVariant.title)
-/// RebicText('Entrega atrasada', tone: RebicTextTone.error, maxLines: 2)
+/// RebicText('Pedido 4711 aguardando aprovação', maxLines: 2)
+/// RebicText('Fornecedor central', wrapping: false)
 /// ```
 class RebicText extends StatelessWidget {
-  /// Cria o texto [data].
+  /// Cria o texto [text].
   const RebicText(
-    this.data, {
-    this.variant = RebicTextVariant.body,
-    this.tone = RebicTextTone.standard,
+    this.text, {
     this.maxLines,
+    this.wrapping = true,
     this.textAlign = TextAlign.start,
-    this.heading,
     super.key,
   }) : assert(
          maxLines == null || maxLines > 0,
@@ -82,69 +26,28 @@ class RebicText extends StatelessWidget {
        );
 
   /// Texto exibido.
-  final String data;
+  final String text;
 
-  /// Estilo da escala tipográfica.
-  final RebicTextVariant variant;
-
-  /// Cor de papel.
-  final RebicTextTone tone;
-
-  /// Número máximo de linhas; nulo não limita.
+  /// Número máximo de linhas; nulo não limita. Ignorado sem [wrapping].
   final int? maxLines;
+
+  /// Se o texto quebra linhas; sem quebra, ocupa uma linha com reticências.
+  final bool wrapping;
 
   /// Alinhamento horizontal.
   final TextAlign textAlign;
 
-  /// Se o texto é anunciado como cabeçalho; nulo segue a variante.
-  final bool? heading;
-
-  static TextStyle _style(RebicTypographyTokens t, RebicTextVariant variant) =>
-      switch (variant) {
-        RebicTextVariant.display => t.header1,
-        RebicTextVariant.headline => t.header2,
-        RebicTextVariant.title => t.header3,
-        RebicTextVariant.subtitle => t.header4,
-        RebicTextVariant.body => t.base,
-        RebicTextVariant.bodyStrong => t.baseSemibold,
-        RebicTextVariant.label => t.base,
-        RebicTextVariant.caption => t.small,
-      };
-
-  static Color _color(RebicColorTokens c, RebicTextTone tone) => switch (tone) {
-    RebicTextTone.standard => c.text,
-    RebicTextTone.muted => c.label,
-    RebicTextTone.success => c.stateColors(RebicValueState.success).foreground,
-    RebicTextTone.warning => c.stateColors(RebicValueState.warning).foreground,
-    RebicTextTone.error => c.stateColors(RebicValueState.error).foreground,
-    RebicTextTone.information =>
-      c.stateColors(RebicValueState.information).foreground,
-  };
-
   @override
   Widget build(BuildContext context) {
     final theme = RebicThemeData.of(context);
-    final isHeading =
-        heading ??
-        switch (variant) {
-          RebicTextVariant.display ||
-          RebicTextVariant.headline ||
-          RebicTextVariant.title => true,
-          _ => false,
-        };
-    return Semantics(
-      header: isHeading,
-      child: Text(
-        data,
-        style: _style(
-          theme.typography,
-          variant,
-        ).copyWith(color: _color(theme.colors, tone)),
-        maxLines: maxLines,
-        overflow: maxLines == null ? TextOverflow.clip : TextOverflow.ellipsis,
-        textAlign: textAlign,
-        softWrap: true,
-      ),
+    final lines = wrapping ? maxLines : 1;
+    return Text(
+      text,
+      style: theme.typography.base.copyWith(color: theme.colors.text),
+      maxLines: lines,
+      overflow: lines == null ? TextOverflow.clip : TextOverflow.ellipsis,
+      textAlign: textAlign,
+      softWrap: wrapping,
     );
   }
 }

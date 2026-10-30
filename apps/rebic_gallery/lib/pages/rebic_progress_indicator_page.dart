@@ -30,7 +30,11 @@ class RebicProgressIndicatorPage extends StatelessWidget {
       body: RebicColumn(
         gap: RebicSpace.l,
         children: [
-          const RebicText('Barras por estado', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Barras por estado',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           for (final (i, state) in RebicValueState.values.indexed)
             RebicColumn(
               gap: RebicSpace.xs,
@@ -42,11 +46,19 @@ class RebicProgressIndicatorPage extends StatelessWidget {
                 ),
               ],
             ),
-          const RebicText('Indeterminada', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Indeterminada',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           const RebicProgressIndicator.linear(
             semanticLabel: 'Carregando pedidos',
           ),
-          const RebicText('Círculos', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Círculos',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           RebicRow(
             gap: RebicSpace.l,
             children: [

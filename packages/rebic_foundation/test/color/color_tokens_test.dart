@@ -37,6 +37,7 @@ const _fioriRoles = [
   'selectionBackground',
   'selectionHoverBackground',
   'focus',
+  'required',
   'shadow',
   'blockLayer',
 ];
@@ -109,6 +110,7 @@ void main() {
           selectionHoverBackground: other,
         ),
         'focus': _light.copyWith(focus: other),
+        'required': _light.copyWith(required: other),
         'shadow': _light.copyWith(shadow: other),
         'blockLayer': _light.copyWith(blockLayer: other),
         'none': _light.copyWith(none: _dark.none),
@@ -117,7 +119,7 @@ void main() {
         'error': _light.copyWith(error: _dark.error),
         'information': _light.copyWith(information: _dark.information),
       };
-      expect(variants, hasLength(24));
+      expect(variants, hasLength(25));
       for (final MapEntry(key: field, value: variant) in variants.entries) {
         expect(variant, isNot(_light), reason: field);
         expect(variant.lerp(_light, 1), _light, reason: field);

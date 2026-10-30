@@ -44,7 +44,11 @@ class _RebicStatusIndicatorPageState extends State<RebicStatusIndicatorPage> {
       body: RebicColumn(
         gap: RebicSpace.l,
         children: [
-          const RebicText('Por estado', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Por estado',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           for (final (state, icon, text) in _examples)
             RebicRow(
               gap: RebicSpace.l,
@@ -53,14 +57,22 @@ class _RebicStatusIndicatorPageState extends State<RebicStatusIndicatorPage> {
                 RebicStatusIndicator(text: text, state: state, inverted: true),
               ],
             ),
-          const RebicText('Com título', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Com título',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           const RebicStatusIndicator(
             title: 'Situação',
             icon: RebicIcons.sysEnter2,
             text: 'Aprovado',
             state: RebicValueState.success,
           ),
-          const RebicText('Ativo', variant: RebicTextVariant.title),
+          const RebicTitle(
+            'Ativo',
+            level: RebicTitleLevel.h2,
+            titleStyle: RebicTitleLevel.h3,
+          ),
           RebicStatusIndicator(
             icon: RebicIcons.warning,
             text: RebicStatusIndicatorPage.pending,

@@ -41,7 +41,11 @@ class RebicScaffoldPage extends StatelessWidget {
             child: RebicColumn(
               gap: RebicSpace.l,
               children: [
-                RebicText(title, variant: RebicTextVariant.headline),
+                RebicTitle(
+                  title,
+                  level: RebicTitleLevel.h1,
+                  titleStyle: RebicTitleLevel.h2,
+                ),
                 RebicText(bodyText),
               ],
             ),

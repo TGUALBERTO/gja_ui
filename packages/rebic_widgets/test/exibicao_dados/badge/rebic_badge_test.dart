@@ -59,9 +59,6 @@ void main() {
     testWidgets('[API] Propriedades — Contador avulso', (tester) async {
       await tester.pumpWidget(_host(const RebicBadge(count: 5)));
       expect(find.text('5'), findsOneWidget);
-      final text = tester.widget<RebicText>(find.byType(RebicText));
-      // `caption` usa o estilo `typography.small`.
-      expect(text.variant, RebicTextVariant.caption);
       final style = tester.widget<Text>(find.text('5')).style!;
       expect(style.fontSize, _light.typography.small.fontSize);
       final error = _light.colors.stateColors(RebicValueState.error);
@@ -130,10 +127,10 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(RebicText), findsNothing);
+      expect(find.byType(Text), findsNothing);
       expect(tester.getSize(find.byKey(const Key('alone'))), Size.zero);
       await tester.pumpWidget(_host(RebicBadge(count: 0, child: _target())));
-      expect(find.byType(RebicText), findsNothing);
+      expect(find.byType(Text), findsNothing);
       expect(find.byKey(const Key('target')), findsOneWidget);
     });
   });
@@ -152,12 +149,7 @@ void main() {
         colors.border,
         reason: state.name,
       );
-      final text = tester.widget<Text>(
-        find.descendant(
-          of: find.byType(RebicText),
-          matching: find.byType(Text),
-        ),
-      );
+      final text = tester.widget<Text>(find.text('7'));
       expect(
         text.style!.color,
         state == RebicValueState.none ? _light.colors.text : colors.foreground,

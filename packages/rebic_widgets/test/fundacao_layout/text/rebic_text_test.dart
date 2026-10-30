@@ -9,6 +9,7 @@ import 'package:rebic_widgets/rebic_widgets.dart';
 
 import '../../support/fonts.dart';
 import '../../support/golden.dart';
+import '../../support/traceability.dart';
 
 const _long =
     'O pedido de compra 4711 aguarda aprovação do centro de custo antes de ser '
@@ -37,7 +38,7 @@ RenderParagraph _paragraph(WidgetTester tester, String text) =>
 TextStyle _style(WidgetTester tester, String text) =>
     tester.widget<Text>(find.text(text)).style!;
 
-/// Altura de uma linha de `body` e número de linhas de [text].
+/// Altura de uma linha de `base` e número de linhas de [text].
 Future<(double, int)> _lines(WidgetTester tester, String text) async {
   final height = _paragraph(tester, text).size.height;
   await tester.pumpWidget(_column(240, const RebicText('x')));
@@ -45,16 +46,18 @@ Future<(double, int)> _lines(WidgetTester tester, String text) async {
   return (line, (height / line).round());
 }
 
-Directory get _repo => Directory.current.parent.parent;
-
-/// Amostra dos goldens e da página: variantes, tons e um texto truncado.
-Widget _sample() => Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    for (final v in RebicTextVariant.values) RebicText(v.name, variant: v),
-    for (final t in RebicTextTone.values) RebicText('tom ${t.name}', tone: t),
-    const RebicText(_long, maxLines: 2),
-  ],
+/// Amostra dos goldens: texto livre, truncado em duas linhas e sem quebra.
+Widget _sample() => const SizedBox(
+  width: 320,
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    spacing: 16,
+    children: [
+      RebicText(_long),
+      RebicText(_long, maxLines: 2),
+      RebicText(_long, wrapping: false),
+    ],
+  ),
 );
 
 void main() {
@@ -135,75 +138,51 @@ void main() {
       final (_, lines) = await _lines(tester, _long);
       expect(lines, greaterThanOrEqualTo(4));
     });
+
+    testWidgets('[Comportamento] Limite de linhas — Texto sem quebra', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        _column(240, const RebicText(_long, wrapping: false, maxLines: 3)),
+      );
+      final cut = _paragraph(tester, _long);
+      final height = cut.size.height;
+      expect(cut.didExceedMaxLines, isTrue);
+      expect(
+        tester.widget<Text>(find.text(_long)).overflow,
+        TextOverflow.ellipsis,
+      );
+      final (lineHeight, _) = await _lines(tester, _long);
+      expect(height, closeTo(lineHeight, 0.5));
+    });
   });
 
-  group('[Aparência] Tokens de componente', () {
-    testWidgets('[Aparência] Tokens de componente — Troca de tema', (
+  group('[Aparência] Estilo e cor do texto', () {
+    testWidgets('[Aparência] Estilo e cor do texto — Troca de tema do texto', (
       tester,
     ) async {
       final light = RebicThemeData.light();
       final dark = RebicThemeData.dark();
-      Widget app(RebicThemeData theme) => _themed(
-        const Center(child: RebicText('Falhou', tone: RebicTextTone.error)),
-        theme: theme,
-      );
+      Widget app(RebicThemeData theme) =>
+          _themed(const Center(child: RebicText('Total')), theme: theme);
       await tester.pumpWidget(app(light));
-      expect(
-        _style(tester, 'Falhou').color,
-        light.colors.stateColors(RebicValueState.error).foreground,
-      );
+      expect(_style(tester, 'Total').color, light.colors.text);
       await tester.pumpWidget(app(dark));
       await tester.pumpAndSettle();
-      expect(
-        _style(tester, 'Falhou').color,
-        dark.colors.stateColors(RebicValueState.error).foreground,
-      );
+      expect(_style(tester, 'Total').color, dark.colors.text);
     });
 
-    testWidgets('[Aparência] Tokens de componente — Variantes e tons', (
+    testWidgets('[Aparência] Estilo e cor do texto — Estilo do texto', (
       tester,
     ) async {
       final theme = RebicThemeData.light();
-      final c = theme.colors;
-      final toneColors = {
-        RebicTextTone.standard: c.text,
-        RebicTextTone.muted: c.label,
-        RebicTextTone.success: c
-            .stateColors(RebicValueState.success)
-            .foreground,
-        RebicTextTone.warning: c
-            .stateColors(RebicValueState.warning)
-            .foreground,
-        RebicTextTone.error: c.stateColors(RebicValueState.error).foreground,
-        RebicTextTone.information: c
-            .stateColors(RebicValueState.information)
-            .foreground,
-      };
-      // Estilo Fiori de cada variante (design D2).
-      const fiori = {
-        RebicTextVariant.display: 'header1',
-        RebicTextVariant.headline: 'header2',
-        RebicTextVariant.title: 'header3',
-        RebicTextVariant.subtitle: 'header4',
-        RebicTextVariant.body: 'base',
-        RebicTextVariant.bodyStrong: 'baseSemibold',
-        RebicTextVariant.label: 'base',
-        RebicTextVariant.caption: 'small',
-      };
-      for (final variant in RebicTextVariant.values) {
-        for (final tone in RebicTextTone.values) {
-          final label = '${variant.name}/${tone.name}';
-          await tester.pumpWidget(
-            _themed(RebicText(label, variant: variant, tone: tone)),
-          );
-          final expected = theme.typography.styles[fiori[variant]]!;
-          final style = _style(tester, label);
-          expect(style.fontSize, expected.fontSize, reason: label);
-          expect(style.height, expected.height, reason: label);
-          expect(style.fontWeight, expected.fontWeight, reason: label);
-          expect(style.color, toneColors[tone], reason: label);
-        }
-      }
+      await tester.pumpWidget(_themed(const RebicText('Total')));
+      final base = theme.typography.base;
+      final style = _style(tester, 'Total');
+      expect(style.fontSize, base.fontSize);
+      expect(style.height, base.height);
+      expect(style.fontWeight, base.fontWeight);
+      expect(style.color, theme.colors.text);
     });
   });
 
@@ -256,32 +235,30 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  group('[Acessibilidade] Semântica e contraste', () {
-    testWidgets('[Acessibilidade] Semântica e contraste — Leitor de tela', (
-      tester,
-    ) async {
-      final handle = tester.ensureSemantics();
-      const text = 'Pedidos em aberto';
-      await tester.pumpWidget(
-        _column(
-          60,
-          const RebicText(text, variant: RebicTextVariant.title, maxLines: 1),
-        ),
-      );
-      expect(_paragraph(tester, text).didExceedMaxLines, isTrue);
-      expect(
-        tester.getSemantics(find.text(text)),
-        matchesSemantics(label: text, isHeader: true),
-      );
-      handle.dispose();
-    });
+  group('[Acessibilidade] Semântica, contraste e escala de texto', () {
+    testWidgets(
+      '[Acessibilidade] Semântica, contraste e escala de texto — Leitor de tela',
+      (tester) async {
+        final handle = tester.ensureSemantics();
+        const text = 'Pedidos em aberto no mês';
+        await tester.pumpWidget(
+          _column(60, const RebicText(text, maxLines: 1)),
+        );
+        expect(_paragraph(tester, text).didExceedMaxLines, isTrue);
+        expect(
+          tester.getSemantics(find.text(text)),
+          matchesSemantics(label: text),
+        );
+        handle.dispose();
+      },
+    );
 
-    // "Contraste dos tons" fica em rebic_text_contrast_test.dart, sem a
+    // "Contraste do texto" fica em rebic_text_contrast_test.dart, sem a
     // fonte real: a diretriz de contraste mede pixels e precisa dos glifos
     // sólidos da fonte de teste padrão.
 
     testWidgets(
-      '[Acessibilidade] Semântica e contraste — Escala de texto 2,0',
+      '[Acessibilidade] Semântica, contraste e escala de texto — Escala de texto 2,0',
       (tester) async {
         final theme = RebicThemeData.light();
         await tester.pumpWidget(
@@ -327,19 +304,20 @@ void main() {
     await tester.pumpWidget(
       RebicApp(
         home: ListView(
-          children: [
-            for (final v in RebicTextVariant.values)
-              RebicText(v.name, variant: v),
+          children: const [
+            RebicText(_long),
+            RebicText(_long, maxLines: 2),
+            RebicText(_long, wrapping: false),
           ],
         ),
       ),
     );
-    expect(find.byType(RebicText), findsNWidgets(8));
+    expect(find.byType(RebicText), findsNWidgets(3));
     expect(tester.takeException(), isNull);
   });
 
-  group('[Testes] Cobertura exigida', () {
-    testWidgets('[Testes] Cobertura exigida — Goldens das variantes', (
+  group('[Testes] Cobertura do texto', () {
+    testWidgets('[Testes] Cobertura do texto — Goldens do texto', (
       tester,
     ) async {
       for (final (name, theme) in goldenThemes) {
@@ -352,33 +330,10 @@ void main() {
       }
     }, tags: ['golden']);
 
-    test('[Testes] Cobertura exigida — Rastreabilidade', () {
-      const id = 'rebic/widgets/rebic-text';
-      final spec = [
-        File('${_repo.path}/openspec/specs/$id/spec.md'),
-        File('${_repo.path}/openspec/changes/add-rebic-text/specs/$id/spec.md'),
-      ].firstWhere((f) => f.existsSync());
-      final names = <String>[];
-      String? requirement;
-      for (final line in spec.readAsLinesSync()) {
-        final req = RegExp(r'^### Requirement: (.+)$').firstMatch(line);
-        if (req != null) requirement = req.group(1)!.trim();
-        final scen = RegExp(r'^#### Scenario: (.+)$').firstMatch(line);
-        if (scen != null) names.add('$requirement — ${scen.group(1)!.trim()}');
-      }
-      final tests = [
-        for (final dir in [
-          Directory('${_repo.path}/packages/rebic_widgets/test'),
-          Directory('${_repo.path}/apps/rebic_gallery/test'),
-        ])
-          for (final f in dir.listSync(recursive: true).whereType<File>())
-            if (f.path.endsWith('_test.dart')) f.readAsStringSync(),
-      ].join('\n');
-      expect(names, hasLength(18));
-      expect([
-        for (final name in names)
-          if (!tests.contains("'$name'")) name,
-      ], isEmpty);
+    test('[Testes] Cobertura do texto — Rastreabilidade', () {
+      final names = scenarioNames('rebic/widgets/rebic-text', 'add-rebic-text');
+      expect(names, hasLength(19));
+      expect(untestedScenarios(names), isEmpty);
     });
   });
 
@@ -390,8 +345,11 @@ void main() {
       r'const RebicText\((.*?)\)\s*:',
       dotAll: true,
     ).firstMatch(source)!.group(1)!;
-    for (final type in ['Color', 'TextStyle', 'TextSpan']) {
-      expect(ctor, isNot(contains(type)), reason: type);
+    for (final name in ['Color', 'TextStyle', 'TextSpan']) {
+      expect(ctor, isNot(contains(name)), reason: name);
+    }
+    for (final name in ['tone', 'variant', 'heading']) {
+      expect(ctor, isNot(contains('this.$name')), reason: name);
     }
     final fields = RegExp(
       r'^  final (\w+\??) ',

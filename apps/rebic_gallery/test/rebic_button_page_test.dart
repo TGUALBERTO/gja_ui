@@ -14,6 +14,8 @@ void main() {
       await tester.pumpWidget(const RebicGalleryApp());
 
       await tester.scrollUntilVisible(find.text(RebicButtonPage.title), 200);
+      await tester.ensureVisible(find.text(RebicButtonPage.title));
+      await tester.pumpAndSettle();
       await tester.tap(find.text(RebicButtonPage.title));
       await tester.pumpAndSettle();
 
