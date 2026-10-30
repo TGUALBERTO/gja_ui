@@ -1,8 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
 
-/// Página "RebicCard": cartões numa grade, um com cabeçalho acionável, um com
-/// avatar e um sem margem com uma lista.
+/// Página "RebicCard": cartões numa grade, com `RebicCardHeader`: um
+/// acionável, um com ícone, status e data, um com o cabeçalho embaixo, um com
+/// barra de ferramentas e um com uma lista sem margem.
 class RebicCardPage extends StatefulWidget {
   /// Cria a página.
   const RebicCardPage({super.key});
@@ -19,6 +20,15 @@ class RebicCardPage extends StatefulWidget {
   /// Mensagem mostrada ao acionar o cabeçalho.
   static const opened = 'Abrindo pedidos pendentes';
 
+  /// Chave do cabeçalho com ícone, status e data.
+  static const fullHeaderKey = Key('card-header-full');
+
+  /// Chave do cartão com o cabeçalho embaixo.
+  static const bottomCardKey = Key('card-bottom');
+
+  /// Chave do cabeçalho com barra de ferramentas.
+  static const toolbarHeaderKey = Key('card-header-toolbar');
+
   @override
   State<RebicCardPage> createState() => _RebicCardPageState();
 }
@@ -28,6 +38,8 @@ class _RebicCardPageState extends State<RebicCardPage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget padded(Widget child) =>
+        RebicSpacing.padding(all: RebicSpace.l, child: child);
     return RebicPage(
       title: RebicCardPage.title,
       showNavButton: true,
@@ -43,35 +55,63 @@ class _RebicCardPageState extends State<RebicCardPage> {
             RebicGrid(
               children: [
                 RebicCard(
-                  title: RebicCardPage.pendingTitle,
-                  subtitle: 'Compras',
-                  status: '3 de 5',
-                  onHeaderPressed: () => setState(() => _opened = true),
-                  child: const RebicColumn(
-                    gap: RebicSpace.s,
-                    children: [
-                      RebicStatusIndicator(
-                        icon: RebicIcons.warning,
-                        text: '2 atrasados',
-                        state: RebicValueState.warning,
-                      ),
-                      RebicText('Toque no cabeçalho para ver os pedidos.'),
-                    ],
+                  header: RebicCardHeader(
+                    title: RebicCardPage.pendingTitle,
+                    subtitle: 'Compras',
+                    statusText: '3 de 5',
+                    onPress: () => setState(() => _opened = true),
                   ),
-                ),
-                const RebicCard(
-                  leading: RebicAvatar(
-                    initials: 'MB',
-                    size: RebicAvatarSize.xs,
+                  content: padded(
+                    const RebicColumn(
+                      gap: RebicSpace.s,
+                      children: [
+                        RebicStatusIndicator(
+                          icon: RebicIcons.warning,
+                          text: '2 atrasados',
+                          state: RebicValueState.warning,
+                        ),
+                        RebicText('Toque no cabeçalho para ver os pedidos.'),
+                      ],
+                    ),
                   ),
-                  title: 'Maria Barros',
-                  subtitle: 'Fornecedor',
-                  child: RebicText('Entrega média em 4 dias úteis.'),
                 ),
                 RebicCard(
-                  title: 'Últimas notas',
-                  padded: false,
-                  child: RebicColumn(
+                  header: const RebicCardHeader(
+                    key: RebicCardPage.fullHeaderKey,
+                    iconInitials: 'MB',
+                    iconAlt: 'Maria Barros',
+                    title: 'Maria Barros',
+                    subtitle: 'Fornecedor',
+                    statusText: 'Ativo',
+                    dataTimestamp: 'Há 5 min',
+                  ),
+                  content: padded(
+                    const RebicText('Entrega média em 4 dias úteis.'),
+                  ),
+                ),
+                RebicCard(
+                  key: RebicCardPage.bottomCardKey,
+                  headerPosition: RebicCardHeaderPosition.bottom,
+                  header: const RebicCardHeader(
+                    icon: RebicIcons.calendar,
+                    title: 'Entregas de hoje',
+                    subtitle: 'Depósito central',
+                  ),
+                  content: padded(
+                    const RebicText('2 entregas previstas até as 18h.'),
+                  ),
+                ),
+                RebicCard(
+                  header: RebicCardHeader(
+                    key: RebicCardPage.toolbarHeaderKey,
+                    title: 'Últimas notas',
+                    toolbar: RebicIconButton(
+                      icon: RebicIcons.overflow,
+                      tooltip: 'Mais',
+                      onPressed: () {},
+                    ),
+                  ),
+                  content: RebicColumn(
                     gap: RebicSpace.none,
                     children: [
                       for (final (i, nota) in const [

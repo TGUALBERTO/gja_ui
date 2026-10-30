@@ -450,6 +450,22 @@ items:
       - rebic/foundation/iconography
       - rebic/foundation/theming
       - rebic/foundation/accessibility
+  - id: rebic/widgets/rebic-card-header
+    name: "RebicCardHeader"
+    kind: widget
+    category: fundacao-layout
+    priority: P1
+    phase: 2
+    status: implemented
+    depends_on:
+      - rebic/widgets/rebic-avatar
+      - rebic/core/interaction
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/spacing
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-card
     name: "RebicCard"
     kind: widget
@@ -460,13 +476,11 @@ items:
     depends_on:
       - rebic/widgets/rebic-container
       - rebic/widgets/rebic-divider
-      - rebic/core/interaction
+      - rebic/widgets/rebic-card-header
+      - rebic/widgets/rebic-title
       - rebic/foundation/color
-      - rebic/foundation/spacing
       - rebic/foundation/radius
       - rebic/foundation/shadows
-      - rebic/foundation/typography
-      - rebic/foundation/interaction-states
       - rebic/foundation/theming
       - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-button

@@ -1,78 +1,77 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_core/rebic_core.dart';
-import 'package:rebic_foundation/rebic_foundation.dart';
 
+import '../card_header/rebic_card_header.dart';
 import '../container/rebic_container.dart';
 import '../divider/rebic_divider.dart';
-import '../spacing/rebic_spacing.dart';
+import '../title/rebic_title.dart';
+
+/// Posição do cabeçalho de um [RebicCard], como o
+/// `sap.f.cards.HeaderPosition` do SAPUI5.
+enum RebicCardHeaderPosition {
+  /// Cabeçalho acima do conteúdo.
+  top,
+
+  /// Cabeçalho abaixo do conteúdo.
+  bottom,
+}
 
 /// Cartão, como o `sap.f.Card` do SAPUI5.
 ///
-/// Uma superfície `base` com borda, raio `tile` e sombra `card`, na
-/// largura disponível. Com [title], mostra o cabeçalho: o [leading] (ex.: um
-/// `RebicAvatar`), o título e o [subtitle] (até 2 linhas cada) e o [status]
-/// no fim (ex.: "3 de 5"), separado do conteúdo por um divisor. O [child]
-/// tem a margem `spacing.l`, ou nenhuma com [padded] `false` (listas,
-/// tabelas). Com [onHeaderPressed], o cabeçalho é acionável e anunciado como
-/// botão; o cartão em si não é interativo.
+/// Uma superfície `base` com borda, raio `tile` e sombra `card`, na largura
+/// disponível. O [header], em geral um `RebicCardHeader`, fica acima do
+/// [content] ou, com [headerPosition] `bottom`, abaixo dele, separado por uma
+/// linha. O conteúdo não tem margem própria. O título do cabeçalho é
+/// anunciado com o [headingLevel].
 ///
 /// ```dart
 /// RebicCard(
-///   leading: const RebicAvatar(initials: 'MB', size: RebicAvatarSize.xs),
-///   title: 'Pedidos pendentes',
-///   subtitle: 'Compras',
-///   status: '3 de 5',
-///   onHeaderPressed: abrirPedidos,
-///   child: const ListaDePedidos(),
+///   header: RebicCardHeader(
+///     iconInitials: 'MB',
+///     title: 'Pedidos pendentes',
+///     subtitle: 'Compras',
+///     statusText: '3 de 5',
+///     onPress: abrirPedidos,
+///   ),
+///   content: const RebicSpacing.padding(
+///     all: RebicSpace.l,
+///     child: ListaDePedidos(),
+///   ),
 /// )
 /// ```
 class RebicCard extends StatelessWidget {
-  /// Cria o cartão com o conteúdo [child].
+  /// Cria o cartão.
   const RebicCard({
-    required this.child,
-    this.title,
-    this.subtitle,
-    this.status,
-    this.leading,
-    this.padded = true,
-    this.onHeaderPressed,
+    this.header,
+    this.headerPosition = RebicCardHeaderPosition.top,
+    this.content,
+    this.headingLevel = RebicTitleLevel.h3,
     super.key,
-  }) : assert(
-         title != null ||
-             (subtitle == null &&
-                 status == null &&
-                 leading == null &&
-                 onHeaderPressed == null),
-         'subtitle, status, leading e onHeaderPressed exigem title',
-       );
+  });
 
-  /// Conteúdo do cartão.
-  final Widget child;
+  /// Cabeçalho do cartão, em geral um `RebicCardHeader`.
+  final Widget? header;
 
-  /// Título do cabeçalho; nulo omite o cabeçalho.
-  final String? title;
+  /// Posição do cabeçalho.
+  final RebicCardHeaderPosition headerPosition;
 
-  /// Texto secundário abaixo do título.
-  final String? subtitle;
+  /// Conteúdo do cartão, sem margem própria.
+  final Widget? content;
 
-  /// Situação no fim do cabeçalho (ex.: "3 de 5").
-  final String? status;
-
-  /// Elemento no início do cabeçalho (ex.: um avatar ou ícone).
-  final Widget? leading;
-
-  /// Se o conteúdo tem a margem `spacing.l`.
-  final bool padded;
-
-  /// Ação do cabeçalho acionável; nula deixa o cabeçalho informativo.
-  final VoidCallback? onHeaderPressed;
+  /// Nível do título do cabeçalho para leitores de tela.
+  final RebicTitleLevel headingLevel;
 
   @override
   Widget build(BuildContext context) {
-    final title = this.title;
-    final content = padded
-        ? RebicSpacing.padding(all: RebicSpace.l, child: child)
-        : child;
+    final header = this.header;
+    final content = this.content;
+    final scoped = header == null
+        ? null
+        : RebicCardHeadingScope(level: headingLevel, child: header);
+    final line = scoped != null && content != null
+        ? const RebicDivider()
+        : null;
+    // A linha fica sempre entre o cabeçalho e o conteúdo.
+    final children = [?scoped, ?line, ?content];
     return RebicContainer(
       surface: RebicSurface.base,
       border: true,
@@ -81,92 +80,9 @@ class RebicCard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (title != null) ...[_header(context, title), const RebicDivider()],
-          content,
-        ],
-      ),
-    );
-  }
-
-  Widget _header(BuildContext context, String title) {
-    final theme = RebicThemeData.of(context);
-    final subtitle = this.subtitle;
-    final status = this.status;
-    Widget row(Color? background) {
-      final header = RebicSpacing.padding(
-        all: RebicSpace.l,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: theme.spacing.m,
-          children: [
-            ?leading,
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: theme.spacing.xxs,
-                children: [
-                  // O título de cartão é menor que o de página, como no Fiori,
-                  // e continua anunciado como cabeçalho. Quebra em até duas
-                  // linhas, o que o RebicTitle não oferece; a change do
-                  // cartão revê o cabeçalho no modelo do SAPUI5.
-                  Semantics(
-                    header: true,
-                    child: Text(
-                      title,
-                      style: theme.typography.header4.copyWith(
-                        color: theme.colors.text,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  if (subtitle != null)
-                    Text(
-                      subtitle,
-                      style: theme.typography.base.copyWith(
-                        color: theme.colors.label,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                ],
-              ),
-            ),
-            if (status != null)
-              Text(
-                status,
-                style: theme.typography.base.copyWith(
-                  color: theme.colors.label,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-          ],
-        ),
-      );
-      // Só o hover pinta o fundo; nos demais estados, o da superfície.
-      return background == null
-          ? header
-          : ColoredBox(color: background, child: header);
-    }
-
-    final onPressed = onHeaderPressed;
-    if (onPressed == null) return row(null);
-    // Um só nó: o botão do cabeçalho, rotulado por título e subtítulo.
-    return MergeSemantics(
-      child: RebicInteractable(
-        semanticLabel: subtitle == null ? title : '$title, $subtitle',
-        onPressed: onPressed,
-        focusRingBorderRadius: BorderRadius.circular(theme.radius.tile),
-        builder: (context, states) => ExcludeSemantics(
-          child: row(
-            states.contains(RebicInteractionState.hovered)
-                ? theme.colors.hoverBackground
-                : null,
-          ),
-        ),
+        children: headerPosition == RebicCardHeaderPosition.top
+            ? children
+            : children.reversed.toList(),
       ),
     );
   }

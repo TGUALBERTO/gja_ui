@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/gestures.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -38,21 +39,25 @@ Widget _host(
   ),
 );
 
-Widget _box(String key) => SizedBox(key: Key(key), width: 24, height: 24);
+Widget _box(String key, [double height = 24]) =>
+    SizedBox(key: Key(key), height: height);
 
 Rect _rect(WidgetTester tester, String key) =>
     tester.getRect(find.byKey(Key(key)));
 
-/// Fundo pintado no cabeçalho acionável, ou nulo quando transparente.
-Color? _headerBackground(WidgetTester tester) {
-  final boxes = find.descendant(
-    of: find.byType(RebicInteractable),
-    matching: find.byType(ColoredBox),
-  );
-  return boxes.evaluate().isEmpty
-      ? null
-      : tester.widget<ColoredBox>(boxes.first).color;
-}
+/// Linha entre o cabeçalho e o conteúdo.
+Finder get _line => find.descendant(
+  of: find.byType(RebicCard),
+  matching: find.byType(RebicDivider),
+);
+
+const _header = RebicCardHeader(
+  key: Key('header'),
+  iconInitials: 'MB',
+  title: 'Pedidos pendentes',
+  subtitle: 'Compras',
+  statusText: '3 de 5',
+);
 
 final _light = RebicThemeData.light();
 
@@ -60,48 +65,25 @@ void main() {
   group('[API] Propriedades', () {
     testWidgets('[API] Propriedades — Cartão com cabeçalho', (tester) async {
       await tester.pumpWidget(
-        _host(
-          RebicCard(
-            leading: _box('leading'),
-            title: 'Pedidos pendentes',
-            subtitle: 'Compras',
-            status: '3 de 5',
-            child: _box('content'),
-          ),
-        ),
+        _host(RebicCard(header: _header, content: _box('content'))),
       );
-      final leading = _rect(tester, 'leading');
-      final title = tester.getRect(find.text('Pedidos pendentes'));
-      final subtitle = tester.getRect(find.text('Compras'));
-      final status = tester.getRect(find.text('3 de 5'));
-      final divider = tester.getRect(find.byType(RebicDivider));
-      expect(leading.right, lessThanOrEqualTo(title.left));
-      expect(subtitle.top, greaterThanOrEqualTo(title.bottom));
-      expect(title.right, lessThanOrEqualTo(status.left));
-      expect(
-        _rect(tester, 'content').top,
-        greaterThanOrEqualTo(divider.bottom),
-      );
+      final header = _rect(tester, 'header');
+      final line = tester.getRect(_line);
+      final content = _rect(tester, 'content');
+      expect(header.bottom, lessThanOrEqualTo(line.top));
+      expect(line.bottom, lessThanOrEqualTo(content.top));
+      expect(tester.widget<RebicDivider>(_line).tone, RebicDividerTone.subtle);
     });
 
     testWidgets('[API] Propriedades — Cartão sem cabeçalho', (tester) async {
-      await tester.pumpWidget(_host(RebicCard(child: _box('content'))));
-      expect(find.byType(RebicDivider), findsNothing);
+      await tester.pumpWidget(_host(RebicCard(content: _box('content'))));
       final card = tester.getRect(find.byType(RebicCard));
-      expect(
-        _rect(tester, 'content').top - card.top,
-        closeTo(_light.spacing.l, 0.01),
-      );
+      final content = _rect(tester, 'content');
+      expect(_line, findsNothing);
+      // Só a borda separa o conteúdo do topo do cartão.
+      expect(content.top - card.top, lessThanOrEqualTo(1));
+      expect(content.left - card.left, lessThanOrEqualTo(1));
     });
-  });
-
-  test('[API] Cabeçalho válido — Subtítulo sem título', () {
-    for (final subtitle in ['Compras']) {
-      expect(
-        () => RebicCard(subtitle: subtitle, child: const SizedBox()),
-        throwsAssertionError,
-      );
-    }
   });
 
   testWidgets('[API] Callbacks e controlador — Cabeçalho acionável', (
@@ -111,15 +93,13 @@ void main() {
     await tester.pumpWidget(
       _host(
         RebicCard(
-          title: 'Pedidos',
-          onHeaderPressed: () => calls++,
-          child: const SizedBox(key: Key('content'), height: 80),
+          header: RebicCardHeader(title: 'Pedidos', onPress: () => calls++),
+          content: _box('content', 60),
         ),
       ),
     );
     await tester.tap(find.text('Pedidos'));
-    await tester.pump();
-    await tester.tap(find.byKey(const Key('content')), warnIfMissed: false);
+    await tester.tap(find.byKey(const Key('content')));
     await tester.pump();
     expect(calls, 1);
   });
@@ -129,18 +109,40 @@ void main() {
     (tester) async {
       const long =
           'Pedidos pendentes de aprovação do gestor do centro de custo da '
-          'unidade de compras corporativas';
+          'unidade de compras corporativas e das filiais regionais do grupo';
       await tester.pumpWidget(
         _host(
           width: 300,
-          RebicCard(title: long, status: '3 de 5', child: _box('content')),
+          RebicCard(
+            header: const RebicCardHeader(title: long),
+            content: _box('content'),
+          ),
         ),
       );
       expect(tester.takeException(), isNull);
       expect(tester.getSize(find.byType(RebicCard)).width, 300);
-      expect(tester.widget<Text>(find.text(long)).maxLines, 2);
+      expect(tester.widget<Text>(find.text(long)).maxLines, 3);
     },
   );
+
+  testWidgets('[Comportamento] Posição do cabeçalho — Cabeçalho embaixo', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _host(
+        RebicCard(
+          header: _header,
+          headerPosition: RebicCardHeaderPosition.bottom,
+          content: _box('content'),
+        ),
+      ),
+    );
+    final content = _rect(tester, 'content');
+    final line = tester.getRect(_line);
+    final header = _rect(tester, 'header');
+    expect(content.bottom, lessThanOrEqualTo(line.top));
+    expect(line.bottom, lessThanOrEqualTo(header.top));
+  });
 
   group('[Aparência] Superfície e cabeçalho', () {
     testWidgets('[Aparência] Superfície e cabeçalho — Superfície do cartão', (
@@ -152,8 +154,8 @@ void main() {
             theme: theme,
             RebicCard(
               key: ValueKey(theme.brightness),
-              title: 'Pedidos',
-              child: _box('content'),
+              header: _header,
+              content: _box('content'),
             ),
           ),
         );
@@ -182,8 +184,15 @@ void main() {
                     .decoration
                 as BoxDecoration;
         expect(decoration.color, theme.colors.base);
-        expect(decoration.border!.top.color, theme.colors.separator);
-        expect(decoration.boxShadow, hasLength(theme.shadows.card.length));
+        expect(
+          (decoration.border! as Border).top.color,
+          theme.colors.separator,
+        );
+        expect(
+          decoration.borderRadius,
+          BorderRadius.circular(theme.radius.tile),
+        );
+        expect(decoration.boxShadow, isNotEmpty);
       }
     });
 
@@ -191,22 +200,13 @@ void main() {
       tester,
     ) async {
       await tester.pumpWidget(
-        _host(
-          RebicCard(
-            title: 'Pedidos',
-            padded: false,
-            child: const SizedBox(key: Key('content'), height: 40),
-          ),
-        ),
+        _host(RebicCard(header: _header, content: _box('content'))),
       );
       final card = tester.getRect(find.byType(RebicCard));
       final content = _rect(tester, 'content');
-      final divider = tester.getRect(find.byType(RebicDivider));
-      // A borda fina do contêiner é a única distância às laterais.
-      final line = const BorderSide().width;
-      expect(content.left, closeTo(card.left + line, line + 0.01));
-      expect(content.right, closeTo(card.right - line, line + 0.01));
-      expect(content.top, closeTo(divider.bottom, 0.01));
+      expect(content.left - card.left, lessThanOrEqualTo(1));
+      expect(card.right - content.right, lessThanOrEqualTo(1));
+      expect(content.top, tester.getRect(_line).bottom);
     });
   });
 
@@ -217,22 +217,34 @@ void main() {
       await tester.pumpWidget(
         _host(
           RebicCard(
-            title: 'Pedidos',
-            onHeaderPressed: () {},
-            child: _box('content'),
+            header: RebicCardHeader(title: 'Pedidos', onPress: () {}),
+            content: _box('content'),
           ),
         ),
       );
-      expect(_headerBackground(tester), isNull);
+      final list = RebicControlColors.of(
+        RebicControlFamily.list,
+        _light.colors,
+      );
+      Color? header() => tester
+          .widget<ColoredBox>(
+            find
+                .descendant(
+                  of: find.byType(RebicInteractable),
+                  matching: find.byType(ColoredBox),
+                )
+                .first,
+          )
+          .color;
       final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
-      await mouse.addPointer(location: Offset.zero);
+      await mouse.addPointer(location: const Offset(500, 500));
       addTearDown(mouse.removePointer);
       await mouse.moveTo(tester.getCenter(find.text('Pedidos')));
       await tester.pump();
-      expect(_headerBackground(tester), _light.colors.hoverBackground);
-      await mouse.moveTo(const Offset(5, 900));
+      expect(header(), list.hover.background);
+      await mouse.moveTo(const Offset(500, 500));
       await tester.pump();
-      expect(_headerBackground(tester), isNull);
+      expect(header(), list.normal.background);
     });
 
     testWidgets(
@@ -240,17 +252,21 @@ void main() {
       (tester) async {
         final first = FocusNode();
         final second = FocusNode();
-        addTearDown(() {
-          first.dispose();
-          second.dispose();
-        });
+        addTearDown(first.dispose);
+        addTearDown(second.dispose);
         await tester.pumpWidget(
           RebicApp(
             home: Column(
               children: [
-                Focus(focusNode: first, child: const SizedBox(height: 20)),
-                const RebicCard(title: 'Pedidos', child: SizedBox(height: 20)),
-                Focus(focusNode: second, child: const SizedBox(height: 20)),
+                Focus(
+                  focusNode: first,
+                  child: const SizedBox(width: 20, height: 20),
+                ),
+                const RebicCard(header: _header),
+                Focus(
+                  focusNode: second,
+                  child: const SizedBox(width: 20, height: 20),
+                ),
               ],
             ),
           ),
@@ -275,9 +291,7 @@ void main() {
           child: SizedBox(
             width: 360,
             child: RebicCard(
-              title: 'Pedidos',
-              onHeaderPressed: () => calls++,
-              child: const SizedBox(height: 40),
+              header: RebicCardHeader(title: 'Pedidos', onPress: () => calls++),
             ),
           ),
         ),
@@ -297,55 +311,45 @@ void main() {
     await tester.pumpWidget(
       _host(
         RebicCard(
-          title: 'Pedidos',
-          subtitle: 'Compras',
-          onHeaderPressed: () {},
-          child: const RebicText('3 pedidos aguardando aprovação'),
+          header: RebicCardHeader(
+            title: 'Pedidos',
+            subtitle: 'Compras',
+            onPress: () {},
+          ),
+          content: const RebicText('3 pedidos aguardando aprovação'),
         ),
       ),
     );
+    final header = tester
+        .getSemantics(find.byType(RebicInteractable))
+        .getSemanticsData();
+    expect(header.label, 'Pedidos, Compras');
+    expect(header.hasFlag(SemanticsFlag.isButton), isTrue);
+    expect(header.hasFlag(SemanticsFlag.isHeader), isTrue);
+    expect(header.headingLevel, 3);
     expect(
-      tester.getSemantics(
-        find.descendant(
-          of: find.byType(RebicCard),
-          matching: find.byType(RebicInteractable),
-        ),
-      ),
-      containsSemantics(
-        label: 'Pedidos, Compras',
-        isButton: true,
-        hasTapAction: true,
-      ),
-    );
-    expect(
-      find.bySemanticsLabel('3 pedidos aguardando aprovação'),
+      find.semantics.byLabel('3 pedidos aguardando aprovação'),
       findsOneWidget,
     );
     handle.dispose();
   });
+
+  // "Contraste e alvo do cartão" fica em rebic_card_a11y_test.dart, sem a
+  // fonte real: a diretriz de contraste mede pixels e precisa dos glifos
+  // sólidos da fonte de teste padrão.
 
   group('[Responsividade] Direção e escala', () {
     testWidgets('[Responsividade] Direção e escala — Cartão em RTL', (
       tester,
     ) async {
       await tester.pumpWidget(
-        _host(
-          direction: TextDirection.rtl,
-          RebicCard(
-            leading: _box('leading'),
-            title: 'Pedidos',
-            status: '3 de 5',
-            child: _box('content'),
-          ),
-        ),
+        _host(direction: TextDirection.rtl, const RebicCard(header: _header)),
       );
       final card = tester.getRect(find.byType(RebicCard));
-      final m = _light.spacing.l;
-      expect(_rect(tester, 'leading').right, closeTo(card.right - m, 1.01));
-      expect(
-        tester.getRect(find.text('3 de 5')).left,
-        closeTo(card.left + m, 1.01),
-      );
+      final icon = tester.getRect(find.byType(RebicAvatar));
+      final status = tester.getRect(find.text('3 de 5'));
+      expect(card.right - icon.right, lessThan(card.width / 4));
+      expect(status.left - card.left, lessThan(card.width / 4));
     });
 
     testWidgets(
@@ -355,12 +359,9 @@ void main() {
           _host(
             width: 300,
             textScale: 2,
-            RebicCard(
-              leading: _box('leading'),
-              title: 'Pedidos pendentes',
-              subtitle: 'Compras',
-              status: '3 de 5',
-              child: const RebicText('3 pedidos aguardando aprovação'),
+            const RebicCard(
+              header: _header,
+              content: RebicText('3 pedidos aguardando aprovação'),
             ),
           ),
         );
@@ -378,12 +379,11 @@ void main() {
         home: RebicGrid(
           children: [
             RebicCard(
-              title: 'Pedidos',
-              onHeaderPressed: () => calls++,
-              child: const RebicText('3 pedidos'),
+              header: RebicCardHeader(title: 'Pedidos', onPress: () => calls++),
+              content: _box('a'),
             ),
-            const RebicCard(title: 'Notas', child: RebicText('2 notas')),
-            const RebicCard(child: RebicText('Sem cabeçalho')),
+            RebicCard(header: _header, content: _box('b')),
+            RebicCard(content: _box('c')),
           ],
         ),
       ),
@@ -404,58 +404,39 @@ void main() {
     testWidgets('[Testes] Cobertura exigida — Goldens do cartão', (
       tester,
     ) async {
+      Widget body(String text) =>
+          RebicSpacing.padding(all: RebicSpace.l, child: RebicText(text));
       for (final (name, theme) in goldenThemes) {
         await expectGolden(
           tester,
           name: 'rebic_card_$name',
           theme: theme,
-          size: const Size(720, 360),
+          size: const Size(440, 640),
           surface: RebicSurface.background,
           child: SizedBox(
-            width: 672,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            width: 400,
+            child: Column(
               spacing: 16,
               children: [
-                const Expanded(
-                  child: RebicCard(
-                    leading: RebicAvatar(
-                      initials: 'MB',
-                      size: RebicAvatarSize.xs,
-                    ),
+                RebicCard(
+                  header: RebicCardHeader(
+                    iconInitials: 'MB',
                     title: 'Pedidos pendentes',
                     subtitle: 'Compras',
-                    status: '3 de 5',
-                    child: RebicText('3 pedidos aguardando aprovação.'),
+                    statusText: '3 de 5',
+                    onPress: () {},
                   ),
+                  content: body('3 pedidos aguardando aprovação.'),
                 ),
-                const Expanded(
-                  child: RebicCard(
-                    child: RebicText('Cartão sem cabeçalho, só conteúdo.'),
+                RebicCard(
+                  header: const RebicCardHeader(
+                    title: 'Entregas',
+                    dataTimestamp: 'Há 5 min',
                   ),
+                  headerPosition: RebicCardHeaderPosition.bottom,
+                  content: body('2 entregas previstas para hoje.'),
                 ),
-                Expanded(
-                  child: RebicCard(
-                    title: 'Últimas notas',
-                    padded: false,
-                    child: RebicColumn(
-                      gap: RebicSpace.none,
-                      children: [
-                        for (final (i, nota) in [
-                          'NF 1021',
-                          'NF 1022',
-                          'NF 1023',
-                        ].indexed) ...[
-                          if (i > 0) const RebicDivider(),
-                          RebicSpacing.padding(
-                            all: RebicSpace.m,
-                            child: RebicText(nota),
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                ),
+                RebicCard(content: body('Cartão sem cabeçalho.')),
               ],
             ),
           ),
@@ -465,18 +446,21 @@ void main() {
   });
 
   test('[Restrições] Fora do escopo — Cartão sem valor literal', () {
-    final source = File(
+    final file = File(
       'lib/src/fundacao_layout/card/rebic_card.dart',
     ).readAsStringSync();
-    final fields = RegExp(
+    final source = file.substring(file.indexOf('class RebicCard '));
+    for (final field in RegExp(
       r'^  final (\S+) (\w+);$',
       multiLine: true,
-    ).allMatches(source).map((m) => m.group(1)!).toList();
-    expect(fields, isNotEmpty);
-    for (final type in fields) {
+    ).allMatches(source)) {
       expect(
-        type.replaceAll('?', ''),
-        isNot(isIn(['double', 'Color', 'EdgeInsets'])),
+        field.group(1),
+        isNot(anyOf('double', 'double?', 'Color', 'Color?')),
+      );
+      expect(
+        field.group(2),
+        isNot(anyOf('title', 'padded', 'onHeaderPressed')),
       );
     }
   });

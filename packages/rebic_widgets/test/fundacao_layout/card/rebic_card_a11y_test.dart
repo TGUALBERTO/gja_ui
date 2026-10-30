@@ -26,12 +26,15 @@ void main() {
                     child: SizedBox(
                       width: 360,
                       child: RebicCard(
-                        title: 'Pedidos pendentes',
-                        subtitle: 'Compras',
-                        status: '3 de 5',
-                        onHeaderPressed: () {},
-                        child: const RebicText(
-                          '3 pedidos aguardando aprovação',
+                        header: RebicCardHeader(
+                          title: 'Pedidos pendentes',
+                          subtitle: 'Compras',
+                          statusText: '3 de 5',
+                          onPress: () {},
+                        ),
+                        content: const RebicSpacing.padding(
+                          all: RebicSpace.l,
+                          child: RebicText('3 pedidos aguardando aprovação'),
                         ),
                       ),
                     ),

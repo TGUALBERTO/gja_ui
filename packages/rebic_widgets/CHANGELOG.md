@@ -2,6 +2,19 @@
 
 ## Não lançado
 
+- **BREAKING** Card e cabeçalho de cartão no modelo do SAPUI5 (`update-rebic-card-fiori-card-header`, specs
+  `rebic/widgets/rebic-card` e `rebic/widgets/rebic-card-header`):
+  - `RebicCard` passa à API do `sap.f.Card`: `header`, `headerPosition` (`RebicCardHeaderPosition.top`/`bottom`),
+    `content` e `headingLevel` (padrão `h3`). O conteúdo não tem mais margem, como no UI5;
+  - novo `RebicCardHeader`, como o `sap.f.cards.Header`: `title` (até 3 linhas, estilo H5), `subtitle` (até 2),
+    `statusText`, `statusVisible`, `dataTimestamp`, ícone (`icon`, `iconImage`, `iconInitials`, `iconDisplayShape`,
+    `iconSize`, `iconAlt`, `iconVisible`), `toolbar` e `onPress`. Acionável, o título continua anunciado como
+    cabeçalho com o nível do cartão.
+
+    | Antes | Agora |
+    |---|---|
+    | `RebicCard(title:, subtitle:, status:, leading:, onHeaderPressed:, child:)` | `RebicCard(header: RebicCardHeader(title:, subtitle:, statusText:, iconInitials:/icon:, onPress:), content: RebicSpacing.padding(all: RebicSpace.l, child: …))` |
+    | `padded: false` | `content` sem `RebicSpacing.padding` |
 - **BREAKING** Page e Bar no modelo do SAPUI5 (`update-rebic-page-fiori-page-bar`, specs `rebic/widgets/rebic-page`
   e `rebic/widgets/rebic-bar`):
   - `RebicPage` passa à API do `sap.m.Page`: `title`, `titleLevel`, `titleAlignment`, `showNavButton`,

@@ -10,6 +10,8 @@ export 'src/fundacao_layout/text/rebic_text.dart';
 export 'src/fundacao_layout/title/rebic_title.dart';
 export 'src/fundacao_layout/label/rebic_label.dart';
 export 'src/fundacao_layout/bar/rebic_bar.dart' hide RebicBarScope;
+export 'src/fundacao_layout/card_header/rebic_card_header.dart'
+    hide RebicCardHeadingScope;
 export 'src/fundacao_layout/shell_bar/rebic_shell_bar.dart';
 export 'src/fundacao_layout/tool_page/rebic_tool_page.dart';
 export 'src/fundacao_layout/icon/rebic_icon.dart';
