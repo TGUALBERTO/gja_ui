@@ -2,6 +2,25 @@
 
 ## Não lançado
 
+- **BREAKING** Page e Bar no modelo do SAPUI5 (`update-rebic-page-fiori-page-bar`, specs `rebic/widgets/rebic-page`
+  e `rebic/widgets/rebic-bar`):
+  - `RebicPage` passa à API do `sap.m.Page`: `title`, `titleLevel`, `titleAlignment`, `showNavButton`,
+    `navButtonTooltip`, `onNavButtonPress`, `headerContent`, `customHeader`, `showHeader`, `subHeader`,
+    `showSubHeader`, `content`, `enableScrolling`, `backgroundDesign`, `contentPadding`, `footer`, `showFooter` e
+    `floatingFooter`. O cabeçalho é uma `RebicBar` com o título no estilo H5, e o conteúdo não tem espaçamento por
+    padrão, como no UI5;
+  - novo `RebicBar`, como o `sap.m.Bar`: `contentLeft`, `contentMiddle`, `contentRight`, `design` (`RebicBarDesign`)
+    e `titleAlignment` (`RebicTitleAlignment`), com a altura `density.barHeight`.
+
+    | Antes | Agora |
+    |---|---|
+    | `onBack: f` | `showNavButton: true, onNavButtonPress: f` |
+    | `actions: [...]` | `headerContent: [...]` |
+    | `body: x` | `content: [x]` (com `contentPadding: RebicContentPadding.responsive` no lugar da margem) |
+    | `padded: false` | `contentPadding: RebicContentPadding.none` (o padrão) |
+    | `scrollable: false` | `enableScrolling: false` |
+    | `footerActions: [...]` | `footer: RebicBar(contentRight: [...])` |
+    | `subtitle` | removido (é do `sap.f.DynamicPage`) |
 - **BREAKING** ToolPage e ShellBar no modelo do SAPUI5 (`update-rebic-scaffold-fiori-tool-page`, specs
   `rebic/widgets/rebic-tool-page` e `rebic/widgets/rebic-shell-bar`; `rebic/widgets/rebic-scaffold` retirada):
   - `RebicScaffold` sai e dá lugar a `RebicToolPage`, como o `sap.tnt.ToolPage`: `header`, `subHeader`,

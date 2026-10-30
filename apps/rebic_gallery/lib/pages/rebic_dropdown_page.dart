@@ -79,48 +79,53 @@ class _RebicDropdownPageState extends State<RebicDropdownPage> {
     final action = _action;
     return RebicPage(
       title: RebicDropdownPage.title,
-      subtitle: 'Listas ancoradas no modelo do sap.m.Select',
-      onBack: () => Navigator.of(context).maybePop(),
-      body: RebicColumn(
-        gap: RebicSpace.l,
-        children: [
-          const RebicText(
-            'Setas, Home, End e a primeira letra navegam pelos itens; Enter '
-            'escolhe e Esc fecha.',
-          ),
-          RebicRow(
-            gap: RebicSpace.m,
-            children: [
-              RebicDropdown<String>(
-                controller: _status,
-                semanticLabel: 'Status',
-                selected: _selected,
-                items: _statuses,
-                onSelected: (value) => setState(() => _selected = value),
-                child: _StatusField(
-                  label: RebicDropdownPage.status(_label),
-                  onPressed: _status.toggle,
-                ),
-              ),
-              RebicDropdown<String>(
-                controller: _more,
-                semanticLabel: 'Mais ações',
-                items: _actions,
-                onSelected: (value) => setState(() => _action = value),
-                child: RebicIconButton(
-                  icon: RebicIcons.overflow,
-                  tooltip: 'Mais ações',
-                  onPressed: _more.toggle,
-                ),
-              ),
-            ],
-          ),
-          if (action != null)
-            RebicText(
-              'Ação: ${_actions.firstWhere((item) => item.value == action).label}',
+      showNavButton: true,
+      onNavButtonPress: () => Navigator.of(context).maybePop(),
+      contentPadding: RebicContentPadding.responsive,
+      content: [
+        const RebicText('Listas ancoradas no modelo do sap.m.Select'),
+        const RebicSpacing.vertical(RebicSpace.l),
+        RebicColumn(
+          gap: RebicSpace.l,
+          children: [
+            const RebicText(
+              'Setas, Home, End e a primeira letra navegam pelos itens; Enter '
+              'escolhe e Esc fecha.',
             ),
-        ],
-      ),
+            RebicRow(
+              gap: RebicSpace.m,
+              children: [
+                RebicDropdown<String>(
+                  controller: _status,
+                  semanticLabel: 'Status',
+                  selected: _selected,
+                  items: _statuses,
+                  onSelected: (value) => setState(() => _selected = value),
+                  child: _StatusField(
+                    label: RebicDropdownPage.status(_label),
+                    onPressed: _status.toggle,
+                  ),
+                ),
+                RebicDropdown<String>(
+                  controller: _more,
+                  semanticLabel: 'Mais ações',
+                  items: _actions,
+                  onSelected: (value) => setState(() => _action = value),
+                  child: RebicIconButton(
+                    icon: RebicIcons.overflow,
+                    tooltip: 'Mais ações',
+                    onPressed: _more.toggle,
+                  ),
+                ),
+              ],
+            ),
+            if (action != null)
+              RebicText(
+                'Ação: ${_actions.firstWhere((item) => item.value == action).label}',
+              ),
+          ],
+        ),
+      ],
     );
   }
 }

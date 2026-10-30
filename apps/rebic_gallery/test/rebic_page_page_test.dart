@@ -16,14 +16,22 @@ void main() {
     await tester.pumpWidget(const RebicGalleryApp());
 
     await openGalleryPage(tester, RebicPagePage.title);
-    expect(find.byType(RebicPage), findsOneWidget);
+    RebicPage page() => tester.widget<RebicPage>(find.byType(RebicPage));
+    expect(page().floatingFooter, isFalse);
 
-    await tester.tap(
-      find.descendant(
-        of: find.byType(RebicPage),
-        matching: find.byType(RebicInteractable),
-      ),
+    await tester.tap(find.byKey(RebicPagePage.floatingKey));
+    await tester.pumpAndSettle();
+    expect(page().floatingFooter, isTrue);
+
+    final list = find.byKey(
+      RebicPagePage.designKey(RebicPageBackgroundDesign.list),
     );
+    await tester.ensureVisible(list);
+    await tester.tap(list);
+    await tester.pumpAndSettle();
+    expect(page().backgroundDesign, RebicPageBackgroundDesign.list);
+
+    await tester.tap(find.byIcon(RebicIcons.navBack));
     await tester.pumpAndSettle();
     expect(find.byType(RebicPage), findsNothing);
     expect(find.text(RebicPagePage.title), findsOneWidget);

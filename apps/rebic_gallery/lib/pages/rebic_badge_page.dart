@@ -27,59 +27,64 @@ class _RebicBadgePageState extends State<RebicBadgePage> {
   Widget build(BuildContext context) {
     return RebicPage(
       title: RebicBadgePage.title,
-      subtitle: 'Contadores avulsos e sobre elementos',
-      onBack: () => Navigator.of(context).maybePop(),
-      body: RebicColumn(
-        gap: RebicSpace.l,
-        children: [
-          const RebicTitle(
-            'Por estado',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          RebicRow.wrap(
-            children: [
-              for (final state in RebicValueState.values)
-                RebicBadge(count: 12, state: state),
-              const RebicBadge(count: 1500),
-            ],
-          ),
-          const RebicTitle(
-            'Sobre botões de ícone',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          RebicRow(
-            gap: RebicSpace.xxl,
-            children: [
-              RebicBadge(
-                key: RebicBadgePage.bellKey,
-                count: _notifications,
-                semanticLabel: '$_notifications notificações',
-                child: RebicIconButton(
-                  icon: RebicIcons.bell,
-                  tooltip: 'Notificações',
-                  onPressed: () {},
+      showNavButton: true,
+      onNavButtonPress: () => Navigator.of(context).maybePop(),
+      contentPadding: RebicContentPadding.responsive,
+      content: [
+        const RebicText('Contadores avulsos e sobre elementos'),
+        const RebicSpacing.vertical(RebicSpace.l),
+        RebicColumn(
+          gap: RebicSpace.l,
+          children: [
+            const RebicTitle(
+              'Por estado',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicRow.wrap(
+              children: [
+                for (final state in RebicValueState.values)
+                  RebicBadge(count: 12, state: state),
+                const RebicBadge(count: 1500),
+              ],
+            ),
+            const RebicTitle(
+              'Sobre botões de ícone',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicRow(
+              gap: RebicSpace.xxl,
+              children: [
+                RebicBadge(
+                  key: RebicBadgePage.bellKey,
+                  count: _notifications,
+                  semanticLabel: '$_notifications notificações',
+                  child: RebicIconButton(
+                    icon: RebicIcons.bell,
+                    tooltip: 'Notificações',
+                    onPressed: () {},
+                  ),
                 ),
-              ),
-              RebicBadge(
-                count: 42,
-                state: RebicValueState.information,
-                semanticLabel: '42 pedidos',
-                child: RebicIconButton(
-                  icon: RebicIcons.document,
-                  tooltip: 'Pedidos',
-                  onPressed: () {},
+                RebicBadge(
+                  count: 42,
+                  state: RebicValueState.information,
+                  semanticLabel: '42 pedidos',
+                  child: RebicIconButton(
+                    icon: RebicIcons.document,
+                    tooltip: 'Pedidos',
+                    onPressed: () {},
+                  ),
                 ),
-              ),
-            ],
-          ),
-          RebicButton(
-            label: 'Nova notificação',
-            onPressed: () => setState(() => _notifications++),
-          ),
-        ],
-      ),
+              ],
+            ),
+            RebicButton(
+              label: 'Nova notificação',
+              onPressed: () => setState(() => _notifications++),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

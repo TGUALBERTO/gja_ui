@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Token de densidade `barHeight` (`update-rebic-page-fiori-page-bar`, spec `rebic/foundation/density`): altura do
+  `sap.m.Bar`, 48 no cozy e 32 no compacto, com o primitivo `RebicDensityPrimitives.size48`. Quem cria
+  `RebicDensityTokens` pelo construtor passa a informar `barHeight`.
 - Ícone `grid` em `RebicIcons` (`update-rebic-scaffold-fiori-tool-page`): seletor de produtos do `RebicShellBar`,
   com o `grip` da Lucide e o nome `grid` do IconPool.
 - Papel de cor `required` (`update-rebic-text-fiori-title-text-label`, spec `rebic/foundation/color`): cor do

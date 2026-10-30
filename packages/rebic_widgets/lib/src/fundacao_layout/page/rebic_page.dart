@@ -3,21 +3,49 @@ import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
 import '../../acoes_navegacao/icon_button/rebic_icon_button.dart';
-import '../column/rebic_column.dart';
+import '../bar/rebic_bar.dart';
 import '../container/rebic_container.dart';
-import '../divider/rebic_divider.dart';
-import '../flex/rebic_flex_alignment.dart';
-import '../row/rebic_row.dart';
-import '../spacing/rebic_spacing.dart';
+import '../title/rebic_title.dart';
 
-/// Página de conteúdo, como o `sap.m.Page` e o `sap.f.DynamicPage` do
-/// SAPUI5: área de título, conteúdo e rodapé fixo de ações.
+/// Fundo de uma [RebicPage], como o `sap.m.PageBackgroundDesign` do SAPUI5.
+enum RebicPageBackgroundDesign {
+  /// Fundo da aplicação (`colors.background`).
+  standard,
+
+  /// Fundo sólido da aplicação (`colors.background`).
+  solid,
+
+  /// Fundo de lista (`colors.base`).
+  list,
+
+  /// Sem fundo.
+  transparent,
+}
+
+/// Espaçamento do conteúdo de uma [RebicPage], como as classes de padding do
+/// SAPUI5.
+enum RebicContentPadding {
+  /// Sem espaçamento (`sapUiNoContentPadding`, o padrão da página).
+  none,
+
+  /// `spacing.l` nos quatro lados (`sapUiContentPadding`).
+  standard,
+
+  /// Pela classe da tela: nenhum em `small`, `spacing.l` em `medium` e
+  /// `spacing.l` por `spacing.xxl` a partir de `large`
+  /// (`sapUiResponsiveContentPadding`).
+  responsive,
+}
+
+/// Página de conteúdo, como o `sap.m.Page` do SAPUI5.
 ///
-/// A área de título mostra o botão de voltar (quando há [onBack]), o [title]
-/// (anunciado como cabeçalho), o [subtitle] e as [actions]. O [body] rola
-/// verticalmente entre o título e o rodapé ou, com [scrollable] `false`,
-/// recebe a altura disponível para uma rolagem própria. O rodapé, com as
-/// [footerActions] alinhadas ao fim, só aparece quando há ações.
+/// O cabeçalho é uma `RebicBar` com o botão de voltar ([showNavButton]), o
+/// [title] e o [headerContent], ou o [customHeader]. Abaixo vêm o
+/// [subHeader], o [content], que rola com [enableScrolling] ou divide a altura
+/// disponível sem ela, e o [footer], fixo ou flutuante ([floatingFooter]). O
+/// fundo segue [backgroundDesign], e o espaçamento do conteúdo,
+/// [contentPadding]. Barras com desenho `auto` no subcabeçalho e no rodapé
+/// recebem o desenho da área.
 ///
 /// Precisa de altura limitada: use-a como conteúdo principal do
 /// `RebicToolPage` ou como página de uma rota.
@@ -25,157 +53,211 @@ import '../spacing/rebic_spacing.dart';
 /// ```dart
 /// RebicPage(
 ///   title: 'Pedido 4711',
-///   subtitle: 'Aguardando aprovação',
-///   onBack: () => Navigator.of(context).maybePop(),
-///   actions: [EditarAction()],
-///   footerActions: [CancelarAction(), SalvarAction()],
-///   body: const DetalhesDoPedido(),
+///   showNavButton: true,
+///   onNavButtonPress: () => Navigator.of(context).maybePop(),
+///   headerContent: [EditarAction()],
+///   contentPadding: RebicContentPadding.responsive,
+///   content: const [DetalhesDoPedido()],
+///   footer: RebicBar(contentRight: [CancelarAction(), SalvarAction()]),
 /// )
 /// ```
 class RebicPage extends StatelessWidget {
-  /// Cria a página com [title] e [body].
+  /// Cria a página.
   const RebicPage({
-    required this.title,
-    required this.body,
-    this.subtitle,
-    this.onBack,
-    this.actions = const [],
-    this.padded = true,
-    this.scrollable = true,
-    this.footerActions = const [],
+    this.title,
+    this.titleLevel = RebicTitleLevel.auto,
+    this.titleAlignment = RebicTitleAlignment.auto,
+    this.showNavButton = false,
+    this.navButtonTooltip,
+    this.onNavButtonPress,
+    this.headerContent = const [],
+    this.customHeader,
+    this.showHeader = true,
+    this.subHeader,
+    this.showSubHeader = true,
+    this.content = const [],
+    this.enableScrolling = true,
+    this.backgroundDesign = RebicPageBackgroundDesign.standard,
+    this.contentPadding = RebicContentPadding.none,
+    this.footer,
+    this.showFooter = true,
+    this.floatingFooter = false,
     super.key,
   });
 
-  /// Título da página, anunciado como cabeçalho.
-  final String title;
+  /// Título no cabeçalho, anunciado como cabeçalho com [titleLevel].
+  final String? title;
 
-  /// Conteúdo da página.
-  final Widget body;
+  /// Nível semântico do título.
+  final RebicTitleLevel titleLevel;
 
-  /// Texto secundário abaixo do título.
-  final String? subtitle;
+  /// Alinhamento do título no cabeçalho.
+  final RebicTitleAlignment titleAlignment;
 
-  /// Chamado pelo botão de voltar; nulo oculta o botão.
-  final VoidCallback? onBack;
+  /// Se mostra o botão de voltar.
+  final bool showNavButton;
 
-  /// Ações da página, no fim da área de título.
-  final List<Widget> actions;
+  /// Dica do botão de voltar; nula usa o texto `back` do núcleo.
+  final String? navButtonTooltip;
 
-  /// Se o conteúdo tem a margem de página da classe de tamanho da página
-  /// (`spacing.pageMarginFor`).
-  final bool padded;
+  /// Toque no botão de voltar; nulo o desabilita.
+  final VoidCallback? onNavButtonPress;
 
-  /// Se o conteúdo rola; `false` lhe dá a altura disponível.
-  final bool scrollable;
+  /// Conteúdo no fim do cabeçalho.
+  final List<Widget> headerContent;
 
-  /// Ações finais, no rodapé fixo, alinhadas ao fim.
-  final List<Widget> footerActions;
+  /// Cabeçalho próprio, no lugar do interno.
+  final Widget? customHeader;
+
+  /// Se mostra o cabeçalho.
+  final bool showHeader;
+
+  /// Subcabeçalho, logo abaixo do cabeçalho.
+  final Widget? subHeader;
+
+  /// Se mostra o [subHeader].
+  final bool showSubHeader;
+
+  /// Conteúdo da página, empilhado.
+  final List<Widget> content;
+
+  /// Se o conteúdo rola; sem rolagem, os itens dividem a altura disponível.
+  final bool enableScrolling;
+
+  /// Fundo da página.
+  final RebicPageBackgroundDesign backgroundDesign;
+
+  /// Espaçamento do conteúdo.
+  final RebicContentPadding contentPadding;
+
+  /// Rodapé, em geral uma `RebicBar` com as ações no fim.
+  final Widget? footer;
+
+  /// Se mostra o [footer].
+  final bool showFooter;
+
+  /// Se o rodapé flutua sobre o conteúdo.
+  final bool floatingFooter;
+
+  EdgeInsets _padding(RebicSpacingTokens spacing, RebicSizeClass size) =>
+      switch (contentPadding) {
+        RebicContentPadding.none => EdgeInsets.zero,
+        RebicContentPadding.standard => EdgeInsets.all(spacing.l),
+        RebicContentPadding.responsive => switch (size) {
+          RebicSizeClass.small => EdgeInsets.zero,
+          RebicSizeClass.medium => EdgeInsets.all(spacing.l),
+          RebicSizeClass.large || RebicSizeClass.extraLarge =>
+            EdgeInsets.symmetric(horizontal: spacing.xxl, vertical: spacing.l),
+        },
+      };
 
   @override
   Widget build(BuildContext context) {
     final theme = RebicThemeData.of(context);
     final spacing = theme.spacing;
-    final onBack = this.onBack;
-    final subtitle = this.subtitle;
+    final title = this.title;
+    final subHeader = this.subHeader;
+    final footer = showFooter ? this.footer : null;
+    final floating = footer != null && floatingFooter;
 
-    return LayoutBuilder(
+    Widget? header;
+    if (showHeader) {
+      header =
+          customHeader ??
+          RebicBar(
+            design: RebicBarDesign.header,
+            titleAlignment: titleAlignment,
+            contentLeft: [
+              if (showNavButton)
+                RebicIconButton(
+                  icon: RebicIcons.navBack,
+                  tooltip:
+                      navButtonTooltip ?? RebicLocalizations.of(context).back,
+                  onPressed: onNavButtonPress,
+                ),
+            ],
+            contentMiddle: [
+              if (title != null) RebicTitle(title, level: titleLevel),
+            ],
+            contentRight: headerContent,
+          );
+    }
+
+    var padding = _padding(spacing, RebicResponsive.screenSizeClassOf(context));
+    if (floating) {
+      // O fim do conteúdo fica acima do rodapé flutuante.
+      padding += EdgeInsets.only(
+        bottom: theme.density.barHeight + spacing.s * 2,
+      );
+    }
+    final Widget body = enableScrolling
+        ? SingleChildScrollView(
+            child: Padding(
+              padding: padding,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: content,
+              ),
+            ),
+          )
+        : Padding(
+            padding: padding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [for (final item in content) Expanded(child: item)],
+            ),
+          );
+
+    final page = LayoutBuilder(
       builder: (context, constraints) {
         assert(
           constraints.hasBoundedHeight,
-          'RebicPage precisa de altura limitada: use-a como conteúdo principal do '
-          'RebicToolPage ou como página de uma rota, não dentro de uma rolagem',
+          'RebicPage precisa de altura limitada: use-a como conteúdo '
+          'principal do RebicToolPage ou como página de uma rota, não '
+          'dentro de uma rolagem',
         );
-        // Margem da classe de tamanho da própria página, como o padding
-        // responsivo da `sap.f.DynamicPage`.
-        final margin = spacing.pageMarginFor(
-          theme.breakpoints.classify(constraints.maxWidth),
-        );
-
-        final titleArea = RebicContainer(
-          surface: RebicSurface.base,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: margin,
-              vertical: spacing.m,
-            ),
-            child: RebicRow(
-              gap: RebicSpace.s,
-              children: [
-                if (onBack != null)
-                  RebicIconButton(
-                    icon: RebicIcons.navBack,
-                    tooltip: RebicLocalizations.of(context).back,
-                    onPressed: onBack,
-                  ),
-                Expanded(
-                  child: RebicColumn(
-                    gap: RebicSpace.xxs,
-                    shrinkWrap: true,
-                    children: [
-                      // Quebra em até duas linhas, o que o RebicTitle não
-                      // oferece; a change da página revê o título no modelo
-                      // do SAPUI5.
-                      Semantics(
-                        header: true,
-                        child: Text(
-                          title,
-                          style: theme.typography.header2.copyWith(
-                            color: theme.colors.text,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      if (subtitle != null)
-                        Text(
-                          subtitle,
-                          style: theme.typography.base.copyWith(
-                            color: theme.colors.label,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                    ],
-                  ),
-                ),
-                ...actions,
-              ],
-            ),
-          ),
-        );
-
-        Widget content = body;
-        if (padded) {
-          content = Padding(padding: EdgeInsets.all(margin), child: content);
-        }
-        if (scrollable) content = SingleChildScrollView(child: content);
-
+        // O cabeçalho vem por último para ser pintado sobre o conteúdo, com a
+        // sombra visível; `up` o mantém no topo. Foco e semântica seguem a
+        // geometria.
         return Column(
+          verticalDirection: VerticalDirection.up,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            titleArea,
-            const RebicDivider(),
-            Expanded(child: content),
-            if (footerActions.isNotEmpty) ...[
-              const RebicDivider(),
-              RebicContainer(
-                surface: RebicSurface.base,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: margin,
-                    vertical: spacing.s,
-                  ),
-                  child: RebicRow(
-                    gap: RebicSpace.s,
-                    mainAlignment: RebicMainAlignment.end,
-                    children: footerActions,
-                  ),
-                ),
-              ),
-            ],
+            if (footer != null && !floating)
+              RebicBarScope(design: RebicBarDesign.footer, child: footer),
+            Expanded(child: body),
+            if (subHeader != null && showSubHeader)
+              RebicBarScope(design: RebicBarDesign.subHeader, child: subHeader),
+            ?header,
           ],
         );
       },
+    );
+
+    return RebicContainer(
+      surface: switch (backgroundDesign) {
+        RebicPageBackgroundDesign.standard ||
+        RebicPageBackgroundDesign.solid => RebicSurface.background,
+        RebicPageBackgroundDesign.list => RebicSurface.base,
+        RebicPageBackgroundDesign.transparent => RebicSurface.none,
+      },
+      child: !floating
+          ? page
+          : Stack(
+              children: [
+                Positioned.fill(child: page),
+                PositionedDirectional(
+                  start: spacing.s,
+                  end: spacing.s,
+                  bottom: spacing.s,
+                  child: RebicBarScope(
+                    design: RebicBarDesign.floatingFooter,
+                    child: footer,
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }

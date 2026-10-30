@@ -412,6 +412,21 @@ items:
       - rebic/foundation/density
       - rebic/foundation/theming
       - rebic/foundation/accessibility
+  - id: rebic/widgets/rebic-bar
+    name: "RebicBar"
+    kind: widget
+    category: fundacao-layout
+    priority: P0
+    phase: 1
+    status: implemented
+    depends_on:
+      - rebic/foundation/color
+      - rebic/foundation/shadows
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/radius
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-page
     name: "RebicPage"
     kind: widget
@@ -420,23 +435,19 @@ items:
     phase: 1
     status: implemented
     depends_on:
+      - rebic/widgets/rebic-bar
+      - rebic/widgets/rebic-title
       - rebic/widgets/rebic-icon-button
-      - rebic/widgets/rebic-tool-page
-      - rebic/widgets/rebic-icon
       - rebic/widgets/rebic-container
-      - rebic/widgets/rebic-divider
-      - rebic/widgets/rebic-row
-      - rebic/widgets/rebic-column
-      - rebic/widgets/rebic-spacing
+      - rebic/widgets/rebic-tool-page
       - rebic/core/interaction
       - rebic/core/localization
+      - rebic/core/responsive
       - rebic/foundation/color
       - rebic/foundation/spacing
-      - rebic/foundation/typography
       - rebic/foundation/density
       - rebic/foundation/breakpoints
       - rebic/foundation/iconography
-      - rebic/foundation/interaction-states
       - rebic/foundation/theming
       - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-card

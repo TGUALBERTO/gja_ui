@@ -415,8 +415,8 @@ void main() {
               mainContents: [
                 RebicPage(
                   title: 'Pedidos',
-                  onBack: () {},
-                  body: const SizedBox.shrink(),
+                  showNavButton: true,
+                  onNavButtonPress: () {},
                 ),
               ],
             ),

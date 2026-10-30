@@ -26,44 +26,51 @@ class RebicTooltipPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return RebicPage(
       title: title,
-      subtitle: 'Passe o ponteiro, foque pelo teclado ou toque longamente',
-      onBack: () => Navigator.of(context).maybePop(),
-      body: RebicColumn(
-        gap: RebicSpace.l,
-        children: [
-          const RebicTitle(
-            'Ícones',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          RebicRow(
-            gap: RebicSpace.l,
-            children: [
-              for (final (i, (icon, message)) in examples.indexed)
-                RebicTooltip(
-                  message: message,
-                  child: RebicIcon(
-                    icon,
-                    key: i == 0 ? firstIconKey : null,
-                    tone: RebicIconTone.brand,
-                    size: RebicIconSize.large,
+      showNavButton: true,
+      onNavButtonPress: () => Navigator.of(context).maybePop(),
+      contentPadding: RebicContentPadding.responsive,
+      content: [
+        const RebicText(
+          'Passe o ponteiro, foque pelo teclado ou toque longamente',
+        ),
+        const RebicSpacing.vertical(RebicSpace.l),
+        RebicColumn(
+          gap: RebicSpace.l,
+          children: [
+            const RebicTitle(
+              'Ícones',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicRow(
+              gap: RebicSpace.l,
+              children: [
+                for (final (i, (icon, message)) in examples.indexed)
+                  RebicTooltip(
+                    message: message,
+                    child: RebicIcon(
+                      icon,
+                      key: i == 0 ? firstIconKey : null,
+                      tone: RebicIconTone.brand,
+                      size: RebicIconSize.large,
+                    ),
                   ),
-                ),
-            ],
-          ),
-          const RebicTitle(
-            'Dica longa',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          const RebicTooltip(
-            message:
-                'Pedidos aguardando aprovação há mais de cinco dias úteis são '
-                'enviados ao gestor do centro de custo.',
-            child: RebicText('Regra de escalonamento'),
-          ),
-        ],
-      ),
+              ],
+            ),
+            const RebicTitle(
+              'Dica longa',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            const RebicTooltip(
+              message:
+                  'Pedidos aguardando aprovação há mais de cinco dias úteis são '
+                  'enviados ao gestor do centro de custo.',
+              child: RebicText('Regra de escalonamento'),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

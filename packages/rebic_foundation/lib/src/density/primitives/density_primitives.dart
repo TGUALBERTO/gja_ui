@@ -20,11 +20,15 @@ abstract final class RebicDensityPrimitives {
   /// 44, altura de linha cozy (`sapElement_LineHeight`, 2.75rem).
   static const size44 = 44.0;
 
+  /// 48, altura de barra cozy (`sap.m.Bar`, 3rem).
+  static const size48 = 48.0;
+
   /// Escala completa, em ordem crescente.
   static const sizes = <String, double>{
     'size26': size26,
     'size32': size32,
     'size36': size36,
     'size44': size44,
+    'size48': size48,
   };
 }

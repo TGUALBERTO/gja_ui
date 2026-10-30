@@ -29,10 +29,16 @@ Widget _host(
   child: Directionality(textDirection: direction, child: child),
 );
 
-/// Contêineres `base` da página: a área de título e, se houver, o rodapé.
-Finder get _base => find.byWidgetPredicate(
-  (w) => w is RebicContainer && w.surface == RebicSurface.base,
+/// Barras da página, na ordem da árvore: a página monta a coluna de baixo
+/// para cima, então o rodapé vem antes e o cabeçalho por último.
+Finder get _bars => find.descendant(
+  of: find.byType(RebicPage),
+  matching: find.byType(RebicBar),
 );
+
+Finder get _header => _bars.last;
+
+Finder get _footer => _bars.first;
 
 Finder get _back => find.descendant(
   of: find.byType(RebicPage),
@@ -54,12 +60,11 @@ BoxDecoration _decoration(WidgetTester tester, Finder of) =>
             .decoration
         as BoxDecoration;
 
-final _light = RebicThemeData.light();
-final _line = const BorderSide().width;
+/// Fundo pintado pela própria página.
+Color? _background(WidgetTester tester) =>
+    _decoration(tester, find.byType(RebicPage)).color;
 
-/// Margem de página de [theme] para uma página de largura [width].
-double _margin(RebicThemeData theme, [double width = 800]) =>
-    theme.spacing.pageMarginFor(theme.breakpoints.classify(width));
+final _light = RebicThemeData.light();
 
 void main() {
   group('[API] Propriedades', () {
@@ -69,16 +74,14 @@ void main() {
         _host(
           const RebicPage(
             title: 'Pedidos',
-            body: SizedBox(key: Key('body'), height: 100),
+            content: [SizedBox(key: Key('body'), height: 50)],
           ),
         ),
       );
-      final titleArea = tester.getRect(_base);
-      expect(tester.getRect(find.text('Pedidos')).top, greaterThan(0));
-      expect(titleArea.top, 0);
-      expect(_rect(tester, 'body').top, greaterThan(titleArea.bottom));
-      expect(_back, findsNothing);
-      expect(_base, findsOneWidget);
+      expect(find.text('Pedidos'), findsOneWidget);
+      expect(_bars, findsOneWidget);
+      expect(_rect(tester, 'body').top, tester.getRect(_bars).bottom);
+      expect(find.byType(RebicIconButton), findsNothing);
     });
 
     testWidgets('[API] Propriedades — Página completa', (tester) async {
@@ -86,46 +89,81 @@ void main() {
       await tester.pumpWidget(
         _host(
           RebicPage(
-            title: 'Pedido 4711',
-            subtitle: 'Aguardando aprovação',
-            onBack: () {},
-            actions: [_box('a1'), _box('a2')],
-            footerActions: [_box('f1'), _box('f2')],
-            body: const SizedBox.shrink(),
+            title: 'Pedidos',
+            showNavButton: true,
+            onNavButtonPress: () {},
+            headerContent: [_box('a1'), _box('a2')],
+            subHeader: const SizedBox(key: Key('sub'), height: 40),
+            footer: RebicBar(
+              key: const Key('footer'),
+              contentRight: [_box('f1')],
+            ),
+            content: const [SizedBox(key: Key('body'), height: 50)],
           ),
         ),
       );
       final back = tester.getRect(_back);
-      final title = tester.getRect(find.text('Pedido 4711'));
-      final subtitle = tester.getRect(find.text('Aguardando aprovação'));
+      final title = tester.getRect(find.text('Pedidos'));
+      final a1 = _rect(tester, 'a1');
+      final a2 = _rect(tester, 'a2');
       expect(back.right, lessThanOrEqualTo(title.left));
-      expect(subtitle.top, greaterThanOrEqualTo(title.bottom));
-      expect(subtitle.left, title.left);
-      expect(title.right, lessThanOrEqualTo(_rect(tester, 'a1').left));
-      expect(_rect(tester, 'a1').right, lessThan(_rect(tester, 'a2').left));
-      final m = _margin(_light);
-      expect(_rect(tester, 'a2').right, closeTo(800 - m, 0.01));
-      final footer = tester.getRect(_base.last);
-      expect(_rect(tester, 'f1').top, greaterThan(footer.top));
-      expect(_rect(tester, 'f1').right, lessThan(_rect(tester, 'f2').left));
-      expect(_rect(tester, 'f2').right, closeTo(800 - m, 0.01));
+      expect(title.right, lessThanOrEqualTo(a1.left));
+      expect(a1.right, lessThanOrEqualTo(a2.left));
+      expect(_rect(tester, 'sub').top, tester.getRect(_header).bottom);
+      expect(_rect(tester, 'footer').bottom, 600);
     });
   });
 
-  testWidgets('[API] Rodapé condicional — Página sem rodapé', (tester) async {
+  testWidgets('[API] Propriedades do cabeçalho — Cabeçalho próprio', (
+    tester,
+  ) async {
     _view(tester);
     await tester.pumpWidget(
       _host(
         const RebicPage(
           title: 'Pedidos',
-          padded: false,
-          scrollable: false,
-          body: SizedBox.expand(key: Key('body')),
+          customHeader: SizedBox(key: Key('custom'), height: 40),
         ),
       ),
     );
-    expect(_base, findsOneWidget);
-    expect(_rect(tester, 'body').bottom, 600);
+    expect(find.byKey(const Key('custom')), findsOneWidget);
+    expect(find.text('Pedidos'), findsNothing);
+  });
+
+  group('[API] Áreas condicionais', () {
+    testWidgets('[API] Áreas condicionais — Página sem cabeçalho', (
+      tester,
+    ) async {
+      _view(tester);
+      await tester.pumpWidget(
+        _host(
+          const RebicPage(
+            title: 'Pedidos',
+            showHeader: false,
+            content: [SizedBox(key: Key('body'), height: 50)],
+          ),
+        ),
+      );
+      expect(_bars, findsNothing);
+      expect(_rect(tester, 'body').top, 0);
+    });
+
+    testWidgets('[API] Áreas condicionais — Página sem rodapé', (tester) async {
+      _view(tester);
+      await tester.pumpWidget(
+        _host(
+          RebicPage(
+            title: 'Pedidos',
+            showFooter: false,
+            footer: RebicBar(contentRight: [_box('f1')]),
+            enableScrolling: false,
+            content: const [SizedBox.expand(key: Key('body'))],
+          ),
+        ),
+      );
+      expect(find.byKey(const Key('f1')), findsNothing);
+      expect(_rect(tester, 'body').bottom, 600);
+    });
   });
 
   testWidgets('[API] Callbacks e controlador — Voltar', (tester) async {
@@ -135,8 +173,8 @@ void main() {
       _host(
         RebicPage(
           title: 'Pedidos',
-          onBack: () => calls++,
-          body: const SizedBox.shrink(),
+          showNavButton: true,
+          onNavButtonPress: () => calls++,
         ),
       ),
     );
@@ -154,13 +192,13 @@ void main() {
         _host(
           RebicPage(
             title: 'Pedidos',
-            footerActions: [_box('f1')],
-            body: const SizedBox(key: Key('body'), height: 3000),
+            footer: RebicBar(contentRight: [_box('f1')]),
+            content: const [SizedBox(key: Key('body'), height: 3000)],
           ),
         ),
       );
-      final title = tester.getRect(_base.first);
-      final footer = tester.getRect(_base.last);
+      final header = tester.getRect(_header);
+      final footer = tester.getRect(_footer);
       final top = _rect(tester, 'body').top;
       // Passa a tolerância de arraste, arrasta 500 e solta parado, sem
       // lançamento.
@@ -171,8 +209,8 @@ void main() {
       await gesture.up();
       await tester.pumpAndSettle();
       expect(top - _rect(tester, 'body').top, closeTo(500, kDragSlopDefault));
-      expect(tester.getRect(_base.first), title);
-      expect(tester.getRect(_base.last), footer);
+      expect(tester.getRect(_header), header);
+      expect(tester.getRect(_footer), footer);
     });
 
     testWidgets(
@@ -184,128 +222,175 @@ void main() {
           _host(
             RebicPage(
               title: 'Pedidos',
-              scrollable: false,
-              footerActions: [_box('f1')],
-              body: LayoutBuilder(
-                builder: (context, constraints) {
-                  maxHeight = constraints.maxHeight;
-                  return const SizedBox.expand(key: Key('body'));
-                },
-              ),
+              enableScrolling: false,
+              footer: RebicBar(contentRight: [_box('f1')]),
+              content: [
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    maxHeight = constraints.maxHeight;
+                    return const SizedBox.expand(key: Key('body'));
+                  },
+                ),
+              ],
             ),
           ),
         );
-        final title = tester.getRect(_base.first);
-        final footer = tester.getRect(_base.last);
-        final m = _margin(_light);
+        final header = tester.getRect(_header);
+        final footer = tester.getRect(_footer);
         expect(maxHeight!.isFinite, isTrue);
-        expect(
-          maxHeight,
-          closeTo(footer.top - title.bottom - 2 * _line - 2 * m, 0.01),
-        );
+        expect(maxHeight, closeTo(footer.top - header.bottom, 0.01));
         expect(_rect(tester, 'body').height, closeTo(maxHeight!, 0.01));
       },
     );
   });
 
-  testWidgets('[Comportamento] Margem do conteúdo — Conteúdo sem margem', (
-    tester,
-  ) async {
-    _view(tester);
-    await tester.pumpWidget(
-      _host(
-        const RebicPage(
-          title: 'Pedidos',
-          padded: false,
-          body: SizedBox(key: Key('body'), height: 50),
-        ),
-      ),
-    );
-    final body = _rect(tester, 'body');
-    expect(body.left, 0);
-    expect(body.top, closeTo(tester.getRect(_base).bottom + _line, 0.01));
-  });
-
-  testWidgets(
-    '[Comportamento] Margem do conteúdo — Margem pela largura da página',
-    (tester) async {
-      for (final (width, expected) in [
-        (400.0, 16.0),
-        (800.0, 32.0),
-        (1200.0, 32.0),
-        (1600.0, 48.0),
-      ]) {
-        _view(tester, width);
+  group('[Comportamento] Espaçamento do conteúdo', () {
+    testWidgets(
+      '[Comportamento] Espaçamento do conteúdo — Conteúdo sem espaçamento',
+      (tester) async {
+        _view(tester, 1200);
         await tester.pumpWidget(
           _host(
             const RebicPage(
               title: 'Pedidos',
-              body: SizedBox(key: Key('body'), height: 50),
+              content: [SizedBox(key: Key('body'), height: 50)],
             ),
           ),
         );
-        expect(
-          _rect(tester, 'body').left,
-          closeTo(expected, 0.01),
-          reason: '$width',
-        );
-        expect(_margin(_light, width), expected, reason: '$width');
-      }
+        final body = _rect(tester, 'body');
+        expect(body.left, 0);
+        expect(body.top, tester.getRect(_bars).bottom);
+      },
+    );
+
+    testWidgets(
+      '[Comportamento] Espaçamento do conteúdo — Espaçamento responsivo pela tela',
+      (tester) async {
+        for (final (width, side, top) in [
+          (400.0, 0.0, 0.0),
+          (800.0, 16.0, 16.0),
+          (1200.0, 32.0, 16.0),
+        ]) {
+          _view(tester, width);
+          await tester.pumpWidget(
+            _host(
+              RebicPage(
+                key: ValueKey(width),
+                title: 'Pedidos',
+                contentPadding: RebicContentPadding.responsive,
+                content: const [SizedBox(key: Key('body'), height: 50)],
+              ),
+            ),
+          );
+          final body = _rect(tester, 'body');
+          expect(body.left, side, reason: '$width');
+          expect(
+            body.top - tester.getRect(_bars).bottom,
+            top,
+            reason: '$width',
+          );
+        }
+      },
+    );
+  });
+
+  testWidgets(
+    '[Comportamento] Rodapé flutuante — Conteúdo sob o rodapé flutuante',
+    (tester) async {
+      _view(tester);
+      await tester.pumpWidget(
+        _host(
+          RebicPage(
+            title: 'Pedidos',
+            floatingFooter: true,
+            footer: RebicBar(
+              key: const Key('footer'),
+              contentRight: [_box('f1')],
+            ),
+            content: const [
+              SizedBox(height: 2000),
+              SizedBox(key: Key('end'), height: 20),
+            ],
+          ),
+        ),
+      );
+      final s = _light.spacing.s;
+      final footer = tester.getRect(find.byKey(const Key('footer')));
+      expect(footer.bottom, 600 - s);
+      expect(footer.left, s);
+      expect(footer.right, 800 - s);
+      expect(
+        _decoration(tester, find.byKey(const Key('footer'))).borderRadius,
+        BorderRadius.circular(_light.radius.s),
+      );
+      await tester.drag(
+        find.byType(SingleChildScrollView),
+        const Offset(0, -5000),
+      );
+      await tester.pumpAndSettle();
+      expect(
+        _rect(tester, 'end').bottom,
+        lessThanOrEqualTo(tester.getRect(find.byKey(const Key('footer'))).top),
+      );
     },
   );
 
-  group('[Aparência] Tokens de componente', () {
-    testWidgets('[Aparência] Tokens de componente — Cores da página', (
+  group('[Aparência] Fundo e cabeçalho', () {
+    testWidgets('[Aparência] Fundo e cabeçalho — Fundo por backgroundDesign', (
       tester,
     ) async {
       _view(tester);
       for (final theme in [RebicThemeData.light(), RebicThemeData.dark()]) {
-        await tester.pumpWidget(
-          _host(
-            theme: theme,
-            RebicPage(
-              key: ValueKey(theme.brightness),
-              title: 'Pedidos',
-              footerActions: [_box('f1')],
-              body: const SizedBox(key: Key('body'), height: 50),
+        for (final (design, expected) in [
+          (RebicPageBackgroundDesign.standard, theme.colors.background),
+          (RebicPageBackgroundDesign.solid, theme.colors.background),
+          (RebicPageBackgroundDesign.list, theme.colors.base),
+          (RebicPageBackgroundDesign.transparent, null),
+        ]) {
+          await tester.pumpWidget(
+            _host(
+              theme: theme,
+              RebicPage(
+                key: ValueKey((theme.brightness, design)),
+                title: 'Pedidos',
+                backgroundDesign: design,
+              ),
             ),
-          ),
-        );
-        expect(_decoration(tester, _base.first).color, theme.colors.base);
-        expect(_decoration(tester, _base.last).color, theme.colors.base);
-        expect(
-          find.ancestor(
-            of: find.byKey(const Key('body')),
-            matching: find.byType(RebicContainer),
-          ),
-          findsNothing,
-        );
+          );
+          expect(
+            _background(tester),
+            expected,
+            reason: '${theme.brightness} ${design.name}',
+          );
+        }
       }
     });
 
-    testWidgets(
-      '[Aparência] Tokens de componente — Margem da densidade compacta',
-      (tester) async {
-        _view(tester);
-        final compact = RebicThemeData.light(density: RebicDensity.compact);
-        await tester.pumpWidget(
-          _host(
-            theme: compact,
-            const RebicPage(
-              title: 'Pedidos',
-              body: SizedBox(key: Key('body'), height: 50),
-            ),
+    testWidgets('[Aparência] Fundo e cabeçalho — Título do cabeçalho', (
+      tester,
+    ) async {
+      _view(tester);
+      await tester.pumpWidget(
+        _host(
+          RebicPage(
+            title: 'Pedidos',
+            showNavButton: true,
+            onNavButtonPress: () {},
           ),
-        );
-        final m = _margin(compact);
-        final body = _rect(tester, 'body');
-        expect(body.left, closeTo(m, 0.01));
-        expect(
-          body.top,
-          closeTo(tester.getRect(_base).bottom + _line + m, 0.01),
-        );
-      },
-    );
+        ),
+      );
+      final header = tester.widget<RebicBar>(_bars);
+      expect(header.design, RebicBarDesign.header);
+      expect(header.contentMiddle.single, isA<RebicTitle>());
+      expect(
+        tester.widget<Text>(find.text('Pedidos')).style!.fontSize,
+        _light.typography.header5.fontSize,
+      );
+      expect(
+        tester.getRect(find.text('Pedidos')).left,
+        tester.getRect(_back).right + _light.spacing.xs,
+      );
+    });
   });
 
   testWidgets('[Estados] Botão de voltar — Botão de voltar em hover', (
@@ -316,8 +401,8 @@ void main() {
       _host(
         RebicPage(
           title: 'Pedidos',
-          onBack: () {},
-          body: const SizedBox.shrink(),
+          showNavButton: true,
+          onNavButtonPress: () {},
         ),
       ),
     );
@@ -353,10 +438,13 @@ void main() {
         RebicApp(
           home: RebicPage(
             title: 'Pedidos',
-            onBack: () {},
-            actions: [focusable(action)],
-            footerActions: [focusable(footer)],
-            body: Align(alignment: Alignment.topLeft, child: focusable(item)),
+            showNavButton: true,
+            onNavButtonPress: () {},
+            headerContent: [focusable(action)],
+            footer: RebicBar(contentRight: [focusable(footer)]),
+            content: [
+              Align(alignment: Alignment.topLeft, child: focusable(item)),
+            ],
           ),
         ),
       );
@@ -366,7 +454,7 @@ void main() {
         await tester.pump();
         final focus = FocusManager.instance.primaryFocus;
         visited.add(switch (focus) {
-          _ when focus == action => 'ação',
+          _ when focus == action => 'cabeçalho',
           _ when focus == item => 'conteúdo',
           _ when focus == footer => 'rodapé',
           _
@@ -377,7 +465,7 @@ void main() {
           _ => '?',
         });
       }
-      expect(visited, ['voltar', 'ação', 'conteúdo', 'rodapé']);
+      expect(visited, ['voltar', 'cabeçalho', 'conteúdo', 'rodapé']);
     });
 
     testWidgets('[Acessibilidade] Teclado e foco — Foco revela o conteúdo', (
@@ -390,11 +478,11 @@ void main() {
         RebicApp(
           home: RebicPage(
             title: 'Pedidos',
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 2000),
-                Focus(
+            content: [
+              const SizedBox(height: 2000),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Focus(
                   focusNode: item,
                   child: const SizedBox(
                     key: Key('item'),
@@ -402,8 +490,8 @@ void main() {
                     height: 20,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       );
@@ -411,7 +499,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(item.hasPrimaryFocus, isTrue);
       final rect = _rect(tester, 'item');
-      expect(rect.top, greaterThanOrEqualTo(tester.getRect(_base).bottom));
+      expect(rect.top, greaterThanOrEqualTo(tester.getRect(_bars).bottom));
       expect(rect.bottom, lessThanOrEqualTo(600));
     });
   });
@@ -425,17 +513,15 @@ void main() {
         direction: TextDirection.rtl,
         RebicPage(
           title: 'Pedidos',
-          onBack: () {},
-          actions: [_box('action')],
-          footerActions: [_box('f1')],
-          body: const SizedBox.shrink(),
+          showNavButton: true,
+          onNavButtonPress: () {},
+          headerContent: [_box('action')],
         ),
       ),
     );
-    final m = _margin(_light);
-    expect(tester.getRect(_back).right, closeTo(800 - m, 0.01));
-    expect(_rect(tester, 'action').left, closeTo(m, 0.01));
-    expect(_rect(tester, 'f1').left, closeTo(m, 0.01));
+    final edge = _light.spacing.s;
+    expect(tester.getRect(_back).right, closeTo(800 - edge, 0.01));
+    expect(_rect(tester, 'action').left, closeTo(edge, 0.01));
     expect(RebicIcons.navBack.matchTextDirection, isTrue);
   });
 
@@ -450,21 +536,17 @@ void main() {
             mainContents: [
               RebicPage(
                 title: 'Pedidos',
-                footerActions: [_box('f1')],
-                body: const RebicText('Pedidos em aberto'),
+                footer: RebicBar(contentRight: [_box('f1')]),
+                content: const [RebicText('Pedidos em aberto')],
               ),
             ],
           ),
         ),
       );
       expect(tester.takeException(), isNull);
-      final bar = tester.getRect(
-        find.byWidgetPredicate(
-          (w) => w is RebicContainer && w.surface == RebicSurface.shell,
-        ),
-      );
-      expect(tester.getRect(_base.first).top, closeTo(bar.bottom, 0.01));
-      expect(tester.getRect(_base.last).bottom, 800);
+      final shell = tester.getRect(find.byType(RebicShellBar));
+      expect(tester.getRect(_header).top, closeTo(shell.bottom, 0.01));
+      expect(tester.getRect(_footer).bottom, 800);
     },
   );
 
@@ -477,64 +559,88 @@ void main() {
         RebicApp(
           home: RebicTheme(
             data: dark,
-            child: const RebicPage(title: 'Pedidos', body: SizedBox.shrink()),
+            child: const RebicPage(title: 'Pedidos'),
           ),
         ),
       );
       await tester.pumpAndSettle();
-      expect(_decoration(tester, _base).color, dark.colors.base);
+      expect(_decoration(tester, _bars).color, dark.colors.base);
     },
   );
 
   group('[Testes] Cobertura exigida', () {
     test('[Testes] Cobertura exigida — Rastreabilidade da página', () {
       final names = scenarioNames('rebic/widgets/rebic-page', 'add-rebic-page');
-      expect(names, hasLength(22));
+      expect(names, hasLength(25));
       expect(untestedScenarios(names), isEmpty);
     });
 
     testWidgets('[Testes] Cobertura exigida — Goldens da página', (
       tester,
     ) async {
-      for (final (name, theme) in goldenThemes) {
-        await expectGolden(
-          tester,
-          name: 'rebic_page_$name',
-          theme: theme,
-          size: const Size(800, 600),
-          surface: RebicSurface.background,
-          child: RebicPage(
-            title: 'Pedido 4711',
-            subtitle: 'Aguardando aprovação',
-            onBack: () {},
-            actions: const [
-              RebicIcon(RebicIcons.edit, tone: RebicIconTone.brand),
-              RebicIcon(RebicIcons.overflow, tone: RebicIconTone.brand),
-            ],
-            footerActions: const [RebicLabel('Cancelar'), RebicText('Salvar')],
-            body: const RebicColumn(
-              children: [
+      for (final floating in [false, true]) {
+        for (final (name, theme) in goldenThemes) {
+          await expectGolden(
+            tester,
+            name: floating ? 'rebic_page_floating_$name' : 'rebic_page_$name',
+            theme: theme,
+            size: const Size(800, 600),
+            surface: RebicSurface.none,
+            child: RebicPage(
+              title: 'Pedido 4711',
+              showNavButton: true,
+              onNavButtonPress: () {},
+              headerContent: [
+                RebicIconButton(
+                  icon: RebicIcons.edit,
+                  tooltip: 'Editar',
+                  onPressed: () {},
+                ),
+              ],
+              subHeader: const RebicBar(
+                contentMiddle: [RebicLabel('Aguardando aprovação')],
+              ),
+              contentPadding: RebicContentPadding.responsive,
+              floatingFooter: floating,
+              footer: RebicBar(
+                contentRight: [
+                  RebicButton(
+                    label: 'Salvar',
+                    type: RebicButtonType.emphasized,
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+              content: const [
                 RebicTitle('Itens', titleStyle: RebicTitleLevel.h3),
                 RebicText('3 itens, total de R\$ 1.250,00.'),
               ],
             ),
-          ),
-        );
+          );
+        }
       }
     }, tags: ['golden']);
   });
 
   test('[Restrições] Fora do escopo — Página sem valor literal', () {
-    final source = File(
+    final file = File(
       'lib/src/fundacao_layout/page/rebic_page.dart',
     ).readAsStringSync();
+    final source = file.substring(file.indexOf('class RebicPage '));
     final fields = RegExp(
-      r'^  final (\S+) \w+;$',
+      r'^  final (\S+) (\w+);$',
       multiLine: true,
-    ).allMatches(source).map((m) => m.group(1)!).toList();
+    ).allMatches(source).toList();
     expect(fields, isNotEmpty);
     for (final field in fields) {
-      expect(field, isNot(anyOf('double', 'double?', 'Color', 'Color?')));
+      expect(
+        field.group(1),
+        isNot(anyOf('double', 'double?', 'Color', 'Color?')),
+      );
+      expect(
+        field.group(2),
+        isNot(anyOf('subtitle', 'onBack', 'footerActions')),
+      );
     }
   });
 }

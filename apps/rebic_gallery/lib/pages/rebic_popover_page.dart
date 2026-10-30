@@ -42,67 +42,72 @@ class _RebicPopoverPageState extends State<RebicPopoverPage> {
   Widget build(BuildContext context) {
     return RebicPage(
       title: RebicPopoverPage.title,
-      subtitle: 'Painéis ancorados no modelo do sap.m.Popover',
-      onBack: () => Navigator.of(context).maybePop(),
-      body: RebicColumn(
-        gap: RebicSpace.l,
-        children: [
-          const RebicText(
-            'O popover fecha com um toque fora ou com Esc, e o foco volta à '
-            'âncora.',
-          ),
-          RebicRow(
-            gap: RebicSpace.m,
-            children: [
-              RebicPopover(
-                controller: _filters,
-                title: 'Filtros',
-                content: const RebicColumn(
-                  gap: RebicSpace.s,
-                  children: [
-                    RebicText('Status: em aberto'),
-                    RebicText('Período: últimos 30 dias'),
-                    RebicText('Centro: 1000 — São Paulo'),
+      showNavButton: true,
+      onNavButtonPress: () => Navigator.of(context).maybePop(),
+      contentPadding: RebicContentPadding.responsive,
+      content: [
+        const RebicText('Painéis ancorados no modelo do sap.m.Popover'),
+        const RebicSpacing.vertical(RebicSpace.l),
+        RebicColumn(
+          gap: RebicSpace.l,
+          children: [
+            const RebicText(
+              'O popover fecha com um toque fora ou com Esc, e o foco volta à '
+              'âncora.',
+            ),
+            RebicRow(
+              gap: RebicSpace.m,
+              children: [
+                RebicPopover(
+                  controller: _filters,
+                  title: 'Filtros',
+                  content: const RebicColumn(
+                    gap: RebicSpace.s,
+                    children: [
+                      RebicText('Status: em aberto'),
+                      RebicText('Período: últimos 30 dias'),
+                      RebicText('Centro: 1000 — São Paulo'),
+                    ],
+                  ),
+                  actions: [
+                    RebicButton(
+                      label: RebicPopoverPage.apply,
+                      type: RebicButtonType.emphasized,
+                      onPressed: () {
+                        _filters.close();
+                        setState(() => _applied = true);
+                      },
+                    ),
+                    RebicButton(
+                      label: 'Cancelar',
+                      type: RebicButtonType.transparent,
+                      onPressed: _filters.close,
+                    ),
                   ],
-                ),
-                actions: [
-                  RebicButton(
-                    label: RebicPopoverPage.apply,
-                    type: RebicButtonType.emphasized,
-                    onPressed: () {
-                      _filters.close();
-                      setState(() => _applied = true);
-                    },
+                  child: RebicButton(
+                    label: RebicPopoverPage.filter,
+                    icon: RebicIcons.filter,
+                    onPressed: _filters.toggle,
                   ),
-                  RebicButton(
-                    label: 'Cancelar',
-                    type: RebicButtonType.transparent,
-                    onPressed: _filters.close,
+                ),
+                RebicPopover(
+                  controller: _details,
+                  semanticLabel: 'Detalhes do pedido',
+                  content: const RebicText(
+                    'Pedido 4711, criado em 12/10 por Maria Barros.',
                   ),
-                ],
-                child: RebicButton(
-                  label: RebicPopoverPage.filter,
-                  icon: RebicIcons.filter,
-                  onPressed: _filters.toggle,
+                  child: RebicIconButton(
+                    icon: RebicIcons.information,
+                    tooltip: 'Detalhes do pedido',
+                    onPressed: _details.toggle,
+                  ),
                 ),
-              ),
-              RebicPopover(
-                controller: _details,
-                semanticLabel: 'Detalhes do pedido',
-                content: const RebicText(
-                  'Pedido 4711, criado em 12/10 por Maria Barros.',
-                ),
-                child: RebicIconButton(
-                  icon: RebicIcons.information,
-                  tooltip: 'Detalhes do pedido',
-                  onPressed: _details.toggle,
-                ),
-              ),
-            ],
-          ),
-          if (_applied) const RebicText(RebicPopoverPage.applied),
-        ],
-      ),
+              ],
+            ),
+            if (_applied) const RebicText(RebicPopoverPage.applied),
+          ],
+        ),
+      ],
     );
   }
 }

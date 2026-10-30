@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rebic_core/rebic_core.dart';
@@ -13,16 +14,12 @@ Widget _page(RebicThemeData theme) => RebicTheme(
   duration: Duration.zero,
   child: Directionality(
     textDirection: TextDirection.ltr,
-    // O conteúdo não pinta fundo: o fundo da aplicação vem de quem hospeda a
-    // página (RebicApp ou RebicToolPage).
-    child: RebicContainer(
-      surface: RebicSurface.background,
-      child: RebicPage(
-        title: 'Pedido 4711',
-        subtitle: 'Aguardando aprovação',
-        onBack: () {},
-        body: const RebicText('Itens do pedido'),
-      ),
+    child: RebicPage(
+      title: 'Pedido 4711',
+      titleLevel: RebicTitleLevel.h2,
+      showNavButton: true,
+      onNavButtonPress: () {},
+      content: const [RebicText('Itens do pedido')],
     ),
   ),
 );
@@ -40,10 +37,11 @@ void main() {
     _view(tester);
     final handle = tester.ensureSemantics();
     await tester.pumpWidget(_page(RebicThemeData.light()));
-    expect(
-      tester.getSemantics(find.text('Pedido 4711')),
-      containsSemantics(isHeader: true, label: 'Pedido 4711'),
-    );
+    final title = tester
+        .getSemantics(find.text('Pedido 4711'))
+        .getSemanticsData();
+    expect(title.hasFlag(SemanticsFlag.isHeader), isTrue);
+    expect(title.headingLevel, 2);
     expect(
       tester.getSemantics(find.byType(RebicInteractable)),
       containsSemantics(isButton: true, label: 'Voltar', hasTapAction: true),

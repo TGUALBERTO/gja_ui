@@ -27,74 +27,79 @@ class _RebicButtonPageState extends State<RebicButtonPage> {
   Widget build(BuildContext context) {
     return RebicPage(
       title: RebicButtonPage.title,
-      subtitle: 'Tipos Fiori, ícone, desabilitado e ocupado',
-      onBack: () => Navigator.of(context).maybePop(),
-      body: RebicColumn(
-        gap: RebicSpace.l,
-        children: [
-          const RebicTitle(
-            'Tipos',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          RebicRow.wrap(
-            children: [
-              for (final type in RebicButtonType.values)
-                RebicButton(label: type.name, type: type, onPressed: () {}),
-            ],
-          ),
-          const RebicTitle(
-            'Com ícone',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          RebicRow.wrap(
-            children: [
-              RebicButton(
-                label: 'Salvar',
-                type: RebicButtonType.emphasized,
-                icon: RebicIcons.accept,
-                onPressed: () {},
-              ),
-              RebicButton(
-                label: 'Editar',
-                icon: RebicIcons.edit,
-                onPressed: () {},
-              ),
-              RebicButton(
-                label: 'Excluir',
-                type: RebicButtonType.reject,
-                icon: RebicIcons.delete,
-                onPressed: () {},
-              ),
-            ],
-          ),
-          const RebicTitle(
-            'Desabilitado e ocupado',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          RebicRow.wrap(
-            children: [
-              const RebicButton(label: 'Aprovar', onPressed: null),
-              RebicButton(
-                key: RebicButtonPage.sendKey,
-                label: 'Enviar',
-                type: RebicButtonType.emphasized,
-                icon: RebicIcons.upload,
-                busy: _sending,
-                onPressed: () => setState(() => _sending = true),
-              ),
-              if (_sending)
+      showNavButton: true,
+      onNavButtonPress: () => Navigator.of(context).maybePop(),
+      contentPadding: RebicContentPadding.responsive,
+      content: [
+        const RebicText('Tipos Fiori, ícone, desabilitado e ocupado'),
+        const RebicSpacing.vertical(RebicSpace.l),
+        RebicColumn(
+          gap: RebicSpace.l,
+          children: [
+            const RebicTitle(
+              'Tipos',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicRow.wrap(
+              children: [
+                for (final type in RebicButtonType.values)
+                  RebicButton(label: type.name, type: type, onPressed: () {}),
+              ],
+            ),
+            const RebicTitle(
+              'Com ícone',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicRow.wrap(
+              children: [
                 RebicButton(
-                  label: 'Concluir envio',
-                  type: RebicButtonType.transparent,
-                  onPressed: () => setState(() => _sending = false),
+                  label: 'Salvar',
+                  type: RebicButtonType.emphasized,
+                  icon: RebicIcons.accept,
+                  onPressed: () {},
                 ),
-            ],
-          ),
-        ],
-      ),
+                RebicButton(
+                  label: 'Editar',
+                  icon: RebicIcons.edit,
+                  onPressed: () {},
+                ),
+                RebicButton(
+                  label: 'Excluir',
+                  type: RebicButtonType.reject,
+                  icon: RebicIcons.delete,
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            const RebicTitle(
+              'Desabilitado e ocupado',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicRow.wrap(
+              children: [
+                const RebicButton(label: 'Aprovar', onPressed: null),
+                RebicButton(
+                  key: RebicButtonPage.sendKey,
+                  label: 'Enviar',
+                  type: RebicButtonType.emphasized,
+                  icon: RebicIcons.upload,
+                  busy: _sending,
+                  onPressed: () => setState(() => _sending = true),
+                ),
+                if (_sending)
+                  RebicButton(
+                    label: 'Concluir envio',
+                    type: RebicButtonType.transparent,
+                    onPressed: () => setState(() => _sending = false),
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

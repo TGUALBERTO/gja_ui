@@ -90,7 +90,7 @@ A página SHALL ocupar a largura disponível. O espaçamento `responsive` SHALL 
 - **THEN** o botão de voltar fica à direita, e o item do cabeçalho termina na borda esquerda
 
 ### Requirement: [Integração] Dependências de núcleo e fundamentos
-Do núcleo e dos fundamentos, `RebicPage` SHALL depender somente de `rebic/core/interaction`, `rebic/core/localization`, `rebic/core/responsive`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/breakpoints`, `rebic/foundation/iconography`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+Do núcleo e dos fundamentos, `RebicPage` SHALL depender somente de `rebic/core/interaction`, `rebic/core/localization`, `rebic/core/responsive`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/breakpoints`, `rebic/foundation/iconography`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Página pelo tema da subárvore
 - **GIVEN** uma página numa subárvore com o tema escuro, dentro de uma aplicação clara

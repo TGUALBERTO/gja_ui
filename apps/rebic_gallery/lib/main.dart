@@ -14,6 +14,7 @@ import 'pages/overlay_page.dart';
 import 'pages/radius_page.dart';
 import 'pages/rebic_avatar_page.dart';
 import 'pages/rebic_badge_page.dart';
+import 'pages/rebic_bar_page.dart';
 import 'pages/rebic_button_page.dart';
 import 'pages/rebic_card_page.dart';
 import 'pages/rebic_container_page.dart';
@@ -214,6 +215,11 @@ final galleryPages = <GalleryPage>[
     title: RebicShellBarPage.title,
     route: RebicShellBarPage.route,
     builder: (_) => const RebicShellBarPage(),
+  ),
+  GalleryPage(
+    title: RebicBarPage.title,
+    route: RebicBarPage.route,
+    builder: (_) => const RebicBarPage(),
   ),
   GalleryPage(
     title: RebicPagePage.title,

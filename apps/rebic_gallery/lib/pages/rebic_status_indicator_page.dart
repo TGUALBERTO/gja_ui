@@ -39,49 +39,58 @@ class _RebicStatusIndicatorPageState extends State<RebicStatusIndicatorPage> {
   Widget build(BuildContext context) {
     return RebicPage(
       title: RebicStatusIndicatorPage.title,
-      subtitle: 'Situação de registros, no modelo do ObjectStatus',
-      onBack: () => Navigator.of(context).maybePop(),
-      body: RebicColumn(
-        gap: RebicSpace.l,
-        children: [
-          const RebicTitle(
-            'Por estado',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          for (final (state, icon, text) in _examples)
-            RebicRow(
-              gap: RebicSpace.l,
-              children: [
-                RebicStatusIndicator(icon: icon, text: text, state: state),
-                RebicStatusIndicator(text: text, state: state, inverted: true),
-              ],
+      showNavButton: true,
+      onNavButtonPress: () => Navigator.of(context).maybePop(),
+      contentPadding: RebicContentPadding.responsive,
+      content: [
+        const RebicText('Situação de registros, no modelo do ObjectStatus'),
+        const RebicSpacing.vertical(RebicSpace.l),
+        RebicColumn(
+          gap: RebicSpace.l,
+          children: [
+            const RebicTitle(
+              'Por estado',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
             ),
-          const RebicTitle(
-            'Com título',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          const RebicStatusIndicator(
-            title: 'Situação',
-            icon: RebicIcons.sysEnter2,
-            text: 'Aprovado',
-            state: RebicValueState.success,
-          ),
-          const RebicTitle(
-            'Ativo',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          RebicStatusIndicator(
-            icon: RebicIcons.warning,
-            text: RebicStatusIndicatorPage.pending,
-            state: RebicValueState.warning,
-            onPressed: () => setState(() => _opened = true),
-          ),
-          if (_opened) const RebicText(RebicStatusIndicatorPage.opened),
-        ],
-      ),
+            for (final (state, icon, text) in _examples)
+              RebicRow(
+                gap: RebicSpace.l,
+                children: [
+                  RebicStatusIndicator(icon: icon, text: text, state: state),
+                  RebicStatusIndicator(
+                    text: text,
+                    state: state,
+                    inverted: true,
+                  ),
+                ],
+              ),
+            const RebicTitle(
+              'Com título',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            const RebicStatusIndicator(
+              title: 'Situação',
+              icon: RebicIcons.sysEnter2,
+              text: 'Aprovado',
+              state: RebicValueState.success,
+            ),
+            const RebicTitle(
+              'Ativo',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicStatusIndicator(
+              icon: RebicIcons.warning,
+              text: RebicStatusIndicatorPage.pending,
+              state: RebicValueState.warning,
+              onPressed: () => setState(() => _opened = true),
+            ),
+            if (_opened) const RebicText(RebicStatusIndicatorPage.opened),
+          ],
+        ),
+      ],
     );
   }
 }

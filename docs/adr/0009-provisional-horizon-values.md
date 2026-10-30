@@ -43,6 +43,10 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Barra | Altura do `RebicShellBar` | `spacing.xxxl` (48), igual nas duas densidades | `.sapFShellBar { height: 3rem }` | `update-rebic-scaffold-fiori-tool-page` |
 | Barra | Hover e pressionado dos botões da barra | família `transparent` | `sapShell_Hover_Background` e `sapShell_Active_Background` | `update-rebic-scaffold-fiori-tool-page` |
 | Barra | Espaço entre elementos da barra | `spacing.xs` | margens internas dos botões do ShellBar, não conferidas | `update-rebic-scaffold-fiori-tool-page` |
+| Barra | Fundo da `RebicBar` em todos os desenhos | `colors.base` | `sapPageHeader_Background`, `sapPageSubheader_Background` e `sapPageFooter_Background` | `update-rebic-page-fiori-page-bar` |
+| Barra | Borda e sombra por desenho | `header` com `shadows.header`; `footer` com borda superior `separator`; `floatingFooter` com borda `separator` e raio `radius.s` | `sapContent_HeaderShadow` e estilos do rodapé flutuante do `sap.m.Page` | `update-rebic-page-fiori-page-bar` |
+| Barra | Espaços da `RebicBar` | `spacing.s` nas pontas e `spacing.xs` entre itens | paddings de 0,25rem dos contêineres da `sap.m.Bar` | `update-rebic-page-fiori-page-bar` |
+| Página | Fundos de `backgroundDesign` | `standard` e `solid` → `background`; `list` → `base` | classes `sapMPageBg*`, sem conferir o Horizon | `update-rebic-page-fiori-page-bar` |
 | Cor | Papel `required` | vermelho (`red600` no claro, `red300` no escuro) | `sapField_RequiredColor` (magenta no Horizon, sem escala primitiva correspondente) | `update-rebic-text-fiori-title-text-label` |
 | Tipografia | Asterisco do rótulo obrigatório | estilo do próprio rótulo, na cor `required` | asterisco maior e posicionado de forma absoluta no `sap.m.Label` | `update-rebic-text-fiori-title-text-label` |
 

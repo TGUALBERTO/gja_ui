@@ -25,46 +25,55 @@ class RebicIconButtonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return RebicPage(
       title: title,
-      subtitle: 'Ações só com ícone, sempre com dica',
-      onBack: () => Navigator.of(context).maybePop(),
-      body: RebicColumn(
-        gap: RebicSpace.l,
-        children: [
-          const RebicTitle(
-            'Barra de ações',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          RebicRow(
-            gap: RebicSpace.xs,
-            children: [
-              for (final (icon, tooltip) in actions)
-                RebicIconButton(icon: icon, tooltip: tooltip, onPressed: () {}),
-            ],
-          ),
-          const RebicTitle(
-            'Tipos',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          RebicRow.wrap(
-            children: [
-              for (final type in RebicButtonType.values)
-                RebicIconButton(
+      showNavButton: true,
+      onNavButtonPress: () => Navigator.of(context).maybePop(),
+      contentPadding: RebicContentPadding.responsive,
+      content: [
+        const RebicText('Ações só com ícone, sempre com dica'),
+        const RebicSpacing.vertical(RebicSpace.l),
+        RebicColumn(
+          gap: RebicSpace.l,
+          children: [
+            const RebicTitle(
+              'Barra de ações',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicRow(
+              gap: RebicSpace.xs,
+              children: [
+                for (final (icon, tooltip) in actions)
+                  RebicIconButton(
+                    icon: icon,
+                    tooltip: tooltip,
+                    onPressed: () {},
+                  ),
+              ],
+            ),
+            const RebicTitle(
+              'Tipos',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicRow.wrap(
+              children: [
+                for (final type in RebicButtonType.values)
+                  RebicIconButton(
+                    icon: RebicIcons.accept,
+                    tooltip: type.name,
+                    type: type,
+                    onPressed: () {},
+                  ),
+                const RebicIconButton(
                   icon: RebicIcons.accept,
-                  tooltip: type.name,
-                  type: type,
-                  onPressed: () {},
+                  tooltip: 'Desabilitado',
+                  onPressed: null,
                 ),
-              const RebicIconButton(
-                icon: RebicIcons.accept,
-                tooltip: 'Desabilitado',
-                onPressed: null,
-              ),
-            ],
-          ),
-        ],
-      ),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

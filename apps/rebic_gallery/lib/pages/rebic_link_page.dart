@@ -30,45 +30,50 @@ class _RebicLinkPageState extends State<RebicLinkPage> {
   Widget build(BuildContext context) {
     return RebicPage(
       title: RebicLinkPage.title,
-      subtitle: 'Navegação secundária e referências a objetos',
-      onBack: () => Navigator.of(context).maybePop(),
-      body: RebicColumn(
-        gap: RebicSpace.l,
-        children: [
-          const RebicTitle(
-            'Variantes',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          RebicLink(
-            text: RebicLinkPage.orderLink,
-            onPressed: () => setState(() => _opened = true),
-          ),
-          if (_opened) const RebicText(RebicLinkPage.opened),
-          RebicLink(text: 'Link sutil', subtle: true, onPressed: () {}),
-          RebicLink(
-            text: 'Link enfatizado',
-            emphasized: true,
-            onPressed: () {},
-          ),
-          const RebicLink(text: 'Link desabilitado', onPressed: null),
-          const RebicTitle(
-            'Com quebra',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          SizedBox(
-            width: 240,
-            child: RebicLink(
-              text:
-                  'Ver todos os pedidos aguardando aprovação do gestor do '
-                  'centro de custo',
-              wrapping: true,
+      showNavButton: true,
+      onNavButtonPress: () => Navigator.of(context).maybePop(),
+      contentPadding: RebicContentPadding.responsive,
+      content: [
+        const RebicText('Navegação secundária e referências a objetos'),
+        const RebicSpacing.vertical(RebicSpace.l),
+        RebicColumn(
+          gap: RebicSpace.l,
+          children: [
+            const RebicTitle(
+              'Variantes',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicLink(
+              text: RebicLinkPage.orderLink,
+              onPressed: () => setState(() => _opened = true),
+            ),
+            if (_opened) const RebicText(RebicLinkPage.opened),
+            RebicLink(text: 'Link sutil', subtle: true, onPressed: () {}),
+            RebicLink(
+              text: 'Link enfatizado',
+              emphasized: true,
               onPressed: () {},
             ),
-          ),
-        ],
-      ),
+            const RebicLink(text: 'Link desabilitado', onPressed: null),
+            const RebicTitle(
+              'Com quebra',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            SizedBox(
+              width: 240,
+              child: RebicLink(
+                text:
+                    'Ver todos os pedidos aguardando aprovação do gestor do '
+                    'centro de custo',
+                wrapping: true,
+                onPressed: () {},
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

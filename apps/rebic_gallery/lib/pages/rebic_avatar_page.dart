@@ -30,52 +30,57 @@ class _RebicAvatarPageState extends State<RebicAvatarPage> {
   Widget build(BuildContext context) {
     return RebicPage(
       title: RebicAvatarPage.title,
-      subtitle: 'Imagem, iniciais ou ícone, como o sap.m.Avatar',
-      onBack: () => Navigator.of(context).maybePop(),
-      body: RebicColumn(
-        gap: RebicSpace.l,
-        children: [
-          const RebicTitle(
-            'Tamanhos',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          RebicRow.wrap(
-            children: [
-              for (final size in RebicAvatarSize.values)
-                RebicAvatar(initials: 'MB', size: size),
-            ],
-          ),
-          const RebicTitle(
-            'Formas e ícones',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          const RebicRow.wrap(
-            children: [
-              RebicAvatar(initials: 'JS', shape: RebicAvatarShape.square),
-              RebicAvatar(),
-              RebicAvatar(icon: RebicIcons.folderBlank),
-              RebicAvatar(
-                icon: RebicIcons.document,
-                shape: RebicAvatarShape.square,
-              ),
-            ],
-          ),
-          const RebicTitle(
-            'Ativo',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          RebicAvatar(
-            initials: 'MB',
-            size: RebicAvatarSize.m,
-            semanticLabel: RebicAvatarPage.person,
-            onPressed: () => setState(() => _opened = true),
-          ),
-          if (_opened) const RebicText(RebicAvatarPage.opened),
-        ],
-      ),
+      showNavButton: true,
+      onNavButtonPress: () => Navigator.of(context).maybePop(),
+      contentPadding: RebicContentPadding.responsive,
+      content: [
+        const RebicText('Imagem, iniciais ou ícone, como o sap.m.Avatar'),
+        const RebicSpacing.vertical(RebicSpace.l),
+        RebicColumn(
+          gap: RebicSpace.l,
+          children: [
+            const RebicTitle(
+              'Tamanhos',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicRow.wrap(
+              children: [
+                for (final size in RebicAvatarSize.values)
+                  RebicAvatar(initials: 'MB', size: size),
+              ],
+            ),
+            const RebicTitle(
+              'Formas e ícones',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            const RebicRow.wrap(
+              children: [
+                RebicAvatar(initials: 'JS', shape: RebicAvatarShape.square),
+                RebicAvatar(),
+                RebicAvatar(icon: RebicIcons.folderBlank),
+                RebicAvatar(
+                  icon: RebicIcons.document,
+                  shape: RebicAvatarShape.square,
+                ),
+              ],
+            ),
+            const RebicTitle(
+              'Ativo',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicAvatar(
+              initials: 'MB',
+              size: RebicAvatarSize.m,
+              semanticLabel: RebicAvatarPage.person,
+              onPressed: () => setState(() => _opened = true),
+            ),
+            if (_opened) const RebicText(RebicAvatarPage.opened),
+          ],
+        ),
+      ],
     );
   }
 }

@@ -25,49 +25,54 @@ class RebicProgressIndicatorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return RebicPage(
       title: title,
-      subtitle: 'Barra e círculo, determinados ou indeterminados',
-      onBack: () => Navigator.of(context).maybePop(),
-      body: RebicColumn(
-        gap: RebicSpace.l,
-        children: [
-          const RebicTitle(
-            'Barras por estado',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          for (final (i, state) in RebicValueState.values.indexed)
-            RebicColumn(
-              gap: RebicSpace.xs,
+      showNavButton: true,
+      onNavButtonPress: () => Navigator.of(context).maybePop(),
+      contentPadding: RebicContentPadding.responsive,
+      content: [
+        const RebicText('Barra e círculo, determinados ou indeterminados'),
+        const RebicSpacing.vertical(RebicSpace.l),
+        RebicColumn(
+          gap: RebicSpace.l,
+          children: [
+            const RebicTitle(
+              'Barras por estado',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            for (final (i, state) in RebicValueState.values.indexed)
+              RebicColumn(
+                gap: RebicSpace.xs,
+                children: [
+                  RebicText('${state.name} — ${(i + 1) * 15}%'),
+                  RebicProgressIndicator.linear(
+                    value: (i + 1) * 0.15,
+                    state: state,
+                  ),
+                ],
+              ),
+            const RebicTitle(
+              'Indeterminada',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            const RebicProgressIndicator.linear(
+              semanticLabel: 'Carregando pedidos',
+            ),
+            const RebicTitle(
+              'Círculos',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicRow(
+              gap: RebicSpace.l,
               children: [
-                RebicText('${state.name} — ${(i + 1) * 15}%'),
-                RebicProgressIndicator.linear(
-                  value: (i + 1) * 0.15,
-                  state: state,
-                ),
+                for (final size in circleSizes)
+                  RebicProgressIndicator.circular(size: size),
               ],
             ),
-          const RebicTitle(
-            'Indeterminada',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          const RebicProgressIndicator.linear(
-            semanticLabel: 'Carregando pedidos',
-          ),
-          const RebicTitle(
-            'Círculos',
-            level: RebicTitleLevel.h2,
-            titleStyle: RebicTitleLevel.h3,
-          ),
-          RebicRow(
-            gap: RebicSpace.l,
-            children: [
-              for (final size in circleSizes)
-                RebicProgressIndicator.circular(size: size),
-            ],
-          ),
-        ],
-      ),
+          ],
+        ),
+      ],
     );
   }
 }
