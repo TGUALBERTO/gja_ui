@@ -8,7 +8,7 @@ Define as cores do Rebic: escalas primitivas, papéis semânticos com mapeamento
 
 
 ### Requirement: Escalas primitivas de cor
-O fundamento SHALL fornecer escalas primitivas de cor nomeadas por matiz e posição (ex.: `neutral900`, `blue600`), no mínimo para neutro, azul, verde, âmbar, vermelho e ciano. Em cada escala, a luminância MUST decrescer à medida que a posição cresce. As escalas MUST ficar na biblioteca de primitivos, e nenhuma cor MUST reproduzir a paleta da SAP.
+O fundamento SHALL fornecer escalas primitivas de cor nomeadas por matiz e posição (ex.: `neutral900`, `blue600`), no mínimo para neutro, azul, verde, âmbar, vermelho, ciano e magenta. Em cada escala, a luminância MUST decrescer à medida que a posição cresce. As escalas MUST ficar na biblioteca de primitivos, e nenhuma cor MUST reproduzir a paleta da SAP.
 
 #### Scenario: Ordem de luminância
 - **WHEN** as posições de uma escala primitiva são percorridas em ordem crescente
@@ -17,6 +17,10 @@ O fundamento SHALL fornecer escalas primitivas de cor nomeadas por matiz e posi�
 #### Scenario: Escalas fora da API dos widgets
 - **WHEN** uma aplicação importa apenas o ponto de entrada do fundamento
 - **THEN** as escalas primitivas não estão visíveis, e os papéis semânticos de cor estão
+
+#### Scenario: Escala magenta
+- **WHEN** as escalas primitivas são listadas
+- **THEN** há a escala `magenta`, de `magenta50` a `magenta900`, usada pelo papel `required`
 
 ### Requirement: Papéis semânticos de cor
 O conjunto semântico de cor SHALL ter os papéis no modelo de parâmetros de tema do Fiori, sem prefixo, listados no cenário "Papéis do modelo Fiori". Ele MUST NOT usar o vocabulário do Material Design (`surface`, `onSurface`, `primaryContainer`, `scrim`). Ele MUST seguir o contrato dos conjuntos de tokens: imutável, `copyWith`, `lerp`, igualdade por valor e diagnóstico.
