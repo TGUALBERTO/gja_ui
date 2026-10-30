@@ -2,6 +2,22 @@
 
 ## Não lançado
 
+- **BREAKING** ToolPage e ShellBar no modelo do SAPUI5 (`update-rebic-scaffold-fiori-tool-page`, specs
+  `rebic/widgets/rebic-tool-page` e `rebic/widgets/rebic-shell-bar`; `rebic/widgets/rebic-scaffold` retirada):
+  - `RebicScaffold` sai e dá lugar a `RebicToolPage`, como o `sap.tnt.ToolPage`: `header`, `subHeader`,
+    `sideContent`, `mainContents`, `sideExpanded` e `onSideExpandedChanged`, com `RebicToolPage.sideExpandedOf` e
+    `RebicToolPage.toggleSideContentMode`. O estado automático é decidido na primeira exibição (recolhido só na
+    classe `small`) e depois mantido. Na classe `small`, o conteúdo lateral cobre o principal e desliza para fora ao
+    recolher. A página não desenha mais separador nem fundo para o conteúdo lateral;
+  - novo `RebicShellBar`, como o `sap.f.ShellBar`: voltar, menu, ícone inicial, título e segundo título, pesquisa,
+    notificações com contador, conteúdo adicional, perfil e seletor de produtos, cada um com o seu callback.
+
+    | Antes | Agora |
+    |---|---|
+    | `RebicScaffold(title:, logo:, actions:, navigation:, body:)` | `RebicToolPage(header: RebicShellBar(title:, homeIcon:, additionalContent:, showMenuButton: true, onMenuButtonPressed: …), sideContent:, mainContents: [body])` |
+    | `navigationExpanded` / `onNavigationExpandedChanged` | `sideExpanded` / `onSideExpandedChanged` |
+    | `RebicScaffold.navigationExpandedOf` | `RebicToolPage.sideExpandedOf` |
+    | botão de navegação embutido | botão de menu do `RebicShellBar`, ligado a `RebicToolPage.toggleSideContentMode` |
 - **BREAKING** Título, texto e rótulo no modelo do SAPUI5 (`update-rebic-text-fiori-title-text-label`, specs
   `rebic/widgets/rebic-text`, `rebic/widgets/rebic-title` e `rebic/widgets/rebic-label`):
   - `RebicText` passa a ser o `sap.m.Text`: `text`, `maxLines`, `wrapping` (padrão `true`) e `textAlign`, sempre com

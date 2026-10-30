@@ -74,6 +74,24 @@ abstract class RebicLocalizations {
   /// Voltar à página anterior (ex.: rótulo do botão de voltar).
   String get back;
 
+  /// Menu da aplicação (ex.: botão de menu da barra superior).
+  String get menu;
+
+  /// Logotipo da aplicação (ex.: dica do ícone inicial da barra superior).
+  String get logo;
+
+  /// Notificações (ex.: botão de notificações da barra superior).
+  String get notifications;
+
+  /// Perfil do usuário (ex.: rótulo do avatar da barra superior).
+  String get profile;
+
+  /// Seletor de produtos (ex.: botão de produtos da barra superior).
+  String get products;
+
+  /// Barra superior da aplicação, como o rótulo do `sap.f.ShellBar`.
+  String get shellBar;
+
   /// Texto de [state] para leitores de tela; vazio para
   /// [RebicValueState.none].
   String valueState(RebicValueState state);
@@ -163,6 +181,24 @@ class RebicLocalizationsPtBr extends RebicLocalizations {
   String get back => 'Voltar';
 
   @override
+  String get menu => 'Menu';
+
+  @override
+  String get logo => 'Logotipo';
+
+  @override
+  String get notifications => 'Notificações';
+
+  @override
+  String get profile => 'Perfil';
+
+  @override
+  String get products => 'Meus produtos';
+
+  @override
+  String get shellBar => 'Barra de shell';
+
+  @override
   String valueState(RebicValueState state) => switch (state) {
     RebicValueState.none => '',
     RebicValueState.success => 'Valor válido',
@@ -216,6 +252,24 @@ class RebicLocalizationsEn extends RebicLocalizations {
 
   @override
   String get back => 'Back';
+
+  @override
+  String get menu => 'Menu';
+
+  @override
+  String get logo => 'Logo';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get products => 'My products';
+
+  @override
+  String get shellBar => 'Shell Bar';
 
   @override
   String valueState(RebicValueState state) => switch (state) {

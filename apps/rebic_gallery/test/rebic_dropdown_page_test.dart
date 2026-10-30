@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rebic_gallery/main.dart';
 import 'package:rebic_gallery/pages/rebic_dropdown_page.dart';
 
+import 'support/navigation.dart';
+
 void main() {
   testWidgets(
     '[Documentação] Exemplos mínimos — Página RebicDropdown na galeria',
@@ -12,9 +14,7 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(const RebicGalleryApp());
 
-      await tester.scrollUntilVisible(find.text(RebicDropdownPage.title), 200);
-      await tester.tap(find.text(RebicDropdownPage.title));
-      await tester.pumpAndSettle();
+      await openGalleryPage(tester, RebicDropdownPage.title);
 
       await tester.tap(find.text(RebicDropdownPage.status('Em aberto')));
       await tester.pumpAndSettle();

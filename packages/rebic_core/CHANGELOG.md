@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Textos `menu`, `logo`, `notifications`, `profile`, `products` e `shellBar` (`update-rebic-scaffold-fiori-tool-page`,
+  spec `rebic/core/localization`), como os textos do `sap.f.ShellBar`. Quem estende `RebicLocalizations` passa a
+  implementá-los.
 - **BREAKING** Sobreposições no modelo do Popup do SAPUI5 (`update-rebic-core-overlay-fiori-popup`, spec
   `rebic/core/overlay`):
   - `RebicModal.show` fecha só com Esc (com `dismissible`), como o `sap.m.Dialog`. A camada de bloqueio nunca é

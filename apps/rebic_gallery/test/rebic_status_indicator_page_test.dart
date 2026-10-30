@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rebic_gallery/main.dart';
 import 'package:rebic_gallery/pages/rebic_status_indicator_page.dart';
 
+import 'support/navigation.dart';
+
 void main() {
   testWidgets(
     '[Documentação] Exemplos mínimos — Página RebicStatusIndicator na galeria',
@@ -12,12 +14,7 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(const RebicGalleryApp());
 
-      await tester.scrollUntilVisible(
-        find.text(RebicStatusIndicatorPage.title),
-        200,
-      );
-      await tester.tap(find.text(RebicStatusIndicatorPage.title));
-      await tester.pumpAndSettle();
+      await openGalleryPage(tester, RebicStatusIndicatorPage.title);
       expect(find.text(RebicStatusIndicatorPage.opened), findsNothing);
 
       await tester.tap(find.text(RebicStatusIndicatorPage.pending));

@@ -440,18 +440,20 @@ void main() {
   });
 
   testWidgets(
-    '[Integração] Dependências de widgets — Página no corpo do scaffold',
+    '[Integração] Dependências de widgets e hospedeiro — Página na página de ferramentas',
     (tester) async {
       _view(tester, 1200, 800);
       await tester.pumpWidget(
         RebicApp(
-          home: RebicScaffold(
-            title: 'Compras',
-            body: RebicPage(
-              title: 'Pedidos',
-              footerActions: [_box('f1')],
-              body: const RebicText('Pedidos em aberto'),
-            ),
+          home: RebicToolPage(
+            header: const RebicShellBar(title: 'Compras'),
+            mainContents: [
+              RebicPage(
+                title: 'Pedidos',
+                footerActions: [_box('f1')],
+                body: const RebicText('Pedidos em aberto'),
+              ),
+            ],
           ),
         ),
       );

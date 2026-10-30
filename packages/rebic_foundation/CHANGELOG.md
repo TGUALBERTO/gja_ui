@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Ícone `grid` em `RebicIcons` (`update-rebic-scaffold-fiori-tool-page`): seletor de produtos do `RebicShellBar`,
+  com o `grip` da Lucide e o nome `grid` do IconPool.
 - Papel de cor `required` (`update-rebic-text-fiori-title-text-label`, spec `rebic/foundation/color`): cor do
   asterisco de rótulo obrigatório, como o `sapField_RequiredColor`, com contraste ≥ 4,5:1 sobre `background`, `base`
   e `headerBackground`. Valor provisório no ADR 0009. Quem cria `RebicColorTokens` pelo construtor passa a informar

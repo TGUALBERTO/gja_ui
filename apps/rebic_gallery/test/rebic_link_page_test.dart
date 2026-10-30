@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rebic_gallery/main.dart';
 import 'package:rebic_gallery/pages/rebic_link_page.dart';
 
+import 'support/navigation.dart';
+
 void main() {
   testWidgets('[Documentação] Exemplos mínimos — Página RebicLink na galeria', (
     tester,
@@ -12,11 +14,7 @@ void main() {
     addTearDown(tester.view.reset);
     await tester.pumpWidget(const RebicGalleryApp());
 
-    await tester.scrollUntilVisible(find.text(RebicLinkPage.title), 200);
-    await tester.ensureVisible(find.text(RebicLinkPage.title));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text(RebicLinkPage.title));
-    await tester.pumpAndSettle();
+    await openGalleryPage(tester, RebicLinkPage.title);
     expect(find.text(RebicLinkPage.opened), findsNothing);
 
     await tester.tap(find.text(RebicLinkPage.orderLink));

@@ -36,6 +36,18 @@ class _Es extends RebicLocalizations {
   @override
   String get back => 'Volver';
   @override
+  String get menu => 'Menú';
+  @override
+  String get logo => 'Logotipo';
+  @override
+  String get notifications => 'Notificaciones';
+  @override
+  String get profile => 'Perfil';
+  @override
+  String get products => 'Mis productos';
+  @override
+  String get shellBar => 'Barra de shell';
+  @override
   String valueState(RebicValueState state) => state.name;
   @override
   String selectedItems(int count) => '$count';
@@ -132,6 +144,19 @@ void main() {
       expect(_en.back, 'Back');
     });
 
+    test('Textos do framework — Textos da barra', () {
+      expect(
+        [_pt.menu, _pt.logo, _pt.notifications, _pt.profile, _pt.products],
+        ['Menu', 'Logotipo', 'Notificações', 'Perfil', 'Meus produtos'],
+      );
+      expect(_pt.shellBar, 'Barra de shell');
+      expect(
+        [_en.menu, _en.logo, _en.notifications, _en.profile, _en.products],
+        ['Menu', 'Logo', 'Notifications', 'Profile', 'My products'],
+      );
+      expect(_en.shellBar, 'Shell Bar');
+    });
+
     test('todos os textos simples existem nos dois idiomas', () {
       for (final l in const <RebicLocalizations>[_pt, _en]) {
         final texts = [
@@ -146,6 +171,12 @@ void main() {
           l.required,
           l.navigation,
           l.back,
+          l.menu,
+          l.logo,
+          l.notifications,
+          l.profile,
+          l.products,
+          l.shellBar,
         ];
         expect(texts.every((t) => t.isNotEmpty), isTrue, reason: '${l.locale}');
       }

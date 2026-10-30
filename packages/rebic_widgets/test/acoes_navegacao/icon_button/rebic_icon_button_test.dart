@@ -368,50 +368,57 @@ void main() {
   });
 
   group('[Integração] Dependências', () {
-    testWidgets('[Integração] Dependências — Botão de ícone sem Material', (
-      tester,
-    ) async {
-      await tester.pumpWidget(
-        _app(
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              for (final type in RebicButtonType.values)
-                RebicIconButton(
+    testWidgets(
+      '[Integração] Dependências e uso — Botão de ícone sem Material',
+      (tester) async {
+        await tester.pumpWidget(
+          _app(
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for (final type in RebicButtonType.values)
+                  RebicIconButton(
+                    icon: RebicIcons.edit,
+                    tooltip: type.name,
+                    type: type,
+                    onPressed: () {},
+                  ),
+                const RebicIconButton(
                   icon: RebicIcons.edit,
-                  tooltip: type.name,
-                  type: type,
-                  onPressed: () {},
+                  tooltip: 'Desabilitado',
+                  onPressed: null,
                 ),
-              const RebicIconButton(
-                icon: RebicIcons.edit,
-                tooltip: 'Desabilitado',
-                onPressed: null,
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      );
-      for (final element in find.byType(RebicIconButton).evaluate().toList()) {
-        await tester.tap(find.byWidget(element.widget), warnIfMissed: false);
-      }
-      await tester.pump();
-      expect(tester.takeException(), isNull);
-    });
+        );
+        for (final element
+            in find.byType(RebicIconButton).evaluate().toList()) {
+          await tester.tap(find.byWidget(element.widget), warnIfMissed: false);
+        }
+        await tester.pump();
+        expect(tester.takeException(), isNull);
+      },
+    );
 
     testWidgets(
-      '[Integração] Dependências — Scaffold e página usam o botão de ícone',
+      '[Integração] Dependências e uso — Barra e página usam o botão de ícone',
       (tester) async {
         await tester.pumpWidget(
           RebicApp(
             locale: const Locale('pt', 'BR'),
-            home: RebicScaffold(
-              navigation: const SizedBox(width: 64),
-              body: RebicPage(
-                title: 'Pedidos',
-                onBack: () {},
-                body: const SizedBox.shrink(),
+            home: RebicToolPage(
+              header: RebicShellBar(
+                showMenuButton: true,
+                onMenuButtonPressed: () {},
               ),
+              mainContents: [
+                RebicPage(
+                  title: 'Pedidos',
+                  onBack: () {},
+                  body: const SizedBox.shrink(),
+                ),
+              ],
             ),
           ),
         );
@@ -419,7 +426,7 @@ void main() {
             .widgetList<RebicIconButton>(find.byType(RebicIconButton))
             .map((b) => b.tooltip)
             .toSet();
-        expect(tooltips, {'Navegação', 'Voltar'});
+        expect(tooltips, {'Menu', 'Voltar'});
       },
     );
   });

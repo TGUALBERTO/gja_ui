@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rebic_gallery/main.dart';
 import 'package:rebic_gallery/pages/rebic_card_page.dart';
 
+import 'support/navigation.dart';
+
 void main() {
   testWidgets('[Documentação] Exemplos mínimos — Página RebicCard na galeria', (
     tester,
@@ -12,9 +14,7 @@ void main() {
     addTearDown(tester.view.reset);
     await tester.pumpWidget(const RebicGalleryApp());
 
-    await tester.scrollUntilVisible(find.text(RebicCardPage.title), 200);
-    await tester.tap(find.text(RebicCardPage.title));
-    await tester.pumpAndSettle();
+    await openGalleryPage(tester, RebicCardPage.title);
     expect(find.text(RebicCardPage.opened), findsNothing);
 
     await tester.tap(find.text(RebicCardPage.pendingTitle));

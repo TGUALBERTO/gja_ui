@@ -46,9 +46,9 @@ class RebicPagePage extends StatelessWidget {
             titleStyle: RebicTitleLevel.h3,
           ),
           RebicText(
-            'Use RebicPage como corpo do RebicScaffold ou como página de uma '
-            'rota. O botão de voltar aparece quando há onBack, e o rodapé, '
-            'quando há ações finais.',
+            'Use RebicPage como conteúdo principal do RebicToolPage ou como '
+            'página de uma rota. O botão de voltar aparece quando há onBack, e '
+            'o rodapé, quando há ações finais.',
           ),
           RebicTitle(
             'Rolagem',

@@ -371,30 +371,45 @@ items:
       - rebic/foundation/spacing
       - rebic/foundation/density
       - rebic/foundation/theming
-  - id: rebic/widgets/rebic-scaffold
-    name: "RebicScaffold"
+  - id: rebic/widgets/rebic-tool-page
+    name: "RebicToolPage"
     kind: widget
     category: fundacao-layout
     priority: P0
     phase: 1
     status: implemented
     depends_on:
-      - rebic/widgets/rebic-icon-button
       - rebic/widgets/rebic-app
       - rebic/widgets/rebic-container
-      - rebic/widgets/rebic-divider
-      - rebic/widgets/rebic-icon
-      - rebic/widgets/rebic-title
       - rebic/core/responsive
+      - rebic/foundation/color
+      - rebic/foundation/design-tokens
+      - rebic/foundation/breakpoints
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
+  - id: rebic/widgets/rebic-shell-bar
+    name: "RebicShellBar"
+    kind: widget
+    category: fundacao-layout
+    priority: P1
+    phase: 2
+    status: implemented
+    depends_on:
+      - rebic/widgets/rebic-icon-button
+      - rebic/widgets/rebic-avatar
+      - rebic/widgets/rebic-badge
+      - rebic/widgets/rebic-title
+      - rebic/widgets/rebic-container
       - rebic/core/interaction
       - rebic/core/localization
+      - rebic/core/responsive
       - rebic/foundation/color
       - rebic/foundation/shadows
       - rebic/foundation/spacing
-      - rebic/foundation/density
+      - rebic/foundation/typography
       - rebic/foundation/iconography
-      - rebic/foundation/interaction-states
-      - rebic/foundation/design-tokens
+      - rebic/foundation/breakpoints
+      - rebic/foundation/density
       - rebic/foundation/theming
       - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-page
@@ -406,7 +421,7 @@ items:
     status: implemented
     depends_on:
       - rebic/widgets/rebic-icon-button
-      - rebic/widgets/rebic-scaffold
+      - rebic/widgets/rebic-tool-page
       - rebic/widgets/rebic-icon
       - rebic/widgets/rebic-container
       - rebic/widgets/rebic-divider
@@ -550,7 +565,7 @@ items:
       - rebic/widgets/rebic-icon
       - rebic/widgets/rebic-text
       - rebic/widgets/rebic-badge
-      - rebic/widgets/rebic-scaffold
+      - rebic/widgets/rebic-tool-page
   - id: rebic/widgets/rebic-breadcrumbs
     name: "RebicBreadcrumbs"
     kind: widget

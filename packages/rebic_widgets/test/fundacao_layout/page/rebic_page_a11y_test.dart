@@ -14,7 +14,7 @@ Widget _page(RebicThemeData theme) => RebicTheme(
   child: Directionality(
     textDirection: TextDirection.ltr,
     // O conteúdo não pinta fundo: o fundo da aplicação vem de quem hospeda a
-    // página (RebicApp ou RebicScaffold).
+    // página (RebicApp ou RebicToolPage).
     child: RebicContainer(
       surface: RebicSurface.background,
       child: RebicPage(

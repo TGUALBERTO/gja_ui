@@ -4,6 +4,8 @@ import 'package:rebic_gallery/main.dart';
 import 'package:rebic_gallery/pages/rebic_progress_indicator_page.dart';
 import 'package:rebic_ui/rebic_ui.dart';
 
+import 'support/navigation.dart';
+
 void main() {
   testWidgets(
     '[Documentação] Exemplos mínimos — Página RebicProgressIndicator na galeria',
@@ -13,11 +15,11 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(const RebicGalleryApp());
 
-      await tester.scrollUntilVisible(
-        find.text(RebicProgressIndicatorPage.title),
-        200,
+      await openGalleryPage(
+        tester,
+        RebicProgressIndicatorPage.title,
+        settle: false,
       );
-      await tester.tap(find.text(RebicProgressIndicatorPage.title));
       // Indicadores indeterminados nunca assentam: avança só a transição.
       await tester.pump();
       await tester.pump(const Duration(seconds: 1));

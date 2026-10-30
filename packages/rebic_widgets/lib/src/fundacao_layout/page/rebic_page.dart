@@ -19,8 +19,8 @@ import '../spacing/rebic_spacing.dart';
 /// recebe a altura disponível para uma rolagem própria. O rodapé, com as
 /// [footerActions] alinhadas ao fim, só aparece quando há ações.
 ///
-/// Precisa de altura limitada: use-a como corpo do `RebicScaffold` ou como
-/// página de uma rota.
+/// Precisa de altura limitada: use-a como conteúdo principal do
+/// `RebicToolPage` ou como página de uma rota.
 ///
 /// ```dart
 /// RebicPage(
@@ -82,8 +82,8 @@ class RebicPage extends StatelessWidget {
       builder: (context, constraints) {
         assert(
           constraints.hasBoundedHeight,
-          'RebicPage precisa de altura limitada: use-a como corpo do '
-          'RebicScaffold ou como página de uma rota, não dentro de uma rolagem',
+          'RebicPage precisa de altura limitada: use-a como conteúdo principal do '
+          'RebicToolPage ou como página de uma rota, não dentro de uma rolagem',
         );
         // Margem da classe de tamanho da própria página, como o padding
         // responsivo da `sap.f.DynamicPage`.

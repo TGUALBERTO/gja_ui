@@ -4,6 +4,8 @@ import 'package:rebic_gallery/main.dart';
 import 'package:rebic_gallery/pages/rebic_page_page.dart';
 import 'package:rebic_ui/rebic_ui.dart';
 
+import 'support/navigation.dart';
+
 void main() {
   testWidgets('[Documentação] Exemplos mínimos — Página RebicPage na galeria', (
     tester,
@@ -13,9 +15,7 @@ void main() {
     addTearDown(tester.view.reset);
     await tester.pumpWidget(const RebicGalleryApp());
 
-    await tester.scrollUntilVisible(find.text(RebicPagePage.title), 200);
-    await tester.tap(find.text(RebicPagePage.title));
-    await tester.pumpAndSettle();
+    await openGalleryPage(tester, RebicPagePage.title);
     expect(find.byType(RebicPage), findsOneWidget);
 
     await tester.tap(

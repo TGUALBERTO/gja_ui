@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rebic_gallery/main.dart';
 import 'package:rebic_gallery/pages/rebic_badge_page.dart';
 
+import 'support/navigation.dart';
+
 void main() {
   testWidgets(
     '[Documentação] Exemplos mínimos — Página RebicBadge na galeria',
@@ -12,9 +14,7 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(const RebicGalleryApp());
 
-      await tester.scrollUntilVisible(find.text(RebicBadgePage.title), 200);
-      await tester.tap(find.text(RebicBadgePage.title));
-      await tester.pumpAndSettle();
+      await openGalleryPage(tester, RebicBadgePage.title);
 
       Finder bellCount(String text) => find.descendant(
         of: find.byKey(RebicBadgePage.bellKey),

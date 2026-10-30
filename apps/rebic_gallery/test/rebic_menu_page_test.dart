@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rebic_gallery/main.dart';
 import 'package:rebic_gallery/pages/rebic_menu_page.dart';
 
+import 'support/navigation.dart';
+
 void main() {
   testWidgets('[Documentação] Exemplos mínimos — Página RebicMenu na galeria', (
     tester,
@@ -12,9 +14,7 @@ void main() {
     addTearDown(tester.view.reset);
     await tester.pumpWidget(const RebicGalleryApp());
 
-    await tester.scrollUntilVisible(find.text(RebicMenuPage.title), 200);
-    await tester.tap(find.text(RebicMenuPage.title));
-    await tester.pumpAndSettle();
+    await openGalleryPage(tester, RebicMenuPage.title);
 
     await tester.tap(find.text(RebicMenuPage.actions));
     await tester.pumpAndSettle();

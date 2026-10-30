@@ -5,6 +5,8 @@ import 'package:rebic_gallery/main.dart';
 import 'package:rebic_gallery/pages/rebic_icon_button_page.dart';
 import 'package:rebic_ui/rebic_ui.dart';
 
+import 'support/navigation.dart';
+
 void main() {
   testWidgets(
     '[Documentação] Exemplos mínimos — Página RebicIconButton na galeria',
@@ -14,12 +16,7 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(const RebicGalleryApp());
 
-      await tester.scrollUntilVisible(
-        find.text(RebicIconButtonPage.title),
-        200,
-      );
-      await tester.tap(find.text(RebicIconButtonPage.title));
-      await tester.pumpAndSettle();
+      await openGalleryPage(tester, RebicIconButtonPage.title);
 
       final (_, tooltip) = RebicIconButtonPage.actions.first;
       expect(find.text(tooltip), findsNothing);

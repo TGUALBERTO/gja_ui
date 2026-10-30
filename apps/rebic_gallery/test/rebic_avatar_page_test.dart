@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rebic_gallery/main.dart';
 import 'package:rebic_gallery/pages/rebic_avatar_page.dart';
 
+import 'support/navigation.dart';
+
 void main() {
   testWidgets(
     '[Documentação] Exemplos mínimos — Página RebicAvatar na galeria',
@@ -12,9 +14,7 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(const RebicGalleryApp());
 
-      await tester.scrollUntilVisible(find.text(RebicAvatarPage.title), 200);
-      await tester.tap(find.text(RebicAvatarPage.title));
-      await tester.pumpAndSettle();
+      await openGalleryPage(tester, RebicAvatarPage.title);
       expect(find.text(RebicAvatarPage.opened), findsNothing);
 
       await tester.tap(find.bySemanticsLabel(RebicAvatarPage.person));

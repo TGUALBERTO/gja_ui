@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rebic_gallery/main.dart';
 import 'package:rebic_gallery/pages/rebic_tooltip_page.dart';
 
+import 'support/navigation.dart';
+
 void main() {
   testWidgets(
     '[Documentação] Exemplos mínimos — Página RebicTooltip na galeria',
@@ -13,9 +15,7 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(const RebicGalleryApp());
 
-      await tester.scrollUntilVisible(find.text(RebicTooltipPage.title), 200);
-      await tester.tap(find.text(RebicTooltipPage.title));
-      await tester.pumpAndSettle();
+      await openGalleryPage(tester, RebicTooltipPage.title);
 
       final (_, message) = RebicTooltipPage.examples.first;
       expect(find.text(message), findsNothing);

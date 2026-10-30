@@ -277,6 +277,13 @@ abstract final class RebicIcons {
     fontPackage: RebicIconPrimitives.fontPackage,
   );
 
+  /// Seletor de produtos. Lucide: `grip`; IconPool: `sap-icon://grid`.
+  static const grid = IconData(
+    0xe3b1,
+    fontFamily: RebicIconPrimitives.fontFamily,
+    fontPackage: RebicIconPrimitives.fontPackage,
+  );
+
   /// Nome de origem na Lucide de cada ícone do catálogo.
   static const lucideNames = <String, String>{
     'add': 'plus',
@@ -316,6 +323,7 @@ abstract final class RebicIcons {
     'bell': 'bell',
     'document': 'file',
     'folderBlank': 'folder',
+    'grid': 'grip',
   };
 
   /// Nome de cada ícone no IconPool do SAPUI5 (`sap-icon://<nome>`). O nome
@@ -359,6 +367,7 @@ abstract final class RebicIcons {
     'bell': 'bell',
     'document': 'document',
     'folderBlank': 'folder-blank',
+    'grid': 'grid',
   };
 
   /// Todos os ícones do catálogo, pelo nome.
@@ -400,5 +409,6 @@ abstract final class RebicIcons {
     'bell': bell,
     'document': document,
     'folderBlank': folderBlank,
+    'grid': grid,
   };
 }

@@ -40,6 +40,9 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Raios | Anel de foco do link | `xs` (2) | contorno de foco do `sap.m.Link`, sem parâmetro próprio | `update-rebic-foundation-radius-fiori-roles` |
 | Ícones | Tamanho do ícone de controle | 16 | `sapContent_IconHeight` (1rem) | `update-rebic-foundation-iconography-fiori-iconpool` |
 | Ícones | Nomes do IconPool onde há mais de uma opção | `menu2`, `navBack`, `sysEnter2`, `pending`, `popupWindow` (nomes não conferidos com a versão atual do IconPool) | ícones usados pelo `sap.f.ShellBar`, `sap.m.Page` e `sap.m.MessageStrip` | `update-rebic-foundation-iconography-fiori-iconpool` |
+| Barra | Altura do `RebicShellBar` | `spacing.xxxl` (48), igual nas duas densidades | `.sapFShellBar { height: 3rem }` | `update-rebic-scaffold-fiori-tool-page` |
+| Barra | Hover e pressionado dos botões da barra | família `transparent` | `sapShell_Hover_Background` e `sapShell_Active_Background` | `update-rebic-scaffold-fiori-tool-page` |
+| Barra | Espaço entre elementos da barra | `spacing.xs` | margens internas dos botões do ShellBar, não conferidas | `update-rebic-scaffold-fiori-tool-page` |
 | Cor | Papel `required` | vermelho (`red600` no claro, `red300` no escuro) | `sapField_RequiredColor` (magenta no Horizon, sem escala primitiva correspondente) | `update-rebic-text-fiori-title-text-label` |
 | Tipografia | Asterisco do rótulo obrigatório | estilo do próprio rótulo, na cor `required` | asterisco maior e posicionado de forma absoluta no `sap.m.Label` | `update-rebic-text-fiori-title-text-label` |
 
