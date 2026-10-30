@@ -122,14 +122,6 @@ A página SHALL ocupar a largura disponível, sem limiares próprios. Em RTL, o 
 - **WHEN** a página com `onBack`, uma ação e uma ação de rodapé é renderizada
 - **THEN** o botão de voltar fica à direita, a ação termina na borda esquerda da área de título, e a ação de rodapé termina na borda esquerda do rodapé
 
-### Requirement: [Integração] Dependências de widgets
-Dos widgets, `RebicPage` SHALL depender somente de `rebic/widgets/rebic-icon`, `rebic/widgets/rebic-icon-button`, `rebic/widgets/rebic-container`, `rebic/widgets/rebic-divider`, `rebic/widgets/rebic-row`, `rebic/widgets/rebic-column` e `rebic/widgets/rebic-spacing`, e SHALL funcionar como corpo de `rebic/widgets/rebic-scaffold`.
-
-#### Scenario: Página no corpo do scaffold
-- **GIVEN** uma árvore criada apenas com `RebicApp`, com um `RebicScaffold` cuja barra tem título
-- **WHEN** uma `RebicPage` com rodapé é o corpo do scaffold
-- **THEN** não ocorrem exceções relacionadas a ancestrais Material ou Cupertino, a área de título da página começa abaixo da barra, e o rodapé termina na borda inferior da tela
-
 ### Requirement: [Integração] Dependências de núcleo e fundamentos
 Do núcleo e dos fundamentos, `RebicPage` SHALL depender somente de `rebic/core/interaction`, `rebic/core/localization`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/typography`, `rebic/foundation/density`, `rebic/foundation/breakpoints`, `rebic/foundation/iconography`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
@@ -163,3 +155,11 @@ Do núcleo e dos fundamentos, `RebicPage` SHALL depender somente de `rebic/core/
 #### Scenario: Página sem valor literal
 - **WHEN** a API pública de `RebicPage` é inspecionada
 - **THEN** não há parâmetro do tipo `double` nem `Color`
+
+### Requirement: [Integração] Dependências de widgets e hospedeiro
+Dos widgets, `RebicPage` SHALL depender somente de `rebic/widgets/rebic-icon`, `rebic/widgets/rebic-icon-button`, `rebic/widgets/rebic-container`, `rebic/widgets/rebic-divider`, `rebic/widgets/rebic-row`, `rebic/widgets/rebic-column` e `rebic/widgets/rebic-spacing`, e SHALL funcionar como conteúdo principal de `rebic/widgets/rebic-tool-page`.
+
+#### Scenario: Página na página de ferramentas
+- **GIVEN** uma árvore criada apenas com `RebicApp`, com um `RebicToolPage` cujo cabeçalho é um `RebicShellBar` com título
+- **WHEN** uma `RebicPage` com rodapé é o conteúdo principal
+- **THEN** não ocorrem exceções relacionadas a ancestrais Material ou Cupertino, a área de título da página começa abaixo do cabeçalho, e o rodapé termina na borda inferior da tela

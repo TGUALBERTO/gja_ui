@@ -6,6 +6,7 @@
 
 ## Requirements
 
+
 ### Requirement: [API] Propriedades
 `RebicIconButton` SHALL expor:
 
@@ -103,18 +104,6 @@ O botão SHALL ter tamanho fixo pela densidade. Em RTL, ícones direcionais (com
 - **WHEN** um botão de ícone com `RebicIcons.navBack` é renderizado
 - **THEN** o ícone é desenhado espelhado, apontando para a direita
 
-### Requirement: [Integração] Dependências
-`RebicIconButton` SHALL depender somente de `rebic/core/interaction`, `rebic/widgets/rebic-tooltip`, `rebic/widgets/rebic-button` (`RebicButtonType`), `rebic/foundation/interaction-states`, `rebic/foundation/iconography`, `rebic/foundation/density`, `rebic/foundation/radius`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
-
-#### Scenario: Botão de ícone sem Material
-- **GIVEN** uma árvore criada apenas com `RebicApp`
-- **WHEN** um botão de ícone de cada tipo e um desabilitado são renderizados e tocados
-- **THEN** não ocorrem exceções relacionadas a ancestrais Material ou Cupertino
-
-#### Scenario: Scaffold e página usam o botão de ícone
-- **WHEN** um `RebicScaffold` com navegação e uma `RebicPage` com `onBack` são renderizados
-- **THEN** o botão de navegação e o de voltar são `RebicIconButton` com as dicas "Navegação" e "Voltar"
-
 ### Requirement: [Testes] Cobertura exigida
 `RebicIconButton` MUST ter um teste de widget por cenário, goldens nos temas claro e escuro, em cada densidade, e a bateria de `rebic/foundation/accessibility` para widgets interativos.
 
@@ -140,3 +129,15 @@ O botão SHALL ter tamanho fixo pela densidade. Em RTL, ícones direcionais (com
 #### Scenario: Botão de ícone sem valor literal
 - **WHEN** a API pública de `RebicIconButton` é inspecionada
 - **THEN** não há parâmetro do tipo `double`, `Color`, `Duration` ou `Widget`
+
+### Requirement: [Integração] Dependências e uso
+`RebicIconButton` SHALL depender somente de `rebic/core/interaction`, `rebic/widgets/rebic-tooltip`, `rebic/widgets/rebic-button` (`RebicButtonType`), `rebic/foundation/interaction-states`, `rebic/foundation/iconography`, `rebic/foundation/density`, `rebic/foundation/radius`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+
+#### Scenario: Botão de ícone sem Material
+- **GIVEN** uma árvore criada apenas com `RebicApp`
+- **WHEN** um botão de ícone de cada tipo e um desabilitado são renderizados e tocados
+- **THEN** não ocorrem exceções relacionadas a ancestrais Material ou Cupertino
+
+#### Scenario: Barra e página usam o botão de ícone
+- **WHEN** um `RebicShellBar` com o botão de menu e uma `RebicPage` com `onBack` são renderizados, em pt-BR
+- **THEN** o botão de menu e o de voltar são `RebicIconButton` com as dicas "Menu" e "Voltar"
