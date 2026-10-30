@@ -8,7 +8,15 @@ void main() {
     test('Escalas primitivas de cor — Ordem de luminância', () {
       expect(
         RebicColorPrimitives.scales.keys,
-        containsAll(['neutral', 'blue', 'green', 'amber', 'red', 'cyan']),
+        containsAll([
+          'neutral',
+          'blue',
+          'green',
+          'amber',
+          'red',
+          'cyan',
+          'magenta',
+        ]),
       );
       for (final MapEntry(key: hue, value: scale)
           in RebicColorPrimitives.scales.entries) {
@@ -26,6 +34,13 @@ void main() {
           );
         }
       }
+    });
+
+    test('Escalas primitivas de cor — Escala magenta', () {
+      final magenta = RebicColorPrimitives.scales['magenta']!;
+      expect(magenta.keys.first, 'magenta50');
+      expect(magenta.keys.last, 'magenta900');
+      expect(magenta, hasLength(10));
     });
 
     test('Escalas primitivas de cor — Escalas fora da API dos widgets', () {

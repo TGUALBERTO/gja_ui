@@ -60,7 +60,16 @@ class RebicLabel extends StatelessWidget {
       RebicLabelDesign.bold => theme.typography.baseBold,
     }.copyWith(color: theme.colors.label);
     final colon = showColon ? ':' : '';
-    final requiredStyle = style.copyWith(color: theme.colors.required);
+    // Asterisco como no `sap.m.Label`: tamanho `large`, negrito e cor
+    // `required`. A métrica da linha é forçada à do texto, como o
+    // `line-height: 0` do UI5, para o asterisco maior não aumentar a altura
+    // do rótulo.
+    final requiredStyle = theme.typography.large.copyWith(
+      fontWeight: theme.typography.baseBold.fontWeight,
+      color: theme.colors.required,
+    );
+    final strut = StrutStyle.fromTextStyle(style, forceStrutHeight: true);
+    final gap = theme.spacing.xxs;
     final semanticLabel = required
         ? '$text$colon, ${RebicLocalizations.of(context).required}'
         : '$text$colon';
@@ -70,9 +79,15 @@ class RebicLabel extends StatelessWidget {
       label = Text.rich(
         TextSpan(
           text: '$text$colon',
-          children: [if (required) TextSpan(text: '*', style: requiredStyle)],
+          children: [
+            if (required) ...[
+              WidgetSpan(child: SizedBox(width: gap)),
+              TextSpan(text: '*', style: requiredStyle),
+            ],
+          ],
         ),
         style: style,
+        strutStyle: strut,
         textAlign: textAlign,
       );
     } else if (!showColon && !required) {
@@ -100,7 +115,11 @@ class RebicLabel extends StatelessWidget {
             ),
           ),
           if (showColon) Text(colon, style: style),
-          if (required) Text('*', style: requiredStyle),
+          if (required)
+            Padding(
+              padding: EdgeInsetsDirectional.only(start: gap),
+              child: Text('*', style: requiredStyle, strutStyle: strut),
+            ),
         ],
       );
       final alignment = switch (textAlign) {

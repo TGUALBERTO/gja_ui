@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Asterisco de obrigatório do `RebicLabel` como no `sap.m.Label` (`update-rebic-label-fiori-required`): tamanho
+  `large`, negrito, `spacing.xxs` antes e a nova cor `required` magenta. A altura do rótulo não muda.
 - **BREAKING** Card e cabeçalho de cartão no modelo do SAPUI5 (`update-rebic-card-fiori-card-header`, specs
   `rebic/widgets/rebic-card` e `rebic/widgets/rebic-card-header`):
   - `RebicCard` passa à API do `sap.f.Card`: `header`, `headerPosition` (`RebicCardHeaderPosition.top`/`bottom`),

@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Escala primitiva `magenta` (`update-rebic-label-fiori-required`, spec `rebic/foundation/color`): o papel `required`
+  passa de vermelho a `magenta600` (claro) e `magenta300` (escuro), como o `sapField_RequiredColor` do Horizon, com
+  valores próprios.
 - Token de densidade `barHeight` (`update-rebic-page-fiori-page-bar`, spec `rebic/foundation/density`): altura do
   `sap.m.Bar`, 48 no cozy e 32 no compacto, com o primitivo `RebicDensityPrimitives.size48`. Quem cria
   `RebicDensityTokens` pelo construtor passa a informar `barHeight`.

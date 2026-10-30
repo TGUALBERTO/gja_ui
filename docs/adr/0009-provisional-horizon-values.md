@@ -50,8 +50,6 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Cartão | Hover e pressionado do cabeçalho acionável | família `list` | `sapTile_Hover_Background` e `sapTile_Active_Background` | `update-rebic-card-fiori-card-header` |
 | Cartão | Espaço entre o ícone e os textos do cabeçalho | `spacing.m` | margem do ícone em `CardHeaders.less`, não conferida no Horizon | `update-rebic-card-fiori-card-header` |
 | Cartão | Cor do subtítulo, do status e da data do cabeçalho | `colors.label` | `sapTile_TextColor` | `update-rebic-card-fiori-card-header` |
-| Cor | Papel `required` | vermelho (`red600` no claro, `red300` no escuro) | `sapField_RequiredColor` (magenta no Horizon, sem escala primitiva correspondente) | `update-rebic-text-fiori-title-text-label` |
-| Tipografia | Asterisco do rótulo obrigatório | estilo do próprio rótulo, na cor `required` | asterisco maior e posicionado de forma absoluta no `sap.m.Label` | `update-rebic-text-fiori-title-text-label` |
 
 ## Alternativas consideradas
 

@@ -47,7 +47,9 @@ Antes do asterisco há `spacing.xxs` (2, o 0,125rem do UI5):
 - sem `wrapping`: é o espaçamento entre o `Text(':')` e o `Text('*')` na `Row` (`Padding` só no asterisco);
 - com `wrapping`: um `WidgetSpan` de `SizedBox(width: xxs)` antes do `TextSpan` do asterisco.
 
-A `Row` alinha pela linha de base, então o asterisco maior não desalinha o texto.
+O asterisco recebe `StrutStyle.fromTextStyle(estiloDoRótulo, forceStrutHeight: true)`, que força a métrica da
+linha à do texto, como o `line-height: 0` do UI5. Sem isso, a `Row` alinhada pela linha de base somava a ascendente
+maior da fonte `large` e deixava o rótulo 1 mais alto.
 
 ## Risks / Trade-offs
 

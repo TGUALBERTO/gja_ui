@@ -144,7 +144,7 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
         selectionBackground: RebicColorPrimitives.blue50,
         selectionHoverBackground: RebicColorPrimitives.blue100,
         focus: RebicColorPrimitives.blue600,
-        required: RebicColorPrimitives.red600,
+        required: RebicColorPrimitives.magenta600,
         shadow: RebicColorPrimitives.blackAlpha16,
         blockLayer: RebicColorPrimitives.blackAlpha40,
         none: const RebicValueStateColors(
@@ -199,7 +199,7 @@ class RebicColorTokens extends RebicTokenSet<RebicColorTokens> {
         selectionBackground: RebicColorPrimitives.blue800,
         selectionHoverBackground: RebicColorPrimitives.blue900,
         focus: RebicColorPrimitives.blue300,
-        required: RebicColorPrimitives.red300,
+        required: RebicColorPrimitives.magenta300,
         shadow: RebicColorPrimitives.blackAlpha40,
         blockLayer: RebicColorPrimitives.blackAlpha60,
         none: const RebicValueStateColors(

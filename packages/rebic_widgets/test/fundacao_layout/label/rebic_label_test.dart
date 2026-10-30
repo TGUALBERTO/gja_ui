@@ -209,7 +209,16 @@ void main() {
           expect(text.fontWeight, expected.fontWeight, reason: reason);
           expect(text.color, theme.colors.label, reason: reason);
           final asterisk = styleOf('*');
-          expect(asterisk.fontWeight, expected.fontWeight, reason: reason);
+          expect(
+            asterisk.fontSize,
+            theme.typography.large.fontSize,
+            reason: reason,
+          );
+          expect(
+            asterisk.fontWeight,
+            theme.typography.baseBold.fontWeight,
+            reason: reason,
+          );
           expect(asterisk.color, theme.colors.required, reason: reason);
         }
       }

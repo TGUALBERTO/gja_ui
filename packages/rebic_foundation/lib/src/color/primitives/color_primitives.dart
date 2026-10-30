@@ -210,6 +210,36 @@ abstract final class RebicColorPrimitives {
   /// Ciano 900 (#082A34).
   static const cyan900 = Color(0xFF082A34);
 
+  /// Magenta 50 (#FCEFF6).
+  static const magenta50 = Color(0xFFFCEFF6);
+
+  /// Magenta 100 (#F9D7E8).
+  static const magenta100 = Color(0xFFF9D7E8);
+
+  /// Magenta 200 (#F2AFD2).
+  static const magenta200 = Color(0xFFF2AFD2);
+
+  /// Magenta 300 (#EA82B8).
+  static const magenta300 = Color(0xFFEA82B8);
+
+  /// Magenta 400 (#DD559C).
+  static const magenta400 = Color(0xFFDD559C);
+
+  /// Magenta 500 (#C4307F).
+  static const magenta500 = Color(0xFFC4307F);
+
+  /// Magenta 600 (#A81A68).
+  static const magenta600 = Color(0xFFA81A68);
+
+  /// Magenta 700 (#861453).
+  static const magenta700 = Color(0xFF861453);
+
+  /// Magenta 800 (#640F3E).
+  static const magenta800 = Color(0xFF640F3E);
+
+  /// Magenta 900 (#430A2A).
+  static const magenta900 = Color(0xFF430A2A);
+
   /// Escala neutro, da posição mais clara para a mais escura.
   static const neutral = <String, Color>{
     'neutral50': neutral50,
@@ -295,6 +325,20 @@ abstract final class RebicColorPrimitives {
     'cyan900': cyan900,
   };
 
+  /// Escala magenta, da posição mais clara para a mais escura.
+  static const magenta = <String, Color>{
+    'magenta50': magenta50,
+    'magenta100': magenta100,
+    'magenta200': magenta200,
+    'magenta300': magenta300,
+    'magenta400': magenta400,
+    'magenta500': magenta500,
+    'magenta600': magenta600,
+    'magenta700': magenta700,
+    'magenta800': magenta800,
+    'magenta900': magenta900,
+  };
+
   /// Todas as escalas, por matiz.
   static const scales = <String, Map<String, Color>>{
     'neutral': neutral,
@@ -303,5 +347,6 @@ abstract final class RebicColorPrimitives {
     'amber': amber,
     'red': red,
     'cyan': cyan,
+    'magenta': magenta,
   };
 }
