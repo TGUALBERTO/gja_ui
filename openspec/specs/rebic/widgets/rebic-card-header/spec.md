@@ -114,7 +114,7 @@ Em RTL, o ícone MUST ficar à direita, e o status, a data e o `toolbar` à esqu
 - **THEN** não há estouro
 
 ### Requirement: [Integração] Dependências
-`RebicCardHeader` SHALL depender somente de `rebic/widgets/rebic-avatar`, `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/spacing`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+`RebicCardHeader` SHALL depender somente de `rebic/widgets/rebic-avatar`, `rebic/widgets/rebic-title` (`RebicTitleLevel`), `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/spacing`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Cabeçalho sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`

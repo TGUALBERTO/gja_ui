@@ -136,7 +136,7 @@ Em RTL, o alinhamento `start` MUST juntar as bordas direitas do popover e da ân
 - **THEN** não há estouro, e o popover fica dentro da tela
 
 ### Requirement: [Integração] Dependências
-`RebicPopover` SHALL depender somente de `rebic/core/overlay`, `rebic/core/interaction`, `rebic/widgets/rebic-container`, `rebic/widgets/rebic-title`, `rebic/widgets/rebic-divider`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/radius`, `rebic/foundation/shadows`, `rebic/foundation/typography`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+`RebicPopover` SHALL depender somente de `rebic/core/overlay`, `rebic/core/interaction`, `rebic/widgets/rebic-container`, `rebic/widgets/rebic-title`, `rebic/widgets/rebic-divider`, `rebic/widgets/rebic-spacing`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/radius`, `rebic/foundation/shadows`, `rebic/foundation/typography`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Popover sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`

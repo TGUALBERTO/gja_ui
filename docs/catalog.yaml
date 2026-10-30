@@ -395,6 +395,7 @@ items:
     phase: 2
     status: implemented
     depends_on:
+      - rebic/widgets/rebic-tooltip
       - rebic/widgets/rebic-icon-button
       - rebic/widgets/rebic-avatar
       - rebic/widgets/rebic-badge
@@ -458,6 +459,7 @@ items:
     phase: 2
     status: implemented
     depends_on:
+      - rebic/widgets/rebic-title
       - rebic/widgets/rebic-avatar
       - rebic/core/interaction
       - rebic/foundation/color
@@ -845,6 +847,7 @@ items:
     phase: 1
     status: implemented
     depends_on:
+      - rebic/widgets/rebic-spacing
       - rebic/core/overlay
       - rebic/widgets/rebic-text
       - rebic/widgets/rebic-container
@@ -952,6 +955,7 @@ items:
     phase: 2
     status: implemented
     depends_on:
+      - rebic/widgets/rebic-spacing
       - rebic/core/overlay
       - rebic/core/interaction
       - rebic/widgets/rebic-container
@@ -972,6 +976,7 @@ items:
     phase: 2
     status: implemented
     depends_on:
+      - rebic/widgets/rebic-divider
       - rebic/widgets/rebic-popover
       - rebic/widgets/rebic-icon
       - rebic/core/interaction

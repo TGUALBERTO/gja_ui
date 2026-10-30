@@ -135,7 +135,7 @@ A dica MUST ficar dentro da tela, com a inversão de lado e o limite de bordas d
 - **THEN** ela aparece acima do filho, dentro da tela, com a largura no máximo igual à largura máxima
 
 ### Requirement: [Integração] Dependências
-`RebicTooltip` SHALL depender somente de `rebic/core/overlay`, `rebic/widgets/rebic-text`, `rebic/widgets/rebic-container`, `rebic/foundation/color`, `rebic/foundation/shadows`, `rebic/foundation/radius`, `rebic/foundation/spacing`, `rebic/foundation/design-tokens`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+`RebicTooltip` SHALL depender somente de `rebic/core/overlay`, `rebic/widgets/rebic-text`, `rebic/widgets/rebic-container`, `rebic/widgets/rebic-spacing`, `rebic/foundation/color`, `rebic/foundation/shadows`, `rebic/foundation/radius`, `rebic/foundation/spacing`, `rebic/foundation/design-tokens`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Tooltip sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`

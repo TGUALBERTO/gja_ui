@@ -130,7 +130,7 @@ A classe usada pela barra SHALL ser a da largura da própria barra, com os limia
 - **THEN** a barra mede `spacing.xxxl` de altura, e o botão mede a altura de controle compacta
 
 ### Requirement: [Integração] Dependências de widgets e núcleo
-Dos widgets e do núcleo, `RebicShellBar` SHALL depender somente de `rebic/widgets/rebic-icon-button`, `rebic/widgets/rebic-avatar`, `rebic/widgets/rebic-badge`, `rebic/widgets/rebic-title`, `rebic/widgets/rebic-container`, `rebic/core/interaction`, `rebic/core/localization` e `rebic/core/responsive`.
+Dos widgets e do núcleo, `RebicShellBar` SHALL depender somente de `rebic/widgets/rebic-icon-button`, `rebic/widgets/rebic-avatar`, `rebic/widgets/rebic-badge`, `rebic/widgets/rebic-tooltip`, `rebic/widgets/rebic-title`, `rebic/widgets/rebic-container`, `rebic/core/interaction`, `rebic/core/localization` e `rebic/core/responsive`.
 
 #### Scenario: Barra sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`
