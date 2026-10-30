@@ -6,6 +6,7 @@
 
 ## Requirements
 
+
 ### Requirement: [API] Propriedades
 `RebicMenu` SHALL expor:
 
@@ -62,7 +63,7 @@ O menu SHALL usar a largura da âncora, com o mínimo de 6 passos `spacing.xxxl`
 - **THEN** o menu tem 6 passos `spacing.xxxl` de largura, e a borda inicial dele coincide com a do botão
 
 ### Requirement: [Aparência] Itens e seções
-Os itens SHALL ter a aparência dos itens de `rebic/widgets/rebic-dropdown`: cores da família `list`, altura mínima `density.controlHeight`, espaço horizontal `spacing.m` e espaço `spacing.s` entre ícone, rótulo e atalho, este no tom `muted`. O divisor de seção SHALL ser o sutil de `rebic/widgets/rebic-divider`, sem valores literais.
+Os itens SHALL ter a aparência dos itens de `rebic/widgets/rebic-dropdown`: cores da família `list`, altura mínima `density.controlHeight`, espaço horizontal `spacing.m` e espaço `spacing.s` entre ícone, rótulo e atalho, este em `typography.base` com `colors.label`. O divisor de seção SHALL ser o sutil de `rebic/widgets/rebic-divider`, sem valores literais.
 
 #### Scenario: Itens do menu
 - **WHEN** um menu com ícones e uma seção é aberto nos temas claro e escuro, nas duas densidades

@@ -6,6 +6,7 @@
 
 ## Requirements
 
+
 ### Requirement: [API] Propriedades
 `RebicPage` SHALL expor:
 
@@ -70,7 +71,7 @@ Com `padded` `true`, o conteúdo SHALL ter nos quatro lados a margem de página 
 - **THEN** o conteúdo começa a 16, 32, 32 e 48 da borda inicial, respectivamente
 
 ### Requirement: [Aparência] Tokens de componente
-A área de título e o rodapé SHALL usar o fundo `colors.base` e ser separados do conteúdo por divisores sutis de `rebic/widgets/rebic-divider`. O conteúdo SHALL NOT pintar fundo próprio. O título SHALL usar a variante `headline` e o subtítulo a variante `body` com o tom `muted` de `rebic/widgets/rebic-text`. Os espaços SHALL vir de `spacing`, sem valores literais.
+A área de título e o rodapé SHALL usar o fundo `colors.base` e ser separados do conteúdo por divisores sutis de `rebic/widgets/rebic-divider`. O conteúdo SHALL NOT pintar fundo próprio. O título SHALL usar `typography.header2` com `colors.text`, e o subtítulo `typography.base` com `colors.label`. Os espaços SHALL vir de `spacing`, sem valores literais.
 
 #### Scenario: Cores da página
 - **WHEN** a página com rodapé é renderizada nos temas claro e escuro

@@ -6,6 +6,7 @@
 
 ## Requirements
 
+
 ### Requirement: [API] Propriedades
 `RebicStatusIndicator` SHALL expor:
 
@@ -25,7 +26,7 @@
 #### Scenario: Status com título e ícone
 - **GIVEN** `title` "Situação", `icon` e `text` "Aprovado", em LTR
 - **WHEN** o status é renderizado
-- **THEN** aparecem, do início ao fim, "Situação:" no tom `muted`, o ícone e "Aprovado"
+- **THEN** aparecem, do início ao fim, "Situação:" no `RebicLabel` com `showColon`, o ícone e "Aprovado"
 
 ### Requirement: [API] Conteúdo válido
 O status MUST ter `text` não vazio ou `icon`. Sem nenhum dos dois, MUST falhar em modo debug.
@@ -106,7 +107,7 @@ Em RTL, a ordem SHALL ser espelhada: o título e o ícone ficam à direita do te
 - **THEN** o ícone fica à direita do texto
 
 ### Requirement: [Integração] Dependências
-`RebicStatusIndicator` SHALL depender somente de `rebic/widgets/rebic-icon`, `rebic/widgets/rebic-text`, `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/iconography`, `rebic/foundation/spacing`, `rebic/foundation/radius`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+`RebicStatusIndicator` SHALL depender somente de `rebic/widgets/rebic-icon`, `rebic/widgets/rebic-label`, `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/iconography`, `rebic/foundation/spacing`, `rebic/foundation/radius`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Status sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`

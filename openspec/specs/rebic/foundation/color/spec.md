@@ -6,6 +6,7 @@ Define as cores do Rebic: escalas primitivas, papéis semânticos com mapeamento
 
 ## Requirements
 
+
 ### Requirement: Escalas primitivas de cor
 O fundamento SHALL fornecer escalas primitivas de cor nomeadas por matiz e posição (ex.: `neutral900`, `blue600`), no mínimo para neutro, azul, verde, âmbar, vermelho e ciano. Em cada escala, a luminância MUST decrescer à medida que a posição cresce. As escalas MUST ficar na biblioteca de primitivos, e nenhuma cor MUST reproduzir a paleta da SAP.
 
@@ -22,7 +23,7 @@ O conjunto semântico de cor SHALL ter os papéis no modelo de parâmetros de te
 
 #### Scenario: Papéis do modelo Fiori
 - **WHEN** os papéis do conjunto semântico de cor são listados
-- **THEN** eles são `background`, `base`, `headerBackground`, `shell`, `text`, `label`, `link`, `separator`, `fieldBorder`, `brand`, `brandHover`, `highlight`, `contrastText`, `hoverBackground`, `selectionBackground`, `selectionHoverBackground`, `focus`, `shadow` e `blockLayer`, além das cores dos estados de valor
+- **THEN** eles são `background`, `base`, `headerBackground`, `shell`, `text`, `label`, `link`, `separator`, `fieldBorder`, `brand`, `brandHover`, `highlight`, `contrastText`, `hoverBackground`, `selectionBackground`, `selectionHoverBackground`, `focus`, `required`, `shadow` e `blockLayer`, além das cores dos estados de valor
 
 #### Scenario: Contrato do conjunto
 - **GIVEN** os mapeamentos claro e escuro de referência
@@ -65,7 +66,7 @@ O fundamento SHALL definir o estado semântico de valor com exatamente os valore
 Nos mapeamentos claro e escuro, a razão de contraste WCAG 2.1 MUST ser ≥ 4,5:1 para cada par de texto listado no cenário "Pares de texto" e ≥ 3:1 para cada par não textual listado no cenário "Pares não textuais". `separator`, `shadow` e `blockLayer` são decorativos e isentos.
 
 #### Scenario: Pares de texto
-- **WHEN** a razão de contraste é calculada nos dois mapeamentos para `text` sobre `background`, `base`, `headerBackground`, `hoverBackground`, `selectionBackground` e `selectionHoverBackground`; `label` e `link` sobre `background`, `base` e `headerBackground`; `brand` sobre `background`, `base`, `hoverBackground`, `selectionBackground` e `selectionHoverBackground`; `contrastText` sobre `brand`, `brandHover` e `highlight`; e o `foreground` de cada estado de valor sobre `base`, `background`, o `background` do estado e o `hoverBackground` do estado
+- **WHEN** a razão de contraste é calculada nos dois mapeamentos para `text` sobre `background`, `base`, `headerBackground`, `hoverBackground`, `selectionBackground` e `selectionHoverBackground`; `label`, `link` e `required` sobre `background`, `base` e `headerBackground`; `brand` sobre `background`, `base`, `hoverBackground`, `selectionBackground` e `selectionHoverBackground`; `contrastText` sobre `brand`, `brandHover` e `highlight`; e o `foreground` de cada estado de valor sobre `base`, `background`, o `background` do estado e o `hoverBackground` do estado
 - **THEN** todas as razões são ≥ 4,5
 
 #### Scenario: Pares não textuais

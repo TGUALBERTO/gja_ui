@@ -6,6 +6,7 @@
 
 ## Requirements
 
+
 ### Requirement: [API] Propriedades
 `RebicDropdown<T>` SHALL expor:
 
@@ -69,7 +70,7 @@ O dropdown SHALL usar o popover com `width` `anchor`, sem título, sem ações e
 - **THEN** o rótulo fica em uma linha com reticências, "12" está visível, e não há estouro
 
 ### Requirement: [Aparência] Itens da lista
-Os itens SHALL usar as cores da família `list` de `rebic/foundation/interaction-states`, a altura mínima `density.controlHeight`, o espaço horizontal `spacing.m`, o espaço `spacing.s` entre ícone, rótulo e texto adicional, o rótulo na variante `body` e o texto adicional no tom `muted`, sem valores literais.
+Os itens SHALL usar as cores da família `list` de `rebic/foundation/interaction-states`, a altura mínima `density.controlHeight`, o espaço horizontal `spacing.m`, o espaço `spacing.s` entre ícone, rótulo e texto adicional, o rótulo em `typography.base` e o texto adicional em `typography.base` com `colors.label`, sem valores literais.
 
 #### Scenario: Itens da lista
 - **WHEN** um dropdown com ícones é aberto nos temas claro e escuro, nas duas densidades
