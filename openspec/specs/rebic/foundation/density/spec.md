@@ -6,6 +6,7 @@ Define a densidade do Rebic: os modos `cozy` e `compact` das densidades de conte
 
 ## Requirements
 
+
 ### Requirement: Modos de densidade
 O fundamento SHALL definir exatamente os modos `cozy` (densidade confortável, entrada por toque, como `sapUiSizeCozy`) e `compact` (entrada por ponteiro, como `sapUiSizeCompact`) e fornecer um mapeamento de referência para cada um, obtido a partir do modo. Ele MUST NOT usar o nome `comfortable`.
 
@@ -18,11 +19,11 @@ O fundamento SHALL definir exatamente os modos `cozy` (densidade confortável, e
 - **THEN** eles são exatamente `cozy` e `compact`
 
 ### Requirement: Dimensões de controle por densidade
-O conjunto semântico de densidade SHALL ter a altura de controle (`sapElement_Height`), a altura de item de lista e o alvo mínimo de interação (`sapElement_LineHeight`). Nos mapeamentos de referência, cada dimensão compacta MUST ser menor ou igual à cozy, e todas MUST ser valores da escala primitiva de densidade.
+O conjunto semântico de densidade SHALL ter a altura de controle (`sapElement_Height`), a altura de item de lista, o alvo mínimo de interação (`sapElement_LineHeight`) e a altura de barra (`barHeight`, a altura do `sap.m.Bar`). Nos mapeamentos de referência, cada dimensão compacta MUST ser menor ou igual à cozy, e todas MUST ser valores da escala primitiva de densidade.
 
 #### Scenario: Valores de referência
 - **WHEN** os mapeamentos de referência são inspecionados
-- **THEN** o cozy tem controle 36, item 44 e alvo 44; o compacto tem controle 26, item 32 e alvo 32
+- **THEN** o cozy tem controle 36, item 44, alvo 44 e barra 48; o compacto tem controle 26, item 32, alvo 32 e barra 32
 
 #### Scenario: Compacto não maior que confortável
 - **WHEN** cada dimensão do compacto é comparada com a do cozy
@@ -30,7 +31,7 @@ O conjunto semântico de densidade SHALL ter a altura de controle (`sapElement_H
 
 #### Scenario: Escala primitiva de densidade
 - **WHEN** a escala primitiva de densidade é inspecionada
-- **THEN** ela tem 26, 32, 36 e 44 em ordem crescente, cada um nomeado pelo valor
+- **THEN** ela tem 26, 32, 36, 44 e 48 em ordem crescente, cada um nomeado pelo valor
 
 ### Requirement: Alvo mínimo de interação
 O alvo mínimo MUST ser de pelo menos 44 px lógicos no modo `cozy` (altura de linha `sapElement_LineHeight`) e de pelo menos 24 px lógicos no modo `compact` (WCAG 2.2, critério 2.5.8). Em qualquer mapeamento, ele MUST ser maior ou igual a 24.

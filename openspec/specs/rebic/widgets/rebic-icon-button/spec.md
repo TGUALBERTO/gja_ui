@@ -139,5 +139,5 @@ O botão SHALL ter tamanho fixo pela densidade. Em RTL, ícones direcionais (com
 - **THEN** não ocorrem exceções relacionadas a ancestrais Material ou Cupertino
 
 #### Scenario: Barra e página usam o botão de ícone
-- **WHEN** um `RebicShellBar` com o botão de menu e uma `RebicPage` com `onBack` são renderizados, em pt-BR
+- **WHEN** um `RebicShellBar` com o botão de menu e uma `RebicPage` com `showNavButton` são renderizados, em pt-BR
 - **THEN** o botão de menu e o de voltar são `RebicIconButton` com as dicas "Menu" e "Voltar"
