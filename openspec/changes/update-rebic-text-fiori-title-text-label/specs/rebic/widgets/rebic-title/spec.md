@@ -22,7 +22,7 @@
 #### Scenario: Uso mínimo
 - **GIVEN** uma árvore com `RebicApp` e o tema claro
 - **WHEN** `RebicTitle('Pedidos em aberto')` é criado
-- **THEN** o título usa o estilo `header5` e a cor `text` do tema, ocupa uma linha e é anunciado como cabeçalho sem nível
+- **THEN** o título usa o estilo `header5` e a cor `text` do tema, ocupa uma linha e é anunciado como cabeçalho de nível 2
 
 #### Scenario: Níveis do título
 - **WHEN** os valores de `RebicTitleLevel` são listados
@@ -37,15 +37,15 @@
 - **THEN** nada é executado, e a semântica não informa ação de toque
 
 ### Requirement: [Comportamento] Nível separado do estilo
-`level` SHALL definir só a semântica, e `titleStyle` só o estilo, como no `sap.m.Title`. Com `titleStyle` `auto`, o estilo MUST ser o H5, qualquer que seja o `level`.
+`titleStyle` SHALL definir o estilo, e `level` o nível anunciado, como no `sap.m.Title`. Com `titleStyle` `auto`, o estilo MUST ser o H5, qualquer que seja o `level`. Com `level` `auto`, o nível anunciado MUST ser o do `titleStyle`, ou 2 quando o `titleStyle` também for `auto`.
 
 #### Scenario: Nível sem efeito no estilo
 - **WHEN** `RebicTitle('Pedidos', level: RebicTitleLevel.h1)` é renderizado
 - **THEN** o estilo é `header5`, e o leitor de tela o anuncia como cabeçalho de nível 1
 
-#### Scenario: Estilo sem efeito na semântica
-- **WHEN** `RebicTitle('Pedidos', titleStyle: RebicTitleLevel.h2)` é renderizado
-- **THEN** o estilo é `header2`, e o leitor de tela o anuncia como cabeçalho sem nível
+#### Scenario: Nível automático pelo estilo
+- **WHEN** `RebicTitle('Pedidos', titleStyle: RebicTitleLevel.h4)` é renderizado
+- **THEN** o estilo é `header4`, e o leitor de tela o anuncia como cabeçalho de nível 4
 
 ### Requirement: [Comportamento] Quebra de linhas
 Sem `wrapping`, `RebicTitle` SHALL ocupar uma linha e terminar com reticências quando não couber. Com `wrapping`, o título MUST quebrar em quantas linhas precisar.
@@ -89,7 +89,7 @@ Sem `wrapping`, `RebicTitle` SHALL ocupar uma linha e terminar com reticências 
 - **THEN** nada muda na página
 
 ### Requirement: [Acessibilidade] Semântica e contraste
-`RebicTitle` SHALL ser anunciado como cabeçalho, com o texto completo mesmo truncado. Com `level` de `h1` a `h6`, o nível MUST ser informado ao leitor de tela; com `auto`, MUST NOT haver nível. A cor MUST ter contraste ≥ 4,5:1 sobre `base` e `background`, conforme `rebic/foundation/accessibility`, e o título MUST respeitar a escala de texto do sistema sem limite.
+`RebicTitle` SHALL ser anunciado como cabeçalho, com o texto completo mesmo truncado. O nível MUST ser sempre informado ao leitor de tela, conforme "[Comportamento] Nível separado do estilo". A cor MUST ter contraste ≥ 4,5:1 sobre `base` e `background`, conforme `rebic/foundation/accessibility`, e o título MUST respeitar a escala de texto do sistema sem limite.
 
 #### Scenario: Leitor de tela no título
 - **WHEN** um leitor de tela percorre `RebicTitle('Pedidos em aberto', level: RebicTitleLevel.h2)` numa largura que o trunca

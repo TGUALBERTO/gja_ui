@@ -6,7 +6,7 @@ import 'package:rebic_foundation/rebic_foundation.dart';
 /// Serve tanto ao nível semântico ([RebicTitle.level]) quanto ao estilo
 /// visual ([RebicTitle.titleStyle]).
 enum RebicTitleLevel {
-  /// Sem nível explícito: cabeçalho sem nível, ou o estilo H5.
+  /// Sem nível explícito: o nível do estilo (ou 2), ou o estilo H5.
   auto,
 
   /// Nível 1 (`header1`).
@@ -31,8 +31,9 @@ enum RebicTitleLevel {
 /// Exibe o título de uma página, seção, cartão ou diálogo, como o
 /// `sap.m.Title` do SAPUI5.
 ///
-/// [level] define só a semântica: o título é sempre anunciado como cabeçalho,
-/// com o nível informado. [titleStyle] define só o estilo, e `auto` é o H5.
+/// O título é sempre anunciado como cabeçalho, com o nível de [level]; com
+/// `auto`, o de [titleStyle], ou 2 se ele também for `auto`. [titleStyle]
+/// define o estilo, e `auto` é o H5.
 /// A cor é `text` do tema ativo. Sem [wrapping], o título ocupa uma linha e
 /// termina com reticências; o leitor de tela lê o texto completo.
 ///
@@ -54,7 +55,7 @@ class RebicTitle extends StatelessWidget {
   /// Texto exibido.
   final String text;
 
-  /// Nível semântico do cabeçalho; `auto` não informa nível.
+  /// Nível semântico do cabeçalho; `auto` segue [titleStyle].
   final RebicTitleLevel level;
 
   /// Estilo visual; `auto` usa o H5.
@@ -81,8 +82,12 @@ class RebicTitle extends StatelessWidget {
     final theme = RebicThemeData.of(context);
     return Semantics(
       header: true,
-      // Com `auto`, cabeçalho sem nível.
-      headingLevel: level == RebicTitleLevel.auto ? null : level.index,
+      // Como o `_getAriaLevel` do `sap.m.Title`.
+      headingLevel: switch ((level, titleStyle)) {
+        (RebicTitleLevel.auto, RebicTitleLevel.auto) => 2,
+        (RebicTitleLevel.auto, _) => titleStyle.index,
+        _ => level.index,
+      },
       child: Text(
         text,
         style: _style(

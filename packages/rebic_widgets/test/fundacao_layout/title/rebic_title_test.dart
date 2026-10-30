@@ -83,7 +83,7 @@ void main() {
       expect(tester.widget<Text>(find.text('Pedidos em aberto')).maxLines, 1);
       final data = _semantics(tester, 'Pedidos em aberto');
       expect(data.hasFlag(SemanticsFlag.isHeader), isTrue);
-      expect(data.headingLevel, 0);
+      expect(data.headingLevel, 2);
       handle.dispose();
     });
 
@@ -132,20 +132,20 @@ void main() {
     );
 
     testWidgets(
-      '[Comportamento] Nível separado do estilo — Estilo sem efeito na semântica',
+      '[Comportamento] Nível separado do estilo — Nível automático pelo estilo',
       (tester) async {
         final handle = tester.ensureSemantics();
         final theme = RebicThemeData.light();
         await tester.pumpWidget(
-          _themed(const RebicTitle('Pedidos', titleStyle: RebicTitleLevel.h2)),
+          _themed(const RebicTitle('Pedidos', titleStyle: RebicTitleLevel.h4)),
         );
         expect(
           _style(tester, 'Pedidos').fontSize,
-          theme.typography.header2.fontSize,
+          theme.typography.header4.fontSize,
         );
         final data = _semantics(tester, 'Pedidos');
         expect(data.hasFlag(SemanticsFlag.isHeader), isTrue);
-        expect(data.headingLevel, 0);
+        expect(data.headingLevel, 4);
         handle.dispose();
       },
     );

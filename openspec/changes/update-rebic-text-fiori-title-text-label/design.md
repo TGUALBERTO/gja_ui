@@ -24,7 +24,7 @@ variantes. Na galeria, 23 páginas usam `RebicText`.
 O que a fundação já oferece:
 - `RebicTypographyTokens` tem `header1`…`header6`, `base`, `baseSemibold`, `baseBold` e `small`;
 - `RebicLocalizations.required` existe ("Obrigatório" / "Required");
-- o `Semantics` do Flutter aceita `headingLevel` de 0 a 6, em que 0 é "sem nível";
+- o `Semantics` do Flutter aceita `headingLevel` nulo ou de 1 a 6;
 - as escalas primitivas de cor são neutro, azul, verde, âmbar, vermelho e ciano, sem rosa ou magenta.
 
 ## Goals / Non-Goals
@@ -71,9 +71,9 @@ pelo próprio `Text`, que não trunca a semântica.
 enum RebicTitleLevel { auto, h1, h2, h3, h4, h5, h6 }
 ```
 
-O widget é `Semantics(header: true, headingLevel: level.index, child: Text(...))`. Com `auto` (índice 0), o
-`headingLevel` fica 0, que o Flutter trata como "sem nível". O estilo vem de `titleStyle` por um `switch`, com
-`auto` → `header5`. Sem `wrapping`, o `Text` tem `maxLines: 1` e reticências. Com `wrapping`, não tem limite.
+O widget é `Semantics(header: true, headingLevel: n, child: Text(...))`. Como no `_getAriaLevel` do `sap.m.Title`,
+`n` é o índice de `level`; com `level` `auto`, é o índice de `titleStyle`, ou 2 se ele também for `auto`. O estilo
+vem de `titleStyle` por um `switch`, com `auto` → `header5`. Sem `wrapping`, o `Text` tem `maxLines: 1` e reticências. Com `wrapping`, não tem limite.
 
 Alternativa considerada: dois enums, um de nível e outro de estilo. Rejeitada porque o `sap.m.Title` usa o mesmo
 `TitleLevel` nas duas propriedades.

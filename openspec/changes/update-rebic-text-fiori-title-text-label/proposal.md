@@ -31,8 +31,8 @@ Esta é a primeira change do bloco de layout do realinhamento ao SAPUI5.
   Sem `wrapping`, o texto fica em uma linha com reticências.
 - Novo `RebicTitle`, como o `sap.m.Title`, com estas propriedades:
   - `text` (posicional);
-  - `level` (`RebicTitleLevel`: `auto`, `h1`…`h6`; padrão `auto`): só a semântica, sempre anunciado como cabeçalho
-    e com o nível informado;
+  - `level` (`RebicTitleLevel`: `auto`, `h1`…`h6`; padrão `auto`): o nível anunciado do cabeçalho. Com `auto`, o
+    nível é o do `titleStyle`, ou 2 se ele também for `auto`, como no `sap.m.Title`;
   - `titleStyle` (`RebicTitleLevel`; padrão `auto`, que é o estilo H5): só o estilo, mapeado para os estilos
     `header1`…`header6`;
   - `wrapping` (padrão `false`: uma linha com reticências);
