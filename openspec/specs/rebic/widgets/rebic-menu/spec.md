@@ -121,7 +121,7 @@ Em RTL, o ícone MUST ficar junto da borda direita do item, e o atalho junto da 
 - **THEN** não há estouro, e o último item fica visível
 
 ### Requirement: [Integração] Dependências
-`RebicMenu` SHALL depender somente de `rebic/widgets/rebic-dropdown`, `rebic/widgets/rebic-popover`, `rebic/widgets/rebic-divider`, `rebic/widgets/rebic-text`, `rebic/widgets/rebic-icon`, `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/typography`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+`RebicMenu` SHALL depender somente de `rebic/widgets/rebic-dropdown`, `rebic/widgets/rebic-popover`, `rebic/widgets/rebic-divider`, `rebic/widgets/rebic-icon`, `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/typography`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Menu sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`

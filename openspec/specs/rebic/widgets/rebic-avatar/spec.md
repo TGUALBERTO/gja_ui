@@ -103,7 +103,7 @@ O lado do avatar MUST NOT mudar com a escala de texto, e as iniciais MUST caber 
 - **THEN** o lado continua 1 × `icons.xLarge`, e não há estouro
 
 ### Requirement: [Integração] Dependências
-`RebicAvatar` SHALL depender somente de `rebic/widgets/rebic-icon`, `rebic/widgets/rebic-text`, `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/iconography`, `rebic/foundation/radius`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+`RebicAvatar` SHALL depender somente de `rebic/widgets/rebic-icon`, `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/iconography`, `rebic/foundation/radius`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Avatar sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`

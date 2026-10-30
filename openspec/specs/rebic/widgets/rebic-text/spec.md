@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`RebicText` exibe texto do Rebic, como o `sap.m.Text` e o `sap.m.Title` do SAPUI5: aplica um estilo da escala tipográfica e uma cor de papel do tema ativo, limita as linhas com reticências, alinha e marca os títulos para leitores de tela, sem valores literais.
+`RebicText` exibe texto corrido do Rebic, como o `sap.m.Text` do SAPUI5: usa o estilo `base` e a cor de texto do tema, quebra linhas ou fica em uma, limita as linhas com reticências e alinha, sem variantes, tons nem valores literais. Títulos são de `RebicTitle`, e rótulos, de `RebicLabel`.
 
 ## Requirements
 
@@ -83,7 +83,7 @@ Com `maxLines`, `RebicText` SHALL exibir no máximo esse número de linhas e ter
 
 #### Scenario: Funciona sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`
-- **WHEN** `RebicText` é renderizado em todas as variantes
+- **WHEN** `RebicText` é renderizado livre, limitado a duas linhas e sem quebra
 - **THEN** não ocorrem exceções relacionadas a ancestrais Material ou Cupertino
 
 ### Requirement: [Documentação] Exemplos mínimos

@@ -407,7 +407,6 @@ items:
     depends_on:
       - rebic/widgets/rebic-icon-button
       - rebic/widgets/rebic-scaffold
-      - rebic/widgets/rebic-text
       - rebic/widgets/rebic-icon
       - rebic/widgets/rebic-container
       - rebic/widgets/rebic-divider
@@ -418,6 +417,7 @@ items:
       - rebic/core/localization
       - rebic/foundation/color
       - rebic/foundation/spacing
+      - rebic/foundation/typography
       - rebic/foundation/density
       - rebic/foundation/breakpoints
       - rebic/foundation/iconography
@@ -433,7 +433,6 @@ items:
     status: implemented
     depends_on:
       - rebic/widgets/rebic-container
-      - rebic/widgets/rebic-text
       - rebic/widgets/rebic-divider
       - rebic/core/interaction
       - rebic/foundation/color
@@ -507,7 +506,6 @@ items:
       - rebic/widgets/rebic-dropdown
       - rebic/widgets/rebic-popover
       - rebic/widgets/rebic-divider
-      - rebic/widgets/rebic-text
       - rebic/widgets/rebic-icon
       - rebic/core/interaction
       - rebic/foundation/color
@@ -755,7 +753,6 @@ items:
     phase: 2
     status: implemented
     depends_on:
-      - rebic/widgets/rebic-text
       - rebic/core/localization
       - rebic/foundation/color
       - rebic/foundation/typography
@@ -792,7 +789,6 @@ items:
     status: implemented
     depends_on:
       - rebic/widgets/rebic-icon
-      - rebic/widgets/rebic-text
       - rebic/core/interaction
       - rebic/foundation/color
       - rebic/foundation/typography
@@ -937,7 +933,6 @@ items:
     status: implemented
     depends_on:
       - rebic/widgets/rebic-popover
-      - rebic/widgets/rebic-text
       - rebic/widgets/rebic-icon
       - rebic/core/interaction
       - rebic/foundation/color

@@ -111,7 +111,7 @@ Em RTL, o `leading` MUST ficar à direita e o status à esquerda. Com escala de 
 - **THEN** não há estouro
 
 ### Requirement: [Integração] Dependências
-`RebicCard` SHALL depender somente de `rebic/widgets/rebic-container`, `rebic/widgets/rebic-text`, `rebic/widgets/rebic-divider`, `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/radius`, `rebic/foundation/shadows`, `rebic/foundation/typography`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+`RebicCard` SHALL depender somente de `rebic/widgets/rebic-container`, `rebic/widgets/rebic-divider`, `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/radius`, `rebic/foundation/shadows`, `rebic/foundation/typography`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Cartões numa grade sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`

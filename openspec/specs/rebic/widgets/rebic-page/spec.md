@@ -123,7 +123,7 @@ A página SHALL ocupar a largura disponível, sem limiares próprios. Em RTL, o 
 - **THEN** o botão de voltar fica à direita, a ação termina na borda esquerda da área de título, e a ação de rodapé termina na borda esquerda do rodapé
 
 ### Requirement: [Integração] Dependências de widgets
-Dos widgets, `RebicPage` SHALL depender somente de `rebic/widgets/rebic-text`, `rebic/widgets/rebic-icon`, `rebic/widgets/rebic-icon-button`, `rebic/widgets/rebic-container`, `rebic/widgets/rebic-divider`, `rebic/widgets/rebic-row`, `rebic/widgets/rebic-column` e `rebic/widgets/rebic-spacing`, e SHALL funcionar como corpo de `rebic/widgets/rebic-scaffold`.
+Dos widgets, `RebicPage` SHALL depender somente de `rebic/widgets/rebic-icon`, `rebic/widgets/rebic-icon-button`, `rebic/widgets/rebic-container`, `rebic/widgets/rebic-divider`, `rebic/widgets/rebic-row`, `rebic/widgets/rebic-column` e `rebic/widgets/rebic-spacing`, e SHALL funcionar como corpo de `rebic/widgets/rebic-scaffold`.
 
 #### Scenario: Página no corpo do scaffold
 - **GIVEN** uma árvore criada apenas com `RebicApp`, com um `RebicScaffold` cuja barra tem título
@@ -131,7 +131,7 @@ Dos widgets, `RebicPage` SHALL depender somente de `rebic/widgets/rebic-text`, `
 - **THEN** não ocorrem exceções relacionadas a ancestrais Material ou Cupertino, a área de título da página começa abaixo da barra, e o rodapé termina na borda inferior da tela
 
 ### Requirement: [Integração] Dependências de núcleo e fundamentos
-Do núcleo e dos fundamentos, `RebicPage` SHALL depender somente de `rebic/core/interaction`, `rebic/core/localization`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/breakpoints`, `rebic/foundation/iconography`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+Do núcleo e dos fundamentos, `RebicPage` SHALL depender somente de `rebic/core/interaction`, `rebic/core/localization`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/typography`, `rebic/foundation/density`, `rebic/foundation/breakpoints`, `rebic/foundation/iconography`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Página pelo tema da subárvore
 - **GIVEN** uma página numa subárvore com o tema escuro, dentro de uma aplicação clara

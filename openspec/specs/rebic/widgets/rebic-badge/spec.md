@@ -107,7 +107,7 @@ Sobre um elemento, o contador SHALL ficar no canto superior final: à direita em
 - **THEN** não há estouro, o contador é maior que na escala 1,0, e o widget continua medindo 40 × 40
 
 ### Requirement: [Integração] Dependências
-`RebicBadge` SHALL depender somente de `rebic/widgets/rebic-text`, `rebic/core/localization`, `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/spacing`, `rebic/foundation/radius`, `rebic/foundation/iconography`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+`RebicBadge` SHALL depender somente de `rebic/core/localization`, `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/spacing`, `rebic/foundation/radius`, `rebic/foundation/iconography`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Contador sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`
