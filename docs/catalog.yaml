@@ -901,17 +901,22 @@ items:
     status: planned
     depends_on:
       - rebic/foundation/color
-  - id: rebic/widgets/rebic-empty-state
-    name: "RebicEmptyState"
+  - id: rebic/widgets/rebic-illustrated-message
+    name: "RebicIllustratedMessage"
     kind: widget
     category: exibicao-dados
     priority: P2
     phase: 3
-    status: planned
+    status: implemented
     depends_on:
-      - rebic/widgets/rebic-icon
+      - rebic/widgets/rebic-title
       - rebic/widgets/rebic-text
-      - rebic/widgets/rebic-button
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/iconography
+      - rebic/foundation/spacing
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-error-state
     name: "RebicErrorState"
     kind: widget
@@ -945,7 +950,7 @@ items:
     depends_on:
       - rebic/widgets/rebic-list-tile
       - rebic/core/data-source
-      - rebic/widgets/rebic-empty-state
+      - rebic/widgets/rebic-illustrated-message
       - rebic/widgets/rebic-skeleton
   - id: rebic/widgets/rebic-table
     name: "RebicTable"
@@ -957,7 +962,7 @@ items:
     depends_on:
       - rebic/core/data-source
       - rebic/widgets/rebic-check-box
-      - rebic/widgets/rebic-empty-state
+      - rebic/widgets/rebic-illustrated-message
       - rebic/widgets/rebic-skeleton
       - rebic/widgets/rebic-pagination
   - id: rebic/widgets/rebic-data-grid

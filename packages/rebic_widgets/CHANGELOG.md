@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Novo `RebicIllustratedMessage` (`add-rebic-illustrated-message`, spec `rebic/widgets/rebic-illustrated-message`),
+  como o `sap.m.IllustratedMessage`: `title`, `description`, `illustrationType`, `illustrationSize`, `illustration`,
+  `titleLevel` e `additionalContent`.
 - Novo `RebicBusyIndicator` (`add-rebic-busy-indicator`, spec `rebic/widgets/rebic-busy-indicator`), como o
   `sap.m.BusyIndicator` e o estado `busy` dos controles: pontos animados, `text` e, com `child`, o conteúdo bloqueado.
 - Novo `RebicMessageStrip` (`add-rebic-message-strip`, spec `rebic/widgets/rebic-message-strip`), como o

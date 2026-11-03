@@ -50,6 +50,7 @@ import 'pages/rebic_input_page.dart';
 import 'pages/rebic_select_page.dart';
 import 'pages/rebic_message_strip_page.dart';
 import 'pages/rebic_busy_indicator_page.dart';
+import 'pages/rebic_illustrated_message_page.dart';
 
 /// Inicia a galeria de componentes Rebic.
 void main() {
@@ -321,6 +322,11 @@ final galleryPages = <GalleryPage>[
     title: RebicBusyIndicatorPage.title,
     route: RebicBusyIndicatorPage.route,
     builder: (_) => const RebicBusyIndicatorPage(),
+  ),
+  GalleryPage(
+    title: RebicIllustratedMessagePage.title,
+    route: RebicIllustratedMessagePage.route,
+    builder: (_) => const RebicIllustratedMessagePage(),
   ),
 ];
 
