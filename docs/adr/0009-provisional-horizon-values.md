@@ -56,6 +56,7 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Opção de rádio | Lado do círculo e do ponto | círculo `icons.control + spacing.xxs` (18) nas duas densidades; ponto `spacing.s` | 1,375rem (cozy) e 1rem (compacto) em `RadioButton.less` | `add-rebic-radio-button` |
 | Campo de texto | Somente leitura, foco e mensagem de estado | fundo `headerBackground`; foco com borda `brand` e anel de foco; mensagem em linha abaixo do campo, com o foco | `sapField_ReadOnly_Background`, `sapField_Focus_BorderColor`; mensagem em popup no UI5 | `add-rebic-input` |
 | Barra de ferramentas | Borda do estilo padrão e fundo da barra de informação | `colors.separator`; `stateColors(information).background` | `sapGroup_TitleBorderColor`; `sapInfobar_Background` | `add-rebic-toolbar` |
+| Barra de abas | Traço da aba escolhida | `spacing.xxs` (2) em `colors.brand` | 0,1875rem em `IconTabBar.less` | `add-rebic-icon-tab-bar` |
 
 ## Alternativas consideradas
 

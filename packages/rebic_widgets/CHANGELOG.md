@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Novo `RebicIconTabBar<T>` (`add-rebic-icon-tab-bar`, spec `rebic/widgets/rebic-icon-tab-bar`), como o
+  `sap.m.IconTabBar`: `items` (`RebicIconTabFilter`), `selectedKey`, `onSelect` e `applyContentPadding`.
 - Novo `RebicBreadcrumbs` (`add-rebic-breadcrumbs`, spec `rebic/widgets/rebic-breadcrumbs`), como o
   `sap.m.Breadcrumbs`: `links`, `currentLocationText`, `separatorStyle` e `semanticLabel`.
 - Novo `RebicToolbar` (`add-rebic-toolbar`, spec `rebic/widgets/rebic-toolbar`), como o `sap.m.Toolbar`: `content`

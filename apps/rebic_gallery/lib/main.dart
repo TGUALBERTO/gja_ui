@@ -55,6 +55,7 @@ import 'pages/rebic_dialog_page.dart';
 import 'pages/rebic_message_toast_page.dart';
 import 'pages/rebic_toolbar_page.dart';
 import 'pages/rebic_breadcrumbs_page.dart';
+import 'pages/rebic_icon_tab_bar_page.dart';
 
 /// Inicia a galeria de componentes Rebic.
 void main() {
@@ -351,6 +352,11 @@ final galleryPages = <GalleryPage>[
     title: RebicBreadcrumbsPage.title,
     route: RebicBreadcrumbsPage.route,
     builder: (_) => const RebicBreadcrumbsPage(),
+  ),
+  GalleryPage(
+    title: RebicIconTabBarPage.title,
+    route: RebicIconTabBarPage.route,
+    builder: (_) => const RebicIconTabBarPage(),
   ),
 ];
 

@@ -593,18 +593,23 @@ items:
       - rebic/foundation/spacing
       - rebic/foundation/theming
       - rebic/foundation/accessibility
-  - id: rebic/widgets/rebic-tabs
-    name: "RebicTabs"
+  - id: rebic/widgets/rebic-icon-tab-bar
+    name: "RebicIconTabBar"
     kind: widget
     category: acoes-navegacao
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
       - rebic/core/interaction
-      - rebic/widgets/rebic-text
-      - rebic/widgets/rebic-icon
-      - rebic/widgets/rebic-badge
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/iconography
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-pagination
     name: "RebicPagination"
     kind: widget
