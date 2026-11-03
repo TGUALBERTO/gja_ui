@@ -51,32 +51,33 @@ RebicSpacingTokens get _spacing => RebicThemeData.light().spacing;
 
 void main() {
   testWidgets('[API] Propriedades — Grade mínima', (tester) async {
-    _view(tester, 1300);
+    _view(tester, 1200);
     await tester.pumpWidget(
       RebicApp(
         home: Align(
           alignment: Alignment.topLeft,
           child: SizedBox(
             width: 1200,
-            child: RebicGrid(children: [for (var i = 0; i < 6; i++) _item(i)]),
+            child: RebicGrid(content: [for (var i = 0; i < 6; i++) _item(i)]),
           ),
         ),
       ),
     );
-    expect(_perRow(tester, 6), 3);
+    expect(_perRow(tester, 6), 4);
     final g = _spacing.l;
     final column = (1200 - 11 * g) / 12;
-    expect(_rect(tester, 'i0').width, closeTo(4 * column + 3 * g, 0.01));
-    expect(_rect(tester, 'i3').top, greaterThan(_rect(tester, 'i0').top));
+    expect(_rect(tester, 'i0').width, closeTo(3 * column + 2 * g, 0.01));
+    expect(_rect(tester, 'i4').top, greaterThan(_rect(tester, 'i0').top));
+    expect(_rect(tester, 'i5').top, _rect(tester, 'i4').top);
   });
 
   testWidgets('[API] Span válido — Span inválido', (tester) async {
     await tester.pumpWidget(
       _area(
         500,
-        RebicGrid.cells(
+        RebicGrid(
           defaultSpan: const RebicResponsiveValue(small: 13),
-          cells: [RebicGridCell(child: _item(0))],
+          content: [_item(0)],
         ),
       ),
     );
@@ -87,7 +88,7 @@ void main() {
 
   testWidgets('[API] Callbacks e controlador — Grade sem ação', (tester) async {
     await tester.pumpWidget(
-      _area(1200, RebicGrid(children: [_item(0), _item(1)])),
+      _area(1200, RebicGrid(content: [_item(0), _item(1)])),
     );
     final between = Offset(_rect(tester, 'i0').right + 2, 10);
     await tester.tapAt(between);
@@ -109,12 +110,14 @@ void main() {
     await tester.pumpWidget(
       _area(
         1200,
-        RebicGrid.cells(
-          cells: [
-            RebicGridCell(child: _item(0)),
-            RebicGridCell(
-              child: _item(1),
+        RebicGrid(
+          containerQuery: true,
+          defaultSpan: const RebicResponsiveValue(small: 4),
+          content: [
+            _item(0),
+            RebicGridData(
               span: const RebicResponsiveValue(small: 8),
+              child: _item(1),
             ),
           ],
         ),
@@ -131,12 +134,12 @@ void main() {
     tester,
   ) async {
     _view(tester, 1300);
-    RebicGridCell cell(int i, int span) => RebicGridCell(
-      child: _item(i),
+    Widget cell(int i, int span) => RebicGridData(
       span: RebicResponsiveValue(small: span),
+      child: _item(i),
     );
     await tester.pumpWidget(
-      _area(1200, RebicGrid.cells(cells: [cell(0, 6), cell(1, 4), cell(2, 6)])),
+      _area(1200, RebicGrid(content: [cell(0, 6), cell(1, 4), cell(2, 6)])),
     );
     expect(_rect(tester, 'i1').top, _rect(tester, 'i0').top);
     expect(
@@ -154,21 +157,22 @@ void main() {
         await tester.pumpWidget(
           _area(
             1200,
-            RebicGrid.cells(
-              cells: [
-                RebicGridCell(
+            RebicGrid(
+              containerQuery: true,
+              content: [
+                RebicGridData(
+                  span: const RebicResponsiveValue(small: 12, large: 6),
                   child: _item(0),
-                  span: const RebicResponsiveValue(small: 12, large: 8),
                 ),
-                RebicGridCell(child: _item(1)),
+                _item(1),
               ],
             ),
           ),
         );
         final g = _spacing.l;
         final column = (1200 - 11 * g) / 12;
-        expect(_rect(tester, 'i0').width, closeTo(8 * column + 7 * g, 0.01));
-        expect(_rect(tester, 'i1').width, closeTo(4 * column + 3 * g, 0.01));
+        expect(_rect(tester, 'i0').width, closeTo(6 * column + 5 * g, 0.01));
+        expect(_rect(tester, 'i1').width, closeTo(3 * column + 2 * g, 0.01));
       },
     );
 
@@ -181,12 +185,15 @@ void main() {
           await tester.pumpWidget(
             _area(
               width,
-              RebicGrid(children: [for (var i = 0; i < 8; i++) _item(i)]),
+              RebicGrid(
+                containerQuery: true,
+                content: [for (var i = 0; i < 8; i++) _item(i)],
+              ),
             ),
           );
           perRow.add(_perRow(tester, 8));
         }
-        expect(perRow, [1, 2, 3, 4]);
+        expect(perRow, [1, 2, 4, 4]);
       },
     );
   });
@@ -200,7 +207,7 @@ void main() {
           1200,
           RebicTheme.density(
             density: RebicDensity.compact,
-            child: RebicGrid(children: [_item(0), _item(1)]),
+            child: RebicGrid(content: [_item(0), _item(1)]),
           ),
         ),
       );
@@ -222,6 +229,25 @@ void main() {
     },
   );
 
+  testWidgets('[Aparência] Tokens de componente — Grade sem margem externa', (
+    tester,
+  ) async {
+    _view(tester, 1300);
+    await tester.pumpWidget(
+      _area(
+        1200,
+        RebicGrid(
+          defaultSpan: const RebicResponsiveValue(small: 6),
+          content: [_item(0), _item(1)],
+        ),
+      ),
+    );
+    final area = _rect(tester, 'area');
+    expect(_rect(tester, 'i0').left, area.left);
+    expect(_rect(tester, 'i1').right, closeTo(area.right, 0.01));
+    expect(tester.getSize(find.byType(RebicGrid)).height, 20);
+  });
+
   Future<List<FocusNode>> pumpFocusables(WidgetTester tester, int n) async {
     _view(tester, 1300);
     final nodes = [for (var i = 0; i < n; i++) FocusNode()];
@@ -237,7 +263,7 @@ void main() {
           child: SizedBox(
             width: 800,
             child: RebicGrid(
-              children: [
+              content: [
                 for (final node in nodes)
                   Focus(focusNode: node, child: const SizedBox(height: 20)),
               ],
@@ -286,12 +312,32 @@ void main() {
       );
       final native = labels();
       await tester.pumpWidget(
-        _area(500, RebicGrid(children: [for (final t in texts) RebicText(t)])),
+        _area(500, RebicGrid(content: [for (final t in texts) RebicText(t)])),
       );
       expect(labels(), native);
       handle.dispose();
     },
   );
+
+  testWidgets('[Responsividade] Base e direção — Classe pela tela', (
+    tester,
+  ) async {
+    _view(tester, 1200);
+    final perRow = <int>[];
+    for (final containerQuery in [false, true]) {
+      await tester.pumpWidget(
+        _area(
+          500,
+          RebicGrid(
+            containerQuery: containerQuery,
+            content: [for (var i = 0; i < 4; i++) _item(i)],
+          ),
+        ),
+      );
+      perRow.add(_perRow(tester, 4));
+    }
+    expect(perRow, [4, 1]);
+  });
 
   testWidgets('[Responsividade] Base e direção — Grade em RTL', (tester) async {
     _view(tester, 1300);
@@ -300,7 +346,7 @@ void main() {
         1200,
         RebicGrid(
           defaultSpan: const RebicResponsiveValue(small: 6),
-          children: [_item(0), _item(1)],
+          content: [_item(0), _item(1)],
         ),
         direction: TextDirection.rtl,
       ),
@@ -315,10 +361,15 @@ void main() {
       RebicApp(
         home: Column(
           children: [
-            RebicGrid(children: [_item(0), _item(1)]),
-            RebicGrid.cells(
-              basis: RebicLayoutBasis.screen,
-              cells: [RebicGridCell(child: _item(2))],
+            RebicGrid(content: [_item(0), _item(1)]),
+            RebicGrid(
+              containerQuery: true,
+              content: [
+                RebicGridData(
+                  span: const RebicResponsiveValue(small: 6),
+                  child: _item(2),
+                ),
+              ],
             ),
           ],
         ),
@@ -330,7 +381,7 @@ void main() {
 
   test('[Testes] Cobertura exigida — Rastreabilidade da grade', () {
     final names = scenarioNames('rebic/widgets/rebic-grid', 'add-rebic-grid');
-    expect(names, hasLength(16));
+    expect(names, hasLength(18));
     expect(untestedScenarios(names), isEmpty);
   });
 
@@ -339,10 +390,10 @@ void main() {
       'lib/src/fundacao_layout/grid/rebic_grid.dart',
     ).readAsStringSync();
     final ctors = RegExp(
-      r'(?:const )?RebicGrid(?:Cell|\.cells)?\(\{(.*?)\}\)',
+      r'const RebicGrid(?:Data)?\(\{(.*?)\}\)',
       dotAll: true,
     ).allMatches(source).map((m) => m.group(1)!).toList();
-    expect(ctors, hasLength(3));
+    expect(ctors, hasLength(2));
     for (final ctor in ctors) {
       expect(ctor, isNot(contains('double')));
       expect(ctor, isNot(contains('columns')));

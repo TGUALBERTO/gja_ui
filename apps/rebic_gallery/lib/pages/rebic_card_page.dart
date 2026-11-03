@@ -53,7 +53,7 @@ class _RebicCardPageState extends State<RebicCardPage> {
           items: [
             if (_opened) const RebicText(RebicCardPage.opened),
             RebicGrid(
-              children: [
+              content: [
                 RebicCard(
                   header: RebicCardHeader(
                     title: RebicCardPage.pendingTitle,

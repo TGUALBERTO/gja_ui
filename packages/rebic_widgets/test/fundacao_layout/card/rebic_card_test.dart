@@ -377,7 +377,7 @@ void main() {
     await tester.pumpWidget(
       RebicApp(
         home: RebicGrid(
-          children: [
+          content: [
             RebicCard(
               header: RebicCardHeader(title: 'Pedidos', onPress: () => calls++),
               content: _box('a'),

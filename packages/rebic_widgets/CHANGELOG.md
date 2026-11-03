@@ -2,6 +2,14 @@
 
 ## Não lançado
 
+- **BREAKING** Grade no modelo do SAPUI5 (`update-rebic-grid-fiori-layout-grid`, spec `rebic/widgets/rebic-grid`),
+  como o `sap.ui.layout.Grid`. De/para:
+  - `RebicGrid(children: ...)` e `RebicGrid.cells(cells: ...)` → `RebicGrid(content: ...)`;
+  - `RebicGridCell(child: x, span: s)` → `RebicGridData(span: s, child: x)`, um widget que envolve o item em `content`;
+  - `gap` → `hSpacing`; `runGap` → `vSpacing`;
+  - `basis: RebicLayoutBasis.container` → `containerQuery: true`; o padrão passa a medir a classe pela tela
+    (`containerQuery: false`), como no UI5;
+  - `defaultSpan` padrão `XL3 L3 M6 S12`: na classe `large`, quatro itens por linha em vez de três.
 - **BREAKING** HBox e VBox no modelo do SAPUI5 (`update-rebic-row-column-fiori-hbox-vbox`, specs
   `rebic/widgets/rebic-hbox` e `rebic/widgets/rebic-vbox`, que substituem `rebic/widgets/rebic-row` e
   `rebic/widgets/rebic-column`): `RebicRow` passa a `RebicHBox`, e `RebicColumn` a `RebicVBox`, como o `sap.m.HBox` e o

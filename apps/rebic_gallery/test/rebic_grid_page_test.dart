@@ -23,7 +23,7 @@ void main() {
 
     await tester.tap(find.text(RebicGridPage.title));
     await tester.pumpAndSettle();
-    expect(_perRow(tester), 3);
+    expect(_perRow(tester), 4);
     expect(find.byKey(RebicGridPage.highlightKey), findsOneWidget);
 
     tester.view.physicalSize = const Size(500, 2400);

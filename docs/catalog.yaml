@@ -365,7 +365,6 @@ items:
     depends_on:
       - rebic/core/responsive
       - rebic/widgets/rebic-spacing
-      - rebic/widgets/rebic-responsive-layout
       - rebic/foundation/breakpoints
       - rebic/foundation/spacing
       - rebic/foundation/density
