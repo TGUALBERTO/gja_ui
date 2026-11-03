@@ -16,27 +16,27 @@ import '../../support/traceability.dart';
 /// Itens de teste; [log] recebe o rótulo de cada item acionado.
 List<RebicMenuItem> _items(List<String> log) => [
   RebicMenuItem(
-    label: 'Editar',
+    text: 'Editar',
     icon: RebicIcons.edit,
-    shortcut: 'Ctrl+E',
-    onPressed: () => log.add('Editar'),
+    shortcutText: 'Ctrl+E',
+    onPress: () => log.add('Editar'),
   ),
   RebicMenuItem(
-    label: 'Copiar',
+    text: 'Copiar',
     icon: RebicIcons.copy,
-    shortcut: 'Ctrl+C',
-    onPressed: () => log.add('Copiar'),
+    shortcutText: 'Ctrl+C',
+    onPress: () => log.add('Copiar'),
   ),
   const RebicMenuItem(
-    label: 'Exportar',
+    text: 'Exportar',
     icon: RebicIcons.download,
-    onPressed: null,
+    enabled: false,
   ),
   RebicMenuItem(
-    label: 'Excluir',
+    text: 'Excluir',
     icon: RebicIcons.delete,
     startsSection: true,
-    onPressed: () => log.add('Excluir'),
+    onPress: () => log.add('Excluir'),
   ),
 ];
 
@@ -454,12 +454,12 @@ void main() {
           _app(
             textScale: 2,
             _menu(controller, [
-              RebicMenuItem(label: 'Editar', onPressed: () {}),
+              RebicMenuItem(text: 'Editar', onPress: () {}),
               for (var i = 2; i <= 10; i++)
                 RebicMenuItem(
-                  label: 'Ação $i',
+                  text: 'Ação $i',
                   startsSection: i == 6,
-                  onPressed: () {},
+                  onPress: () {},
                 ),
             ]),
           ),

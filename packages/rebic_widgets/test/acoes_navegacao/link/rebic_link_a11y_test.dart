@@ -23,13 +23,9 @@ Widget _links(RebicThemeData theme, {double textScale = 1}) => RebicTheme(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                RebicLink(text: 'Ver pedido', onPressed: () {}),
-                RebicLink(text: 'Ver nota', subtle: true, onPressed: () {}),
-                RebicLink(
-                  text: 'Ver fatura',
-                  emphasized: true,
-                  onPressed: () {},
-                ),
+                RebicLink(text: 'Ver pedido', onPress: () {}),
+                RebicLink(text: 'Ver nota', subtle: true, onPress: () {}),
+                RebicLink(text: 'Ver fatura', emphasized: true, onPress: () {}),
               ],
             ),
           ),

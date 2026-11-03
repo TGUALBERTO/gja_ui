@@ -32,22 +32,22 @@ void main() {
                     semanticLabel: 'Ações',
                     items: [
                       RebicMenuItem(
-                        label: 'Editar',
+                        text: 'Editar',
                         icon: RebicIcons.edit,
-                        shortcut: 'Ctrl+E',
-                        onPressed: () {},
+                        shortcutText: 'Ctrl+E',
+                        onPress: () {},
                       ),
                       RebicMenuItem(
-                        label: 'Copiar',
+                        text: 'Copiar',
                         icon: RebicIcons.copy,
-                        shortcut: 'Ctrl+C',
-                        onPressed: () {},
+                        shortcutText: 'Ctrl+C',
+                        onPress: () {},
                       ),
                       RebicMenuItem(
-                        label: 'Excluir',
+                        text: 'Excluir',
                         icon: RebicIcons.delete,
                         startsSection: true,
-                        onPressed: () {},
+                        onPress: () {},
                       ),
                     ],
                     child: RebicButton(

@@ -85,7 +85,7 @@ class _RebicStatusIndicatorPageState extends State<RebicStatusIndicatorPage> {
               icon: RebicIcons.warning,
               text: RebicStatusIndicatorPage.pending,
               state: RebicValueState.warning,
-              onPressed: () => setState(() => _opened = true),
+              onPress: () => setState(() => _opened = true),
             ),
             if (_opened) const RebicText(RebicStatusIndicatorPage.opened),
           ],

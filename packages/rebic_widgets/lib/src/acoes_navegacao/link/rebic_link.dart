@@ -7,19 +7,21 @@ import 'package:rebic_foundation/rebic_foundation.dart';
 /// Mostra o [text] na cor `colors.link` (ou `colors.text`, com [subtle]) e no
 /// estilo `typography.base` (ou `baseBold`, com [emphasized]), sublinhado
 /// no hover e no pressionado. Sem [wrapping], fica numa linha e termina com
-/// reticências quando não cabe. Com [onPressed] nulo, fica desabilitado. O
+/// reticências quando não cabe. Com [enabled] `false`, fica desabilitado;
+/// com [onPress] nulo, continua habilitado, sem ação. O
 /// leitor de tela o anuncia como link, não como botão.
 ///
-/// Abrir URLs fica fora do escopo: a ação é sempre [onPressed].
+/// Abrir URLs fica fora do escopo: a ação é sempre [onPress].
 ///
 /// ```dart
-/// RebicLink(text: 'Ver pedido 4711', onPressed: () => abrirPedido(4711))
+/// RebicLink(text: 'Ver pedido 4711', onPress: () => abrirPedido(4711))
 /// ```
 class RebicLink extends StatelessWidget {
-  /// Cria o link [text], acionado por [onPressed].
+  /// Cria o link [text], acionado por [onPress].
   const RebicLink({
     required this.text,
-    required this.onPressed,
+    this.enabled = true,
+    this.onPress,
     this.emphasized = false,
     this.subtle = false,
     this.wrapping = false,
@@ -29,8 +31,12 @@ class RebicLink extends StatelessWidget {
   /// Texto do link, também anunciado pelo leitor de tela.
   final String text;
 
-  /// Ação do link; nula desabilita o link.
-  final VoidCallback? onPressed;
+  /// Se o link pode ser acionado e focado.
+  final bool enabled;
+
+  /// Ação do link, como o evento `press` do `sap.m.Link`; nula deixa o link
+  /// habilitado, sem ação.
+  final VoidCallback? onPress;
 
   /// Se o texto fica em negrito (`typography.baseBold`).
   final bool emphasized;
@@ -44,16 +50,14 @@ class RebicLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = RebicThemeData.of(context);
-    final base = emphasized
-        ? theme.typography.baseBold
-        : theme.typography.base;
+    final base = emphasized ? theme.typography.baseBold : theme.typography.base;
     final color = subtle ? theme.colors.text : theme.colors.link;
     // Um só nó: o foco e o toque do detector se juntam ao link rotulado.
     return MergeSemantics(
       child: RebicInteractable(
         link: true,
         semanticLabel: text,
-        onPressed: onPressed,
+        onPressed: enabled ? (onPress ?? () {}) : null,
         focusRingBorderRadius: BorderRadius.circular(theme.radius.xs),
         builder: (context, states) {
           final underline =

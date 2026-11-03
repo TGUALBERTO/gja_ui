@@ -50,7 +50,7 @@ final _light = RebicThemeData.light();
 void main() {
   testWidgets('[API] Propriedades — Link mínimo', (tester) async {
     await tester.pumpWidget(
-      _host(RebicLink(text: 'Ver pedido', onPressed: () {})),
+      _host(RebicLink(text: 'Ver pedido', onPress: () {})),
     );
     final text = _text(tester);
     expect(text.data, 'Ver pedido');
@@ -63,10 +63,7 @@ void main() {
 
   test('[API] Texto válido — Texto vazio', () {
     for (final text in ['']) {
-      expect(
-        () => RebicLink(text: text, onPressed: () {}),
-        throwsAssertionError,
-      );
+      expect(() => RebicLink(text: text, onPress: () {}), throwsAssertionError);
     }
   });
 
@@ -78,7 +75,7 @@ void main() {
       await tester.pumpWidget(
         RebicApp(
           home: Center(
-            child: RebicLink(text: 'Ver pedido', onPressed: () => calls++),
+            child: RebicLink(text: 'Ver pedido', onPress: () => calls++),
           ),
         ),
       );
@@ -93,7 +90,7 @@ void main() {
       tester,
     ) async {
       await tester.pumpWidget(
-        _host(const RebicLink(text: 'Ver pedido', onPressed: null)),
+        _host(const RebicLink(text: 'Ver pedido', enabled: false)),
       );
       await tester.tap(find.byType(RebicLink), warnIfMissed: false);
       await tester.pump();
@@ -120,7 +117,7 @@ void main() {
         _host(
           SizedBox(
             width: 120,
-            child: RebicLink(text: _long, onPressed: () {}),
+            child: RebicLink(text: _long, onPress: () {}),
           ),
         ),
       );
@@ -136,7 +133,7 @@ void main() {
         _host(
           SizedBox(
             width: 120,
-            child: RebicLink(text: _long, wrapping: true, onPressed: () {}),
+            child: RebicLink(text: _long, wrapping: true, onPress: () {}),
           ),
         ),
       );
@@ -156,8 +153,8 @@ void main() {
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            RebicLink(text: 'Sutil', subtle: true, onPressed: () {}),
-            RebicLink(text: 'Enfatizado', emphasized: true, onPressed: () {}),
+            RebicLink(text: 'Sutil', subtle: true, onPress: () {}),
+            RebicLink(text: 'Enfatizado', emphasized: true, onPress: () {}),
           ],
         ),
       ),
@@ -178,7 +175,7 @@ void main() {
           RebicLink(
             key: ValueKey(theme.brightness),
             text: 'Ver pedido',
-            onPressed: () {},
+            onPress: () {},
           ),
         ),
       );
@@ -191,7 +188,7 @@ void main() {
       tester,
     ) async {
       await tester.pumpWidget(
-        _host(RebicLink(text: 'Ver pedido', onPressed: () {})),
+        _host(RebicLink(text: 'Ver pedido', onPress: () {})),
       );
       TextDecoration? decoration() => _text(tester).style!.decoration;
       final center = tester.getCenter(find.byType(RebicLink));
@@ -216,7 +213,7 @@ void main() {
       await tester.pumpWidget(
         RebicApp(
           home: Center(
-            child: RebicLink(text: 'Ver pedido', onPressed: () {}),
+            child: RebicLink(text: 'Ver pedido', onPress: () {}),
           ),
         ),
       );
@@ -243,8 +240,8 @@ void main() {
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            RebicLink(text: 'Ver pedido', onPressed: () {}),
-            const RebicLink(text: 'Ver nota', onPressed: null),
+            RebicLink(text: 'Ver pedido', onPress: () {}),
+            const RebicLink(text: 'Ver nota', enabled: false),
           ],
         ),
       ),
@@ -281,7 +278,7 @@ void main() {
         direction: TextDirection.rtl,
         SizedBox(
           width: 120,
-          child: RebicLink(text: _long, onPressed: () {}),
+          child: RebicLink(text: _long, onPress: () {}),
         ),
       ),
     );
@@ -295,10 +292,10 @@ void main() {
       RebicApp(
         home: Column(
           children: [
-            RebicLink(text: 'Normal', onPressed: () {}),
-            RebicLink(text: 'Sutil', subtle: true, onPressed: () {}),
-            RebicLink(text: 'Enfatizado', emphasized: true, onPressed: () {}),
-            const RebicLink(text: 'Desabilitado', onPressed: null),
+            RebicLink(text: 'Normal', onPress: () {}),
+            RebicLink(text: 'Sutil', subtle: true, onPress: () {}),
+            RebicLink(text: 'Enfatizado', emphasized: true, onPress: () {}),
+            const RebicLink(text: 'Desabilitado', enabled: false),
           ],
         ),
       ),
@@ -327,17 +324,17 @@ void main() {
           child: RebicVBox(
             gap: RebicSpace.none,
             items: [
-              RebicLink(text: 'Ver pedido 4711', onPressed: () {}),
-              RebicLink(text: 'Link sutil', subtle: true, onPressed: () {}),
+              RebicLink(text: 'Ver pedido 4711', onPress: () {}),
+              RebicLink(text: 'Link sutil', subtle: true, onPress: () {}),
               RebicLink(
                 text: 'Link enfatizado',
                 emphasized: true,
-                onPressed: () {},
+                onPress: () {},
               ),
-              const RebicLink(text: 'Link desabilitado', onPressed: null),
+              const RebicLink(text: 'Link desabilitado', enabled: false),
               SizedBox(
                 width: 200,
-                child: RebicLink(text: _long, wrapping: true, onPressed: () {}),
+                child: RebicLink(text: _long, wrapping: true, onPress: () {}),
               ),
             ],
           ),

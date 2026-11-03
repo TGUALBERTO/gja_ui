@@ -37,7 +37,7 @@ void main() {
                         RebicStatusIndicator(
                           text: '3 pendências',
                           state: RebicValueState.warning,
-                          onPressed: () {},
+                          onPress: () {},
                         ),
                       ],
                     ),

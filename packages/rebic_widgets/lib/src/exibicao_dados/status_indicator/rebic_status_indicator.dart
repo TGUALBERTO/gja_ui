@@ -10,7 +10,7 @@ import '../../fundacao_layout/label/rebic_label.dart';
 /// Mostra o [title] opcional ("Situação:", no tom `muted`), o [icon] e o
 /// [text] na cor de frente do [state] (`colors.text` em `none`). Com
 /// [inverted], vira uma etiqueta com o fundo, a borda e a frente do estado.
-/// Com [onPressed], fica ativo: sublinhado no hover, foco pelo teclado,
+/// Com [onPress], fica ativo: sublinhado no hover, foco pelo teclado,
 /// Enter e Espaço, e anunciado como botão. O texto quebra em várias linhas,
 /// com o título e o ícone na primeira.
 ///
@@ -30,7 +30,7 @@ class RebicStatusIndicator extends StatelessWidget {
     this.title,
     this.state = RebicValueState.none,
     this.inverted = false,
-    this.onPressed,
+    this.onPress,
     super.key,
   }) : assert(
          (text != null && text != '') || icon != null,
@@ -53,7 +53,7 @@ class RebicStatusIndicator extends StatelessWidget {
   final bool inverted;
 
   /// Ação do status ativo; nula torna o status apenas informativo.
-  final VoidCallback? onPressed;
+  final VoidCallback? onPress;
 
   static RebicIconTone _iconTone(RebicValueState state) => switch (state) {
     RebicValueState.none => RebicIconTone.standard,
@@ -145,15 +145,15 @@ class RebicStatusIndicator extends StatelessWidget {
       return ExcludeSemantics(child: row);
     }
 
-    final onPressed = this.onPressed;
-    if (onPressed == null) {
+    final onPress = this.onPress;
+    if (onPress == null) {
       return Semantics(container: true, label: _label, child: content(false));
     }
     // Um só nó: o foco e o toque do detector se juntam ao status rotulado.
     return MergeSemantics(
       child: RebicInteractable(
         semanticLabel: _label,
-        onPressed: onPressed,
+        onPressed: onPress,
         focusRingBorderRadius: BorderRadius.circular(theme.radius.s),
         builder: (context, states) => content(
           states.contains(RebicInteractionState.hovered) ||

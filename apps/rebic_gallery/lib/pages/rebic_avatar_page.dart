@@ -79,7 +79,7 @@ class _RebicAvatarPageState extends State<RebicAvatarPage> {
               initials: 'MB',
               size: RebicAvatarSize.m,
               semanticLabel: RebicAvatarPage.person,
-              onPressed: () => setState(() => _opened = true),
+              onPress: () => setState(() => _opened = true),
             ),
             if (_opened) const RebicText(RebicAvatarPage.opened),
           ],

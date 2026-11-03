@@ -8,27 +8,31 @@ import '../../feedback_sobreposicoes/popover/rebic_popover.dart';
 
 /// Item de um [RebicMenu], como o `sap.m.MenuItem` do SAPUI5.
 class RebicMenuItem {
-  /// Cria o item [label], que chama [onPressed] ao ser acionado.
+  /// Cria o item [text], que chama [onPress] ao ser acionado.
   const RebicMenuItem({
-    required this.label,
-    required this.onPressed,
+    required this.text,
+    this.enabled = true,
+    this.onPress,
     this.icon,
-    this.shortcut,
+    this.shortcutText,
     this.startsSection = false,
   });
 
   /// Rótulo do item, em uma linha.
-  final String label;
+  final String text;
 
-  /// Ação do item; nula deixa o item desabilitado.
-  final VoidCallback? onPressed;
+  /// Se o item pode ser acionado.
+  final bool enabled;
+
+  /// Ação do item, como o evento `press` do `sap.m.MenuItem`.
+  final VoidCallback? onPress;
 
   /// Ícone antes do rótulo, do catálogo `RebicIcons` ou da aplicação.
   final IconData? icon;
 
   /// Atalho exibido no fim do item, no tom `muted` (ex.: "Ctrl+E"), como o
   /// `shortcutText` do UI5. Só exibe; o atalho não é registrado.
-  final String? shortcut;
+  final String? shortcutText;
 
   /// Se um separador vem antes do item, abrindo uma seção.
   final bool startsSection;
@@ -38,7 +42,7 @@ class RebicMenuItem {
 ///
 /// O [controller] abre o menu junto de [child], na largura da âncora (no
 /// mínimo 6 passos `spacing.xxxl`). Acionar um item, por toque, Enter ou
-/// Espaço, fecha o menu e chama o `onPressed` dele; toque fora e Esc fecham
+/// Espaço, fecha o menu e chama o `onPress` dele; toque fora e Esc fecham
 /// chamando [onDismiss]. O menu não tem item selecionado.
 ///
 /// O foco abre no primeiro item habilitado; as setas, Home, End e a primeira
@@ -51,13 +55,13 @@ class RebicMenuItem {
 ///   controller: acoes,
 ///   semanticLabel: 'Ações',
 ///   items: [
-///     RebicMenuItem(label: 'Editar', icon: RebicIcons.edit, onPressed: editar),
-///     RebicMenuItem(label: 'Copiar', icon: RebicIcons.copy, onPressed: copiar),
+///     RebicMenuItem(text: 'Editar', icon: RebicIcons.edit, onPress: editar),
+///     RebicMenuItem(text: 'Copiar', icon: RebicIcons.copy, onPress: copiar),
 ///     RebicMenuItem(
-///       label: 'Excluir',
+///       text: 'Excluir',
 ///       icon: RebicIcons.delete,
 ///       startsSection: true,
-///       onPressed: excluir,
+///       onPress: excluir,
 ///     ),
 ///   ],
 ///   child: RebicButton(text: 'Ações', onPress: acoes.toggle),
@@ -75,7 +79,7 @@ class RebicMenu extends StatelessWidget {
     super.key,
   }) : assert(items.isNotEmpty, 'items não pode ser vazia'),
        assert(
-         items.every((item) => item.label != ''),
+         items.every((item) => item.text != ''),
          'os rótulos não podem ser vazios',
        ),
        assert(semanticLabel != '', 'semanticLabel não pode ser vazio');
@@ -110,11 +114,11 @@ class RebicMenu extends StatelessWidget {
       options: [
         for (final item in items)
           RebicOption(
-            label: item.label,
+            label: item.text,
             icon: item.icon,
-            trailing: item.shortcut,
+            trailing: item.shortcutText,
             startsSection: item.startsSection,
-            onChosen: item.onPressed,
+            onChosen: item.enabled ? (item.onPress ?? () {}) : null,
           ),
       ],
       child: child,

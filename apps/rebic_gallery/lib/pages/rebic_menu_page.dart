@@ -63,27 +63,27 @@ class _RebicMenuPageState extends State<RebicMenuPage> {
                   semanticLabel: RebicMenuPage.actions,
                   items: [
                     RebicMenuItem(
-                      label: 'Editar',
+                      text: 'Editar',
                       icon: RebicIcons.edit,
-                      shortcut: 'Ctrl+E',
-                      onPressed: _record('Editar'),
+                      shortcutText: 'Ctrl+E',
+                      onPress: _record('Editar'),
                     ),
                     RebicMenuItem(
-                      label: 'Copiar',
+                      text: 'Copiar',
                       icon: RebicIcons.copy,
-                      shortcut: 'Ctrl+C',
-                      onPressed: _record('Copiar'),
+                      shortcutText: 'Ctrl+C',
+                      onPress: _record('Copiar'),
                     ),
                     const RebicMenuItem(
-                      label: 'Exportar',
+                      text: 'Exportar',
                       icon: RebicIcons.download,
-                      onPressed: null,
+                      enabled: false,
                     ),
                     RebicMenuItem(
-                      label: 'Excluir',
+                      text: 'Excluir',
                       icon: RebicIcons.delete,
                       startsSection: true,
-                      onPressed: _record('Excluir'),
+                      onPress: _record('Excluir'),
                     ),
                   ],
                   child: RebicButton(
@@ -96,14 +96,14 @@ class _RebicMenuPageState extends State<RebicMenuPage> {
                   semanticLabel: 'Mais ações',
                   items: [
                     RebicMenuItem(
-                      label: 'Atualizar',
+                      text: 'Atualizar',
                       icon: RebicIcons.refresh,
-                      onPressed: _record('Atualizar'),
+                      onPress: _record('Atualizar'),
                     ),
                     RebicMenuItem(
-                      label: 'Configurações',
+                      text: 'Configurações',
                       icon: RebicIcons.actionSettings,
-                      onPressed: _record('Configurações'),
+                      onPress: _record('Configurações'),
                     ),
                   ],
                   child: RebicButton(

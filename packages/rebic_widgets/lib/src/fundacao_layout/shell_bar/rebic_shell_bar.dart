@@ -93,7 +93,7 @@ class RebicShellBar extends StatelessWidget {
   final bool showProductSwitcher;
 
   /// Perfil do usuário, exibido no tamanho `xs` e com [onAvatarPressed]; o
-  /// `onPressed` e o tamanho do próprio avatar são ignorados.
+  /// `onPress` e o tamanho do próprio avatar são ignorados.
   final RebicAvatar? profile;
 
   /// Conteúdo adicional, entre as notificações e o perfil.
@@ -191,7 +191,7 @@ class RebicShellBar extends StatelessWidget {
           size: RebicAvatarSize.xs,
           shape: profile.shape,
           semanticLabel: profile.semanticLabel ?? texts.profile,
-          onPressed: onAvatarPressed,
+          onPress: onAvatarPressed,
         ),
       if (showProductSwitcher)
         RebicButton(

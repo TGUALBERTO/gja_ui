@@ -111,7 +111,7 @@ void main() {
             child: RebicStatusIndicator(
               text: '3 pendências',
               state: RebicValueState.warning,
-              onPressed: () => calls++,
+              onPress: () => calls++,
             ),
           ),
         ),
@@ -272,7 +272,7 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(
-      _host(RebicStatusIndicator(text: '3 pendências', onPressed: () {})),
+      _host(RebicStatusIndicator(text: '3 pendências', onPress: () {})),
     );
     TextDecoration? decoration() =>
         _value(tester, '3 pendências').style!.decoration;
@@ -301,7 +301,7 @@ void main() {
               icon: RebicIcons.sysEnter2,
               text: 'Aprovado',
             ),
-            RebicStatusIndicator(text: 'Atrasado', onPressed: () {}),
+            RebicStatusIndicator(text: 'Atrasado', onPress: () {}),
           ],
         ),
       ),
@@ -347,7 +347,7 @@ void main() {
               state: RebicValueState.error,
               inverted: true,
             ),
-            RebicStatusIndicator(text: 'Ativo', onPressed: () {}),
+            RebicStatusIndicator(text: 'Ativo', onPress: () {}),
           ],
         ),
       ),
@@ -414,7 +414,7 @@ void main() {
                 icon: RebicIcons.warning,
                 text: '3 pendências',
                 state: RebicValueState.warning,
-                onPressed: () {},
+                onPress: () {},
               ),
             ],
           ),

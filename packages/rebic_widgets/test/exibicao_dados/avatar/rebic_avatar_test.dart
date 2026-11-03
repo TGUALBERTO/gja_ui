@@ -114,7 +114,7 @@ void main() {
       await tester.pumpWidget(
         RebicApp(
           home: Center(
-            child: RebicAvatar(initials: 'MB', onPressed: () => calls++),
+            child: RebicAvatar(initials: 'MB', onPress: () => calls++),
           ),
         ),
       );
@@ -227,9 +227,7 @@ void main() {
   testWidgets('[Estados] Interação do avatar ativo — Avatar ativo em hover', (
     tester,
   ) async {
-    await tester.pumpWidget(
-      _host(RebicAvatar(initials: 'MB', onPressed: () {})),
-    );
+    await tester.pumpWidget(_host(RebicAvatar(initials: 'MB', onPress: () {})));
     final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
     await mouse.addPointer(location: Offset.zero);
     addTearDown(mouse.removePointer);
@@ -251,7 +249,7 @@ void main() {
           mainAxisSize: MainAxisSize.min,
           children: [
             const RebicAvatar(initials: 'MB', semanticLabel: 'Maria Barros'),
-            RebicAvatar(initials: 'JS', onPressed: () {}),
+            RebicAvatar(initials: 'JS', onPress: () {}),
           ],
         ),
       ),
@@ -297,7 +295,7 @@ void main() {
           children: [
             const RebicAvatar(initials: 'MB'),
             const RebicAvatar(icon: RebicIcons.folderBlank),
-            RebicAvatar(initials: 'JS', onPressed: () {}),
+            RebicAvatar(initials: 'JS', onPress: () {}),
           ],
         ),
       ),

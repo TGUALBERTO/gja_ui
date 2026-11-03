@@ -35,7 +35,7 @@ enum RebicAvatarShape {
 /// caracteres, em maiúsculas), o [icon] ou o ícone `personPlaceholder`. Se a imagem falha
 /// ao carregar, mostra as iniciais ou o ícone. O fundo é
 /// `colors.selectionBackground`, e as iniciais e o ícone `colors.brand`. O
-/// lado vem do [size] e não muda com a escala de texto. Com [onPressed], o
+/// lado vem do [size] e não muda com a escala de texto. Com [onPress], o
 /// avatar fica ativo e é anunciado como botão; senão, como imagem, com o
 /// rótulo [semanticLabel] ou as iniciais.
 ///
@@ -43,7 +43,7 @@ enum RebicAvatarShape {
 /// RebicAvatar(
 ///   initials: 'MB',
 ///   semanticLabel: 'Maria Barros',
-///   onPressed: abrirPerfil,
+///   onPress: abrirPerfil,
 /// )
 /// ```
 class RebicAvatar extends StatefulWidget {
@@ -55,7 +55,7 @@ class RebicAvatar extends StatefulWidget {
     this.size = RebicAvatarSize.s,
     this.shape = RebicAvatarShape.circle,
     this.semanticLabel,
-    this.onPressed,
+    this.onPress,
     super.key,
   }) : assert(
          initials == null || (initials.length >= 1 && initials.length <= 3),
@@ -81,7 +81,7 @@ class RebicAvatar extends StatefulWidget {
   final String? semanticLabel;
 
   /// Ação do avatar ativo; nula torna o avatar apenas informativo.
-  final VoidCallback? onPressed;
+  final VoidCallback? onPress;
 
   @override
   State<RebicAvatar> createState() => _RebicAvatarState();
@@ -187,8 +187,8 @@ class _RebicAvatarState extends State<RebicAvatar> {
     }
 
     final label = widget.semanticLabel ?? initials ?? '';
-    final onPressed = widget.onPressed;
-    if (onPressed == null) {
+    final onPress = widget.onPress;
+    if (onPress == null) {
       return Semantics(
         container: true,
         image: true,
@@ -200,7 +200,7 @@ class _RebicAvatarState extends State<RebicAvatar> {
     return MergeSemantics(
       child: RebicInteractable(
         semanticLabel: label,
-        onPressed: onPressed,
+        onPressed: onPress,
         focusRingBorderRadius: corners,
         builder: (context, states) =>
             avatar(states.contains(RebicInteractionState.hovered)),

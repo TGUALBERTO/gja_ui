@@ -46,16 +46,16 @@ class _RebicLinkPageState extends State<RebicLinkPage> {
             ),
             RebicLink(
               text: RebicLinkPage.orderLink,
-              onPressed: () => setState(() => _opened = true),
+              onPress: () => setState(() => _opened = true),
             ),
             if (_opened) const RebicText(RebicLinkPage.opened),
-            RebicLink(text: 'Link sutil', subtle: true, onPressed: () {}),
+            RebicLink(text: 'Link sutil', subtle: true, onPress: () {}),
             RebicLink(
               text: 'Link enfatizado',
               emphasized: true,
-              onPressed: () {},
+              onPress: () {},
             ),
-            const RebicLink(text: 'Link desabilitado', onPressed: null),
+            const RebicLink(text: 'Link desabilitado', enabled: false),
             const RebicTitle(
               'Com quebra',
               level: RebicTitleLevel.h2,
@@ -68,7 +68,7 @@ class _RebicLinkPageState extends State<RebicLinkPage> {
                     'Ver todos os pedidos aguardando aprovação do gestor do '
                     'centro de custo',
                 wrapping: true,
-                onPressed: () {},
+                onPress: () {},
               ),
             ),
           ],

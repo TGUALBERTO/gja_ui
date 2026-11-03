@@ -2,6 +2,11 @@
 
 ## Não lançado
 
+- **BREAKING** `enabled` e `onPress` nas ações (`update-rebic-actions-fiori-enabled-press`), como os eventos `press` do
+  SAPUI5. De/para:
+  - `RebicLink(onPressed: ...)` → `RebicLink(onPress: ...)`; `onPressed: null` → `enabled: false`;
+  - `RebicMenuItem(label:, onPressed:, shortcut:)` → `RebicMenuItem(text:, onPress:, shortcutText:)`; novo `enabled`;
+  - `RebicAvatar` e `RebicStatusIndicator`: `onPressed` → `onPress` (sem ele, continuam não interativos).
 - **BREAKING** Botão no modelo do SAPUI5 (`update-rebic-button-fiori-button`, spec `rebic/widgets/rebic-button`, que
   absorve `rebic/widgets/rebic-icon-button`): um só `RebicButton`, como o `sap.m.Button`. De/para:
   - `RebicButton(label: ..., onPressed: ...)` → `RebicButton(text: ..., onPress: ...)`;

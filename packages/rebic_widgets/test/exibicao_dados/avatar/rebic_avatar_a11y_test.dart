@@ -28,7 +28,7 @@ void main() {
                       children: [
                         for (final size in RebicAvatarSize.values)
                           RebicAvatar(initials: 'MB', size: size),
-                        RebicAvatar(initials: 'JS', onPressed: () {}),
+                        RebicAvatar(initials: 'JS', onPress: () {}),
                       ],
                     ),
                   ),
