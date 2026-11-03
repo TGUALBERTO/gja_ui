@@ -8,7 +8,7 @@ Define a localização do núcleo do Rebic: os textos que os widgets do framewor
 
 
 ### Requirement: Textos do framework
-O núcleo SHALL fornecer um conjunto tipado de textos do framework: `ok`, `cancel`, `close`, `search`, `clear`, `noData`, `loading`, `more`, `required`, `navigation`, `back`, `menu`, `logo`, `notifications`, `profile`, `products`, `shellBar`, o texto de cada estado de valor e a contagem de itens selecionados. O texto de estado de valor MUST ser vazio para `none`. A contagem MUST tratar zero, um e vários, com o número formatado no idioma. Widgets do framework MUST NOT fixar esses textos no código.
+O núcleo SHALL fornecer um conjunto tipado de textos do framework: `ok`, `cancel`, `close`, `search`, `clear`, `noData`, `loading`, `more`, `required`, `navigation`, `back`, `menu`, `logo`, `notifications`, `profile`, `products`, `shellBar`, `selectAll`, `selectItem`, o texto de cada estado de valor e a contagem de itens selecionados. O texto do estado `none` MUST ser vazio. A contagem MUST tratar zero, um e vários, com o número formatado no idioma. Os widgets MUST NOT fixar esses textos.
 
 #### Scenario: Textos em pt-BR
 - **GIVEN** os textos do idioma pt-BR
@@ -39,6 +39,10 @@ O núcleo SHALL fornecer um conjunto tipado de textos do framework: `ok`, `cance
 #### Scenario: Textos da barra
 - **WHEN** `menu`, `logo`, `notifications`, `profile`, `products` e `shellBar` são lidos em pt-BR e em en
 - **THEN** em pt-BR eles são "Menu", "Logotipo", "Notificações", "Perfil", "Meus produtos" e "Barra de shell", e em en "Menu", "Logo", "Notifications", "Profile", "My products" e "Shell Bar", como os textos do `sap.f.ShellBar`
+
+#### Scenario: Textos da tabela
+- **WHEN** `selectAll` e `selectItem` são lidos em pt-BR e em en
+- **THEN** em pt-BR eles são "Selecionar tudo" e "Selecionar item", e em en "Select All" e "Select Item"
 
 ### Requirement: Idiomas e resolução
 O núcleo SHALL fornecer pt-BR e en, com pt-BR como padrão, e expor o delegate e a lista de idiomas para o `WidgetsApp`. A resolução MUST usar o mecanismo nativo do Flutter: o idioma exato, senão o mesmo código de língua, senão o padrão. O delegate MUST aceitar qualquer região de `pt` e de `en`.
