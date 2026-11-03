@@ -626,17 +626,26 @@ items:
     depends_on:
       - rebic/core/validation
       - rebic/widgets/rebic-form-field
-  - id: rebic/widgets/rebic-text-field
-    name: "RebicTextField"
+  - id: rebic/widgets/rebic-input
+    name: "RebicInput"
     kind: widget
     category: formularios
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
+      - rebic/widgets/rebic-tooltip
       - rebic/core/interaction
-      - rebic/widgets/rebic-form-field
-      - rebic/widgets/rebic-icon
+      - rebic/core/localization
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/iconography
+      - rebic/foundation/spacing
+      - rebic/foundation/radius
+      - rebic/foundation/density
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-text-area
     name: "RebicTextArea"
     kind: widget
@@ -645,7 +654,7 @@ items:
     phase: 2
     status: planned
     depends_on:
-      - rebic/widgets/rebic-text-field
+      - rebic/widgets/rebic-input
   - id: rebic/widgets/rebic-check-box
     name: "RebicCheckBox"
     kind: widget
@@ -717,7 +726,7 @@ items:
     phase: 3
     status: planned
     depends_on:
-      - rebic/widgets/rebic-text-field
+      - rebic/widgets/rebic-input
       - rebic/widgets/rebic-dropdown
       - rebic/core/data-source
   - id: rebic/widgets/rebic-multi-select
@@ -739,7 +748,7 @@ items:
     phase: 4
     status: planned
     depends_on:
-      - rebic/widgets/rebic-text-field
+      - rebic/widgets/rebic-input
       - rebic/widgets/rebic-popover
       - rebic/core/localization
   - id: rebic/widgets/rebic-date-range-picker
@@ -759,7 +768,7 @@ items:
     phase: 4
     status: planned
     depends_on:
-      - rebic/widgets/rebic-text-field
+      - rebic/widgets/rebic-input
       - rebic/widgets/rebic-popover
       - rebic/core/localization
   - id: rebic/widgets/rebic-file-upload
@@ -950,7 +959,7 @@ items:
     status: planned
     depends_on:
       - rebic/widgets/rebic-table
-      - rebic/widgets/rebic-text-field
+      - rebic/widgets/rebic-input
       - rebic/widgets/rebic-select
   - id: rebic/widgets/rebic-tree
     name: "RebicTree"

@@ -52,12 +52,12 @@ A cada edição, o campo SHALL chamar `onLiveChange` com o texto, como o evento 
 - **THEN** o texto é "1234", e os caracteres aparecem escondidos
 
 ### Requirement: [Comportamento] Botão de limpar
-Com `showClearIcon` (padrão `false`), editável e com texto, o campo SHALL mostrar no fim um botão só com o ícone `RebicIcons.decline` e a dica `clear` de `rebic/core/localization`, que esvazia o texto e chama `onLiveChange('')` e `onChange('')`.
+Com `showClearIcon` (padrão `false`), editável e com texto, o campo SHALL mostrar no fim o ícone acionável `RebicIcons.decline`, com a dica `clear` de `rebic/core/localization`, que esvazia o texto e chama `onLiveChange('')` e `onChange('')`.
 
 #### Scenario: Limpar o campo
 - **GIVEN** um campo com `showClearIcon` e o texto "abc"
-- **WHEN** o botão de limpar é tocado
-- **THEN** `onLiveChange` e `onChange` recebem "", e o botão some
+- **WHEN** o ícone de limpar é tocado
+- **THEN** `onLiveChange` e `onChange` recebem "", e o ícone some
 
 ### Requirement: [Comportamento] Mensagem de estado de valor
 Com `valueState` diferente de `none` e `valueStateText`, o campo SHALL mostrar a mensagem logo abaixo, em `typography.small` com a cor `foreground` do estado, enquanto tiver o foco, como a mensagem do UI5.
@@ -111,15 +111,15 @@ A borda MUST ter contraste de ao menos 3:1, o texto e o espaço reservado o cont
 - **THEN** não há estouro, e a altura é de ao menos `controlHeight`
 
 ### Requirement: [Responsividade] Largura e direção
-O campo SHALL ocupar a largura disponível. Em RTL, o texto e o botão de limpar MUST seguir a direção: o texto começa à direita, e o botão fica à esquerda.
+O campo SHALL ocupar a largura disponível. Em RTL, o texto e o ícone de limpar MUST seguir a direção: o texto começa à direita, e o ícone fica à esquerda. Como no UI5, o ícone de limpar MUST NOT ser parada de Tab nem nó próprio do leitor de tela.
 
 #### Scenario: Campo em RTL
 - **GIVEN** a direção do texto da direita para a esquerda e um campo com `showClearIcon` e texto
 - **WHEN** ele é renderizado
-- **THEN** o botão de limpar fica no lado esquerdo do campo
+- **THEN** o ícone de limpar fica no lado esquerdo do campo
 
 ### Requirement: [Integração] Dependências
-`RebicInput` SHALL depender somente de `rebic/widgets/rebic-button`, `rebic/core/interaction`, `rebic/core/localization`, `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/iconography`, `rebic/foundation/spacing`, `rebic/foundation/radius`, `rebic/foundation/density`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+`RebicInput` SHALL depender somente de `rebic/widgets/rebic-tooltip`, `rebic/core/interaction`, `rebic/core/localization`, `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/iconography`, `rebic/foundation/spacing`, `rebic/foundation/radius`, `rebic/foundation/density`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Campo sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`
@@ -134,11 +134,11 @@ O campo SHALL ocupar a largura disponível. Em RTL, o texto e o botão de limpar
 - **THEN** cada cenário tem um teste nomeado "<requisito> — <cenário>"
 
 #### Scenario: Goldens do campo
-- **WHEN** os goldens de campos vazio, com texto, com botão de limpar, com cada estado de valor, somente leitura e desabilitado são comparados com a referência, nos temas claro e escuro e nas duas densidades
+- **WHEN** os goldens de campos vazio, com texto, com ícone de limpar, com cada estado de valor, somente leitura e desabilitado são comparados com a referência, nos temas claro e escuro e nas duas densidades
 - **THEN** não há diferenças
 
 ### Requirement: [Documentação] Exemplos mínimos
-`RebicInput` SHALL ter dartdoc em toda API pública e uma página "RebicInput" na galeria com campos de cada tipo, um com limite, um com botão de limpar, um com validação que mostra o estado de erro e campos somente leitura e desabilitado.
+`RebicInput` SHALL ter dartdoc em toda API pública e uma página "RebicInput" na galeria com campos de cada tipo, um com limite, um com ícone de limpar, um com validação que mostra o estado de erro e campos somente leitura e desabilitado.
 
 #### Scenario: Página RebicInput na galeria
 - **GIVEN** a página "RebicInput" aberta na galeria

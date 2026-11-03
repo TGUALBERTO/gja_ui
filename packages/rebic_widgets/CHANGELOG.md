@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Novo `RebicInput` (`add-rebic-input`, spec `rebic/widgets/rebic-input`), como o `sap.m.Input`: controlado
+  (`value` + `onLiveChange`), com `onChange`, `onSubmit`, `placeholder`, `type`, `enabled`, `editable`, `valueState`,
+  `valueStateText`, `maxLength`, `showClearIcon` e `focusNode`.
 - Novos `RebicRadioButton` e `RebicRadioButtonGroup` (`add-rebic-radio-button`), como o `sap.m.RadioButton` e o
   `sap.m.RadioButtonGroup`: opção controlada (`selected` + `onSelect`) e grupo com `selectedIndex`, `onSelect(índice)`,
   `columns`, setas e Tab pela opção marcada.

@@ -12,7 +12,7 @@ A Fase 2 pede o campo de texto. O modelo é o `sap.m.Input` (conferido em `SAP/o
 
 - Novo `RebicInput`, controlado (`value` + `onLiveChange`), com `onChange`, `onSubmit`, `placeholder`,
   `semanticLabel`, `type` (`RebicInputType`), `enabled`, `editable`, `valueState`, `valueStateText`, `maxLength`,
-  `showClearIcon` e `focusNode`, desenhado com o `EditableText` do Flutter, sem Material.
+  `showClearIcon` (ícone acionável, fora do Tab, como no UI5) e `focusNode`, desenhado com o `EditableText` do Flutter, sem Material.
 - A mensagem de estado de valor aparece abaixo do campo enquanto ele tem o foco (no UI5, num popup abaixo do campo).
 - Catálogo: `rebic/widgets/rebic-text-field` passa a `rebic/widgets/rebic-input` (o nome do UI5), sem depender do
   campo de formulário; quem citava o campo de texto passa a citar o novo id.

@@ -54,6 +54,7 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Caixa de seleção | Lado e marca parcial | `icons.control + spacing.xxs` (18); quadrado recuado `spacing.xs` | 1,125rem em `CheckBox.less`; recuo de 0,1875rem | `add-rebic-check-box` |
 | Chave | Trilho, alça e hover | trilho `2 × icons.medium` × `icons.medium`, alça `icons.control`; hover `label` (desligada) e `brandHover` (ligada) | `Switch.less`; `sapButton_Track_Hover_Background`, `sapButton_Track_Selected_Hover_Background` | `add-rebic-switch` |
 | Opção de rádio | Lado do círculo e do ponto | círculo `icons.control + spacing.xxs` (18) nas duas densidades; ponto `spacing.s` | 1,375rem (cozy) e 1rem (compacto) em `RadioButton.less` | `add-rebic-radio-button` |
+| Campo de texto | Somente leitura, foco e mensagem de estado | fundo `headerBackground`; foco com borda `brand` e anel de foco; mensagem em linha abaixo do campo, com o foco | `sapField_ReadOnly_Background`, `sapField_Focus_BorderColor`; mensagem em popup no UI5 | `add-rebic-input` |
 
 ## Alternativas consideradas
 

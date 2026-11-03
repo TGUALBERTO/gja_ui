@@ -17,7 +17,7 @@ aviso, `onChange`; a perda de foco também chama `onChange` nessa condição.
 
 Um `MouseRegion` registra o hover; o foco vem do `FocusNode`. A moldura é um `DecoratedBox` (`radius.field`, borda
 fina) com `Padding` horizontal `spacing.s` e altura mínima `controlHeight`, em volta de uma `Row` com o texto (e o
-espaço reservado num `Stack`, fora da semântica) e o botão de limpar (`RebicButton` só com ícone, `transparent`). A
+espaço reservado num `Stack`, fora da semântica) e o ícone de limpar (`Icon` `decline` com `GestureDetector` e `RebicTooltip`, fora do foco e da semântica, como no UI5, para não aumentar a altura da moldura com o alvo de um botão). A
 borda é `brand` em hover ou foco, a do estado de valor quando há estado, senão `fieldBorder`. Com foco, a moldura fica
 num `RebicFocusRing` visível.
 
@@ -28,7 +28,9 @@ num `RebicFocusRing` visível.
 | estado de valor | `stateColors.background` | `stateColors.border` (`brand` com foco) |
 | somente leitura | `headerBackground` | `fieldBorder` |
 
-### D3. Semântica
+### D3. Semântica e alvo
 
-Um `Semantics(textField: true, label: semanticLabel ?? placeholder, hint: valueStateText, readOnly: !editable)`
-envolve o `EditableText`, que fornece o valor; o espaço reservado fica em `ExcludeSemantics`.
+Um `MergeSemantics` com `Semantics(textField: true, label: semanticLabel ?? placeholder, hint: valueStateText,
+readOnly: !editable)` envolve tudo, num só nó com o valor do `EditableText`. Esse nó fica num `ConstrainedBox` com a
+altura mínima `density.minTargetSize`, com a moldura de `controlHeight` centrada, como o alvo do `RebicButton`. O
+espaço reservado e o ícone de limpar ficam em `ExcludeSemantics`.
