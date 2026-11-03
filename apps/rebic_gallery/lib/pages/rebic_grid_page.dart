@@ -25,9 +25,9 @@ class RebicGridPage extends StatelessWidget {
       children: [
         RebicSpacing.padding(
           all: RebicSpace.pageMargin,
-          child: RebicColumn(
+          child: RebicVBox(
             gap: RebicSpace.l,
-            children: [
+            items: [
               GestureDetector(
                 onTap: () => Navigator.of(context).maybePop(),
                 child: Semantics(
@@ -89,9 +89,9 @@ class _Card extends StatelessWidget {
       radius: RebicRadius.tile,
       shadow: RebicShadow.card,
       padding: RebicSpace.l,
-      child: RebicColumn(
+      child: RebicVBox(
         gap: RebicSpace.xs,
-        children: [
+        items: [
           RebicTitle(
             label,
             level: RebicTitleLevel.h3,

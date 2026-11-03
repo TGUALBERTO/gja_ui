@@ -48,9 +48,9 @@ class _RebicCardPageState extends State<RebicCardPage> {
       content: [
         const RebicText('Cartões no modelo do sap.f.Card'),
         const RebicSpacing.vertical(RebicSpace.l),
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             if (_opened) const RebicText(RebicCardPage.opened),
             RebicGrid(
               children: [
@@ -62,9 +62,9 @@ class _RebicCardPageState extends State<RebicCardPage> {
                     onPress: () => setState(() => _opened = true),
                   ),
                   content: padded(
-                    const RebicColumn(
+                    const RebicVBox(
                       gap: RebicSpace.s,
-                      children: [
+                      items: [
                         RebicStatusIndicator(
                           icon: RebicIcons.warning,
                           text: '2 atrasados',
@@ -111,9 +111,9 @@ class _RebicCardPageState extends State<RebicCardPage> {
                       onPressed: () {},
                     ),
                   ),
-                  content: RebicColumn(
+                  content: RebicVBox(
                     gap: RebicSpace.none,
-                    children: [
+                    items: [
                       for (final (i, nota) in const [
                         'NF 1021 — R\$ 1.250,00',
                         'NF 1022 — R\$ 980,00',

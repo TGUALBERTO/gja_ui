@@ -31,18 +31,18 @@ class RebicProgressIndicatorPage extends StatelessWidget {
       content: [
         const RebicText('Barra e círculo, determinados ou indeterminados'),
         const RebicSpacing.vertical(RebicSpace.l),
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicTitle(
               'Barras por estado',
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
             for (final (i, state) in RebicValueState.values.indexed)
-              RebicColumn(
+              RebicVBox(
                 gap: RebicSpace.xs,
-                children: [
+                items: [
                   RebicText('${state.name} — ${(i + 1) * 15}%'),
                   RebicProgressIndicator.linear(
                     value: (i + 1) * 0.15,
@@ -63,9 +63,9 @@ class RebicProgressIndicatorPage extends StatelessWidget {
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            RebicRow(
+            RebicHBox(
               gap: RebicSpace.l,
-              children: [
+              items: [
                 for (final size in circleSizes)
                   RebicProgressIndicator.circular(size: size),
               ],

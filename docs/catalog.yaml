@@ -307,8 +307,8 @@ items:
       - rebic/foundation/density
       - rebic/foundation/theming
       - rebic/widgets/rebic-spacing
-  - id: rebic/widgets/rebic-row
-    name: "RebicRow"
+  - id: rebic/widgets/rebic-hbox
+    name: "RebicHBox"
     kind: widget
     category: fundacao-layout
     priority: P0
@@ -319,14 +319,15 @@ items:
       - rebic/foundation/spacing
       - rebic/foundation/density
       - rebic/foundation/theming
-  - id: rebic/widgets/rebic-column
-    name: "RebicColumn"
+  - id: rebic/widgets/rebic-vbox
+    name: "RebicVBox"
     kind: widget
     category: fundacao-layout
     priority: P0
     phase: 1
     status: implemented
     depends_on:
+      - rebic/widgets/rebic-hbox
       - rebic/widgets/rebic-spacing
       - rebic/foundation/spacing
       - rebic/foundation/density

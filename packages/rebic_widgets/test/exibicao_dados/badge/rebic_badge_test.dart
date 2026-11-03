@@ -346,11 +346,11 @@ void main() {
           child: Overlay(
             initialEntries: [
               OverlayEntry(
-                builder: (_) => RebicColumn(
+                builder: (_) => RebicVBox(
                   gap: RebicSpace.xxl,
-                  children: [
-                    RebicRow(
-                      children: [
+                  items: [
+                    RebicHBox(
+                      items: [
                         for (final state in RebicValueState.values) ...[
                           RebicBadge(count: 7, state: state),
                           RebicBadge(count: 128, state: state),
@@ -358,9 +358,9 @@ void main() {
                         const RebicBadge(count: 1500),
                       ],
                     ),
-                    RebicRow(
+                    RebicHBox(
                       gap: RebicSpace.xxl,
-                      children: [
+                      items: [
                         for (final (icon, count) in [
                           (RebicIcons.bell, 3),
                           (RebicIcons.document, 42),

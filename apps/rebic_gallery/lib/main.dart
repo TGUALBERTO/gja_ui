@@ -29,7 +29,7 @@ import 'pages/rebic_responsive_layout_page.dart';
 import 'pages/rebic_page_page.dart';
 import 'pages/rebic_popover_page.dart';
 import 'pages/rebic_progress_indicator_page.dart';
-import 'pages/rebic_row_column_page.dart';
+import 'pages/rebic_hbox_vbox_page.dart';
 import 'pages/rebic_separator_page.dart';
 import 'pages/rebic_shell_bar_page.dart';
 import 'pages/rebic_status_indicator_page.dart';
@@ -187,9 +187,9 @@ final galleryPages = <GalleryPage>[
     builder: (_) => const RebicContainerPage(),
   ),
   GalleryPage(
-    title: RebicRowColumnPage.title,
-    route: RebicRowColumnPage.route,
-    builder: (_) => const RebicRowColumnPage(),
+    title: RebicHBoxVBoxPage.title,
+    route: RebicHBoxVBoxPage.route,
+    builder: (_) => const RebicHBoxVBoxPage(),
   ),
   GalleryPage(
     title: RebicSeparatorPage.title,

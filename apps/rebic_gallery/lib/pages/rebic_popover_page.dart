@@ -48,22 +48,22 @@ class _RebicPopoverPageState extends State<RebicPopoverPage> {
       content: [
         const RebicText('Painéis ancorados no modelo do sap.m.Popover'),
         const RebicSpacing.vertical(RebicSpace.l),
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicText(
               'O popover fecha com um toque fora ou com Esc, e o foco volta à '
               'âncora.',
             ),
-            RebicRow(
+            RebicHBox(
               gap: RebicSpace.m,
-              children: [
+              items: [
                 RebicPopover(
                   controller: _filters,
                   title: 'Filtros',
-                  content: const RebicColumn(
+                  content: const RebicVBox(
                     gap: RebicSpace.s,
-                    children: [
+                    items: [
                       RebicText('Status: em aberto'),
                       RebicText('Período: últimos 30 dias'),
                       RebicText('Centro: 1000 — São Paulo'),

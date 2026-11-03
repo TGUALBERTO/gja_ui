@@ -36,16 +36,18 @@ class _RebicAvatarPageState extends State<RebicAvatarPage> {
       content: [
         const RebicText('Imagem, iniciais ou ícone, como o sap.m.Avatar'),
         const RebicSpacing.vertical(RebicSpace.l),
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicTitle(
               'Tamanhos',
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            RebicRow.wrap(
-              children: [
+            RebicHBox(
+              wrap: RebicFlexWrap.wrap,
+              alignItems: RebicFlexAlignItems.start,
+              items: [
                 for (final size in RebicAvatarSize.values)
                   RebicAvatar(initials: 'MB', size: size),
               ],
@@ -55,8 +57,10 @@ class _RebicAvatarPageState extends State<RebicAvatarPage> {
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            const RebicRow.wrap(
-              children: [
+            const RebicHBox(
+              wrap: RebicFlexWrap.wrap,
+              alignItems: RebicFlexAlignItems.start,
+              items: [
                 RebicAvatar(initials: 'JS', shape: RebicAvatarShape.square),
                 RebicAvatar(),
                 RebicAvatar(icon: RebicIcons.folderBlank),

@@ -33,16 +33,18 @@ class _RebicBadgePageState extends State<RebicBadgePage> {
       content: [
         const RebicText('Contadores avulsos e sobre elementos'),
         const RebicSpacing.vertical(RebicSpace.l),
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicTitle(
               'Por estado',
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            RebicRow.wrap(
-              children: [
+            RebicHBox(
+              wrap: RebicFlexWrap.wrap,
+              alignItems: RebicFlexAlignItems.start,
+              items: [
                 for (final state in RebicValueState.values)
                   RebicBadge(count: 12, state: state),
                 const RebicBadge(count: 1500),
@@ -53,9 +55,9 @@ class _RebicBadgePageState extends State<RebicBadgePage> {
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            RebicRow(
+            RebicHBox(
               gap: RebicSpace.xxl,
-              children: [
+              items: [
                 RebicBadge(
                   key: RebicBadgePage.bellKey,
                   count: _notifications,

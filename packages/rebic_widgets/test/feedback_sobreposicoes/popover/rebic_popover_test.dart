@@ -675,9 +675,9 @@ void main() {
                     RebicPopover(
                       controller: filters,
                       title: 'Filtros',
-                      content: const RebicColumn(
+                      content: const RebicVBox(
                         gap: RebicSpace.s,
-                        children: [
+                        items: [
                           RebicText('Status: em aberto'),
                           RebicText('Período: últimos 30 dias'),
                         ],

@@ -11,11 +11,11 @@ import 'package:rebic_foundation/rebic_foundation.dart';
 /// mesma da borda do `RebicContainer`.
 ///
 /// Como no UI5, não há espaço próprio em volta da linha: ele vem do
-/// contêiner, por exemplo o `gap` de um `RebicColumn` ou o espaço entre os
+/// contêiner, por exemplo o `gap` de um `RebicVBox` ou o espaço entre os
 /// itens de um `RebicBar`. É decorativo e fica fora da semântica.
 ///
 /// ```dart
-/// const RebicColumn(children: [
+/// const RebicVBox(items: [
 ///   RebicText('Itens'),
 ///   RebicSeparator(),
 ///   RebicText('Total'),

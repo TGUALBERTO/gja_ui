@@ -324,9 +324,9 @@ void main() {
           name: 'rebic_link_$name',
           theme: theme,
           size: const Size(480, 320),
-          child: RebicColumn(
+          child: RebicVBox(
             gap: RebicSpace.none,
-            children: [
+            items: [
               RebicLink(text: 'Ver pedido 4711', onPressed: () {}),
               RebicLink(text: 'Link sutil', subtle: true, onPressed: () {}),
               RebicLink(

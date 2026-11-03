@@ -47,9 +47,9 @@ class RebicToolPagePage extends StatelessWidget {
           children: const [
             RebicSpacing.padding(
               all: RebicSpace.pageMargin,
-              child: RebicColumn(
+              child: RebicVBox(
                 gap: RebicSpace.l,
-                children: [
+                items: [
                   RebicTitle(
                     title,
                     level: RebicTitleLevel.h1,
@@ -85,15 +85,15 @@ class _DemoNavigation extends StatelessWidget {
       surface: RebicSurface.base,
       child: RebicSpacing.padding(
         vertical: RebicSpace.s,
-        child: RebicColumn(
+        child: RebicVBox(
           gap: RebicSpace.none,
-          children: [
+          items: [
             for (final (icon, label) in _items)
               RebicSpacing.padding(
                 horizontal: RebicSpace.m,
                 vertical: RebicSpace.s,
-                child: RebicRow(
-                  children: [
+                child: RebicHBox(
+                  items: [
                     RebicIcon(icon, semanticLabel: expanded ? null : label),
                     if (expanded) RebicText(label),
                     // Largura da navegação expandida, como a da Fiori.

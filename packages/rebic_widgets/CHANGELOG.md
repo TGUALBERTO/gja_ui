@@ -2,6 +2,17 @@
 
 ## Não lançado
 
+- **BREAKING** HBox e VBox no modelo do SAPUI5 (`update-rebic-row-column-fiori-hbox-vbox`, specs
+  `rebic/widgets/rebic-hbox` e `rebic/widgets/rebic-vbox`, que substituem `rebic/widgets/rebic-row` e
+  `rebic/widgets/rebic-column`): `RebicRow` passa a `RebicHBox`, e `RebicColumn` a `RebicVBox`, como o `sap.m.HBox` e o
+  `sap.m.VBox`. De/para:
+  - `children` → `items`; `mainAlignment` → `justifyContent`; `crossAlignment` → `alignItems`; `shrinkWrap` →
+    `displayInline`;
+  - `RebicRow.wrap(...)` → `RebicHBox(wrap: RebicFlexWrap.wrap, alignItems: RebicFlexAlignItems.start, ...)`;
+  - `RebicMainAlignment` → `RebicFlexJustifyContent`, com o novo `spaceAround`; `RebicCrossAlignment` →
+    `RebicFlexAlignItems`, com o novo `baseline` (no `RebicVBox`, vale como `start`); novo `RebicFlexWrap`.
+
+  Os padrões de `gap` e `alignItems` não mudam. Com `wrap`, `alignItems` `stretch` e `baseline` disparam uma asserção.
 - **BREAKING** Separador no modelo do SAPUI5 (`update-rebic-divider-fiori-separator`, spec
   `rebic/widgets/rebic-separator`, que substitui `rebic/widgets/rebic-divider`): `RebicDivider` passa a
   `RebicSeparator`, como o `sap.m.ToolbarSeparator`. De/para:

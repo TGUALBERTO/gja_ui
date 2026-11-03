@@ -35,7 +35,7 @@ Rect _rect(WidgetTester tester, String key) =>
     tester.getRect(find.byKey(Key(key)));
 
 void main() {
-  testWidgets('[API] Propriedades — Coluna mínima', (tester) async {
+  testWidgets('[API] Propriedades — Caixa vertical mínima', (tester) async {
     await tester.pumpWidget(
       RebicApp(
         density: RebicDensity.cozy,
@@ -45,7 +45,7 @@ void main() {
             key: const Key('box'),
             width: 200,
             height: 200,
-            child: RebicColumn(children: [_sq('a'), _sq('b')]),
+            child: RebicVBox(items: [_sq('a'), _sq('b')]),
           ),
         ),
       ),
@@ -56,18 +56,18 @@ void main() {
     expect(a.topLeft, box.topLeft);
   });
 
-  testWidgets('[API] Callbacks e controlador — Coluna sem ação', (
+  testWidgets('[API] Callbacks e controlador — Caixa vertical sem ação', (
     tester,
   ) async {
     await tester.pumpWidget(
-      _themed(RebicColumn(gap: RebicSpace.xl, children: [_sq('a'), _sq('b')])),
+      _themed(RebicVBox(gap: RebicSpace.xl, items: [_sq('a'), _sq('b')])),
     );
     await tester.tapAt(Offset(10, _rect(tester, 'a').bottom + 2));
     await tester.pump();
     expect(tester.takeException(), isNull);
     expect(
       find.descendant(
-        of: find.byType(RebicColumn),
+        of: find.byType(RebicVBox),
         matching: find.byType(GestureDetector),
       ),
       findsNothing,
@@ -75,15 +75,15 @@ void main() {
   });
 
   testWidgets(
-    '[Comportamento] Espaço entre filhos — Espaço só entre filhos da coluna',
+    '[Comportamento] Espaço entre itens — Espaço só entre itens da caixa vertical',
     (tester) async {
       await tester.pumpWidget(
         _themed(
-          RebicColumn(
+          RebicVBox(
             key: const Key('col'),
             gap: RebicSpace.l,
-            shrinkWrap: true,
-            children: [_sq('a'), _sq('b'), _sq('c')],
+            displayInline: true,
+            items: [_sq('a'), _sq('b'), _sq('c')],
           ),
         ),
       );
@@ -96,14 +96,14 @@ void main() {
 
   group('[Comportamento] Alinhamento', () {
     testWidgets(
-      '[Comportamento] Alinhamento — Alinhamento principal da coluna',
+      '[Comportamento] Alinhamento — Alinhamento principal da caixa vertical',
       (tester) async {
         await tester.pumpWidget(
           _themed(
-            RebicColumn(
+            RebicVBox(
               key: const Key('col'),
-              mainAlignment: RebicMainAlignment.spaceBetween,
-              children: [_sq('a'), _sq('b')],
+              justifyContent: RebicFlexJustifyContent.spaceBetween,
+              items: [_sq('a'), _sq('b')],
             ),
             height: 200,
           ),
@@ -114,31 +114,50 @@ void main() {
       },
     );
 
-    testWidgets('[Comportamento] Alinhamento — Alinhamento cruzado da coluna', (
-      tester,
-    ) async {
-      await tester.pumpWidget(
-        _themed(
-          const RebicColumn(
-            crossAlignment: RebicCrossAlignment.stretch,
-            children: [SizedBox(key: Key('a'), height: 20)],
+    testWidgets(
+      '[Comportamento] Alinhamento — Alinhamento cruzado da caixa vertical',
+      (tester) async {
+        await tester.pumpWidget(
+          _themed(
+            const RebicVBox(
+              alignItems: RebicFlexAlignItems.stretch,
+              items: [SizedBox(key: Key('a'), height: 20)],
+            ),
+            width: 200,
+            height: 100,
           ),
-          width: 200,
-          height: 100,
-        ),
-      );
-      expect(_rect(tester, 'a').width, 200);
-    });
+        );
+        expect(_rect(tester, 'a').width, 200);
+      },
+    );
+
+    testWidgets(
+      '[Comportamento] Alinhamento — Linha de base na caixa vertical',
+      (tester) async {
+        await tester.pumpWidget(
+          _themed(
+            const RebicVBox(
+              key: Key('column'),
+              alignItems: RebicFlexAlignItems.baseline,
+              items: [SizedBox(key: Key('a'), width: 20, height: 20)],
+            ),
+            width: 200,
+            height: 100,
+          ),
+        );
+        expect(_rect(tester, 'a').left, _rect(tester, 'column').left);
+      },
+    );
   });
 
   testWidgets(
-    '[Comportamento] Filhos expansíveis — Filho expandido na coluna',
+    '[Comportamento] Itens expansíveis — Item expandido na caixa vertical',
     (tester) async {
       await tester.pumpWidget(
         _themed(
-          RebicColumn(
+          RebicVBox(
             gap: RebicSpace.m,
-            children: [
+            items: [
               _sq('a'),
               const Expanded(child: SizedBox(key: Key('e'), width: 20)),
             ],
@@ -151,10 +170,10 @@ void main() {
   );
 
   testWidgets(
-    '[Aparência] Tokens de componente — Troca de densidade da coluna',
+    '[Aparência] Tokens de componente — Troca de tema da caixa vertical',
     (tester) async {
       Widget app(RebicDensity density) => _themed(
-        RebicColumn(gap: RebicSpace.l, children: [_sq('a'), _sq('b')]),
+        RebicVBox(gap: RebicSpace.l, items: [_sq('a'), _sq('b')]),
         theme: RebicThemeData.light(density: density),
       );
       double gap() => _rect(tester, 'b').top - _rect(tester, 'a').bottom;
@@ -170,7 +189,7 @@ void main() {
       );
       await tester.pumpWidget(
         _themed(
-          RebicColumn(gap: RebicSpace.l, children: [_sq('a'), _sq('b')]),
+          RebicVBox(gap: RebicSpace.l, items: [_sq('a'), _sq('b')]),
           theme: other,
         ),
       );
@@ -178,7 +197,7 @@ void main() {
       expect(gap(), 24);
       expect(
         find.descendant(
-          of: find.byType(RebicColumn),
+          of: find.byType(RebicVBox),
           matching: find.byType(CustomPaint),
         ),
         findsNothing,
@@ -195,8 +214,8 @@ void main() {
     });
     await tester.pumpWidget(
       RebicApp(
-        home: RebicColumn(
-          children: [
+        home: RebicVBox(
+          items: [
             for (final node in nodes)
               Focus(
                 focusNode: node,
@@ -211,30 +230,32 @@ void main() {
     return nodes;
   }
 
-  testWidgets('[Estados] Sem estados visuais — Coluna não recebe foco', (
-    tester,
-  ) async {
-    final nodes = await pumpFocusables(tester, 2);
-    await tester.sendKeyEvent(LogicalKeyboardKey.tab);
-    await tester.pump();
-    expect(nodes[1].hasPrimaryFocus, isTrue);
-  });
-
-  testWidgets('[Acessibilidade] Teclado e foco — Ordem de foco na coluna', (
-    tester,
-  ) async {
-    final nodes = await pumpFocusables(tester, 3);
-    final visited = <int>[];
-    for (var i = 0; i < 2; i++) {
+  testWidgets(
+    '[Estados] Sem estados visuais — Caixa vertical não recebe foco',
+    (tester) async {
+      final nodes = await pumpFocusables(tester, 2);
       await tester.sendKeyEvent(LogicalKeyboardKey.tab);
       await tester.pump();
-      visited.add(nodes.indexWhere((n) => n.hasPrimaryFocus));
-    }
-    expect(visited, [1, 2]);
-  });
+      expect(nodes[1].hasPrimaryFocus, isTrue);
+    },
+  );
 
   testWidgets(
-    '[Acessibilidade] Semântica e escala — Semântica da coluna inalterada',
+    '[Acessibilidade] Teclado e foco — Ordem de foco na caixa vertical',
+    (tester) async {
+      final nodes = await pumpFocusables(tester, 3);
+      final visited = <int>[];
+      for (var i = 0; i < 2; i++) {
+        await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+        await tester.pump();
+        visited.add(nodes.indexWhere((n) => n.hasPrimaryFocus));
+      }
+      expect(visited, [1, 2]);
+    },
+  );
+
+  testWidgets(
+    '[Acessibilidade] Semântica e escala — Semântica da caixa vertical inalterada',
     (tester) async {
       final handle = tester.ensureSemantics();
       List<String> labels() => [
@@ -249,9 +270,7 @@ void main() {
       final native = labels();
       await tester.pumpWidget(
         _themed(
-          const RebicColumn(
-            children: [RebicText('Pedido'), RebicText('Aberto')],
-          ),
+          const RebicVBox(items: [RebicText('Pedido'), RebicText('Aberto')]),
         ),
       );
       expect(labels(), native);
@@ -260,39 +279,40 @@ void main() {
   );
 
   group('[Responsividade] Direção e densidade', () {
-    testWidgets('[Responsividade] Direção e densidade — Coluna em RTL', (
-      tester,
-    ) async {
-      await tester.pumpWidget(
-        _themed(
-          RebicColumn(key: const Key('col'), children: [_sq('a')]),
-          direction: TextDirection.rtl,
-          width: 200,
-          height: 100,
-        ),
-      );
-      expect(_rect(tester, 'a').right, _rect(tester, 'col').right);
-    });
+    testWidgets(
+      '[Responsividade] Direção e densidade — Caixa vertical em RTL',
+      (tester) async {
+        await tester.pumpWidget(
+          _themed(
+            RebicVBox(key: const Key('col'), items: [_sq('a')]),
+            direction: TextDirection.rtl,
+            width: 200,
+            height: 100,
+          ),
+        );
+        expect(_rect(tester, 'a').right, _rect(tester, 'col').right);
+      },
+    );
 
     testWidgets(
-      '[Responsividade] Direção e densidade — Densidade compacta na coluna',
+      '[Responsividade] Direção e densidade — Densidade compacta na caixa vertical',
       (tester) async {
         await tester.pumpWidget(
           _themed(
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RebicColumn(
+                RebicVBox(
                   gap: RebicSpace.l,
-                  shrinkWrap: true,
-                  children: [_sq('a'), _sq('b')],
+                  displayInline: true,
+                  items: [_sq('a'), _sq('b')],
                 ),
                 RebicTheme.density(
                   density: RebicDensity.compact,
-                  child: RebicColumn(
+                  child: RebicVBox(
                     gap: RebicSpace.l,
-                    shrinkWrap: true,
-                    children: [_sq('c'), _sq('d')],
+                    displayInline: true,
+                    items: [_sq('c'), _sq('d')],
                   ),
                 ),
               ],
@@ -306,33 +326,31 @@ void main() {
     );
   });
 
-  testWidgets('[Integração] Dependências — Coluna sem Material', (
+  testWidgets('[Integração] Dependências — Caixa vertical sem Material', (
     tester,
   ) async {
     await tester.pumpWidget(
-      const RebicApp(
-        home: RebicColumn(children: [RebicText('a'), RebicText('b')]),
-      ),
+      const RebicApp(home: RebicVBox(items: [RebicText('a'), RebicText('b')])),
     );
-    expect(find.byType(RebicColumn), findsOneWidget);
+    expect(find.byType(RebicVBox), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 
-  test('[Testes] Cobertura exigida — Rastreabilidade da coluna', () {
+  test('[Testes] Cobertura exigida — Rastreabilidade da caixa vertical', () {
     final names = scenarioNames(
-      'rebic/widgets/rebic-column',
-      'add-rebic-row-column',
+      'rebic/widgets/rebic-vbox',
+      'update-rebic-row-column-fiori-hbox-vbox',
     );
-    expect(names, hasLength(16));
+    expect(names, hasLength(17));
     expect(untestedScenarios(names), isEmpty);
   });
 
-  test('[Restrições] Fora do escopo — Coluna sem valor literal', () {
+  test('[Restrições] Fora do escopo — Caixa vertical sem valor literal', () {
     final source = File(
-      'lib/src/fundacao_layout/column/rebic_column.dart',
+      'lib/src/fundacao_layout/vbox/rebic_vbox.dart',
     ).readAsStringSync();
     final ctor = RegExp(
-      r'const RebicColumn\((.*?)\}\);',
+      r'const RebicVBox\((.*?)\}\);',
       dotAll: true,
     ).firstMatch(source)!.group(1)!;
     expect(ctor, isNot(contains('double')));

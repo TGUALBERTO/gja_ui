@@ -1,37 +1,41 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
 
-/// Página "RebicRow e RebicColumn": alinhamentos, filho expandido e quebra.
+/// Página "RebicHBox e RebicVBox": alinhamentos, linha de base, item
+/// expandido e quebra.
 ///
 /// Os blocos são `RebicContainer` com superfície `base` e borda; as áreas de
 /// demonstração usam `header`, para que o espaço livre fique visível. As
 /// dimensões das áreas são literais da galeria.
-class RebicRowColumnPage extends StatelessWidget {
+class RebicHBoxVBoxPage extends StatelessWidget {
   /// Cria a página.
-  const RebicRowColumnPage({super.key});
+  const RebicHBoxVBoxPage({super.key});
 
   /// Título no índice e no cabeçalho.
-  static const title = 'RebicRow e RebicColumn';
+  static const title = 'RebicHBox e RebicVBox';
 
   /// Rota nomeada.
-  static const route = '/rebic-row-column';
+  static const route = '/rebic-hbox-vbox';
 
-  /// Chave da linha com o alinhamento principal [alignment].
-  static Key rowKey(RebicMainAlignment alignment) =>
+  /// Chave da caixa horizontal com o alinhamento principal [alignment].
+  static Key rowKey(RebicFlexJustifyContent alignment) =>
       ValueKey('row-${alignment.name}');
 
-  /// Chave da coluna com o alinhamento cruzado [alignment].
-  static Key columnKey(RebicCrossAlignment alignment) =>
+  /// Chave da caixa vertical com o alinhamento cruzado [alignment].
+  static Key columnKey(RebicFlexAlignItems alignment) =>
       ValueKey('column-${alignment.name}');
 
-  /// Chave do filho expandido da linha.
+  /// Chave do item expandido da caixa horizontal.
   static const rowExpandedKey = Key('row-expanded');
 
-  /// Chave do filho expandido da coluna.
+  /// Chave do item expandido da caixa vertical.
   static const columnExpandedKey = Key('column-expanded');
 
-  /// Chave da linha com quebra.
+  /// Chave da caixa horizontal com quebra.
   static const wrapKey = Key('row-wrap');
+
+  /// Chave da caixa horizontal alinhada pela linha de base.
+  static const baselineKey = Key('row-baseline');
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +43,9 @@ class RebicRowColumnPage extends StatelessWidget {
       children: [
         RebicSpacing.padding(
           all: RebicSpace.pageMargin,
-          child: RebicColumn(
+          child: RebicVBox(
             gap: RebicSpace.s,
-            children: [
+            items: [
               GestureDetector(
                 onTap: () => Navigator.of(context).maybePop(),
                 child: Semantics(
@@ -56,24 +60,35 @@ class RebicRowColumnPage extends StatelessWidget {
               ),
               const RebicSpacing.vertical(RebicSpace.l),
               const RebicTitle(
-                'RebicRow: alinhamento principal',
+                'RebicHBox: alinhamento principal',
                 level: RebicTitleLevel.h2,
                 titleStyle: RebicTitleLevel.h3,
               ),
-              for (final alignment in RebicMainAlignment.values) ...[
+              for (final alignment in RebicFlexJustifyContent.values) ...[
                 RebicLabel(alignment.name),
                 _Area(
-                  child: RebicRow(
+                  child: RebicHBox(
                     key: rowKey(alignment),
-                    mainAlignment: alignment,
-                    children: const [_Block(), _Block(), _Block()],
+                    justifyContent: alignment,
+                    items: const [_Block(), _Block(), _Block()],
                   ),
                 ),
               ],
+              const RebicLabel('baseline'),
+              const _Area(
+                child: RebicHBox(
+                  key: baselineKey,
+                  alignItems: RebicFlexAlignItems.baseline,
+                  items: [
+                    RebicTitle('Pedido 4711', titleStyle: RebicTitleLevel.h2),
+                    RebicText('Aguardando aprovação'),
+                  ],
+                ),
+              ),
               const RebicLabel('expandido'),
               const _Area(
-                child: RebicRow(
-                  children: [
+                child: RebicHBox(
+                  items: [
                     _Block(),
                     Expanded(child: _Block(key: rowExpandedKey)),
                   ],
@@ -83,50 +98,53 @@ class RebicRowColumnPage extends StatelessWidget {
               SizedBox(
                 width: 240,
                 child: _Area(
-                  child: RebicRow.wrap(
+                  child: RebicHBox(
+                    wrap: RebicFlexWrap.wrap,
+                    alignItems: RebicFlexAlignItems.start,
                     key: wrapKey,
-                    children: [for (var i = 0; i < 8; i++) const _Block()],
+                    items: [for (var i = 0; i < 8; i++) const _Block()],
                   ),
                 ),
               ),
               const RebicSpacing.vertical(RebicSpace.l),
               const RebicTitle(
-                'RebicColumn: alinhamento cruzado',
+                'RebicVBox: alinhamento cruzado',
                 level: RebicTitleLevel.h2,
                 titleStyle: RebicTitleLevel.h3,
               ),
-              RebicRow(
-                crossAlignment: RebicCrossAlignment.start,
-                children: [
-                  for (final alignment in RebicCrossAlignment.values)
-                    Expanded(
-                      child: RebicColumn(
-                        gap: RebicSpace.xs,
-                        children: [
-                          RebicLabel(alignment.name),
-                          SizedBox(
-                            height: 160,
-                            child: _Area(
-                              child: RebicColumn(
-                                key: columnKey(alignment),
-                                crossAlignment: alignment,
-                                children: const [_Block(), _Block()],
+              RebicHBox(
+                alignItems: RebicFlexAlignItems.start,
+                items: [
+                  for (final alignment in RebicFlexAlignItems.values)
+                    if (alignment != RebicFlexAlignItems.baseline)
+                      Expanded(
+                        child: RebicVBox(
+                          gap: RebicSpace.xs,
+                          items: [
+                            RebicLabel(alignment.name),
+                            SizedBox(
+                              height: 160,
+                              child: _Area(
+                                child: RebicVBox(
+                                  key: columnKey(alignment),
+                                  alignItems: alignment,
+                                  items: const [_Block(), _Block()],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
                   const Expanded(
-                    child: RebicColumn(
+                    child: RebicVBox(
                       gap: RebicSpace.xs,
-                      children: [
+                      items: [
                         RebicLabel('expandido'),
                         SizedBox(
                           height: 160,
                           child: _Area(
-                            child: RebicColumn(
-                              children: [
+                            child: RebicVBox(
+                              items: [
                                 _Block(),
                                 Expanded(child: _Block(key: columnExpandedKey)),
                               ],

@@ -36,9 +36,9 @@ class _RebicLinkPageState extends State<RebicLinkPage> {
       content: [
         const RebicText('Navegação secundária e referências a objetos'),
         const RebicSpacing.vertical(RebicSpace.l),
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicTitle(
               'Variantes',
               level: RebicTitleLevel.h2,

@@ -328,19 +328,19 @@ void main() {
           name: 'rebic_avatar_$name',
           theme: theme,
           size: const Size(560, 400),
-          child: RebicColumn(
+          child: RebicVBox(
             gap: RebicSpace.l,
-            children: [
+            items: [
               for (final shape in RebicAvatarShape.values)
-                RebicRow(
-                  crossAlignment: RebicCrossAlignment.end,
-                  children: [
+                RebicHBox(
+                  alignItems: RebicFlexAlignItems.end,
+                  items: [
                     for (final size in RebicAvatarSize.values)
                       RebicAvatar(initials: 'MB', size: size, shape: shape),
                   ],
                 ),
-              const RebicRow(
-                children: [
+              const RebicHBox(
+                items: [
                   RebicAvatar(),
                   RebicAvatar(icon: RebicIcons.folderBlank),
                   RebicAvatar(

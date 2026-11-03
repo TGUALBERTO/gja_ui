@@ -31,17 +31,17 @@ class RebicIconButtonPage extends StatelessWidget {
       content: [
         const RebicText('Ações só com ícone, sempre com dica'),
         const RebicSpacing.vertical(RebicSpace.l),
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicTitle(
               'Barra de ações',
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            RebicRow(
+            RebicHBox(
               gap: RebicSpace.xs,
-              children: [
+              items: [
                 for (final (icon, tooltip) in actions)
                   RebicIconButton(
                     icon: icon,
@@ -55,8 +55,10 @@ class RebicIconButtonPage extends StatelessWidget {
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            RebicRow.wrap(
-              children: [
+            RebicHBox(
+              wrap: RebicFlexWrap.wrap,
+              alignItems: RebicFlexAlignItems.start,
+              items: [
                 for (final type in RebicButtonType.values)
                   RebicIconButton(
                     icon: RebicIcons.accept,

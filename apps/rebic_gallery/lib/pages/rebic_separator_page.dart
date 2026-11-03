@@ -29,18 +29,18 @@ class RebicSeparatorPage extends StatelessWidget {
       content: [
         const RebicText('Separadores no modelo do sap.m.ToolbarSeparator'),
         const RebicSpacing.vertical(RebicSpace.l),
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicTitle(
               'Horizontal',
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            const RebicColumn(
+            const RebicVBox(
               key: listKey,
               gap: RebicSpace.s,
-              children: [
+              items: [
                 RebicText('Item 1'),
                 RebicSeparator(),
                 RebicText('Item 2'),

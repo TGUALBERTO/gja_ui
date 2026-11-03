@@ -45,18 +45,18 @@ class _RebicStatusIndicatorPageState extends State<RebicStatusIndicatorPage> {
       content: [
         const RebicText('Situação de registros, no modelo do ObjectStatus'),
         const RebicSpacing.vertical(RebicSpace.l),
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicTitle(
               'Por estado',
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
             for (final (state, icon, text) in _examples)
-              RebicRow(
+              RebicHBox(
                 gap: RebicSpace.l,
-                children: [
+                items: [
                   RebicStatusIndicator(icon: icon, text: text, state: state),
                   RebicStatusIndicator(
                     text: text,

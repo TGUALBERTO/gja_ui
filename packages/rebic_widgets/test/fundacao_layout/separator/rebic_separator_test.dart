@@ -39,12 +39,12 @@ Color _color(WidgetTester tester) =>
 
 /// Amostra dos goldens: lista com separadores horizontais e barra com
 /// separador vertical entre as ações.
-Widget _sample() => RebicColumn(
+Widget _sample() => RebicVBox(
   gap: RebicSpace.l,
-  children: [
-    const RebicColumn(
+  items: [
+    const RebicVBox(
       gap: RebicSpace.s,
-      children: [
+      items: [
         RebicText('Item 1'),
         RebicSeparator(),
         RebicText('Item 2'),
@@ -125,9 +125,9 @@ void main() {
           _themed(
             const SizedBox(
               height: 80,
-              child: RebicRow(
-                crossAlignment: RebicCrossAlignment.stretch,
-                children: [
+              child: RebicHBox(
+                alignItems: RebicFlexAlignItems.stretch,
+                items: [
                   RebicText('a'),
                   RebicSeparator.vertical(key: _s),
                   RebicText('b'),
@@ -255,8 +255,8 @@ void main() {
   ) async {
     await tester.pumpWidget(
       _themed(
-        const RebicRow(
-          children: [
+        const RebicHBox(
+          items: [
             RebicSeparator.vertical(key: Key('cozy')),
             RebicTheme.density(
               density: RebicDensity.compact,
@@ -288,7 +288,7 @@ void main() {
         home: Column(
           children: [
             RebicSeparator(),
-            RebicRow(children: [RebicSeparator.vertical()]),
+            RebicHBox(items: [RebicSeparator.vertical()]),
           ],
         ),
       ),

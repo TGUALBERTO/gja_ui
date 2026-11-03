@@ -34,17 +34,17 @@ class RebicTooltipPage extends StatelessWidget {
           'Passe o ponteiro, foque pelo teclado ou toque longamente',
         ),
         const RebicSpacing.vertical(RebicSpace.l),
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicTitle(
               'Ícones',
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            RebicRow(
+            RebicHBox(
               gap: RebicSpace.l,
-              children: [
+              items: [
                 for (final (i, (icon, message)) in examples.indexed)
                   RebicTooltip(
                     message: message,

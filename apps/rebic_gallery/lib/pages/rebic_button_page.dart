@@ -33,16 +33,18 @@ class _RebicButtonPageState extends State<RebicButtonPage> {
       content: [
         const RebicText('Tipos Fiori, ícone, desabilitado e ocupado'),
         const RebicSpacing.vertical(RebicSpace.l),
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicTitle(
               'Tipos',
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            RebicRow.wrap(
-              children: [
+            RebicHBox(
+              wrap: RebicFlexWrap.wrap,
+              alignItems: RebicFlexAlignItems.start,
+              items: [
                 for (final type in RebicButtonType.values)
                   RebicButton(label: type.name, type: type, onPressed: () {}),
               ],
@@ -52,8 +54,10 @@ class _RebicButtonPageState extends State<RebicButtonPage> {
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            RebicRow.wrap(
-              children: [
+            RebicHBox(
+              wrap: RebicFlexWrap.wrap,
+              alignItems: RebicFlexAlignItems.start,
+              items: [
                 RebicButton(
                   label: 'Salvar',
                   type: RebicButtonType.emphasized,
@@ -78,8 +82,10 @@ class _RebicButtonPageState extends State<RebicButtonPage> {
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            RebicRow.wrap(
-              children: [
+            RebicHBox(
+              wrap: RebicFlexWrap.wrap,
+              alignItems: RebicFlexAlignItems.start,
+              items: [
                 const RebicButton(label: 'Aprovar', onPressed: null),
                 RebicButton(
                   key: RebicButtonPage.sendKey,

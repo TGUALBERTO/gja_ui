@@ -21,8 +21,8 @@ enum RebicLayoutBasis {
 ///
 /// ```dart
 /// RebicResponsiveLayout(
-///   small: (context) => const RebicColumn(children: [campoA, campoB]),
-///   medium: (context) => const RebicRow(children: [
+///   small: (context) => const RebicVBox(items: [campoA, campoB]),
+///   medium: (context) => const RebicHBox(items: [
 ///     Expanded(child: campoA),
 ///     Expanded(child: campoB),
 ///   ]),

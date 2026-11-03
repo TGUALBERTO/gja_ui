@@ -49,15 +49,15 @@ class _RebicMenuPageState extends State<RebicMenuPage> {
       content: [
         const RebicText('Menus de ações no modelo do sap.m.Menu'),
         const RebicSpacing.vertical(RebicSpace.l),
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicText(
               'Os atalhos são só exibidos; seções começam com um divisor.',
             ),
-            RebicRow(
+            RebicHBox(
               gap: RebicSpace.m,
-              children: [
+              items: [
                 RebicMenu(
                   controller: _actions,
                   semanticLabel: RebicMenuPage.actions,

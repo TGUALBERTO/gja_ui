@@ -62,9 +62,9 @@ class RebicBarPage extends StatelessWidget {
       onNavButtonPress: () => Navigator.of(context).maybePop(),
       contentPadding: RebicContentPadding.responsive,
       content: [
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicTitle(
               'Desenhos',
               level: RebicTitleLevel.h2,

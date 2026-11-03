@@ -2,63 +2,86 @@ import 'package:flutter/widgets.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
 import '../spacing/rebic_spacing.dart';
-import 'rebic_flex_alignment.dart';
+import 'rebic_flex_enums.dart';
 
-// Montagem comum de `RebicRow` e `RebicColumn`. Não exportado: a API pública
-// são os dois widgets e os enums de alinhamento.
+// Montagem comum de `RebicHBox` e `RebicVBox`. Não exportado: a API pública
+// são os dois widgets e os enums do FlexBox.
 
-/// `Flex` com o espaço [gap] do tema só entre os filhos.
+MainAxisAlignment _main(RebicFlexJustifyContent value) => switch (value) {
+  RebicFlexJustifyContent.start => MainAxisAlignment.start,
+  RebicFlexJustifyContent.center => MainAxisAlignment.center,
+  RebicFlexJustifyContent.end => MainAxisAlignment.end,
+  RebicFlexJustifyContent.spaceBetween => MainAxisAlignment.spaceBetween,
+  RebicFlexJustifyContent.spaceAround => MainAxisAlignment.spaceAround,
+};
+
+/// `Flex` com o espaço [gap] do tema só entre os itens.
 Widget buildRebicFlex(
   BuildContext context, {
   required Axis axis,
-  required List<Widget> children,
+  required List<Widget> items,
   required RebicSpace gap,
-  required RebicMainAlignment mainAlignment,
-  required RebicCrossAlignment crossAlignment,
-  required bool shrinkWrap,
+  required RebicFlexJustifyContent justifyContent,
+  required RebicFlexAlignItems alignItems,
+  required bool displayInline,
 }) {
   final spacing = RebicThemeData.of(context).spacing;
+  // Numa coluna, `baseline` cai em `start`, como `align-items: baseline` no
+  // CSS de uma coluna.
+  final baseline =
+      axis == Axis.horizontal && alignItems == RebicFlexAlignItems.baseline;
   return Flex(
     direction: axis,
     spacing: RebicSpacing.resolve(spacing, gap),
-    mainAxisAlignment: switch (mainAlignment) {
-      RebicMainAlignment.start => MainAxisAlignment.start,
-      RebicMainAlignment.center => MainAxisAlignment.center,
-      RebicMainAlignment.end => MainAxisAlignment.end,
-      RebicMainAlignment.spaceBetween => MainAxisAlignment.spaceBetween,
+    mainAxisAlignment: _main(justifyContent),
+    crossAxisAlignment: switch (alignItems) {
+      RebicFlexAlignItems.start => CrossAxisAlignment.start,
+      RebicFlexAlignItems.center => CrossAxisAlignment.center,
+      RebicFlexAlignItems.end => CrossAxisAlignment.end,
+      RebicFlexAlignItems.baseline =>
+        baseline ? CrossAxisAlignment.baseline : CrossAxisAlignment.start,
+      RebicFlexAlignItems.stretch => CrossAxisAlignment.stretch,
     },
-    crossAxisAlignment: switch (crossAlignment) {
-      RebicCrossAlignment.start => CrossAxisAlignment.start,
-      RebicCrossAlignment.center => CrossAxisAlignment.center,
-      RebicCrossAlignment.end => CrossAxisAlignment.end,
-      RebicCrossAlignment.stretch => CrossAxisAlignment.stretch,
-    },
-    mainAxisSize: shrinkWrap ? MainAxisSize.min : MainAxisSize.max,
-    children: children,
+    textBaseline: baseline ? TextBaseline.alphabetic : null,
+    mainAxisSize: displayInline ? MainAxisSize.min : MainAxisSize.max,
+    children: items,
   );
 }
 
-/// `Wrap` com o espaço [gap] do tema entre os filhos e entre as linhas.
+/// `Wrap` com o espaço [gap] do tema entre os itens e entre as linhas.
 Widget buildRebicWrap(
   BuildContext context, {
-  required List<Widget> children,
+  required List<Widget> items,
   required RebicSpace gap,
-  required RebicMainAlignment mainAlignment,
+  required RebicFlexJustifyContent justifyContent,
+  required RebicFlexAlignItems alignItems,
 }) {
   assert(
-    children.every((c) => c is! Flexible),
-    'RebicRow.wrap não aceita filhos Expanded ou Flexible',
+    items.every((c) => c is! Flexible),
+    'RebicHBox com wrap não aceita itens Expanded ou Flexible',
+  );
+  assert(
+    alignItems != RebicFlexAlignItems.stretch &&
+        alignItems != RebicFlexAlignItems.baseline,
+    'RebicHBox com wrap: alignItems stretch e baseline não se aplicam à '
+    'quebra',
   );
   final value = RebicSpacing.resolve(RebicThemeData.of(context).spacing, gap);
   return Wrap(
     spacing: value,
     runSpacing: value,
-    alignment: switch (mainAlignment) {
-      RebicMainAlignment.start => WrapAlignment.start,
-      RebicMainAlignment.center => WrapAlignment.center,
-      RebicMainAlignment.end => WrapAlignment.end,
-      RebicMainAlignment.spaceBetween => WrapAlignment.spaceBetween,
+    alignment: switch (justifyContent) {
+      RebicFlexJustifyContent.start => WrapAlignment.start,
+      RebicFlexJustifyContent.center => WrapAlignment.center,
+      RebicFlexJustifyContent.end => WrapAlignment.end,
+      RebicFlexJustifyContent.spaceBetween => WrapAlignment.spaceBetween,
+      RebicFlexJustifyContent.spaceAround => WrapAlignment.spaceAround,
     },
-    children: children,
+    crossAxisAlignment: switch (alignItems) {
+      RebicFlexAlignItems.center => WrapCrossAlignment.center,
+      RebicFlexAlignItems.end => WrapCrossAlignment.end,
+      _ => WrapCrossAlignment.start,
+    },
+    children: items,
   );
 }

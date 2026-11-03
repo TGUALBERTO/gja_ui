@@ -610,8 +610,8 @@ class _GoldenToolPage extends StatelessWidget {
         RebicSpacing.padding(
           horizontal: RebicSpace.m,
           vertical: RebicSpace.s,
-          child: RebicRow(
-            children: [
+          child: RebicHBox(
+            items: [
               RebicIcon(icon),
               if (RebicToolPage.sideExpandedOf(context)!) RebicText(label),
             ],
@@ -635,9 +635,9 @@ class _GoldenToolPage extends StatelessWidget {
           surface: RebicSurface.base,
           child: SizedBox(
             width: RebicToolPage.sideExpandedOf(context)! ? 240 : 48,
-            child: RebicColumn(
+            child: RebicVBox(
               gap: RebicSpace.none,
-              children: [
+              items: [
                 item(context, RebicIcons.home, 'Início'),
                 item(context, RebicIcons.document, 'Pedidos'),
                 item(context, RebicIcons.actionSettings, 'Configurações'),

@@ -430,12 +430,12 @@ void main() {
           size: const Size(480, 420),
           child: MediaQuery(
             data: const MediaQueryData(disableAnimations: true),
-            child: RebicColumn(
+            child: RebicVBox(
               gap: RebicSpace.s,
-              children: [
+              items: [
                 for (final type in RebicButtonType.values)
-                  RebicRow(
-                    children: [
+                  RebicHBox(
+                    items: [
                       RebicButton(
                         label: type.name,
                         type: type,
@@ -449,8 +449,8 @@ void main() {
                       ),
                     ],
                   ),
-                RebicRow(
-                  children: [
+                RebicHBox(
+                  items: [
                     const RebicButton(label: 'Desabilitado', onPressed: null),
                     RebicButton(
                       label: 'Enviando',

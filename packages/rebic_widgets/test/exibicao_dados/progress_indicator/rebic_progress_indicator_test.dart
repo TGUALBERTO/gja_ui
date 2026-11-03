@@ -369,13 +369,13 @@ void main() {
             data: const MediaQueryData(disableAnimations: true),
             child: SizedBox(
               width: 400,
-              child: RebicColumn(
-                children: [
+              child: RebicVBox(
+                items: [
                   for (final state in RebicValueState.values)
                     RebicProgressIndicator.linear(value: 0.45, state: state),
                   const RebicProgressIndicator.linear(),
-                  const RebicRow(
-                    children: [
+                  const RebicHBox(
+                    items: [
                       RebicProgressIndicator.circular(
                         value: 0.6,
                         size: RebicIconSize.small,

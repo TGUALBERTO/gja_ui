@@ -34,9 +34,9 @@ class RebicResponsiveLayoutPage extends StatelessWidget {
       children: [
         RebicSpacing.padding(
           all: RebicSpace.pageMargin,
-          child: RebicColumn(
+          child: RebicVBox(
             gap: RebicSpace.l,
-            children: [
+            items: [
               GestureDetector(
                 onTap: () => Navigator.of(context).maybePop(),
                 child: Semantics(
@@ -97,19 +97,16 @@ class _Form extends StatelessWidget {
       padding: RebicSpace.l,
       child: RebicResponsiveLayout(
         basis: basis,
-        small: (context) => const RebicColumn(
-          children: [
-            RebicLabel(RebicResponsiveLayoutPage.oneColumn),
-            ..._fields,
-          ],
+        small: (context) => const RebicVBox(
+          items: [RebicLabel(RebicResponsiveLayoutPage.oneColumn), ..._fields],
         ),
-        medium: (context) => RebicColumn(
-          children: [
+        medium: (context) => RebicVBox(
+          items: [
             const RebicLabel(RebicResponsiveLayoutPage.twoColumns),
             for (var i = 0; i < _fields.length; i += 2)
-              RebicRow(
+              RebicHBox(
                 gap: RebicSpace.l,
-                children: [
+                items: [
                   Expanded(child: _fields[i]),
                   Expanded(child: _fields[i + 1]),
                 ],
@@ -130,9 +127,9 @@ class _Field extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = RebicTheme.of(context).density.controlHeight;
-    return RebicColumn(
+    return RebicVBox(
       gap: RebicSpace.xs,
-      children: [
+      items: [
         RebicLabel(label),
         RebicContainer(
           border: true,

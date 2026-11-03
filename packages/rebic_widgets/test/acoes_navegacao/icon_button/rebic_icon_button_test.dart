@@ -453,8 +453,8 @@ void main() {
           child: Overlay(
             initialEntries: [
               OverlayEntry(
-                builder: (_) => RebicRow(
-                  children: [
+                builder: (_) => RebicHBox(
+                  items: [
                     for (final type in RebicButtonType.values)
                       RebicIconButton(
                         icon: RebicIcons.edit,

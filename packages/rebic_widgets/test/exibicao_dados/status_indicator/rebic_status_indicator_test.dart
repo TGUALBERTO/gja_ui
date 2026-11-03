@@ -386,12 +386,12 @@ void main() {
           name: 'rebic_status_indicator_$name',
           theme: theme,
           size: const Size(480, 320),
-          child: RebicColumn(
-            children: [
+          child: RebicVBox(
+            items: [
               for (final state in RebicValueState.values)
-                RebicRow(
+                RebicHBox(
                   gap: RebicSpace.l,
-                  children: [
+                  items: [
                     RebicStatusIndicator(
                       icon: icons[state],
                       text: state.name,

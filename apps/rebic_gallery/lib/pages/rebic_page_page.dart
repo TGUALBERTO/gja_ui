@@ -60,9 +60,9 @@ class _RebicPagePageState extends State<RebicPagePage> {
         ],
       ),
       content: [
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicTitle(
               'Quando usar',
               level: RebicTitleLevel.h2,
@@ -78,8 +78,10 @@ class _RebicPagePageState extends State<RebicPagePage> {
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            RebicRow.wrap(
-              children: [
+            RebicHBox(
+              wrap: RebicFlexWrap.wrap,
+              alignItems: RebicFlexAlignItems.start,
+              items: [
                 for (final design in RebicPageBackgroundDesign.values)
                   RebicButton(
                     key: RebicPagePage.designKey(design),

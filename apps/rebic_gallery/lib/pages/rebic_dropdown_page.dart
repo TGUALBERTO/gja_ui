@@ -85,16 +85,16 @@ class _RebicDropdownPageState extends State<RebicDropdownPage> {
       content: [
         const RebicText('Listas ancoradas no modelo do sap.m.Select'),
         const RebicSpacing.vertical(RebicSpace.l),
-        RebicColumn(
+        RebicVBox(
           gap: RebicSpace.l,
-          children: [
+          items: [
             const RebicText(
               'Setas, Home, End e a primeira letra navegam pelos itens; Enter '
               'escolhe e Esc fecha.',
             ),
-            RebicRow(
+            RebicHBox(
               gap: RebicSpace.m,
-              children: [
+              items: [
                 RebicDropdown<String>(
                   controller: _status,
                   semanticLabel: 'Status',
