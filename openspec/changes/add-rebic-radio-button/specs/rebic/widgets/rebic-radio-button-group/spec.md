@@ -24,11 +24,11 @@
 - **THEN** as opções ficam empilhadas, e só "Pix" está marcada
 
 ### Requirement: [API] Opções válidas
-O grupo SHALL definir `selected`, `onSelect` e o nó de foco de cada opção; `selectedIndex` `-1` não marca nenhuma. `buttons` MUST NOT ser vazia, e `columns` MUST ser ao menos 1, ou a criação MUST falhar em modo debug.
+O grupo SHALL definir `selected`, `onSelect` e o nó de foco de cada opção; `selectedIndex` `-1` não marca nenhuma. `columns` MUST ser ao menos 1, ou a criação MUST falhar em modo debug; `buttons` MUST NOT ser vazia, ou a renderização MUST falhar em modo debug.
 
 #### Scenario: Grupo sem opções
-- **WHEN** um grupo é criado com `buttons` vazia, e outro com `columns` `0`
-- **THEN** as duas criações falham em modo debug
+- **WHEN** um grupo é renderizado com `buttons` vazia, e outro é criado com `columns` `0`
+- **THEN** a renderização do primeiro e a criação do segundo falham em modo debug
 
 ### Requirement: [API] Callbacks e controlador
 Escolher uma opção desmarcada e habilitada SHALL chamar `onSelect` com o índice dela. O grupo MUST NOT mudar sozinho. Com `enabled` ou `editable` `false` no grupo, todas as opções MUST seguir esse valor. `RebicRadioButtonGroup` SHALL NOT ter controlador.

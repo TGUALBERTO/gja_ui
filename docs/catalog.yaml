@@ -664,16 +664,24 @@ items:
       - rebic/foundation/interaction-states
       - rebic/foundation/theming
       - rebic/foundation/accessibility
-  - id: rebic/widgets/rebic-radio-group
-    name: "RebicRadioGroup"
+  - id: rebic/widgets/rebic-radio-button
+    name: "RebicRadioButton"
     kind: widget
     category: formularios
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
       - rebic/core/interaction
-      - rebic/widgets/rebic-form-field
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/iconography
+      - rebic/foundation/spacing
+      - rebic/foundation/radius
+      - rebic/foundation/density
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-switch
     name: "RebicSwitch"
     kind: widget
@@ -765,6 +773,18 @@ items:
       - rebic/widgets/rebic-button
       - rebic/widgets/rebic-progress-indicator
       - rebic/widgets/rebic-list
+  - id: rebic/widgets/rebic-radio-button-group
+    name: "RebicRadioButtonGroup"
+    kind: widget
+    category: formularios
+    priority: P1
+    phase: 2
+    status: implemented
+    depends_on:
+      - rebic/widgets/rebic-radio-button
+      - rebic/core/interaction
+      - rebic/foundation/color
+      - rebic/foundation/theming
   - id: rebic/widgets/rebic-progress-indicator
     name: "RebicProgressIndicator"
     kind: widget

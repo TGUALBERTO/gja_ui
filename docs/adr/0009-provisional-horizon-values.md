@@ -53,6 +53,7 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Caixa de seleção | Somente leitura: fundo, borda e marca | `colors.background`, `colors.separator`, `colors.label` | `sapField_ReadOnly_Background`, `sapField_ReadOnly_BorderColor`, `sapContent_NonInteractiveIconColor` | `add-rebic-check-box` |
 | Caixa de seleção | Lado e marca parcial | `icons.control + spacing.xxs` (18); quadrado recuado `spacing.xs` | 1,125rem em `CheckBox.less`; recuo de 0,1875rem | `add-rebic-check-box` |
 | Chave | Trilho, alça e hover | trilho `2 × icons.medium` × `icons.medium`, alça `icons.control`; hover `label` (desligada) e `brandHover` (ligada) | `Switch.less`; `sapButton_Track_Hover_Background`, `sapButton_Track_Selected_Hover_Background` | `add-rebic-switch` |
+| Opção de rádio | Lado do círculo e do ponto | círculo `icons.control + spacing.xxs` (18) nas duas densidades; ponto `spacing.s` | 1,375rem (cozy) e 1rem (compacto) em `RadioButton.less` | `add-rebic-radio-button` |
 
 ## Alternativas consideradas
 

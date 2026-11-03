@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Novos `RebicRadioButton` e `RebicRadioButtonGroup` (`add-rebic-radio-button`), como o `sap.m.RadioButton` e o
+  `sap.m.RadioButtonGroup`: opção controlada (`selected` + `onSelect`) e grupo com `selectedIndex`, `onSelect(índice)`,
+  `columns`, setas e Tab pela opção marcada.
 - Novo `RebicSwitch` (`add-rebic-switch`, spec `rebic/widgets/rebic-switch`), como o `sap.m.Switch`: controlado
   (`state` + `onChange`), com `semanticLabel` e `enabled`.
 - Novo `RebicCheckBox` (`add-rebic-check-box`, spec `rebic/widgets/rebic-check-box`), como o `sap.m.CheckBox`:
