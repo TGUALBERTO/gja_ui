@@ -483,6 +483,24 @@ items:
       - rebic/foundation/shadows
       - rebic/foundation/theming
       - rebic/foundation/accessibility
+  - id: rebic/widgets/rebic-panel
+    name: "RebicPanel"
+    kind: widget
+    category: fundacao-layout
+    priority: P1
+    phase: 2
+    status: implemented
+    depends_on:
+      - rebic/core/interaction
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/iconography
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/design-tokens
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-button
     name: "RebicButton"
     kind: widget

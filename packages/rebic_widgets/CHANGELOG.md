@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Novo `RebicPanel` (`add-rebic-panel`, spec `rebic/widgets/rebic-panel`), como o `sap.m.Panel`: `headerText`,
+  `content`, `expandable`, `expanded`, `onExpand` e `backgroundDesign`; painéis expansíveis empilhados formam o acordeão.
 - Novo `RebicSideNavigation<T>` (`add-rebic-side-navigation`, spec `rebic/widgets/rebic-side-navigation`), como o
   `sap.tnt.SideNavigation`: `items` e `fixedItems` (`RebicNavigationListItem`, com subitens), `selectedKey`,
   `onItemSelect`, `expanded` e `semanticLabel`.
