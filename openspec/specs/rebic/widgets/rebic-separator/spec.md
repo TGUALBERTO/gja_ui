@@ -31,7 +31,7 @@
 - **THEN** o separador tem a largura da linha fina e a altura `density.separatorHeight`, menor que `density.barHeight`, e fica centrado na altura da barra
 
 #### Scenario: Separador vertical numa linha esticada
-- **GIVEN** um `RebicRow` de 80 de altura com `crossAlignment` `stretch` e `RebicSeparator.vertical()` entre dois textos
+- **GIVEN** um `RebicHBox` de 80 de altura com `alignItems` `stretch` e `RebicSeparator.vertical()` entre dois textos
 - **WHEN** a linha é renderizada
 - **THEN** o separador continua com a altura `density.separatorHeight`
 
