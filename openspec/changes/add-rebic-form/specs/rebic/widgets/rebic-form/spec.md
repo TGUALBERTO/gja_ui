@@ -50,7 +50,7 @@ O formulário SHALL classificar a própria largura com `breakpoints.classify` e 
 - **THEN** cada rótulo fica acima do seu campo
 
 ### Requirement: [Aparência] Tokens de componente
-Ao lado, o rótulo SHALL ocupar `labelCellsLarge` partes de 12 da coluna, centrado numa altura mínima `density.controlHeight`, com `spacing.s` antes dos campos; acima, `spacing.xs`. Vários campos SHALL dividir a largura, com `spacing.s` entre eles; entre elementos, `spacing.s`; entre colunas e linhas de contêineres, `spacing.l`. Os títulos SHALL ter os estilos H4 (formulário) e H5 (contêiner).
+Ao lado, o rótulo SHALL ocupar `labelCellsLarge` partes de 12 da coluna, centrado numa altura mínima `density.minTargetSize` (a dos campos), com `spacing.s` antes dos campos; acima, `spacing.xs`. Vários campos SHALL dividir a largura, com `spacing.s` entre eles; entre elementos, `spacing.s`; entre colunas e linhas de contêineres, `spacing.l`. Os títulos SHALL ter os estilos H4 (formulário) e H5 (contêiner).
 
 #### Scenario: Largura do rótulo
 - **WHEN** um formulário de uma coluna é renderizado com a largura 1200 e `labelCellsLarge` 4

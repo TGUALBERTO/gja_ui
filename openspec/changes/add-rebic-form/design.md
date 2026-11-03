@@ -18,7 +18,7 @@ colunas e entre linhas.
 ### D3. Elemento
 
 Com rótulo ao lado (L, XL, ou M com uma coluna), o elemento é uma `Row`: o rótulo com `labelCellsLarge` partes de 12
-da largura da coluna, alinhado ao centro de uma altura mínima `density.controlHeight`, `spacing.s` depois, e os
+da largura da coluna, alinhado ao centro de uma altura mínima `density.minTargetSize` (a altura dos campos, com o alvo mínimo), `spacing.s` depois, e os
 campos no resto. Com rótulo acima, uma `Column` com `spacing.xs` entre o rótulo e os campos. Vários campos dividem a
 largura igualmente, com `spacing.s` entre eles. Entre elementos, `spacing.s`. O rótulo é um `RebicLabel` com
 quebra de linha e `required`.

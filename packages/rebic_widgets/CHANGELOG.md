@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Novo `RebicForm` (`add-rebic-form`, spec `rebic/widgets/rebic-form`), como o `sap.ui.layout.form.Form` com o
+  `ColumnLayout`: `title`, `formContainers` (`RebicFormContainer` com `RebicFormElement`), `columnsM`, `columnsL`,
+  `columnsXL` e `labelCellsLarge`.
 - Novo `RebicPanel` (`add-rebic-panel`, spec `rebic/widgets/rebic-panel`), como o `sap.m.Panel`: `headerText`,
   `content`, `expandable`, `expanded`, `onExpand` e `backgroundDesign`; painéis expansíveis empilhados formam o acordeão.
 - Novo `RebicSideNavigation<T>` (`add-rebic-side-navigation`, spec `rebic/widgets/rebic-side-navigation`), como o

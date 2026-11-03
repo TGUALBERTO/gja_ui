@@ -644,26 +644,22 @@ items:
     depends_on:
       - rebic/widgets/rebic-button
       - rebic/widgets/rebic-select
-  - id: rebic/widgets/rebic-form-field
-    name: "RebicFormField"
-    kind: widget
-    category: formularios
-    priority: P1
-    phase: 2
-    status: planned
-    depends_on:
-      - rebic/core/validation
-      - rebic/widgets/rebic-text
   - id: rebic/widgets/rebic-form
     name: "RebicForm"
     kind: widget
     category: formularios
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
-      - rebic/core/validation
-      - rebic/widgets/rebic-form-field
+      - rebic/widgets/rebic-label
+      - rebic/widgets/rebic-title
+      - rebic/foundation/typography
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/breakpoints
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-input
     name: "RebicInput"
     kind: widget
