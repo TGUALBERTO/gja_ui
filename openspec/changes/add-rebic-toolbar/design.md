@@ -4,10 +4,14 @@
 
 ### D1. Montagem
 
-`ClipRect` + `DecoratedBox` (fundo pelo desenho; borda inferior fina `separator` no estilo `standard`) com a altura
-`density.barHeight` e `Padding` horizontal `spacing.s`, em volta de uma `Row` com `spacing.xs` e os itens centrados.
-A `Row` fica num `OverflowBox` sem largura máxima, alinhado ao início, para que itens que não cabem sejam cortados
-pelo `ClipRect`, sem estouro.
+`DecoratedBox` (fundo pelo desenho; borda inferior fina `separator` no estilo `standard`) com a altura
+`density.barHeight` e `Padding` horizontal `spacing.s`, em volta da linha de itens.
+
+A linha é um `RenderObject` próprio (`_RenderToolbarRow`), não uma `Row`: o `Spacer` precisa de largura limitada para
+dividir o espaço livre, e itens que não cabem precisam ser cortados sem o erro de estouro que o `RenderFlex` relata
+mesmo com `clipBehavior`. A linha mede os itens fixos no tamanho natural, dá aos flexíveis (os `Spacer`, marcados por
+um `ParentDataWidget` interno) a parte do espaço livre, centraliza os itens na altura, segue a direção do texto e,
+quando a soma passa da largura, corta a pintura com `pushClipRect`.
 
 ### D2. Barra acionável
 

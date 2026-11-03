@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Novo `RebicToolbar` (`add-rebic-toolbar`, spec `rebic/widgets/rebic-toolbar`), como o `sap.m.Toolbar`: `content`
+  (com `Spacer` e `RebicSeparator.vertical`), `design`, `style`, `onPress`, `enabled` e `semanticLabel`.
 - Novo `RebicMessageToast` (`add-rebic-message-toast`, spec `rebic/widgets/rebic-message-toast`), como o
   `sap.m.MessageToast`: `RebicMessageToast.show(context, mensagem)`, que some sozinho depois de 3 segundos.
 - Novo `RebicDialog` (`add-rebic-dialog`, spec `rebic/widgets/rebic-dialog`), como o `sap.m.Dialog`: `content`,

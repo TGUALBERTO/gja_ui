@@ -545,10 +545,15 @@ items:
     category: acoes-navegacao
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
-      - rebic/widgets/rebic-button
-      - rebic/widgets/rebic-menu
+      - rebic/core/interaction
+      - rebic/foundation/color
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-navigation-bar
     name: "RebicNavigationBar"
     kind: widget
