@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Semântica de marcação e alternância (`add-rebic-check-box`, spec `rebic/core/interaction`): `RebicInteractable`
+  ganha `checked`, `mixed`, `toggled` e `inMutuallyExclusiveGroup`; com eles, o elemento é exposto como caixa, chave
+  ou opção de rádio, e não como botão.
 - Textos `menu`, `logo`, `notifications`, `profile`, `products` e `shellBar` (`update-rebic-scaffold-fiori-tool-page`,
   spec `rebic/core/localization`), como os textos do `sap.f.ShellBar`. Quem estende `RebicLocalizations` passa a
   implementá-los.

@@ -10,7 +10,9 @@ a sistemas corporativos sem acoplamento a backends específicos.
 
 ## Decisão
 
-1. **Estado:** os componentes com valor seguem o padrão `value` + `onChanged`.
+1. **Estado:** os componentes com valor são controlados: recebem o valor e avisam a mudança por callback, com os
+   nomes da propriedade e do evento do SAPUI5 (`selected` + `onSelect`, `value` + `onChange`), conforme a regra de
+   nomes de `rebic/framework-architecture`.
    Os componentes complexos (Table, DataGrid, Tree, Tabs, Form) oferecem um controlador público opcional
    baseado em `ChangeNotifier`. Nenhuma biblioteca de gerenciamento de estado é exigida.
 2. **Dados:** `rebic_core` define o contrato `RebicDataSource<T>`:

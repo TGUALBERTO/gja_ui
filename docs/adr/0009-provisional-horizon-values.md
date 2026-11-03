@@ -50,6 +50,8 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Cartão | Hover e pressionado do cabeçalho acionável | família `list` | `sapTile_Hover_Background` e `sapTile_Active_Background` | `update-rebic-card-fiori-card-header` |
 | Cartão | Espaço entre o ícone e os textos do cabeçalho | `spacing.m` | margem do ícone em `CardHeaders.less`, não conferida no Horizon | `update-rebic-card-fiori-card-header` |
 | Cartão | Cor do subtítulo, do status e da data do cabeçalho | `colors.label` | `sapTile_TextColor` | `update-rebic-card-fiori-card-header` |
+| Caixa de seleção | Somente leitura: fundo, borda e marca | `colors.background`, `colors.separator`, `colors.label` | `sapField_ReadOnly_Background`, `sapField_ReadOnly_BorderColor`, `sapContent_NonInteractiveIconColor` | `add-rebic-check-box` |
+| Caixa de seleção | Lado e marca parcial | `icons.control + spacing.xxs` (18); quadrado recuado `spacing.xs` | 1,125rem em `CheckBox.less`; recuo de 0,1875rem | `add-rebic-check-box` |
 
 ## Alternativas consideradas
 

@@ -34,6 +34,10 @@ class RebicInteractable extends StatefulWidget {
     this.focusColor,
     this.focusRingBorderRadius,
     this.link = false,
+    this.checked,
+    this.mixed = false,
+    this.toggled,
+    this.inMutuallyExclusiveGroup = false,
     super.key,
   });
 
@@ -72,6 +76,22 @@ class RebicInteractable extends StatefulWidget {
   /// Se o elemento é exposto ao leitor de tela como link, em vez de botão
   /// (ex.: `RebicLink`).
   final bool link;
+
+  /// Estado de marcação exposto ao leitor de tela (ex.: `RebicCheckBox`);
+  /// nulo quando o elemento não é marcável. Com ele, o elemento deixa de ser
+  /// exposto como botão.
+  final bool? checked;
+
+  /// Se a marcação é mista (caixa parcialmente marcada).
+  final bool mixed;
+
+  /// Estado de alternância exposto ao leitor de tela (ex.: `RebicSwitch`);
+  /// nulo quando o elemento não alterna.
+  final bool? toggled;
+
+  /// Se o elemento marcável pertence a um grupo de escolha única (ex.: opção
+  /// de rádio).
+  final bool inMutuallyExclusiveGroup;
 
   @override
   State<RebicInteractable> createState() => _RebicInteractableState();
@@ -128,7 +148,15 @@ class _RebicInteractableState extends State<RebicInteractable> {
 
     return Semantics(
       container: true,
-      button: !widget.link,
+      button:
+          !widget.link &&
+          widget.checked == null &&
+          widget.toggled == null &&
+          !widget.mixed,
+      checked: widget.mixed ? null : widget.checked,
+      mixed: widget.mixed ? true : null,
+      toggled: widget.toggled,
+      inMutuallyExclusiveGroup: widget.inMutuallyExclusiveGroup ? true : null,
       link: widget.link,
       enabled: _enabled,
       selected: widget.selected,

@@ -12,9 +12,9 @@ novos valores vão a `checked`, `mixed`, `toggled` e `inMutuallyExclusiveGroup`.
 
 `MergeSemantics` + `RebicInteractable(checked: …, mixed: …)` envolvendo uma `Row` (caixa e texto), para que tocar o
 texto acione a caixa e o alvo mínimo cubra o conjunto. `onPressed` é nulo quando `enabled` é `false`; quando
-`editable` é `false`, é `() {}` (focável, sem ação); senão, chama `onSelect(partiallySelected || !selected)`. A
-semântica de toque some quando não editável, porque `onPressed` vazio ainda expõe a ação; por isso a caixa passa
-`semanticLabel` e envolve o detector com `Semantics(onTap: null)` só no modo somente leitura.
+`editable` é `false`, é `() {}` (focável, sem ação); senão, chama `onSelect(partiallySelected || !selected)`. No modo
+somente leitura, a caixa continua com a ação de toque na semântica (vazia) e é marcada com `Semantics(readOnly: true)`,
+para o leitor de tela anunciar que o valor não muda.
 
 A caixa é um `DecoratedBox` de lado `icons.control + spacing.xxs`, com `Border.all` fino e `radius.field`; a marca é
 `Icon(RebicIcons.accept, size: icons.control)` e a parcial um `ColoredBox` com `Padding(spacing.xs)`.

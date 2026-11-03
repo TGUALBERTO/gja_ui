@@ -1,4 +1,5 @@
 import 'package:flutter/gestures.dart';
+import 'package:flutter/rendering.dart' show SemanticsNode;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -330,6 +331,74 @@ void main() {
           isButton: false,
           isEnabled: true,
           hasTapAction: true,
+        ),
+      );
+      handle.dispose();
+    });
+
+    testWidgets('Semântica e cursor — Semântica de marcação e alternância', (
+      tester,
+    ) async {
+      final handle = tester.ensureSemantics();
+      Widget item(
+        String label, {
+        bool? checked,
+        bool mixed = false,
+        bool? toggled,
+        bool group = false,
+      }) => RebicInteractable(
+        onPressed: () {},
+        semanticLabel: label,
+        checked: checked,
+        mixed: mixed,
+        toggled: toggled,
+        inMutuallyExclusiveGroup: group,
+        builder: (_, _) => const SizedBox.square(dimension: 20),
+      );
+      await tester.pumpWidget(
+        _app(
+          Column(
+            children: [
+              item('Marcado', checked: true),
+              item('Misto', mixed: true),
+              item('Alternado', toggled: true),
+              item('Opção', checked: true, group: true),
+            ],
+          ),
+        ),
+      );
+      SemanticsNode node(String label) =>
+          tester.getSemantics(find.bySemanticsLabel(label));
+      expect(
+        node('Marcado'),
+        containsSemantics(
+          isButton: false,
+          hasCheckedState: true,
+          isChecked: true,
+        ),
+      );
+      expect(
+        node('Misto'),
+        containsSemantics(
+          isButton: false,
+          hasCheckedState: true,
+          isCheckStateMixed: true,
+        ),
+      );
+      expect(
+        node('Alternado'),
+        containsSemantics(
+          isButton: false,
+          hasToggledState: true,
+          isToggled: true,
+        ),
+      );
+      expect(
+        node('Opção'),
+        containsSemantics(
+          isButton: false,
+          isChecked: true,
+          isInMutuallyExclusiveGroup: true,
         ),
       );
       handle.dispose();

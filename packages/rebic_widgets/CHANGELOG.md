@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Novo `RebicCheckBox` (`add-rebic-check-box`, spec `rebic/widgets/rebic-check-box`), como o `sap.m.CheckBox`:
+  controlado (`selected` + `onSelect`), com texto ou `semanticLabel`, `partiallySelected`, `enabled`, `editable`,
+  `valueState` e `wrapping`.
 - **BREAKING** `enabled` e `onPress` nas ações (`update-rebic-actions-fiori-enabled-press`), como os eventos `press` do
   SAPUI5. De/para:
   - `RebicLink(onPressed: ...)` → `RebicLink(onPress: ...)`; `onPressed: null` → `enabled: false`;

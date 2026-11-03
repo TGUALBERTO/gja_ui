@@ -646,16 +646,24 @@ items:
     status: planned
     depends_on:
       - rebic/widgets/rebic-text-field
-  - id: rebic/widgets/rebic-checkbox
-    name: "RebicCheckbox"
+  - id: rebic/widgets/rebic-check-box
+    name: "RebicCheckBox"
     kind: widget
     category: formularios
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
       - rebic/core/interaction
-      - rebic/widgets/rebic-form-field
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/iconography
+      - rebic/foundation/spacing
+      - rebic/foundation/radius
+      - rebic/foundation/density
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-radio-group
     name: "RebicRadioGroup"
     kind: widget
@@ -706,7 +714,7 @@ items:
     status: planned
     depends_on:
       - rebic/widgets/rebic-select
-      - rebic/widgets/rebic-checkbox
+      - rebic/widgets/rebic-check-box
       - rebic/widgets/rebic-badge
   - id: rebic/widgets/rebic-date-picker
     name: "RebicDatePicker"
@@ -902,7 +910,7 @@ items:
     status: planned
     depends_on:
       - rebic/core/data-source
-      - rebic/widgets/rebic-checkbox
+      - rebic/widgets/rebic-check-box
       - rebic/widgets/rebic-empty-state
       - rebic/widgets/rebic-skeleton
       - rebic/widgets/rebic-pagination

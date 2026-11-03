@@ -51,12 +51,12 @@ Mapeamento das 12 seções obrigatórias:
 - **THEN** <resultado observável com os valores padrão>
 
 ### Requirement: [API] Callbacks e controlador
-`RebicX` SHALL notificar `<onEvento>` quando <evento>. Um callback de ação nulo MUST desabilitar o componente.
+`RebicX` SHALL notificar `<onEvento>` (o nome do evento do SAPUI5, como `onPress` ou `onSelect`) quando <evento>. Com `enabled` `false`, o componente MUST ficar desabilitado; um callback nulo significa só que não há ação.
 
-#### Scenario: Callback nulo desabilita
-- **GIVEN** `RebicX` com `<onEvento>: null`
+#### Scenario: Componente desabilitado
+- **GIVEN** `RebicX` com `enabled: false` e um `<onEvento>`
 - **WHEN** o usuário tenta interagir por toque, clique ou teclado
-- **THEN** nada é executado e a semântica informa desabilitado
+- **THEN** `<onEvento>` não é chamado e a semântica informa desabilitado
 
 ### Requirement: [Comportamento] <interação, transição, validação ou erro>
 `RebicX` SHALL <comportamento único e observável>.

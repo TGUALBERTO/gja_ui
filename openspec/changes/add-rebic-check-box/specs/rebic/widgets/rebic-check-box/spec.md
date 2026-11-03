@@ -87,11 +87,11 @@ A caixa SHALL apresentar os estados normal, hover (borda `colors.brand`), pressi
 - **THEN** `onSelect` não é chamado, e o conteúdo tem a opacidade `interaction.disabledOpacity`
 
 ### Requirement: [Acessibilidade] Semântica
-A caixa SHALL ser exposta como caixa de seleção, com o rótulo `text` ou `semanticLabel`, o estado marcado (ou misto, quando parcial), o habilitado e a ação de toque quando editável.
+A caixa SHALL ser exposta como caixa de seleção, com o rótulo `text` ou `semanticLabel`, o estado marcado (ou misto, quando parcial), o habilitado e a ação de toque quando habilitada. Com `editable` `false`, MUST ser exposta como somente leitura.
 
 #### Scenario: Semântica da caixa
-- **WHEN** a árvore de semântica de uma caixa marcada, de uma parcial e de uma desabilitada é lida
-- **THEN** as três têm o estado de marcação, a primeira marcada, a segunda mista, a terceira não habilitada, e nenhuma é botão
+- **WHEN** a árvore de semântica de uma caixa marcada, de uma parcial, de uma desabilitada e de uma somente leitura é lida
+- **THEN** todas têm o estado de marcação e nenhuma é botão; a primeira está marcada, a segunda mista, a terceira não habilitada, e a quarta somente leitura
 
 ### Requirement: [Acessibilidade] Contraste, alvo e escala
 A borda e a marca MUST ter contraste de ao menos 3:1 sobre o fundo, o texto o contraste de texto, e o conjunto o alvo mínimo da densidade, conforme `rebic/foundation/accessibility`. Com escala de texto 2,0, MUST NOT haver estouro.
