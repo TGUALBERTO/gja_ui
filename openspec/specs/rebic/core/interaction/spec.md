@@ -66,7 +66,7 @@ O elemento MUST ocupar e responder ao toque em uma área de pelo menos o alvo m�
 - **THEN** ele mede pelo menos 48 × 48, e a ação é chamada
 
 ### Requirement: Semântica e cursor
-O elemento MUST expor ao leitor de tela o papel de botão (ou de link, quando assim indicado), o rótulo recebido, o estado habilitado e o selecionado, e a ação de toque quando habilitado. Com ação, o cursor do ponteiro MUST ser o de clique.
+O elemento MUST expor ao leitor de tela o papel de botão (ou de link, quando assim indicado), o rótulo recebido, o estado habilitado e o selecionado, e a ação de toque quando habilitado. Quando o elemento informa um estado de marcação (`checked`, `mixed`) ou de alternância (`toggled`), MUST expor esse estado no lugar do papel de botão, e, com `inMutuallyExclusiveGroup`, o pertencimento a um grupo exclusivo. Com ação, o cursor do ponteiro MUST ser o de clique.
 
 #### Scenario: Semântica de botão
 - **WHEN** a árvore semântica de um elemento habilitado e selecionado, com rótulo "Salvar", é inspecionada
@@ -75,6 +75,10 @@ O elemento MUST expor ao leitor de tela o papel de botão (ou de link, quando as
 #### Scenario: Semântica de link
 - **WHEN** a árvore semântica de um elemento habilitado indicado como link, com rótulo "Ver pedido", é inspecionada
 - **THEN** ele tem o papel de link e não o de botão, tem o rótulo "Ver pedido", está habilitado e tem a ação de toque
+
+#### Scenario: Semântica de marcação e alternância
+- **WHEN** a árvore semântica de um elemento com `checked` verdadeiro, de um com `mixed`, de um com `toggled` e de um com `checked` e `inMutuallyExclusiveGroup` é inspecionada
+- **THEN** nenhum é botão; o primeiro está marcado, o segundo misto, o terceiro alternado, e o quarto marcado num grupo exclusivo
 
 ### Requirement: Testes e documentação da interação
 Cada cenário desta spec MUST ter um teste automatizado com o nome `<requisito> — <cenário>`. Toda API pública MUST ter dartdoc. A galeria SHALL ter uma página "Interação" com um elemento interativo que mostra os estados ativos e o número de ativações.
