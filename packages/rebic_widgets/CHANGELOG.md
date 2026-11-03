@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Novo `RebicDialog` (`add-rebic-dialog`, spec `rebic/widgets/rebic-dialog`), como o `sap.m.Dialog`: `content`,
+  `title`, `state`, `beginButton`, `endButton`, `buttons` e `width`, aberto por `RebicDialog.open` sobre o modal do núcleo.
 - Novo `RebicIllustratedMessage` (`add-rebic-illustrated-message`, spec `rebic/widgets/rebic-illustrated-message`),
   como o `sap.m.IllustratedMessage`: `title`, `description`, `illustrationType`, `illustrationSize`, `illustration`,
   `titleLevel` e `additionalContent`.
