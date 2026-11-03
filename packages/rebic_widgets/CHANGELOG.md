@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Novo `RebicSelect<T>` (`add-rebic-select`, spec `rebic/widgets/rebic-select`), como o `sap.m.Select`: controlado
+  (`selectedKey` + `onChange`), com os itens de `RebicDropdownItem`, `placeholder`, `enabled`, `editable`,
+  `valueState` e `valueStateText`.
 - Novo `RebicInput` (`add-rebic-input`, spec `rebic/widgets/rebic-input`), como o `sap.m.Input`: controlado
   (`value` + `onLiveChange`), com `onChange`, `onSubmit`, `placeholder`, `type`, `enabled`, `editable`, `valueState`,
   `valueStateText`, `maxLength`, `showClearIcon` e `focusNode`.
