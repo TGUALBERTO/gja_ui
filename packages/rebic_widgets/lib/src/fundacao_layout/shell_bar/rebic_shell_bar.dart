@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
-import '../../acoes_navegacao/icon_button/rebic_icon_button.dart';
+import '../../acoes_navegacao/button/rebic_button.dart';
 import '../../exibicao_dados/avatar/rebic_avatar.dart';
 import '../../exibicao_dados/badge/rebic_badge.dart';
 import '../../exibicao_dados/tooltip/rebic_tooltip.dart';
@@ -140,16 +140,20 @@ class RebicShellBar extends StatelessWidget {
 
     final start = <Widget>[
       if (showNavButton)
-        RebicIconButton(
+        RebicButton(
           icon: RebicIcons.navBack,
           tooltip: texts.back,
-          onPressed: onNavButtonPressed,
+          onPress: onNavButtonPressed,
+          enabled: onNavButtonPressed != null,
+          type: RebicButtonType.transparent,
         ),
       if (showMenuButton)
-        RebicIconButton(
+        RebicButton(
           icon: RebicIcons.menu2,
           tooltip: texts.menu,
-          onPressed: onMenuButtonPressed,
+          onPress: onMenuButtonPressed,
+          enabled: onMenuButtonPressed != null,
+          type: RebicButtonType.transparent,
         ),
       if (homeIcon != null)
         _HomeIcon(
@@ -160,18 +164,22 @@ class RebicShellBar extends StatelessWidget {
     ];
     final end = <Widget>[
       if (showSearch)
-        RebicIconButton(
+        RebicButton(
           icon: RebicIcons.search,
           tooltip: texts.search,
-          onPressed: onSearchButtonPressed,
+          onPress: onSearchButtonPressed,
+          enabled: onSearchButtonPressed != null,
+          type: RebicButtonType.transparent,
         ),
       if (showNotifications)
         RebicBadge(
           count: notificationsNumber,
-          child: RebicIconButton(
+          child: RebicButton(
             icon: RebicIcons.bell,
             tooltip: texts.notifications,
-            onPressed: onNotificationsPressed,
+            onPress: onNotificationsPressed,
+            enabled: onNotificationsPressed != null,
+            type: RebicButtonType.transparent,
           ),
         ),
       ...additionalContent,
@@ -186,10 +194,12 @@ class RebicShellBar extends StatelessWidget {
           onPressed: onAvatarPressed,
         ),
       if (showProductSwitcher)
-        RebicIconButton(
+        RebicButton(
           icon: RebicIcons.grid,
           tooltip: texts.products,
-          onPressed: onProductSwitcherPressed,
+          onPress: onProductSwitcherPressed,
+          enabled: onProductSwitcherPressed != null,
+          type: RebicButtonType.transparent,
         ),
     ];
 

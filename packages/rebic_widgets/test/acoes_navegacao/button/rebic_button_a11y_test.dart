@@ -26,10 +26,10 @@ Widget _buttons(RebicThemeData theme, {double textScale = 1}) => RebicTheme(
               children: [
                 for (final type in RebicButtonType.values)
                   RebicButton(
-                    label: type.name,
+                    text: type.name,
                     type: type,
                     icon: RebicIcons.accept,
-                    onPressed: () {},
+                    onPress: () {},
                   ),
               ],
             ),
@@ -85,6 +85,37 @@ void main() {
           greaterThanOrEqualTo(theme.density.controlHeight),
         );
       }
+
+      // O botão só com ícone mantém o tamanho (a dica precisa do Overlay).
+      await tester.pumpWidget(
+        RebicApp(
+          builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(
+              context,
+            ).copyWith(textScaler: const TextScaler.linear(2)),
+            child: child!,
+          ),
+          home: Center(
+            child: RebicButton(
+              icon: RebicIcons.edit,
+              tooltip: 'Editar',
+              onPress: () {},
+            ),
+          ),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+      expect(
+        tester.getSize(
+          find
+              .descendant(
+                of: find.byType(RebicButton),
+                matching: find.byType(DecoratedBox),
+              )
+              .first,
+        ),
+        Size.square(theme.density.controlHeight),
+      );
     },
   );
 }

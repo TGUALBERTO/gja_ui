@@ -81,8 +81,8 @@ void main() {
               title: 'Filtros',
               content: _box('content'),
               actions: [
-                RebicButton(label: 'Aplicar', onPressed: () {}),
-                RebicButton(label: 'Cancelar', onPressed: () {}),
+                RebicButton(text: 'Aplicar', onPress: () {}),
+                RebicButton(text: 'Cancelar', onPress: () {}),
               ],
               child: _anchor,
             ),
@@ -358,7 +358,7 @@ void main() {
               RebicPopover(
                 controller: controller,
                 title: 'Filtros',
-                actions: [RebicButton(label: 'Aplicar', onPressed: () {})],
+                actions: [RebicButton(text: 'Aplicar', onPress: () {})],
                 content: Column(
                   key: const Key('content'),
                   children: [
@@ -441,7 +441,7 @@ void main() {
             controller: controller,
             title: 'Filtros',
             content: _box('content'),
-            child: RebicButton(label: 'Abrir', onPressed: () => pressed++),
+            child: RebicButton(text: 'Abrir', onPress: () => pressed++),
           ),
         ),
       ),
@@ -510,7 +510,7 @@ void main() {
             controller: controller,
             title: 'Filtros',
             content: _box('content'),
-            actions: [RebicButton(label: 'Aplicar', onPressed: () {})],
+            actions: [RebicButton(text: 'Aplicar', onPress: () {})],
             child: _anchor,
           ),
         ),
@@ -556,8 +556,8 @@ void main() {
               title: 'Filtros',
               content: _box('content'),
               actions: [
-                RebicButton(label: 'Aplicar', onPressed: () {}),
-                RebicButton(label: 'Cancelar', onPressed: () {}),
+                RebicButton(text: 'Aplicar', onPress: () {}),
+                RebicButton(text: 'Cancelar', onPress: () {}),
               ],
               child: _anchor,
             ),
@@ -590,8 +590,8 @@ void main() {
                 title: 'Filtros',
                 content: const RebicText(_long, key: Key('content')),
                 actions: [
-                  RebicButton(label: 'Aplicar', onPressed: () {}),
-                  RebicButton(label: 'Cancelar', onPressed: () {}),
+                  RebicButton(text: 'Aplicar', onPress: () {}),
+                  RebicButton(text: 'Cancelar', onPress: () {}),
                 ],
                 child: _anchor,
               ),
@@ -621,10 +621,8 @@ void main() {
             controller: controller,
             title: 'Filtros',
             content: const RebicText('Status: em aberto', key: Key('content')),
-            actions: [
-              RebicButton(label: 'Fechar', onPressed: controller.close),
-            ],
-            child: RebicButton(label: 'Filtrar', onPressed: controller.toggle),
+            actions: [RebicButton(text: 'Fechar', onPress: controller.close)],
+            child: RebicButton(text: 'Filtrar', onPress: controller.toggle),
           ),
         ),
       ),
@@ -684,17 +682,17 @@ void main() {
                       ),
                       actions: [
                         RebicButton(
-                          label: 'Aplicar',
+                          text: 'Aplicar',
                           type: RebicButtonType.emphasized,
-                          onPressed: () {},
+                          onPress: () {},
                         ),
                         RebicButton(
-                          label: 'Cancelar',
+                          text: 'Cancelar',
                           type: RebicButtonType.transparent,
-                          onPressed: () {},
+                          onPress: () {},
                         ),
                       ],
-                      child: RebicButton(label: 'Filtrar', onPressed: () {}),
+                      child: RebicButton(text: 'Filtrar', onPress: () {}),
                     ),
                   ),
                   _anchored(

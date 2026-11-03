@@ -51,8 +51,8 @@ void main() {
                       ),
                     ],
                     child: RebicButton(
-                      label: 'Ações',
-                      onPressed: controller.toggle,
+                      text: 'Ações',
+                      onPress: controller.toggle,
                     ),
                   ),
                 ),

@@ -78,10 +78,10 @@ enum RebicPopoverWidth {
 ///   title: 'Filtros',
 ///   content: const OpcoesDeFiltro(),
 ///   actions: [
-///     RebicButton(label: 'Aplicar', type: RebicButtonType.emphasized, onPressed: aplicar),
-///     RebicButton(label: 'Cancelar', type: RebicButtonType.transparent, onPressed: filtros.close),
+///     RebicButton(text: 'Aplicar', type: RebicButtonType.emphasized, onPress: aplicar),
+///     RebicButton(text: 'Cancelar', type: RebicButtonType.transparent, onPress: filtros.close),
 ///   ],
-///   child: RebicButton(label: 'Filtrar', onPressed: filtros.toggle),
+///   child: RebicButton(text: 'Filtrar', onPress: filtros.toggle),
 /// )
 /// ```
 class RebicPopover extends StatefulWidget {

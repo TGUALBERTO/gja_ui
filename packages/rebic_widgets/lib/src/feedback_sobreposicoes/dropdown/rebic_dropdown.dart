@@ -57,7 +57,7 @@ class RebicDropdownItem<T> {
 ///     RebicDropdownItem(value: 'aprovado', label: 'Aprovado'),
 ///   ],
 ///   onSelected: escolher,
-///   child: RebicButton(label: 'Status', onPressed: status.toggle),
+///   child: RebicButton(text: 'Status', onPress: status.toggle),
 /// )
 /// ```
 class RebicDropdown<T> extends StatelessWidget {

@@ -60,7 +60,7 @@ class RebicMenuItem {
 ///       onPressed: excluir,
 ///     ),
 ///   ],
-///   child: RebicButton(label: 'Ações', onPressed: acoes.toggle),
+///   child: RebicButton(text: 'Ações', onPress: acoes.toggle),
 /// )
 /// ```
 class RebicMenu extends StatelessWidget {

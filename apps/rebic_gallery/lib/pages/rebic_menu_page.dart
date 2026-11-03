@@ -87,8 +87,8 @@ class _RebicMenuPageState extends State<RebicMenuPage> {
                     ),
                   ],
                   child: RebicButton(
-                    label: RebicMenuPage.actions,
-                    onPressed: _actions.toggle,
+                    text: RebicMenuPage.actions,
+                    onPress: _actions.toggle,
                   ),
                 ),
                 RebicMenu(
@@ -106,10 +106,11 @@ class _RebicMenuPageState extends State<RebicMenuPage> {
                       onPressed: _record('Configurações'),
                     ),
                   ],
-                  child: RebicIconButton(
+                  child: RebicButton(
                     icon: RebicIcons.overflow,
                     tooltip: 'Mais ações',
-                    onPressed: _more.toggle,
+                    onPress: _more.toggle,
+                    type: RebicButtonType.transparent,
                   ),
                 ),
               ],

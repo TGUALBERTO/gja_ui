@@ -149,16 +149,17 @@ void main() {
       _host(
         _full(
           onPress: () => calls++,
-          toolbar: RebicIconButton(
+          toolbar: RebicButton(
             icon: RebicIcons.overflow,
             tooltip: 'Mais',
-            onPressed: () => toolbarCalls++,
+            onPress: () => toolbarCalls++,
+            type: RebicButtonType.transparent,
           ),
         ),
       ),
     );
     await tester.tap(find.text('Pedidos'));
-    await tester.tap(find.byType(RebicIconButton));
+    await tester.tap(find.byType(RebicButton));
     await tester.pump();
     expect(calls, 1);
     expect(toolbarCalls, 1);

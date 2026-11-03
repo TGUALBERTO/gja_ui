@@ -65,7 +65,7 @@ enum RebicIconTone {
 /// )
 /// ```
 ///
-/// Para um ícone clicável, use `RebicIconButton`.
+/// Para um ícone clicável, use o `RebicButton` só com ícone.
 class RebicIcon extends StatelessWidget {
   /// Cria o ícone [icon].
   const RebicIcon(

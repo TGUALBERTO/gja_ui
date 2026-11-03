@@ -394,7 +394,7 @@ items:
     status: implemented
     depends_on:
       - rebic/widgets/rebic-tooltip
-      - rebic/widgets/rebic-icon-button
+      - rebic/widgets/rebic-button
       - rebic/widgets/rebic-avatar
       - rebic/widgets/rebic-badge
       - rebic/widgets/rebic-title
@@ -436,7 +436,7 @@ items:
     depends_on:
       - rebic/widgets/rebic-bar
       - rebic/widgets/rebic-title
-      - rebic/widgets/rebic-icon-button
+      - rebic/widgets/rebic-button
       - rebic/widgets/rebic-container
       - rebic/widgets/rebic-tool-page
       - rebic/core/interaction
@@ -494,29 +494,13 @@ items:
       - rebic/core/interaction
       - rebic/core/localization
       - rebic/widgets/rebic-progress-indicator
+      - rebic/widgets/rebic-tooltip
       - rebic/foundation/interaction-states
       - rebic/foundation/color
       - rebic/foundation/typography
       - rebic/foundation/iconography
       - rebic/foundation/density
       - rebic/foundation/spacing
-      - rebic/foundation/radius
-      - rebic/foundation/theming
-      - rebic/foundation/accessibility
-  - id: rebic/widgets/rebic-icon-button
-    name: "RebicIconButton"
-    kind: widget
-    category: acoes-navegacao
-    priority: P0
-    phase: 1
-    status: implemented
-    depends_on:
-      - rebic/core/interaction
-      - rebic/widgets/rebic-tooltip
-      - rebic/widgets/rebic-button
-      - rebic/foundation/interaction-states
-      - rebic/foundation/iconography
-      - rebic/foundation/density
       - rebic/foundation/radius
       - rebic/foundation/theming
       - rebic/foundation/accessibility
@@ -564,7 +548,6 @@ items:
     status: planned
     depends_on:
       - rebic/widgets/rebic-button
-      - rebic/widgets/rebic-icon-button
       - rebic/widgets/rebic-menu
   - id: rebic/widgets/rebic-navigation-bar
     name: "RebicNavigationBar"
@@ -622,7 +605,6 @@ items:
     status: planned
     depends_on:
       - rebic/widgets/rebic-button
-      - rebic/widgets/rebic-icon-button
       - rebic/widgets/rebic-select
   - id: rebic/widgets/rebic-form-field
     name: "RebicFormField"
@@ -1014,7 +996,7 @@ items:
     status: planned
     depends_on:
       - rebic/widgets/rebic-status-indicator
-      - rebic/widgets/rebic-icon-button
+      - rebic/widgets/rebic-button
   - id: rebic/widgets/rebic-snackbar
     name: "RebicSnackbar"
     kind: widget

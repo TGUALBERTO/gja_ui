@@ -240,10 +240,11 @@ void main() {
           _menu(
             controller,
             _items([]),
-            anchor: RebicIconButton(
+            anchor: RebicButton(
               icon: RebicIcons.overflow,
               tooltip: 'Mais ações',
-              onPressed: controller.toggle,
+              onPress: controller.toggle,
+              type: RebicButtonType.transparent,
             ),
           ),
         ),
@@ -253,7 +254,7 @@ void main() {
       expect(panel.width, closeTo(_light.spacing.xxxl * 6, 0.01));
       expect(
         panel.left,
-        closeTo(tester.getRect(find.byType(RebicIconButton)).left, 0.01),
+        closeTo(tester.getRect(find.byType(RebicButton)).left, 0.01),
       );
     });
   });
@@ -483,7 +484,7 @@ void main() {
         _menu(
           controller,
           _items(log),
-          anchor: RebicButton(label: 'Ações', onPressed: controller.toggle),
+          anchor: RebicButton(text: 'Ações', onPress: controller.toggle),
         ),
       ),
     );
@@ -523,7 +524,7 @@ void main() {
               child: _menu(
                 controller,
                 _items([]),
-                anchor: RebicButton(label: 'Ações', onPressed: () {}),
+                anchor: RebicButton(text: 'Ações', onPress: () {}),
               ),
             ),
           ),

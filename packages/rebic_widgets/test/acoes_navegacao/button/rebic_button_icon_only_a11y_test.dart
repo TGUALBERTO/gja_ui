@@ -16,7 +16,7 @@ const _families = {
 
 void main() {
   testWidgets(
-    '[Acessibilidade] Contraste e alvo — Contraste e alvo do botão de ícone',
+    '[Acessibilidade] Contraste, alvo e escala — Contraste e alvo (só com ícone)',
     (tester) async {
       final handle = tester.ensureSemantics();
       for (final base in [RebicThemeData.light(), RebicThemeData.dark()]) {
@@ -33,11 +33,11 @@ void main() {
                   spacing: 8,
                   children: [
                     for (final type in RebicButtonType.values)
-                      RebicIconButton(
+                      RebicButton(
                         icon: RebicIcons.edit,
                         tooltip: type.name,
                         type: type,
-                        onPressed: () {},
+                        onPress: () {},
                       ),
                   ],
                 ),

@@ -51,7 +51,7 @@ void main() {
   group('[API] Propriedades', () {
     testWidgets('[API] Propriedades — Botão mínimo', (tester) async {
       await tester.pumpWidget(
-        _host(RebicButton(label: 'Salvar', onPressed: () {})),
+        _host(RebicButton(text: 'Salvar', onPress: () {})),
       );
       final box = tester.getRect(_box());
       expect(box.height, _light.density.controlHeight);
@@ -66,11 +66,7 @@ void main() {
     testWidgets('[API] Propriedades — Botão com ícone', (tester) async {
       await tester.pumpWidget(
         _host(
-          RebicButton(
-            label: 'Salvar',
-            icon: RebicIcons.accept,
-            onPressed: () {},
-          ),
+          RebicButton(text: 'Salvar', icon: RebicIcons.accept, onPress: () {}),
         ),
       );
       final icon = tester.getRect(find.byType(Icon));
@@ -79,20 +75,11 @@ void main() {
     });
   });
 
-  test('[API] Rótulo válido — Rótulo vazio', () {
-    for (final label in ['']) {
-      expect(
-        () => RebicButton(label: label, onPressed: () {}),
-        throwsAssertionError,
-      );
-    }
-  });
-
   group('[API] Callbacks e controlador', () {
     testWidgets('[API] Callbacks e controlador — Pressionar', (tester) async {
       var calls = 0;
       await tester.pumpWidget(
-        _host(RebicButton(label: 'Salvar', onPressed: () => calls++)),
+        _host(RebicButton(text: 'Salvar', onPress: () => calls++)),
       );
       await tester.tap(find.byType(RebicButton));
       await tester.pump();
@@ -103,7 +90,7 @@ void main() {
       tester,
     ) async {
       await tester.pumpWidget(
-        _host(const RebicButton(label: 'Salvar', onPressed: null)),
+        _host(const RebicButton(text: 'Salvar', enabled: false)),
       );
       await tester.tap(find.byType(RebicButton), warnIfMissed: false);
       await tester.pump();
@@ -120,16 +107,67 @@ void main() {
         _light.interaction.disabledOpacity,
       );
     });
+
+    testWidgets('[API] Callbacks e controlador — Botão sem ação', (
+      tester,
+    ) async {
+      final first = FocusNode();
+      addTearDown(first.dispose);
+      await tester.pumpWidget(
+        RebicApp(
+          home: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Focus(
+                focusNode: first,
+                child: const SizedBox.square(dimension: 8),
+              ),
+              const RebicButton(text: 'Salvar'),
+              Focus(child: const SizedBox.square(dimension: 8)),
+            ],
+          ),
+        ),
+      );
+      first.requestFocus();
+      await tester.pump();
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pump();
+      expect(
+        tester
+            .widget<RebicFocusRing>(
+              find.descendant(
+                of: find.byType(RebicButton),
+                matching: find.byType(RebicFocusRing),
+              ),
+            )
+            .visible,
+        isTrue,
+      );
+      expect(
+        tester
+            .widget<Opacity>(
+              find.descendant(
+                of: find.byType(RebicButton),
+                matching: find.byType(Opacity),
+              ),
+            )
+            .opacity,
+        1,
+      );
+      await tester.tap(find.byType(RebicButton));
+      await tester.pump();
+      expect(tester.takeException(), isNull);
+    });
   });
 
   testWidgets('[Comportamento] Estado ocupado — Botão ocupado', (tester) async {
     var calls = 0;
     Widget button(bool busy) => _host(
       RebicButton(
-        label: 'Enviar',
+        text: 'Enviar',
         icon: RebicIcons.upload,
         busy: busy,
-        onPressed: () => calls++,
+        onPress: () => calls++,
       ),
     );
     await tester.pumpWidget(button(false));
@@ -145,6 +183,33 @@ void main() {
     await tester.pumpWidget(const SizedBox.shrink());
   });
 
+  testWidgets('[Comportamento] Estado ocupado — Botão só com ícone ocupado', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      RebicApp(
+        home: Center(
+          child: RebicButton(
+            icon: RebicIcons.edit,
+            tooltip: 'Editar',
+            busy: true,
+            onPress: () {},
+          ),
+        ),
+      ),
+    );
+    expect(
+      find.descendant(
+        of: find.byType(RebicButton),
+        matching: find.byType(RebicProgressView),
+      ),
+      findsOneWidget,
+    );
+    expect(find.byType(Icon), findsNothing);
+    expect(tester.getSize(_box()), Size.square(_light.density.controlHeight));
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
+
   testWidgets('[Comportamento] Ativação pelo teclado — Enter e Espaço', (
     tester,
   ) async {
@@ -152,7 +217,7 @@ void main() {
     await tester.pumpWidget(
       RebicApp(
         home: Center(
-          child: RebicButton(label: 'Salvar', onPressed: () => calls++),
+          child: RebicButton(text: 'Salvar', onPress: () => calls++),
         ),
       ),
     );
@@ -174,7 +239,7 @@ void main() {
       (RebicButtonType.attention, RebicControlFamily.attention),
     ]) {
       await tester.pumpWidget(
-        _host(RebicButton(label: type.name, type: type, onPressed: () {})),
+        _host(RebicButton(text: type.name, type: type, onPress: () {})),
       );
       final normal = _family(family).normal;
       final decoration = _decoration(tester);
@@ -191,8 +256,22 @@ void main() {
       await tester.pumpWidget(
         _host(
           theme: compact,
-          RebicButton(label: 'Salvar', onPressed: () {}),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RebicButton(text: 'Salvar', onPress: () {}),
+              RebicButton(
+                icon: RebicIcons.edit,
+                tooltip: 'Editar',
+                onPress: () {},
+              ),
+            ],
+          ),
         ),
+      );
+      expect(
+        tester.getSize(_box(1)),
+        Size.square(compact.density.controlHeight),
       );
       final box = tester.getRect(_box());
       expect(box.height, compact.density.controlHeight);
@@ -206,7 +285,7 @@ void main() {
   group('[Estados] Interação', () {
     testWidgets('[Estados] Interação — Hover e pressionado', (tester) async {
       await tester.pumpWidget(
-        _host(RebicButton(label: 'Salvar', onPressed: () {})),
+        _host(RebicButton(text: 'Salvar', onPress: () {})),
       );
       final standard = _family(RebicControlFamily.standard);
       final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
@@ -234,7 +313,7 @@ void main() {
       await tester.pumpWidget(
         RebicApp(
           home: Center(
-            child: RebicButton(label: 'Salvar', onPressed: () {}),
+            child: RebicButton(text: 'Salvar', onPress: () {}),
           ),
         ),
       );
@@ -246,7 +325,7 @@ void main() {
         RebicApp(
           key: const Key('touch'),
           home: Center(
-            child: RebicButton(label: 'Salvar', onPressed: () {}),
+            child: RebicButton(text: 'Salvar', onPress: () {}),
           ),
         ),
       );
@@ -266,8 +345,8 @@ void main() {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              RebicButton(label: 'Salvar', onPressed: () {}),
-              const RebicButton(label: 'Excluir', onPressed: null),
+              RebicButton(text: 'Salvar', onPress: () {}),
+              const RebicButton(text: 'Excluir', enabled: false),
             ],
           ),
         ),
@@ -299,7 +378,7 @@ void main() {
     ) async {
       final handle = tester.ensureSemantics();
       await tester.pumpWidget(
-        _host(RebicButton(label: 'Enviar', busy: true, onPressed: () {})),
+        _host(RebicButton(text: 'Enviar', busy: true, onPress: () {})),
       );
       expect(
         tester.getSemantics(find.byType(RebicButton)),
@@ -317,11 +396,7 @@ void main() {
       await tester.pumpWidget(
         _host(
           direction: TextDirection.rtl,
-          RebicButton(
-            label: 'Salvar',
-            icon: RebicIcons.accept,
-            onPressed: () {},
-          ),
+          RebicButton(text: 'Salvar', icon: RebicIcons.accept, onPress: () {}),
         ),
       );
       expect(
@@ -338,8 +413,8 @@ void main() {
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 120),
             child: RebicButton(
-              label: 'Encaminhar para aprovação do gestor',
-              onPressed: () {},
+              text: 'Encaminhar para aprovação do gestor',
+              onPress: () {},
             ),
           ),
         ),
@@ -370,9 +445,21 @@ void main() {
           home: Column(
             children: [
               for (final type in RebicButtonType.values)
-                RebicButton(label: type.name, type: type, onPressed: () {}),
-              const RebicButton(label: 'Desabilitado', onPressed: null),
-              RebicButton(label: 'Ocupado', busy: true, onPressed: () {}),
+                RebicButton(text: type.name, type: type, onPress: () {}),
+              const RebicButton(text: 'Desabilitado', enabled: false),
+              RebicButton(text: 'Ocupado', busy: true, onPress: () {}),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (final type in RebicButtonType.values)
+                    RebicButton(
+                      icon: RebicIcons.edit,
+                      tooltip: type.name,
+                      type: type,
+                      onPress: () {},
+                    ),
+                ],
+              ),
             ],
           ),
         ),
@@ -396,9 +483,9 @@ void main() {
             data: dark,
             child: Center(
               child: RebicButton(
-                label: 'Salvar',
+                text: 'Salvar',
                 type: RebicButtonType.emphasized,
-                onPressed: () {},
+                onPress: () {},
               ),
             ),
           ),
@@ -415,7 +502,7 @@ void main() {
         'rebic/widgets/rebic-button',
         'add-rebic-button',
       );
-      expect(names, hasLength(23));
+      expect(names, hasLength(31));
       expect(untestedScenarios(names), isEmpty);
     });
 
@@ -427,7 +514,7 @@ void main() {
           tester,
           name: 'rebic_button_$name',
           theme: theme,
-          size: const Size(480, 420),
+          size: const Size(480, 460),
           child: MediaQuery(
             data: const MediaQueryData(disableAnimations: true),
             child: RebicVBox(
@@ -436,28 +523,36 @@ void main() {
                 for (final type in RebicButtonType.values)
                   RebicHBox(
                     items: [
+                      RebicButton(text: type.name, type: type, onPress: () {}),
                       RebicButton(
-                        label: type.name,
-                        type: type,
-                        onPressed: () {},
-                      ),
-                      RebicButton(
-                        label: type.name,
+                        text: type.name,
                         type: type,
                         icon: RebicIcons.accept,
-                        onPressed: () {},
+                        onPress: () {},
                       ),
                     ],
                   ),
                 RebicHBox(
+                  gap: RebicSpace.xs,
                   items: [
-                    const RebicButton(label: 'Desabilitado', onPressed: null),
+                    for (final type in RebicButtonType.values)
+                      RebicButton(
+                        icon: RebicIcons.edit,
+                        tooltip: type.name,
+                        type: type,
+                        onPress: () {},
+                      ),
+                  ],
+                ),
+                RebicHBox(
+                  items: [
+                    const RebicButton(text: 'Desabilitado', enabled: false),
                     RebicButton(
-                      label: 'Enviando',
+                      text: 'Enviando',
                       type: RebicButtonType.emphasized,
                       icon: RebicIcons.upload,
                       busy: true,
-                      onPressed: () {},
+                      onPress: () {},
                     ),
                   ],
                 ),

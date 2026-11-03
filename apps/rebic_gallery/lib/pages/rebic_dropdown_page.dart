@@ -111,10 +111,11 @@ class _RebicDropdownPageState extends State<RebicDropdownPage> {
                   semanticLabel: 'Mais ações',
                   items: _actions,
                   onSelected: (value) => setState(() => _action = value),
-                  child: RebicIconButton(
+                  child: RebicButton(
                     icon: RebicIcons.overflow,
                     tooltip: 'Mais ações',
-                    onPressed: _more.toggle,
+                    onPress: _more.toggle,
+                    type: RebicButtonType.transparent,
                   ),
                 ),
               ],

@@ -47,7 +47,7 @@ enum RebicTitleAlignment {
 /// ```dart
 /// RebicBar(
 ///   contentMiddle: const [RebicTitle('Pedido 4711')],
-///   contentRight: [RebicButton(label: 'Salvar', onPressed: save)],
+///   contentRight: [RebicButton(text: 'Salvar', onPress: save)],
 /// )
 /// ```
 class RebicBar extends StatelessWidget {

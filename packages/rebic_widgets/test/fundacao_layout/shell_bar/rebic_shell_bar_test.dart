@@ -67,10 +67,8 @@ void _view(WidgetTester tester) {
   addTearDown(tester.view.reset);
 }
 
-Finder _button(IconData icon) => find.ancestor(
-  of: find.byIcon(icon),
-  matching: find.byType(RebicIconButton),
-);
+Finder _button(IconData icon) =>
+    find.ancestor(of: find.byIcon(icon), matching: find.byType(RebicButton));
 
 Finder get _bar => find.byType(RebicShellBar);
 
@@ -126,7 +124,7 @@ void main() {
       _view(tester);
       await tester.pumpWidget(_host(const RebicShellBar(title: 'Compras')));
       expect(find.text('Compras'), findsOneWidget);
-      expect(find.byType(RebicIconButton), findsNothing);
+      expect(find.byType(RebicButton), findsNothing);
       expect(find.byType(RebicInteractable), findsNothing);
     });
   });
@@ -180,8 +178,8 @@ void main() {
       _view(tester);
       final handle = tester.ensureSemantics();
       await tester.pumpWidget(_host(const RebicShellBar(showSearch: true)));
-      final search = tester.widget<RebicIconButton>(_button(RebicIcons.search));
-      expect(search.onPressed, isNull);
+      final search = tester.widget<RebicButton>(_button(RebicIcons.search));
+      expect(search.enabled, isFalse);
       expect(
         tester.getSemantics(
           find.descendant(
@@ -333,7 +331,7 @@ void main() {
       RebicIcons.grid,
     ]) {
       expect(
-        tester.widget<RebicIconButton>(_button(icon)).type,
+        tester.widget<RebicButton>(_button(icon)).type,
         RebicButtonType.transparent,
       );
     }

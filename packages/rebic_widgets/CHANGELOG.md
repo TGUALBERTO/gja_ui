@@ -2,6 +2,16 @@
 
 ## Não lançado
 
+- **BREAKING** Botão no modelo do SAPUI5 (`update-rebic-button-fiori-button`, spec `rebic/widgets/rebic-button`, que
+  absorve `rebic/widgets/rebic-icon-button`): um só `RebicButton`, como o `sap.m.Button`. De/para:
+  - `RebicButton(label: ..., onPressed: ...)` → `RebicButton(text: ..., onPress: ...)`;
+  - `onPressed: null` (desabilitado) → `enabled: false`; `onPress` nulo agora deixa o botão habilitado, sem ação;
+  - `RebicIconButton(icon: ..., tooltip: ..., onPressed: ...)` → `RebicButton(icon: ..., tooltip: ..., onPress: ...)`;
+    o tipo padrão passa de `transparent` a `standard`, então passe `type: RebicButtonType.transparent` numa barra;
+  - novo `tooltip` também no botão com texto, anunciado como dica; `busy` também no botão só com ícone.
+
+  `RebicPage` e `RebicShellBar` usam o novo botão, sem mudança visual. `RebicLink`, `RebicMenuItem`, `RebicAvatar` e
+  `RebicStatusIndicator` ainda usam `onPressed`; mudam na próxima change.
 - **BREAKING** Grade no modelo do SAPUI5 (`update-rebic-grid-fiori-layout-grid`, spec `rebic/widgets/rebic-grid`),
   como o `sap.ui.layout.Grid`. De/para:
   - `RebicGrid(children: ...)` e `RebicGrid.cells(cells: ...)` → `RebicGrid(content: ...)`;

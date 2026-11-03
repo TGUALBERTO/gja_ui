@@ -16,10 +16,11 @@ import 'package:rebic_foundation/rebic_foundation.dart';
 /// RebicBadge(
 ///   count: naoLidas,
 ///   semanticLabel: '$naoLidas notificações',
-///   child: RebicIconButton(
+///   child: RebicButton(
 ///     icon: RebicIcons.bell,
 ///     tooltip: 'Notificações',
-///     onPressed: abrir,
+///     type: RebicButtonType.transparent,
+///     onPress: abrir,
 ///   ),
 /// )
 /// ```

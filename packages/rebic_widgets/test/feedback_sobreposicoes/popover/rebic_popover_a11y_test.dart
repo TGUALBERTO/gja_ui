@@ -33,19 +33,19 @@ void main() {
                       content: const RebicText('Status: em aberto'),
                       actions: [
                         RebicButton(
-                          label: 'Aplicar',
+                          text: 'Aplicar',
                           type: RebicButtonType.emphasized,
-                          onPressed: () {},
+                          onPress: () {},
                         ),
                         RebicButton(
-                          label: 'Cancelar',
+                          text: 'Cancelar',
                           type: RebicButtonType.transparent,
-                          onPressed: () {},
+                          onPress: () {},
                         ),
                       ],
                       child: RebicButton(
-                        label: 'Filtrar',
-                        onPressed: controller.toggle,
+                        text: 'Filtrar',
+                        onPress: controller.toggle,
                       ),
                     ),
                   ),

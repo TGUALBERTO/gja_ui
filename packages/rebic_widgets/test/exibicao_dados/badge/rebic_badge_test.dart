@@ -241,10 +241,11 @@ void main() {
             child: RebicBadge(
               count: 3,
               semanticLabel: '3 novas',
-              child: RebicIconButton(
+              child: RebicButton(
                 icon: RebicIcons.bell,
                 tooltip: 'Notificações',
-                onPressed: () {},
+                onPress: () {},
+                type: RebicButtonType.transparent,
               ),
             ),
           ),
@@ -253,7 +254,7 @@ void main() {
       final data = tester
           .getSemantics(
             find.descendant(
-              of: find.byType(RebicIconButton),
+              of: find.byType(RebicButton),
               matching: find.byType(RebicInteractable),
             ),
           )
@@ -310,10 +311,11 @@ void main() {
             const RebicBadge(count: 12),
             RebicBadge(
               count: 3,
-              child: RebicIconButton(
+              child: RebicButton(
                 icon: RebicIcons.bell,
                 tooltip: 'Notificações',
-                onPressed: () {},
+                onPress: () {},
+                type: RebicButtonType.transparent,
               ),
             ),
           ],
@@ -368,10 +370,11 @@ void main() {
                         ])
                           RebicBadge(
                             count: count,
-                            child: RebicIconButton(
+                            child: RebicButton(
                               icon: icon,
                               tooltip: '$count',
-                              onPressed: () {},
+                              onPress: () {},
+                              type: RebicButtonType.transparent,
                             ),
                           ),
                       ],

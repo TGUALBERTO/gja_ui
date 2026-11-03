@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -7,9 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 import 'package:rebic_widgets/rebic_widgets.dart';
-
-import '../../support/golden.dart';
-import '../../support/traceability.dart';
 
 /// Aplicação de teste com [home] centralizado (a dica precisa do `Overlay`).
 Widget _app(
@@ -32,7 +27,7 @@ Widget _app(
 
 Finder _box([int index = 0]) => find
     .descendant(
-      of: find.byType(RebicIconButton).at(index),
+      of: find.byType(RebicButton).at(index),
       matching: find.byType(DecoratedBox),
     )
     .first;
@@ -42,15 +37,12 @@ BoxDecoration _decoration(WidgetTester tester, [int index = 0]) =>
 
 /// Nó interativo do botão de [index], que tem a semântica.
 Finder _interactable(int index) => find.descendant(
-  of: find.byType(RebicIconButton).at(index),
+  of: find.byType(RebicButton).at(index),
   matching: find.byType(RebicInteractable),
 );
 
 Icon _icon(WidgetTester tester) => tester.widget<Icon>(
-  find.descendant(
-    of: find.byType(RebicIconButton),
-    matching: find.byType(Icon),
-  ),
+  find.descendant(of: find.byType(RebicButton), matching: find.byType(Icon)),
 );
 
 final _light = RebicThemeData.light();
@@ -59,31 +51,29 @@ RebicControlColors _family(RebicControlFamily family) =>
     RebicControlColors.of(family, _light.colors);
 
 void main() {
-  testWidgets('[API] Propriedades — Botão de ícone mínimo', (tester) async {
+  testWidgets('[API] Propriedades — Botão só com ícone', (tester) async {
     await tester.pumpWidget(
       _app(
-        RebicIconButton(
-          icon: RebicIcons.edit,
-          tooltip: 'Editar',
-          onPressed: () {},
-        ),
+        RebicButton(icon: RebicIcons.edit, tooltip: 'Editar', onPress: () {}),
       ),
     );
     final box = tester.getRect(_box());
     expect(box.size, Size.square(_light.density.controlHeight));
-    final normal = _family(RebicControlFamily.transparent).normal;
+    final normal = _family(RebicControlFamily.standard).normal;
     expect(_decoration(tester).color, normal.background);
     expect(_icon(tester).size, _light.icons.control);
     expect(tester.getCenter(find.byType(Icon)), box.center);
   });
 
-  test('[API] Dica obrigatória — Dica vazia', () {
-    for (final tooltip in ['']) {
+  test('[API] Conteúdo válido — Botão sem conteúdo', () {
+    expect(() => RebicButton(onPress: () {}), throwsAssertionError);
+    expect(() => RebicButton(text: '', onPress: () {}), throwsAssertionError);
+    for (final tooltip in [null, '']) {
       expect(
-        () => RebicIconButton(
+        () => RebicButton(
           icon: RebicIcons.edit,
           tooltip: tooltip,
-          onPressed: () {},
+          onPress: () {},
         ),
         throwsAssertionError,
       );
@@ -91,82 +81,87 @@ void main() {
   });
 
   group('[API] Callbacks e controlador', () {
-    testWidgets('[API] Callbacks e controlador — Pressionar o botão de ícone', (
+    testWidgets('[API] Callbacks e controlador — Pressionar (só com ícone)', (
       tester,
     ) async {
       var calls = 0;
       await tester.pumpWidget(
         _app(
-          RebicIconButton(
+          RebicButton(
             icon: RebicIcons.edit,
             tooltip: 'Editar',
-            onPressed: () => calls++,
+            onPress: () => calls++,
+            type: RebicButtonType.transparent,
           ),
         ),
       );
-      await tester.tap(find.byType(RebicIconButton));
+      await tester.tap(find.byType(RebicButton));
       await tester.pump();
       expect(calls, 1);
     });
 
-    testWidgets('[API] Callbacks e controlador — Botão de ícone desabilitado', (
-      tester,
-    ) async {
-      await tester.pumpWidget(
-        _app(
-          const RebicIconButton(
-            icon: RebicIcons.delete,
-            tooltip: 'Excluir',
-            onPressed: null,
+    testWidgets(
+      '[API] Callbacks e controlador — Botão desabilitado (só com ícone)',
+      (tester) async {
+        await tester.pumpWidget(
+          _app(
+            const RebicButton(
+              icon: RebicIcons.delete,
+              tooltip: 'Excluir',
+              enabled: false,
+              type: RebicButtonType.transparent,
+            ),
           ),
-        ),
-      );
-      await tester.tap(find.byType(RebicIconButton), warnIfMissed: false);
-      await tester.pump();
-      expect(tester.takeException(), isNull);
-      expect(
-        tester
-            .widget<Opacity>(
-              find.descendant(
-                of: find.byType(RebicIconButton),
-                matching: find.byType(Opacity),
-              ),
-            )
-            .opacity,
-        _light.interaction.disabledOpacity,
-      );
-    });
+        );
+        await tester.tap(find.byType(RebicButton), warnIfMissed: false);
+        await tester.pump();
+        expect(tester.takeException(), isNull);
+        expect(
+          tester
+              .widget<Opacity>(
+                find.descendant(
+                  of: find.byType(RebicButton),
+                  matching: find.byType(Opacity),
+                ),
+              )
+              .opacity,
+          _light.interaction.disabledOpacity,
+        );
+      },
+    );
   });
 
   testWidgets('[Comportamento] Dica — Dica no hover', (tester) async {
     await tester.pumpWidget(
       _app(
-        RebicIconButton(
+        RebicButton(
           icon: RebicIcons.edit,
           tooltip: 'Editar pedido',
-          onPressed: () {},
+          onPress: () {},
+          type: RebicButtonType.transparent,
         ),
       ),
     );
     final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
     await mouse.addPointer(location: Offset.zero);
     addTearDown(mouse.removePointer);
-    await mouse.moveTo(tester.getCenter(find.byType(RebicIconButton)));
+    await mouse.moveTo(tester.getCenter(find.byType(RebicButton)));
     await tester.pump(_light.motion.long);
     await tester.pump();
     expect(find.text('Editar pedido'), findsOneWidget);
   });
 
   testWidgets(
-    '[Comportamento] Ativação pelo teclado — Enter e Espaço no botão de ícone',
+    '[Comportamento] Ativação pelo teclado — Enter e Espaço (só com ícone)',
     (tester) async {
       var calls = 0;
       await tester.pumpWidget(
         _app(
-          RebicIconButton(
+          RebicButton(
             icon: RebicIcons.edit,
             tooltip: 'Editar',
-            onPressed: () => calls++,
+            onPress: () => calls++,
+            type: RebicButtonType.transparent,
           ),
         ),
       );
@@ -179,7 +174,7 @@ void main() {
     },
   );
 
-  testWidgets('[Aparência] Cores por tipo — Cores do botão de ícone por tipo', (
+  testWidgets('[Aparência] Cores por tipo — Cores por tipo (só com ícone)', (
     tester,
   ) async {
     for (final (type, family) in [
@@ -192,12 +187,12 @@ void main() {
     ]) {
       await tester.pumpWidget(
         _app(
-          RebicIconButton(
+          RebicButton(
             key: ValueKey(type),
             icon: RebicIcons.edit,
             tooltip: type.name,
             type: type,
-            onPressed: () {},
+            onPress: () {},
           ),
         ),
       );
@@ -210,17 +205,18 @@ void main() {
   });
 
   testWidgets(
-    '[Aparência] Tokens de componente — Botão de ícone na densidade compacta',
+    '[Aparência] Tokens de componente — Medidas da densidade compacta (só com ícone)',
     (tester) async {
       final compact = RebicThemeData.light(density: RebicDensity.compact);
       await tester.pumpWidget(
         _app(
           theme: compact,
           textScale: 2,
-          RebicIconButton(
+          RebicButton(
             icon: RebicIcons.edit,
             tooltip: 'Editar',
-            onPressed: () {},
+            onPress: () {},
+            type: RebicButtonType.transparent,
           ),
         ),
       );
@@ -236,20 +232,21 @@ void main() {
   );
 
   group('[Estados] Interação', () {
-    testWidgets('[Estados] Interação — Hover e pressionado no botão de ícone', (
+    testWidgets('[Estados] Interação — Hover e pressionado (só com ícone)', (
       tester,
     ) async {
       await tester.pumpWidget(
         _app(
-          RebicIconButton(
+          RebicButton(
             icon: RebicIcons.edit,
             tooltip: 'Editar',
-            onPressed: () {},
+            onPress: () {},
+            type: RebicButtonType.transparent,
           ),
         ),
       );
       final transparent = _family(RebicControlFamily.transparent);
-      final center = tester.getCenter(find.byType(RebicIconButton));
+      final center = tester.getCenter(find.byType(RebicButton));
       final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
       await mouse.addPointer(location: Offset.zero);
       addTearDown(mouse.removePointer);
@@ -267,15 +264,16 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-    testWidgets('[Estados] Interação — Foco pelo teclado no botão de ícone', (
+    testWidgets('[Comportamento] Dica — Dica no foco do teclado', (
       tester,
     ) async {
       await tester.pumpWidget(
         _app(
-          RebicIconButton(
+          RebicButton(
             icon: RebicIcons.edit,
             tooltip: 'Editar pedido',
-            onPressed: () {},
+            onPress: () {},
+            type: RebicButtonType.transparent,
           ),
         ),
       );
@@ -285,7 +283,7 @@ void main() {
         tester
             .widget<RebicFocusRing>(
               find.descendant(
-                of: find.byType(RebicIconButton),
+                of: find.byType(RebicButton),
                 matching: find.byType(RebicFocusRing),
               ),
             )
@@ -296,7 +294,7 @@ void main() {
     });
   });
 
-  testWidgets('[Acessibilidade] Semântica — Semântica do botão de ícone', (
+  testWidgets('[Acessibilidade] Semântica — Semântica do botão só com ícone', (
     tester,
   ) async {
     final handle = tester.ensureSemantics();
@@ -305,15 +303,17 @@ void main() {
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            RebicIconButton(
+            RebicButton(
               icon: RebicIcons.edit,
               tooltip: 'Editar',
-              onPressed: () {},
+              onPress: () {},
+              type: RebicButtonType.transparent,
             ),
-            const RebicIconButton(
+            const RebicButton(
               icon: RebicIcons.delete,
               tooltip: 'Excluir',
-              onPressed: null,
+              enabled: false,
+              type: RebicButtonType.transparent,
             ),
           ],
         ),
@@ -343,19 +343,29 @@ void main() {
     );
     expect(delete.tooltip, isEmpty);
     expect(find.bySemanticsLabel('Editar'), findsOneWidget);
+
+    await tester.pumpWidget(
+      _app(
+        RebicButton(text: 'Salvar', tooltip: 'Salvar o pedido', onPress: () {}),
+      ),
+    );
+    final save = tester.getSemantics(_interactable(0));
+    expect(save, containsSemantics(isButton: true, label: 'Salvar'));
+    expect(save.tooltip, 'Salvar o pedido');
     handle.dispose();
   });
 
-  testWidgets('[Responsividade] Direção — Ícone direcional em RTL', (
+  testWidgets('[Responsividade] Largura e direção — Ícone direcional em RTL', (
     tester,
   ) async {
     await tester.pumpWidget(
       _app(
         direction: TextDirection.rtl,
-        RebicIconButton(
+        RebicButton(
           icon: RebicIcons.navBack,
           tooltip: 'Voltar',
-          onPressed: () {},
+          onPress: () {},
+          type: RebicButtonType.transparent,
         ),
       ),
     );
@@ -369,7 +379,7 @@ void main() {
 
   group('[Integração] Dependências', () {
     testWidgets(
-      '[Integração] Dependências e uso — Botão de ícone sem Material',
+      '[Integração] Dependências do núcleo e de widgets — Botão sem Material (só com ícone)',
       (tester) async {
         await tester.pumpWidget(
           _app(
@@ -377,23 +387,23 @@ void main() {
               mainAxisSize: MainAxisSize.min,
               children: [
                 for (final type in RebicButtonType.values)
-                  RebicIconButton(
+                  RebicButton(
                     icon: RebicIcons.edit,
                     tooltip: type.name,
                     type: type,
-                    onPressed: () {},
+                    onPress: () {},
                   ),
-                const RebicIconButton(
+                const RebicButton(
                   icon: RebicIcons.edit,
                   tooltip: 'Desabilitado',
-                  onPressed: null,
+                  enabled: false,
+                  type: RebicButtonType.transparent,
                 ),
               ],
             ),
           ),
         );
-        for (final element
-            in find.byType(RebicIconButton).evaluate().toList()) {
+        for (final element in find.byType(RebicButton).evaluate().toList()) {
           await tester.tap(find.byWidget(element.widget), warnIfMissed: false);
         }
         await tester.pump();
@@ -402,7 +412,7 @@ void main() {
     );
 
     testWidgets(
-      '[Integração] Dependências e uso — Barra e página usam o botão de ícone',
+      '[Integração] Dependências do núcleo e de widgets — Barra e página usam o botão',
       (tester) async {
         await tester.pumpWidget(
           RebicApp(
@@ -422,86 +432,15 @@ void main() {
             ),
           ),
         );
-        final tooltips = tester
-            .widgetList<RebicIconButton>(find.byType(RebicIconButton))
-            .map((b) => b.tooltip)
-            .toSet();
-        expect(tooltips, {'Menu', 'Voltar'});
+        final buttons = tester
+            .widgetList<RebicButton>(find.byType(RebicButton))
+            .toList();
+        expect(buttons.map((b) => b.tooltip).toSet(), {'Menu', 'Voltar'});
+        for (final button in buttons) {
+          expect(button.text, isNull);
+          expect(button.type, RebicButtonType.transparent);
+        }
       },
     );
-  });
-
-  group('[Testes] Cobertura exigida', () {
-    test('[Testes] Cobertura exigida — Rastreabilidade do botão de ícone', () {
-      final names = scenarioNames(
-        'rebic/widgets/rebic-icon-button',
-        'add-rebic-icon-button',
-      );
-      expect(names, hasLength(19));
-      expect(untestedScenarios(names), isEmpty);
-    });
-
-    testWidgets('[Testes] Cobertura exigida — Goldens do botão de ícone', (
-      tester,
-    ) async {
-      for (final (name, theme) in goldenThemes) {
-        await expectGolden(
-          tester,
-          name: 'rebic_icon_button_$name',
-          theme: theme,
-          size: const Size(480, 160),
-          child: Overlay(
-            initialEntries: [
-              OverlayEntry(
-                builder: (_) => RebicHBox(
-                  items: [
-                    for (final type in RebicButtonType.values)
-                      RebicIconButton(
-                        icon: RebicIcons.edit,
-                        tooltip: type.name,
-                        type: type,
-                        onPressed: () {},
-                      ),
-                    const RebicIconButton(
-                      icon: RebicIcons.edit,
-                      tooltip: 'Desabilitado',
-                      onPressed: null,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      }
-    }, tags: ['golden']);
-  });
-
-  test('[Restrições] Fora do escopo — Botão de ícone sem valor literal', () {
-    final source = File(
-      'lib/src/acoes_navegacao/icon_button/rebic_icon_button.dart',
-    ).readAsStringSync();
-    final fields = RegExp(
-      r'^  final (\S+) (\w+);$',
-      multiLine: true,
-    ).allMatches(source).map((m) => m.group(1)!).toList();
-    expect(fields, isNotEmpty);
-    for (final type in fields) {
-      expect(
-        type,
-        isNot(
-          isIn([
-            'double',
-            'double?',
-            'Color',
-            'Color?',
-            'Duration',
-            'Duration?',
-            'Widget',
-            'Widget?',
-          ]),
-        ),
-      );
-    }
   });
 }

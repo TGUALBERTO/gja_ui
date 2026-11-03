@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
-import '../../acoes_navegacao/icon_button/rebic_icon_button.dart';
+import '../../acoes_navegacao/button/rebic_button.dart';
 import '../bar/rebic_bar.dart';
 import '../container/rebic_container.dart';
 import '../title/rebic_title.dart';
@@ -169,11 +169,13 @@ class RebicPage extends StatelessWidget {
             titleAlignment: titleAlignment,
             contentLeft: [
               if (showNavButton)
-                RebicIconButton(
+                RebicButton(
                   icon: RebicIcons.navBack,
                   tooltip:
                       navButtonTooltip ?? RebicLocalizations.of(context).back,
-                  onPressed: onNavButtonPress,
+                  onPress: onNavButtonPress,
+                  enabled: onNavButtonPress != null,
+                  type: RebicButtonType.transparent,
                 ),
             ],
             contentMiddle: [

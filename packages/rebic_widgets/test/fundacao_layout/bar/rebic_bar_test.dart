@@ -189,20 +189,22 @@ void main() {
         width: 320,
         RebicBar(
           contentLeft: [
-            RebicIconButton(
+            RebicButton(
               icon: RebicIcons.navBack,
               tooltip: 'Voltar',
-              onPressed: () {},
+              onPress: () {},
+              type: RebicButtonType.transparent,
             ),
           ],
           contentMiddle: const [
             RebicTitle('Pedidos de compra em aberto aguardando aprovação'),
           ],
           contentRight: [
-            RebicIconButton(
+            RebicButton(
               icon: RebicIcons.edit,
               tooltip: 'Editar',
-              onPressed: () {},
+              onPress: () {},
+              type: RebicButtonType.transparent,
             ),
           ],
         ),
@@ -426,18 +428,20 @@ void main() {
                   RebicBar(
                     design: design,
                     contentLeft: [
-                      RebicIconButton(
+                      RebicButton(
                         icon: RebicIcons.navBack,
                         tooltip: 'Voltar',
-                        onPressed: () {},
+                        onPress: () {},
+                        type: RebicButtonType.transparent,
                       ),
                     ],
                     contentMiddle: [RebicTitle(design.name)],
                     contentRight: [
-                      RebicIconButton(
+                      RebicButton(
                         icon: RebicIcons.edit,
                         tooltip: 'Editar',
-                        onPressed: () {},
+                        onPress: () {},
+                        type: RebicButtonType.transparent,
                       ),
                     ],
                   ),

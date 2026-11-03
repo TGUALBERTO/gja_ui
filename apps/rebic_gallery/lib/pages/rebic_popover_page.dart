@@ -71,23 +71,23 @@ class _RebicPopoverPageState extends State<RebicPopoverPage> {
                   ),
                   actions: [
                     RebicButton(
-                      label: RebicPopoverPage.apply,
+                      text: RebicPopoverPage.apply,
                       type: RebicButtonType.emphasized,
-                      onPressed: () {
+                      onPress: () {
                         _filters.close();
                         setState(() => _applied = true);
                       },
                     ),
                     RebicButton(
-                      label: 'Cancelar',
+                      text: 'Cancelar',
                       type: RebicButtonType.transparent,
-                      onPressed: _filters.close,
+                      onPress: _filters.close,
                     ),
                   ],
                   child: RebicButton(
-                    label: RebicPopoverPage.filter,
+                    text: RebicPopoverPage.filter,
                     icon: RebicIcons.filter,
-                    onPressed: _filters.toggle,
+                    onPress: _filters.toggle,
                   ),
                 ),
                 RebicPopover(
@@ -96,10 +96,11 @@ class _RebicPopoverPageState extends State<RebicPopoverPage> {
                   content: const RebicText(
                     'Pedido 4711, criado em 12/10 por Maria Barros.',
                   ),
-                  child: RebicIconButton(
+                  child: RebicButton(
                     icon: RebicIcons.information,
                     tooltip: 'Detalhes do pedido',
-                    onPressed: _details.toggle,
+                    onPress: _details.toggle,
+                    type: RebicButtonType.transparent,
                   ),
                 ),
               ],

@@ -3,7 +3,7 @@ import 'package:rebic_foundation/rebic_foundation.dart';
 import 'rebic_button.dart';
 
 /// Família de controle de cada [RebicButtonType], interna ao pacote (não
-/// exportada), compartilhada pelo `RebicButton` e pelo `RebicIconButton`.
+/// exportada), compartilhada pelos formatos do `RebicButton`.
 RebicControlFamily rebicButtonFamily(RebicButtonType type) => switch (type) {
   RebicButtonType.standard => RebicControlFamily.standard,
   RebicButtonType.emphasized => RebicControlFamily.emphasized,

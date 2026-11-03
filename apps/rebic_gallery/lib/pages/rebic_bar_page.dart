@@ -41,18 +41,20 @@ class RebicBarPage extends StatelessWidget {
       design: design,
       titleAlignment: alignment,
       contentLeft: [
-        RebicIconButton(
+        RebicButton(
           icon: RebicIcons.navBack,
           tooltip: 'Voltar',
-          onPressed: () {},
+          onPress: () {},
+          type: RebicButtonType.transparent,
         ),
       ],
       contentMiddle: [RebicTitle(label)],
       contentRight: [
-        RebicIconButton(
+        RebicButton(
           icon: RebicIcons.edit,
           tooltip: 'Editar',
-          onPressed: () {},
+          onPress: () {},
+          type: RebicButtonType.transparent,
         ),
       ],
     );

@@ -1,8 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
 
-/// Página "RebicButton": um botão de cada tipo, com e sem ícone, um
-/// desabilitado e "Enviar", que fica ocupado ao ser tocado.
+/// Página "RebicButton": um botão de cada tipo, com e sem ícone, uma barra
+/// de ações só com ícone, um desabilitado e "Enviar", que fica ocupado ao
+/// ser tocado.
 class RebicButtonPage extends StatefulWidget {
   /// Cria a página.
   const RebicButtonPage({super.key});
@@ -15,6 +16,14 @@ class RebicButtonPage extends StatefulWidget {
 
   /// Chave do botão "Enviar".
   static const sendKey = Key('button-send');
+
+  /// Ações da barra só com ícone.
+  static const actions = [
+    (RebicIcons.edit, 'Editar pedido'),
+    (RebicIcons.delete, 'Excluir pedido'),
+    (RebicIcons.download, 'Baixar PDF'),
+    (RebicIcons.overflow, 'Mais ações'),
+  ];
 
   @override
   State<RebicButtonPage> createState() => _RebicButtonPageState();
@@ -31,7 +40,7 @@ class _RebicButtonPageState extends State<RebicButtonPage> {
       onNavButtonPress: () => Navigator.of(context).maybePop(),
       contentPadding: RebicContentPadding.responsive,
       content: [
-        const RebicText('Tipos Fiori, ícone, desabilitado e ocupado'),
+        const RebicText('Tipos Fiori, ícone, só ícone, desabilitado e ocupado'),
         const RebicSpacing.vertical(RebicSpace.l),
         RebicVBox(
           gap: RebicSpace.l,
@@ -46,7 +55,7 @@ class _RebicButtonPageState extends State<RebicButtonPage> {
               alignItems: RebicFlexAlignItems.start,
               items: [
                 for (final type in RebicButtonType.values)
-                  RebicButton(label: type.name, type: type, onPressed: () {}),
+                  RebicButton(text: type.name, type: type, onPress: () {}),
               ],
             ),
             const RebicTitle(
@@ -59,22 +68,57 @@ class _RebicButtonPageState extends State<RebicButtonPage> {
               alignItems: RebicFlexAlignItems.start,
               items: [
                 RebicButton(
-                  label: 'Salvar',
+                  text: 'Salvar',
                   type: RebicButtonType.emphasized,
                   icon: RebicIcons.accept,
-                  onPressed: () {},
+                  onPress: () {},
                 ),
                 RebicButton(
-                  label: 'Editar',
+                  text: 'Editar',
                   icon: RebicIcons.edit,
-                  onPressed: () {},
+                  onPress: () {},
                 ),
                 RebicButton(
-                  label: 'Excluir',
+                  text: 'Excluir',
                   type: RebicButtonType.reject,
                   icon: RebicIcons.delete,
-                  onPressed: () {},
+                  onPress: () {},
                 ),
+              ],
+            ),
+            const RebicTitle(
+              'Barra de ações só com ícone',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicHBox(
+              gap: RebicSpace.xs,
+              items: [
+                for (final (icon, tooltip) in RebicButtonPage.actions)
+                  RebicButton(
+                    icon: icon,
+                    tooltip: tooltip,
+                    type: RebicButtonType.transparent,
+                    onPress: () {},
+                  ),
+              ],
+            ),
+            const RebicTitle(
+              'Tipos só com ícone',
+              level: RebicTitleLevel.h2,
+              titleStyle: RebicTitleLevel.h3,
+            ),
+            RebicHBox(
+              wrap: RebicFlexWrap.wrap,
+              alignItems: RebicFlexAlignItems.start,
+              items: [
+                for (final type in RebicButtonType.values)
+                  RebicButton(
+                    icon: RebicIcons.accept,
+                    tooltip: type.name,
+                    type: type,
+                    onPress: () {},
+                  ),
               ],
             ),
             const RebicTitle(
@@ -86,20 +130,20 @@ class _RebicButtonPageState extends State<RebicButtonPage> {
               wrap: RebicFlexWrap.wrap,
               alignItems: RebicFlexAlignItems.start,
               items: [
-                const RebicButton(label: 'Aprovar', onPressed: null),
+                const RebicButton(text: 'Aprovar', enabled: false),
                 RebicButton(
                   key: RebicButtonPage.sendKey,
-                  label: 'Enviar',
+                  text: 'Enviar',
                   type: RebicButtonType.emphasized,
                   icon: RebicIcons.upload,
                   busy: _sending,
-                  onPressed: () => setState(() => _sending = true),
+                  onPress: () => setState(() => _sending = true),
                 ),
                 if (_sending)
                   RebicButton(
-                    label: 'Concluir envio',
+                    text: 'Concluir envio',
                     type: RebicButtonType.transparent,
-                    onPressed: () => setState(() => _sending = false),
+                    onPress: () => setState(() => _sending = false),
                   ),
               ],
             ),

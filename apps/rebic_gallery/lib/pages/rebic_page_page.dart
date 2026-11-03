@@ -37,10 +37,11 @@ class _RebicPagePageState extends State<RebicPagePage> {
       showNavButton: true,
       onNavButtonPress: back,
       headerContent: [
-        RebicIconButton(
+        RebicButton(
           icon: RebicIcons.sysHelp,
           tooltip: 'Ajuda',
-          onPressed: () {},
+          onPress: () {},
+          type: RebicButtonType.transparent,
         ),
       ],
       subHeader: const RebicBar(
@@ -51,11 +52,11 @@ class _RebicPagePageState extends State<RebicPagePage> {
       floatingFooter: _floating,
       footer: RebicBar(
         contentRight: [
-          RebicButton(label: 'Cancelar', onPressed: back),
+          RebicButton(text: 'Cancelar', onPress: back),
           RebicButton(
-            label: 'Salvar',
+            text: 'Salvar',
             type: RebicButtonType.emphasized,
-            onPressed: back,
+            onPress: back,
           ),
         ],
       ),
@@ -85,11 +86,11 @@ class _RebicPagePageState extends State<RebicPagePage> {
                 for (final design in RebicPageBackgroundDesign.values)
                   RebicButton(
                     key: RebicPagePage.designKey(design),
-                    label: design.name,
+                    text: design.name,
                     type: design == _design
                         ? RebicButtonType.emphasized
                         : RebicButtonType.standard,
-                    onPressed: () => setState(() => _design = design),
+                    onPress: () => setState(() => _design = design),
                   ),
               ],
             ),
@@ -100,8 +101,8 @@ class _RebicPagePageState extends State<RebicPagePage> {
             ),
             RebicButton(
               key: RebicPagePage.floatingKey,
-              label: _floating ? 'Rodapé fixo' : 'Rodapé flutuante',
-              onPressed: () => setState(() => _floating = !_floating),
+              text: _floating ? 'Rodapé fixo' : 'Rodapé flutuante',
+              onPress: () => setState(() => _floating = !_floating),
             ),
             const RebicTitle(
               'Rolagem',

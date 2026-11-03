@@ -516,7 +516,7 @@ void main() {
         _dropdown(
           controller,
           onSelected: chosen.add,
-          anchor: RebicButton(label: 'Status', onPressed: controller.toggle),
+          anchor: RebicButton(text: 'Status', onPress: controller.toggle),
         ),
       ),
     );

@@ -81,7 +81,7 @@ void main() {
       expect(find.text('Pedidos'), findsOneWidget);
       expect(_bars, findsOneWidget);
       expect(_rect(tester, 'body').top, tester.getRect(_bars).bottom);
-      expect(find.byType(RebicIconButton), findsNothing);
+      expect(find.byType(RebicButton), findsNothing);
     });
 
     testWidgets('[API] Propriedades — Página completa', (tester) async {
@@ -591,10 +591,11 @@ void main() {
               showNavButton: true,
               onNavButtonPress: () {},
               headerContent: [
-                RebicIconButton(
+                RebicButton(
                   icon: RebicIcons.edit,
                   tooltip: 'Editar',
-                  onPressed: () {},
+                  onPress: () {},
+                  type: RebicButtonType.transparent,
                 ),
               ],
               subHeader: const RebicBar(
@@ -605,9 +606,9 @@ void main() {
               footer: RebicBar(
                 contentRight: [
                   RebicButton(
-                    label: 'Salvar',
+                    text: 'Salvar',
                     type: RebicButtonType.emphasized,
-                    onPressed: () {},
+                    onPress: () {},
                   ),
                 ],
               ),

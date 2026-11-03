@@ -105,10 +105,11 @@ class _RebicCardPageState extends State<RebicCardPage> {
                   header: RebicCardHeader(
                     key: RebicCardPage.toolbarHeaderKey,
                     title: 'Últimas notas',
-                    toolbar: RebicIconButton(
+                    toolbar: RebicButton(
                       icon: RebicIcons.overflow,
                       tooltip: 'Mais',
-                      onPressed: () {},
+                      onPress: () {},
+                      type: RebicButtonType.transparent,
                     ),
                   ),
                   content: RebicVBox(

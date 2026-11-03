@@ -54,10 +54,10 @@ Widget _sample() => RebicVBox(
     ),
     RebicBar(
       contentLeft: [
-        RebicButton(label: 'Salvar', onPressed: () {}),
+        RebicButton(text: 'Salvar', onPress: () {}),
         const RebicSeparator.vertical(),
-        RebicButton(label: 'Copiar', onPressed: () {}),
-        RebicButton(label: 'Excluir', onPressed: () {}),
+        RebicButton(text: 'Copiar', onPress: () {}),
+        RebicButton(text: 'Excluir', onPress: () {}),
       ],
     ),
   ],
@@ -104,9 +104,9 @@ void main() {
         _themed(
           RebicBar(
             contentLeft: [
-              RebicButton(label: 'Salvar', onPressed: () {}),
+              RebicButton(text: 'Salvar', onPress: () {}),
               const RebicSeparator.vertical(key: _s),
-              RebicButton(label: 'Copiar', onPressed: () {}),
+              RebicButton(text: 'Copiar', onPress: () {}),
             ],
           ),
         ),

@@ -62,27 +62,29 @@ class _RebicBadgePageState extends State<RebicBadgePage> {
                   key: RebicBadgePage.bellKey,
                   count: _notifications,
                   semanticLabel: '$_notifications notificações',
-                  child: RebicIconButton(
+                  child: RebicButton(
                     icon: RebicIcons.bell,
                     tooltip: 'Notificações',
-                    onPressed: () {},
+                    onPress: () {},
+                    type: RebicButtonType.transparent,
                   ),
                 ),
                 RebicBadge(
                   count: 42,
                   state: RebicValueState.information,
                   semanticLabel: '42 pedidos',
-                  child: RebicIconButton(
+                  child: RebicButton(
                     icon: RebicIcons.document,
                     tooltip: 'Pedidos',
-                    onPressed: () {},
+                    onPress: () {},
+                    type: RebicButtonType.transparent,
                   ),
                 ),
               ],
             ),
             RebicButton(
-              label: 'Nova notificação',
-              onPressed: () => setState(() => _notifications++),
+              text: 'Nova notificação',
+              onPress: () => setState(() => _notifications++),
             ),
           ],
         ),
