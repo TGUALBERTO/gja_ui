@@ -30,22 +30,22 @@
 - **THEN** há um único divisor, entre "Copiar" e "Excluir"
 
 ### Requirement: [API] Itens válidos
-`RebicMenuItem` SHALL ter `label`, `onPressed` (`VoidCallback?`, nulo desabilita o item), `icon` (`IconData?`), `shortcut` (`String?`) e `startsSection` (padrão `false`). `items` MUST NOT ser vazia, os rótulos e `semanticLabel` MUST NOT ser vazios. Fora disso, a criação MUST falhar em modo debug.
+`RebicMenuItem` SHALL ter, como o `sap.m.MenuItem`, `text`, `enabled` (padrão `true`), `onPress` (`VoidCallback?`), `icon` (`IconData?`), `shortcutText` (`String?`) e `startsSection` (padrão `false`). `items` MUST NOT ser vazia, os textos e `semanticLabel` MUST NOT ser vazios. Fora disso, a criação MUST falhar em modo debug.
 
 #### Scenario: Menu sem itens
 - **WHEN** um `RebicMenu` é criado com `items` vazia
 - **THEN** a criação falha em modo debug
 
 ### Requirement: [API] Callbacks e controlador
-Acionar um item habilitado SHALL fechar o menu pelo `controller` e chamar o `onPressed` dele uma vez, sem chamar `onDismiss`. Itens sem `onPressed` MUST NOT ser acionados. Fechar por toque fora ou Esc SHALL chamar `onDismiss`, como em `rebic/widgets/rebic-popover`.
+Acionar um item habilitado SHALL fechar o menu pelo `controller` e chamar o `onPress` dele uma vez, sem chamar `onDismiss`. Itens com `enabled` `false` MUST NOT ser acionados. Fechar por toque fora ou Esc SHALL chamar `onDismiss`, como em `rebic/widgets/rebic-popover`.
 
 #### Scenario: Acionar um item
-- **GIVEN** um menu aberto com `onDismiss` e o `onPressed` de "Copiar" que registram as chamadas
+- **GIVEN** um menu aberto com `onDismiss` e o `onPress` de "Copiar" que registram as chamadas
 - **WHEN** o item "Copiar" é tocado
-- **THEN** o `onPressed` de "Copiar" foi chamado uma vez, o menu fechou, e `onDismiss` não foi chamado
+- **THEN** o `onPress` de "Copiar" foi chamado uma vez, o menu fechou, e `onDismiss` não foi chamado
 
 #### Scenario: Item desabilitado
-- **GIVEN** um menu aberto com o item "Exportar" sem `onPressed`
+- **GIVEN** um menu aberto com o item "Exportar" com `enabled` `false`
 - **WHEN** o item "Exportar" é tocado
 - **THEN** nenhuma ação é chamada, e o menu continua aberto
 
@@ -86,7 +86,7 @@ Ao abrir, o foco MUST ir ao primeiro item habilitado. As setas, Home, End e a pr
 #### Scenario: Menu pelo teclado
 - **GIVEN** os itens "Editar", "Exportar" (desabilitado) e "Excluir", e uma âncora com foco
 - **WHEN** o menu abre, e são pressionados seta para baixo e Enter
-- **THEN** o foco passa por "Editar" e "Excluir", o `onPressed` de "Excluir" é chamado, e o foco volta à âncora
+- **THEN** o foco passa por "Editar" e "Excluir", o `onPress` de "Excluir" é chamado, e o foco volta à âncora
 
 #### Scenario: Primeira letra no menu
 - **GIVEN** um menu aberto com o foco em "Editar"

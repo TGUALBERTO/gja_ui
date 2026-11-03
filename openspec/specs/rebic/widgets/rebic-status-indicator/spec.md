@@ -17,7 +17,7 @@
 | `title` | `String?` | `null` |
 | `state` | `RebicValueState` | `none` |
 | `inverted` | `bool` | `false` |
-| `onPressed` | `VoidCallback?` | `null` (não interativo) |
+| `onPress` | `VoidCallback?` | `null` (não interativo) |
 
 #### Scenario: Status mínimo
 - **WHEN** `RebicStatusIndicator(text: 'Aprovado', state: RebicValueState.success)` é renderizado
@@ -36,14 +36,14 @@ O status MUST ter `text` não vazio ou `icon`. Sem nenhum dos dois, MUST falhar 
 - **THEN** a criação falha em modo debug
 
 ### Requirement: [API] Callbacks e controlador
-Com `onPressed`, o status SHALL ser ativo e chamar `onPressed` uma vez por ativação por toque, Enter ou Espaço. Sem `onPressed`, MUST NOT receber o foco nem reagir ao ponteiro. `RebicStatusIndicator` SHALL NOT ter controlador.
+Com `onPress`, o status SHALL ser ativo e chamar `onPress` uma vez por ativação por toque, Enter ou Espaço, como o evento `press` do SAPUI5. Sem `onPress`, não há ação, e o status MUST NOT receber o foco nem reagir ao ponteiro. `RebicStatusIndicator` SHALL NOT ter controlador.
 
 #### Scenario: Status ativo
-- **WHEN** um status com `onPressed` é tocado e, com o foco nele, Enter é pressionado
-- **THEN** `onPressed` é chamado duas vezes
+- **WHEN** um status com `onPress` é tocado e, com o foco nele, Enter é pressionado
+- **THEN** `onPress` é chamado duas vezes
 
 #### Scenario: Status inativo
-- **GIVEN** um status sem `onPressed` entre dois elementos focáveis
+- **GIVEN** um status sem `onPress` entre dois elementos focáveis
 - **WHEN** Tab é pressionado a partir do primeiro
 - **THEN** o foco vai ao segundo, sem parada no status
 

@@ -17,7 +17,7 @@
 | `size` | `RebicAvatarSize` | `s` |
 | `shape` | `RebicAvatarShape` | `circle` |
 | `semanticLabel` | `String?` | `null` (as iniciais) |
-| `onPressed` | `VoidCallback?` | `null` (não interativo) |
+| `onPress` | `VoidCallback?` | `null` (não interativo) |
 
 #### Scenario: Avatar com iniciais
 - **WHEN** `RebicAvatar(initials: 'mb')` é renderizado
@@ -36,14 +36,14 @@
 - **THEN** a criação falha em modo debug com mensagem que cita "ABCD"
 
 ### Requirement: [API] Callbacks e controlador
-Com `onPressed`, o avatar SHALL ser ativo e chamar `onPressed` uma vez por ativação por toque, Enter ou Espaço. Sem `onPressed`, MUST NOT receber o foco nem reagir ao ponteiro. `RebicAvatar` SHALL NOT ter controlador.
+Com `onPress`, o avatar SHALL ser ativo e chamar `onPress` uma vez por ativação por toque, Enter ou Espaço, como o evento `press` do SAPUI5. Sem `onPress`, não há ação, e o avatar MUST NOT receber o foco nem reagir ao ponteiro. `RebicAvatar` SHALL NOT ter controlador.
 
 #### Scenario: Avatar ativo
-- **WHEN** um avatar com `onPressed` é tocado e, com o foco nele, Enter é pressionado
-- **THEN** `onPressed` é chamado duas vezes
+- **WHEN** um avatar com `onPress` é tocado e, com o foco nele, Enter é pressionado
+- **THEN** `onPress` é chamado duas vezes
 
 #### Scenario: Avatar inativo
-- **GIVEN** um avatar sem `onPressed` entre dois elementos focáveis
+- **GIVEN** um avatar sem `onPress` entre dois elementos focáveis
 - **WHEN** Tab é pressionado a partir do primeiro
 - **THEN** o foco vai ao segundo, sem parada no avatar
 
