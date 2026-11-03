@@ -35,6 +35,7 @@ export 'src/acoes_navegacao/link/rebic_link.dart';
 export 'src/acoes_navegacao/menu/rebic_menu.dart';
 export 'src/feedback_sobreposicoes/popover/rebic_popover.dart';
 export 'src/feedback_sobreposicoes/dropdown/rebic_dropdown.dart';
+export 'src/feedback_sobreposicoes/message_strip/rebic_message_strip.dart';
 export 'src/formularios/check_box/rebic_check_box.dart';
 export 'src/formularios/input/rebic_input.dart';
 export 'src/formularios/radio_button/rebic_radio_button.dart';

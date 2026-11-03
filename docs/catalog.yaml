@@ -1041,16 +1041,24 @@ items:
     status: planned
     depends_on:
       - rebic/widgets/rebic-dialog
-  - id: rebic/widgets/rebic-alert
-    name: "RebicAlert"
+  - id: rebic/widgets/rebic-message-strip
+    name: "RebicMessageStrip"
     kind: widget
     category: feedback-sobreposicoes
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
-      - rebic/widgets/rebic-status-indicator
       - rebic/widgets/rebic-button
+      - rebic/widgets/rebic-link
+      - rebic/core/localization
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/iconography
+      - rebic/foundation/spacing
+      - rebic/foundation/radius
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-snackbar
     name: "RebicSnackbar"
     kind: widget
