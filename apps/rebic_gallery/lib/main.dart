@@ -18,7 +18,6 @@ import 'pages/rebic_bar_page.dart';
 import 'pages/rebic_button_page.dart';
 import 'pages/rebic_card_page.dart';
 import 'pages/rebic_container_page.dart';
-import 'pages/rebic_divider_page.dart';
 import 'pages/rebic_dropdown_page.dart';
 import 'pages/rebic_grid_page.dart';
 import 'pages/rebic_icon_button_page.dart';
@@ -31,6 +30,7 @@ import 'pages/rebic_page_page.dart';
 import 'pages/rebic_popover_page.dart';
 import 'pages/rebic_progress_indicator_page.dart';
 import 'pages/rebic_row_column_page.dart';
+import 'pages/rebic_separator_page.dart';
 import 'pages/rebic_shell_bar_page.dart';
 import 'pages/rebic_status_indicator_page.dart';
 import 'pages/rebic_tooltip_page.dart';
@@ -192,9 +192,9 @@ final galleryPages = <GalleryPage>[
     builder: (_) => const RebicRowColumnPage(),
   ),
   GalleryPage(
-    title: RebicDividerPage.title,
-    route: RebicDividerPage.route,
-    builder: (_) => const RebicDividerPage(),
+    title: RebicSeparatorPage.title,
+    route: RebicSeparatorPage.route,
+    builder: (_) => const RebicSeparatorPage(),
   ),
   GalleryPage(
     title: RebicResponsiveLayoutPage.title,

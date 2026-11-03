@@ -8,10 +8,15 @@
 /// na grade de 4 px. Widgets não leem estes valores: eles usam
 /// `RebicDensityTokens`.
 abstract final class RebicDensityPrimitives {
+  /// 24, altura do separador vertical compacto (`sap.m.ToolbarSeparator`,
+  /// 1.5rem).
+  static const size24 = 24.0;
+
   /// 26, altura de elemento compacta (`sapElement_Compact_Height`, 1.625rem).
   static const size26 = 26.0;
 
-  /// 32, altura de linha compacta (`sapElement_Compact_LineHeight`, 2rem).
+  /// 32, altura de linha compacta (`sapElement_Compact_LineHeight`, 2rem) e
+  /// do separador vertical cozy.
   static const size32 = 32.0;
 
   /// 36, altura de elemento cozy (`sapElement_Height`, 2.25rem).
@@ -25,6 +30,7 @@ abstract final class RebicDensityPrimitives {
 
   /// Escala completa, em ordem crescente.
   static const sizes = <String, double>{
+    'size24': size24,
     'size26': size26,
     'size32': size32,
     'size36': size36,

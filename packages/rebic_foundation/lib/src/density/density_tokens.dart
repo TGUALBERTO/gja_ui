@@ -39,11 +39,13 @@ class RebicDensityTokens extends RebicTokenSet<RebicDensityTokens> {
     required this.listItemHeight,
     required this.minTargetSize,
     required this.barHeight,
+    required this.separatorHeight,
     required this.spacing,
   });
 
   /// Mapeamento de referência cozy: controle 36 (`sapElement_Height`), item e
-  /// alvo 44 (`sapElement_LineHeight`) e barra 48 (`sap.m.Bar`, 3rem).
+  /// alvo 44 (`sapElement_LineHeight`), barra 48 (`sap.m.Bar`, 3rem) e
+  /// separador 32 (`sap.m.ToolbarSeparator`, 2rem).
   const RebicDensityTokens.cozy()
     : this(
         density: RebicDensity.cozy,
@@ -51,12 +53,14 @@ class RebicDensityTokens extends RebicTokenSet<RebicDensityTokens> {
         listItemHeight: _D.size44,
         minTargetSize: _D.size44,
         barHeight: _D.size48,
+        separatorHeight: _D.size32,
         spacing: const RebicSpacingTokens.fallback(),
       );
 
   /// Mapeamento de referência compacto: controle 26
   /// (`sapElement_Compact_Height`), item e alvo 32
-  /// (`sapElement_Compact_LineHeight`) e barra 32 (`sap.m.Bar`, 2rem).
+  /// (`sapElement_Compact_LineHeight`), barra 32 (`sap.m.Bar`, 2rem) e
+  /// separador 24 (`sap.m.ToolbarSeparator`, 1.5rem).
   const RebicDensityTokens.compact()
     : this(
         density: RebicDensity.compact,
@@ -64,6 +68,7 @@ class RebicDensityTokens extends RebicTokenSet<RebicDensityTokens> {
         listItemHeight: _D.size32,
         minTargetSize: _D.size32,
         barHeight: _D.size32,
+        separatorHeight: _D.size24,
         spacing: const RebicSpacingTokens.fallback(),
       );
 
@@ -95,6 +100,9 @@ class RebicDensityTokens extends RebicTokenSet<RebicDensityTokens> {
   /// `sap.m.Bar`.
   final double barHeight;
 
+  /// Altura de um separador vertical, como a do `sap.m.ToolbarSeparator`.
+  final double separatorHeight;
+
   /// Espaçamento desta densidade.
   final RebicSpacingTokens spacing;
 
@@ -104,6 +112,7 @@ class RebicDensityTokens extends RebicTokenSet<RebicDensityTokens> {
     'listItemHeight': listItemHeight,
     'minTargetSize': minTargetSize,
     'barHeight': barHeight,
+    'separatorHeight': separatorHeight,
   };
 
   @override
@@ -113,6 +122,7 @@ class RebicDensityTokens extends RebicTokenSet<RebicDensityTokens> {
     double? listItemHeight,
     double? minTargetSize,
     double? barHeight,
+    double? separatorHeight,
     RebicSpacingTokens? spacing,
   }) {
     final result = RebicDensityTokens(
@@ -121,6 +131,7 @@ class RebicDensityTokens extends RebicTokenSet<RebicDensityTokens> {
       listItemHeight: listItemHeight ?? this.listItemHeight,
       minTargetSize: minTargetSize ?? this.minTargetSize,
       barHeight: barHeight ?? this.barHeight,
+      separatorHeight: separatorHeight ?? this.separatorHeight,
       spacing: spacing ?? this.spacing,
     );
     assert(() {
@@ -153,6 +164,7 @@ class RebicDensityTokens extends RebicTokenSet<RebicDensityTokens> {
       listItemHeight: mix(listItemHeight, other.listItemHeight),
       minTargetSize: mix(minTargetSize, other.minTargetSize),
       barHeight: mix(barHeight, other.barHeight),
+      separatorHeight: mix(separatorHeight, other.separatorHeight),
       spacing: spacing.lerp(other.spacing, t),
     );
   }
@@ -166,6 +178,7 @@ class RebicDensityTokens extends RebicTokenSet<RebicDensityTokens> {
         other.listItemHeight == listItemHeight &&
         other.minTargetSize == minTargetSize &&
         other.barHeight == barHeight &&
+        other.separatorHeight == separatorHeight &&
         other.spacing == spacing;
   }
 
@@ -176,6 +189,7 @@ class RebicDensityTokens extends RebicTokenSet<RebicDensityTokens> {
     listItemHeight,
     minTargetSize,
     barHeight,
+    separatorHeight,
     spacing,
   );
 

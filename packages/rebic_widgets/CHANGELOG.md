@@ -2,6 +2,15 @@
 
 ## Não lançado
 
+- **BREAKING** Separador no modelo do SAPUI5 (`update-rebic-divider-fiori-separator`, spec
+  `rebic/widgets/rebic-separator`, que substitui `rebic/widgets/rebic-divider`): `RebicDivider` passa a
+  `RebicSeparator`, como o `sap.m.ToolbarSeparator`. De/para:
+  - `RebicDivider()` → `RebicSeparator()`; `RebicDivider.vertical()` → `RebicSeparator.vertical()`;
+  - `tone` e `RebicDividerTone` saem: a linha usa sempre `colors.separator`;
+  - `spacing`, `indent` e `endIndent` saem: o espaço vem do contêiner (`gap` de `RebicColumn`, `RebicSpacing`);
+  - o vertical deixa de esticar e passa a ter a altura `density.separatorHeight` (32 cozy, 24 compacto), centrado.
+
+  Card, dropdown, menu e popover passam a usar `RebicSeparator`, sem mudança visual.
 - Asterisco de obrigatório do `RebicLabel` como no `sap.m.Label` (`update-rebic-label-fiori-required`): tamanho
   `large`, negrito, `spacing.xxs` antes e a nova cor `required` magenta. A altura do rótulo não muda.
 - **BREAKING** Card e cabeçalho de cartão no modelo do SAPUI5 (`update-rebic-card-fiori-card-header`, specs

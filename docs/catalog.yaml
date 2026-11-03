@@ -331,8 +331,8 @@ items:
       - rebic/foundation/spacing
       - rebic/foundation/density
       - rebic/foundation/theming
-  - id: rebic/widgets/rebic-divider
-    name: "RebicDivider"
+  - id: rebic/widgets/rebic-separator
+    name: "RebicSeparator"
     kind: widget
     category: fundacao-layout
     priority: P0
@@ -340,11 +340,9 @@ items:
     status: implemented
     depends_on:
       - rebic/foundation/color
-      - rebic/foundation/spacing
       - rebic/foundation/density
       - rebic/foundation/theming
       - rebic/foundation/accessibility
-      - rebic/widgets/rebic-spacing
   - id: rebic/widgets/rebic-responsive-layout
     name: "RebicResponsiveLayout"
     kind: widget
@@ -477,7 +475,7 @@ items:
     status: implemented
     depends_on:
       - rebic/widgets/rebic-container
-      - rebic/widgets/rebic-divider
+      - rebic/widgets/rebic-separator
       - rebic/widgets/rebic-card-header
       - rebic/widgets/rebic-title
       - rebic/foundation/color
@@ -547,7 +545,7 @@ items:
     depends_on:
       - rebic/widgets/rebic-dropdown
       - rebic/widgets/rebic-popover
-      - rebic/widgets/rebic-divider
+      - rebic/widgets/rebic-separator
       - rebic/widgets/rebic-icon
       - rebic/core/interaction
       - rebic/foundation/color
@@ -960,7 +958,7 @@ items:
       - rebic/core/interaction
       - rebic/widgets/rebic-container
       - rebic/widgets/rebic-title
-      - rebic/widgets/rebic-divider
+      - rebic/widgets/rebic-separator
       - rebic/foundation/color
       - rebic/foundation/spacing
       - rebic/foundation/radius
@@ -976,7 +974,7 @@ items:
     phase: 2
     status: implemented
     depends_on:
-      - rebic/widgets/rebic-divider
+      - rebic/widgets/rebic-separator
       - rebic/widgets/rebic-popover
       - rebic/widgets/rebic-icon
       - rebic/core/interaction

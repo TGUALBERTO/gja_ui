@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
-import '../../fundacao_layout/divider/rebic_divider.dart';
+import '../../fundacao_layout/separator/rebic_separator.dart';
 import '../popover/rebic_popover.dart';
 
 /// Opção de uma [RebicOptionList].
@@ -37,7 +37,7 @@ class RebicOption {
   /// Se a opção está selecionada.
   final bool selected;
 
-  /// Se um divisor sutil vem antes da opção (exceto a primeira).
+  /// Se um separador vem antes da opção (exceto a primeira).
   final bool startsSection;
 }
 
@@ -324,7 +324,7 @@ class _RebicOptionListState extends State<RebicOptionList> {
                   children: [
                     for (var i = 0; i < widget.options.length; i++) ...[
                       if (i > 0 && widget.options[i].startsSection)
-                        const RebicDivider(),
+                        const RebicSeparator(),
                       _item(context, i),
                     ],
                   ],

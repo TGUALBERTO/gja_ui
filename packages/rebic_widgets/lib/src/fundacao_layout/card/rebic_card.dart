@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 import '../card_header/rebic_card_header.dart';
 import '../container/rebic_container.dart';
-import '../divider/rebic_divider.dart';
+import '../separator/rebic_separator.dart';
 import '../title/rebic_title.dart';
 
 /// Posição do cabeçalho de um [RebicCard], como o
@@ -68,7 +68,7 @@ class RebicCard extends StatelessWidget {
         ? null
         : RebicCardHeadingScope(level: headingLevel, child: header);
     final line = scoped != null && content != null
-        ? const RebicDivider()
+        ? const RebicSeparator()
         : null;
     // A linha fica sempre entre o cabeçalho e o conteúdo.
     final children = [?scoped, ?line, ?content];

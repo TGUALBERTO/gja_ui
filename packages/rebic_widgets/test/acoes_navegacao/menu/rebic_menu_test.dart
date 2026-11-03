@@ -159,14 +159,14 @@ void main() {
         _app(_menu(controller, [items[0], items[1], items[3]])),
       );
       await _open(tester, controller);
-      expect(find.byType(RebicDivider), findsOneWidget);
-      final divider = tester.getRect(find.byType(RebicDivider));
+      expect(find.byType(RebicSeparator), findsOneWidget);
+      final separator = tester.getRect(find.byType(RebicSeparator));
       expect(
-        divider.top,
+        separator.top,
         greaterThanOrEqualTo(tester.getRect(_item('Copiar')).bottom),
       );
       expect(
-        divider.bottom,
+        separator.bottom,
         lessThanOrEqualTo(tester.getRect(_item('Excluir')).top),
       );
     });
@@ -289,14 +289,10 @@ void main() {
           tester.getSize(box).height,
           closeTo(theme.density.controlHeight, 0.01),
         );
-        expect(find.byType(RebicDivider), findsOneWidget);
+        expect(find.byType(RebicSeparator), findsOneWidget);
         expect(
-          tester.widget<RebicDivider>(find.byType(RebicDivider)),
-          isA<RebicDivider>().having(
-            (d) => d.tone,
-            'tone',
-            RebicDividerTone.subtle,
-          ),
+          tester.getSize(find.byType(RebicSeparator)).height,
+          const BorderSide().width,
         );
       }
     }

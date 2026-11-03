@@ -30,7 +30,7 @@ class RebicMenuItem {
   /// `shortcutText` do UI5. Só exibe; o atalho não é registrado.
   final String? shortcut;
 
-  /// Se um divisor sutil vem antes do item, abrindo uma seção.
+  /// Se um separador vem antes do item, abrindo uma seção.
   final bool startsSection;
 }
 

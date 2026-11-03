@@ -93,10 +93,10 @@ void main() {
       await tester.pumpAndSettle();
       final panel = tester.getRect(_panel());
       final title = tester.getRect(find.text('Filtros'));
-      final dividers = find.byType(RebicDivider);
-      expect(dividers, findsNWidgets(2));
-      final top = tester.getRect(dividers.first);
-      final bottom = tester.getRect(dividers.last);
+      final separators = find.byType(RebicSeparator);
+      expect(separators, findsNWidgets(2));
+      final top = tester.getRect(separators.first);
+      final bottom = tester.getRect(separators.last);
       final content = _rect(tester, 'content');
       final apply = tester.getRect(find.byType(RebicButton).first);
       final cancel = tester.getRect(find.byType(RebicButton).last);
@@ -124,7 +124,7 @@ void main() {
       );
       controller.open();
       await tester.pumpAndSettle();
-      expect(find.byType(RebicDivider), findsNothing);
+      expect(find.byType(RebicSeparator), findsNothing);
       expect(find.byType(RebicTitle), findsNothing);
       expect(
         _rect(tester, 'content').top - tester.getRect(_panel()).top,

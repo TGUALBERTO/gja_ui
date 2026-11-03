@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Token de densidade `separatorHeight` (`update-rebic-divider-fiori-separator`, spec `rebic/foundation/density`):
+  altura do separador vertical, como a do `sap.m.ToolbarSeparator`, 32 no cozy e 24 no compacto, com o primitivo
+  `RebicDensityPrimitives.size24`. Quem cria `RebicDensityTokens` pelo construtor passa a informar `separatorHeight`.
 - Escala primitiva `magenta` (`update-rebic-label-fiori-required`, spec `rebic/foundation/color`): o papel `required`
   passa de vermelho a `magenta600` (claro) e `magenta300` (escuro), como o `sapField_RequiredColor` do Horizon, com
   valores próprios.

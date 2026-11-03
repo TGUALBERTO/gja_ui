@@ -119,7 +119,7 @@ class _RebicCardPageState extends State<RebicCardPage> {
                         'NF 1022 — R\$ 980,00',
                         'NF 1023 — R\$ 3.400,00',
                       ].indexed) ...[
-                        if (i > 0) const RebicDivider(),
+                        if (i > 0) const RebicSeparator(),
                         RebicSpacing.padding(
                           all: RebicSpace.m,
                           child: RebicText(nota),

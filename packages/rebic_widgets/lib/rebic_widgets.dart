@@ -20,7 +20,7 @@ export 'src/fundacao_layout/container/rebic_container.dart';
 export 'src/fundacao_layout/column/rebic_column.dart';
 export 'src/fundacao_layout/flex/rebic_flex_alignment.dart';
 export 'src/fundacao_layout/row/rebic_row.dart';
-export 'src/fundacao_layout/divider/rebic_divider.dart';
+export 'src/fundacao_layout/separator/rebic_separator.dart';
 export 'src/fundacao_layout/responsive_layout/rebic_responsive_layout.dart';
 export 'src/fundacao_layout/grid/rebic_grid.dart';
 export 'src/fundacao_layout/page/rebic_page.dart';

@@ -5,7 +5,7 @@ import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
 import '../../fundacao_layout/container/rebic_container.dart';
-import '../../fundacao_layout/divider/rebic_divider.dart';
+import '../../fundacao_layout/separator/rebic_separator.dart';
 import '../../fundacao_layout/spacing/rebic_spacing.dart';
 import '../../fundacao_layout/title/rebic_title.dart';
 
@@ -173,7 +173,7 @@ class _RebicPopoverState extends State<RebicPopover> {
                   all: RebicSpace.l,
                   child: RebicTitle(title, titleStyle: RebicTitleLevel.h4),
                 ),
-                const RebicDivider(),
+                const RebicSeparator(),
               ],
               Flexible(
                 child: SingleChildScrollView(
@@ -183,7 +183,7 @@ class _RebicPopoverState extends State<RebicPopover> {
                 ),
               ),
               if (actions.isNotEmpty) ...[
-                const RebicDivider(),
+                const RebicSeparator(),
                 RebicSpacing.padding(
                   all: RebicSpace.s,
                   child: OverflowBar(

@@ -48,7 +48,7 @@ Rect _rect(WidgetTester tester, String key) =>
 /// Linha entre o cabeçalho e o conteúdo.
 Finder get _line => find.descendant(
   of: find.byType(RebicCard),
-  matching: find.byType(RebicDivider),
+  matching: find.byType(RebicSeparator),
 );
 
 const _header = RebicCardHeader(
@@ -72,7 +72,7 @@ void main() {
       final content = _rect(tester, 'content');
       expect(header.bottom, lessThanOrEqualTo(line.top));
       expect(line.bottom, lessThanOrEqualTo(content.top));
-      expect(tester.widget<RebicDivider>(_line).tone, RebicDividerTone.subtle);
+      expect(line.height, const BorderSide().width);
     });
 
     testWidgets('[API] Propriedades — Cartão sem cabeçalho', (tester) async {

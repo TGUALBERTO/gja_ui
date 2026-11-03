@@ -32,6 +32,8 @@ void main() {
       expect(_compact.minTargetSize, 32);
       expect(_cozy.barHeight, 48);
       expect(_compact.barHeight, 32);
+      expect(_cozy.separatorHeight, 32);
+      expect(_compact.separatorHeight, 24);
       final primitives = RebicDensityPrimitives.sizes.values.toSet();
       for (final tokens in [_cozy, _compact]) {
         for (final MapEntry(key: name, value: value)
@@ -60,7 +62,7 @@ void main() {
     'Dimensões de controle por densidade — Escala primitiva de densidade',
     () {
       final sizes = RebicDensityPrimitives.sizes;
-      expect(sizes.values, [26, 32, 36, 44, 48]);
+      expect(sizes.values, [24, 26, 32, 36, 44, 48]);
       for (final MapEntry(key: name, value: value) in sizes.entries) {
         expect(name, 'size${value.round()}');
       }
@@ -111,6 +113,7 @@ void main() {
           listItemHeight: _cozy.listItemHeight,
           minTargetSize: _cozy.minTargetSize,
           barHeight: _cozy.barHeight,
+          separatorHeight: _cozy.separatorHeight,
           density: RebicDensity.cozy,
         ),
         _cozy,
