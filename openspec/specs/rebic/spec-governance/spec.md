@@ -43,9 +43,9 @@ Toda spec de widget MUST cobrir as 12 seções obrigatórias: Objetivo e escopo 
 Quando uma seção não se aplica ao widget, a spec MUST conter um requisito com a etiqueta da seção que declare a decisão de forma verificável (por exemplo, "SHALL NOT receber foco"), com cenário próprio. Omitir silenciosamente a seção MUST NOT ser aceito.
 
 #### Scenario: Widget sem foco
-- **GIVEN** a spec de `RebicDivider`
+- **GIVEN** a spec de `RebicSeparator`
 - **WHEN** a seção de acessibilidade é lida
-- **THEN** existe um requisito `[Acessibilidade]` declarando que o divisor não recebe foco e é ignorado por leitores de tela, com cenário verificável
+- **THEN** existe um requisito `[Acessibilidade]` declarando que o separador não recebe foco e é ignorado por leitores de tela, com cenário verificável
 
 ### Requirement: Formato verificável dos requisitos e cenários
 Os requisitos SHALL usar SHALL/MUST, ter descrição de até 500 caracteres e ao menos um cenário `#### Scenario:` no formato GIVEN (opcional), WHEN e THEN. Toda change MUST passar em `openspec validate --strict` antes da revisão.

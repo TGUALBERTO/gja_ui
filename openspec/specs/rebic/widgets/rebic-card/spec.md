@@ -104,7 +104,7 @@ Em RTL, o cabeçalho MUST seguir `rebic/widgets/rebic-card-header`. Com escala d
 - **THEN** não há estouro
 
 ### Requirement: [Integração] Dependências
-`RebicCard` SHALL depender somente de `rebic/widgets/rebic-container`, `rebic/widgets/rebic-divider`, `rebic/widgets/rebic-card-header`, `rebic/widgets/rebic-title` (`RebicTitleLevel`), `rebic/foundation/color`, `rebic/foundation/radius`, `rebic/foundation/shadows`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+`RebicCard` SHALL depender somente de `rebic/widgets/rebic-container`, `rebic/widgets/rebic-separator`, `rebic/widgets/rebic-card-header`, `rebic/widgets/rebic-title` (`RebicTitleLevel`), `rebic/foundation/color`, `rebic/foundation/radius`, `rebic/foundation/shadows`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Cartões numa grade sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`

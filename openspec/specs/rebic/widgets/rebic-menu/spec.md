@@ -63,11 +63,11 @@ O menu SHALL usar a largura da âncora, com o mínimo de 6 passos `spacing.xxxl`
 - **THEN** o menu tem 6 passos `spacing.xxxl` de largura, e a borda inicial dele coincide com a do botão
 
 ### Requirement: [Aparência] Itens e seções
-Os itens SHALL ter a aparência dos itens de `rebic/widgets/rebic-dropdown`: cores da família `list`, altura mínima `density.controlHeight`, espaço horizontal `spacing.m` e espaço `spacing.s` entre ícone, rótulo e atalho, este em `typography.base` com `colors.label`. O divisor de seção SHALL ser o sutil de `rebic/widgets/rebic-divider`, sem valores literais.
+Os itens SHALL ter a aparência dos itens de `rebic/widgets/rebic-dropdown`: cores da família `list`, altura mínima `density.controlHeight`, espaço horizontal `spacing.m` e espaço `spacing.s` entre ícone, rótulo e atalho, este em `typography.base` com `colors.label`. O separador de seção SHALL ser o horizontal de `rebic/widgets/rebic-separator`, sem valores literais.
 
 #### Scenario: Itens do menu
 - **WHEN** um menu com ícones e uma seção é aberto nos temas claro e escuro, nas duas densidades
-- **THEN** cada item tem o fundo e o texto da família `list` no estado normal, a altura `density.controlHeight`, e o divisor de seção é um `RebicDivider` sutil
+- **THEN** cada item tem o fundo e o texto da família `list` no estado normal, a altura `density.controlHeight`, e o separador de seção é um `RebicSeparator` horizontal
 
 ### Requirement: [Estados] Hover, ativo e desabilitado
 Os itens SHALL mostrar os estados normal, hover, ativo e desabilitado da família `list` e o anel de foco só com o foco do teclado. O menu SHALL NOT ter item selecionado.
@@ -121,7 +121,7 @@ Em RTL, o ícone MUST ficar junto da borda direita do item, e o atalho junto da 
 - **THEN** não há estouro, e o último item fica visível
 
 ### Requirement: [Integração] Dependências
-`RebicMenu` SHALL depender somente de `rebic/widgets/rebic-dropdown`, `rebic/widgets/rebic-popover`, `rebic/widgets/rebic-divider`, `rebic/widgets/rebic-icon`, `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/typography`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+`RebicMenu` SHALL depender somente de `rebic/widgets/rebic-dropdown`, `rebic/widgets/rebic-popover`, `rebic/widgets/rebic-separator`, `rebic/widgets/rebic-icon`, `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/spacing`, `rebic/foundation/density`, `rebic/foundation/typography`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Menu sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`
