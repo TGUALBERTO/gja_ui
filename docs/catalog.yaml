@@ -1078,16 +1078,22 @@ items:
     status: planned
     depends_on:
       - rebic/core/overlay
-  - id: rebic/widgets/rebic-loading-overlay
-    name: "RebicLoadingOverlay"
+  - id: rebic/widgets/rebic-busy-indicator
+    name: "RebicBusyIndicator"
     kind: widget
     category: feedback-sobreposicoes
-    priority: P2
-    phase: 3
-    status: planned
+    priority: P1
+    phase: 2
+    status: implemented
     depends_on:
-      - rebic/core/overlay
-      - rebic/widgets/rebic-progress-indicator
+      - rebic/core/localization
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/spacing
+      - rebic/foundation/design-tokens
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-notification
     name: "RebicNotification"
     kind: widget

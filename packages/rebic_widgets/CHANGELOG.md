@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Novo `RebicBusyIndicator` (`add-rebic-busy-indicator`, spec `rebic/widgets/rebic-busy-indicator`), como o
+  `sap.m.BusyIndicator` e o estado `busy` dos controles: pontos animados, `text` e, com `child`, o conteúdo bloqueado.
 - Novo `RebicMessageStrip` (`add-rebic-message-strip`, spec `rebic/widgets/rebic-message-strip`), como o
   `sap.m.MessageStrip`: `text`, `type`, `showIcon`, `showCloseButton`, `onClose` e `link`.
 - Novo `RebicSelect<T>` (`add-rebic-select`, spec `rebic/widgets/rebic-select`), como o `sap.m.Select`: controlado
