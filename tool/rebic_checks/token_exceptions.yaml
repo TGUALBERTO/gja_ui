@@ -5,4 +5,8 @@
 #   - file: packages/rebic_widgets/lib/src/<categoria>/<widget>/<arquivo>.dart
 #     contains: "Duration.zero"
 #     reason: "Ausência de animação é semântica, não visual."
-exceptions: []
+exceptions:
+  - file: packages/rebic_widgets/lib/src/feedback_sobreposicoes/message_toast/rebic_message_toast.dart
+    contains: "static const defaultDuration = Duration(seconds: 3);"
+    reason: "Tempo de exibição do aviso, o duration padrão do sap.m.MessageToast (3000 ms): é comportamento, não aparência, e não pode zerar com o movimento reduzido como os tokens de motion."
+

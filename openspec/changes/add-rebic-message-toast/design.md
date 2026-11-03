@@ -18,4 +18,5 @@ durações do tema são zero, e a troca é imediata.
 ### D3. Duração
 
 O padrão de 3 segundos é o `duration` do UI5, um valor de comportamento, não de aparência; fica como constante
-`RebicMessageToast.defaultDuration`.
+`RebicMessageToast.defaultDuration`, registrada como exceção justificada em `tool/rebic_checks/token_exceptions.yaml`
+(os tokens de movimento zeram com o movimento reduzido, e o aviso sumiria antes de ser lido).

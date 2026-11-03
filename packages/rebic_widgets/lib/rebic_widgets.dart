@@ -39,6 +39,7 @@ export 'src/feedback_sobreposicoes/busy_indicator/rebic_busy_indicator.dart';
 export 'src/feedback_sobreposicoes/dialog/rebic_dialog.dart';
 export 'src/feedback_sobreposicoes/dropdown/rebic_dropdown.dart';
 export 'src/feedback_sobreposicoes/message_strip/rebic_message_strip.dart';
+export 'src/feedback_sobreposicoes/message_toast/rebic_message_toast.dart';
 export 'src/formularios/check_box/rebic_check_box.dart';
 export 'src/formularios/input/rebic_input.dart';
 export 'src/formularios/radio_button/rebic_radio_button.dart';

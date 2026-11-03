@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Novo `RebicMessageToast` (`add-rebic-message-toast`, spec `rebic/widgets/rebic-message-toast`), como o
+  `sap.m.MessageToast`: `RebicMessageToast.show(context, mensagem)`, que some sozinho depois de 3 segundos.
 - Novo `RebicDialog` (`add-rebic-dialog`, spec `rebic/widgets/rebic-dialog`), como o `sap.m.Dialog`: `content`,
   `title`, `state`, `beginButton`, `endButton`, `buttons` e `width`, aberto por `RebicDialog.open` sobre o modal do núcleo.
 - Novo `RebicIllustratedMessage` (`add-rebic-illustrated-message`, spec `rebic/widgets/rebic-illustrated-message`),

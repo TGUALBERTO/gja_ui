@@ -1074,16 +1074,21 @@ items:
       - rebic/foundation/radius
       - rebic/foundation/theming
       - rebic/foundation/accessibility
-  - id: rebic/widgets/rebic-snackbar
-    name: "RebicSnackbar"
+  - id: rebic/widgets/rebic-message-toast
+    name: "RebicMessageToast"
     kind: widget
     category: feedback-sobreposicoes
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
-      - rebic/core/overlay
-      - rebic/widgets/rebic-button
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/spacing
+      - rebic/foundation/radius
+      - rebic/foundation/design-tokens
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-drawer
     name: "RebicDrawer"
     kind: widget
@@ -1120,4 +1125,4 @@ items:
       - rebic/widgets/rebic-popover
       - rebic/widgets/rebic-list
       - rebic/widgets/rebic-badge
-      - rebic/widgets/rebic-snackbar
+      - rebic/widgets/rebic-message-toast
