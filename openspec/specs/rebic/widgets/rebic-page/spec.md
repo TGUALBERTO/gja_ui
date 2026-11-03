@@ -51,7 +51,7 @@ Com `enableScrolling` `true`, os itens de `content` SHALL ser empilhados e rolar
 - **THEN** o conteúdo recebe uma altura limitada, igual à distância entre o cabeçalho e o rodapé
 
 ### Requirement: [Estados] Botão de voltar
-O botão de voltar SHALL ser um `RebicIconButton` do tipo `transparent`, com os estados normal, hover, pressionado, foco do teclado e desabilitado de `rebic/core/interaction`. A página SHALL NOT apresentar outros estados de interação.
+O botão de voltar SHALL ser um `RebicButton` só com ícone, do tipo `transparent`, com os estados normal, hover, pressionado, foco do teclado e desabilitado de `rebic/core/interaction`. A página SHALL NOT apresentar outros estados de interação.
 
 #### Scenario: Botão de voltar em hover
 - **WHEN** o ponteiro fica sobre o botão de voltar
@@ -125,7 +125,7 @@ Do núcleo e dos fundamentos, `RebicPage` SHALL depender somente de `rebic/core/
 - **THEN** não há parâmetro do tipo `double` nem `Color`, nem `subtitle`, `onBack` ou `footerActions`
 
 ### Requirement: [Integração] Dependências de widgets e hospedeiro
-Dos widgets, `RebicPage` SHALL depender somente de `rebic/widgets/rebic-bar`, `rebic/widgets/rebic-title`, `rebic/widgets/rebic-icon-button` e `rebic/widgets/rebic-container`, e SHALL funcionar como conteúdo principal de `rebic/widgets/rebic-tool-page`.
+Dos widgets, `RebicPage` SHALL depender somente de `rebic/widgets/rebic-bar`, `rebic/widgets/rebic-title`, `rebic/widgets/rebic-button` e `rebic/widgets/rebic-container`, e SHALL funcionar como conteúdo principal de `rebic/widgets/rebic-tool-page`.
 
 #### Scenario: Página na página de ferramentas
 - **GIVEN** uma árvore criada apenas com `RebicApp`, com um `RebicToolPage` cujo cabeçalho é um `RebicShellBar` com título

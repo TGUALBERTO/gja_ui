@@ -123,13 +123,13 @@ O repositório SHALL conter uma aplicação de demonstração (galeria) que apre
 - **WHEN** a change é concluída
 - **THEN** a galeria contém uma página do widget com os exemplos mínimos exigidos por sua spec
 
-### Requirement: Convenções de nomenclatura da API pública
-Tipos públicos MUST usar o prefixo `Rebic`. Callbacks SHALL seguir o padrão `on<Evento>` (`onPressed`, `onChanged`, `onSelected`). Um callback de ação `null` MUST significar componente desabilitado. Variantes visuais SHALL ser enums e configuração visual SHALL vir do tema, não de parâmetros soltos.
+### Requirement: Convenções de nomenclatura e de eventos da API pública
+Tipos públicos MUST usar o prefixo `Rebic`. Callbacks SHALL seguir o padrão `on<Evento>`, com o nome do evento do SAPUI5 (`onPress`, `onChange`, `onSelectionChange`). O componente desabilitado SHALL ser `enabled: false`, como no SAPUI5; um callback nulo MUST significar só que não há ação. Variantes visuais SHALL ser enums e configuração visual SHALL vir do tema, não de parâmetros soltos.
 
-#### Scenario: Botão desabilitado por callback nulo
-- **GIVEN** um `RebicButton` criado com `onPressed: null`
+#### Scenario: Botão desabilitado por enabled
+- **GIVEN** um `RebicButton` criado com `enabled: false` e um `onPress`
 - **WHEN** o usuário toca, clica ou pressiona Enter sobre ele
-- **THEN** nenhuma ação é executada e o botão é exposto como desabilitado à semântica de acessibilidade
+- **THEN** `onPress` não é chamado e o botão é exposto como desabilitado à semântica de acessibilidade
 
 #### Scenario: Revisão de API inconsistente
 - **WHEN** uma change propõe um callback público chamado `pressHandler`

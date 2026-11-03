@@ -75,11 +75,11 @@ A barra SHALL usar o fundo `colors.shell`, a sombra `shadows.header` e a altura 
 - **THEN** o primeiro elemento começa a `spacing.pageMargin`, `spacing.xxl` e `spacing.xxxl` da borda inicial, respectivamente
 
 ### Requirement: [Aparência] Títulos e botões
-O título SHALL usar o estilo `header5` e o segundo título o estilo `small`, ambos com `colors.text`. Os botões SHALL ser `RebicIconButton` do tipo `transparent`, com os ícones `navBack`, `menu2`, `search`, `bell` e `grid` de `rebic/foundation/iconography`. O perfil SHALL ser exibido no tamanho `xs` de `RebicAvatar`, como o `Avatar` do ShellBar.
+O título SHALL usar o estilo `header5` e o segundo título o estilo `small`, ambos com `colors.text`. Os botões SHALL ser `RebicButton` só com ícone, do tipo `transparent`, com os ícones `navBack`, `menu2`, `search`, `bell` e `grid` de `rebic/foundation/iconography`. O perfil SHALL ser exibido no tamanho `xs` de `RebicAvatar`, como o `Avatar` do ShellBar.
 
 #### Scenario: Ícones dos botões
 - **WHEN** a barra completa é renderizada
-- **THEN** voltar, menu, pesquisa, notificações e seletor de produtos são `RebicIconButton` do tipo `transparent` com os ícones `navBack`, `menu2`, `search`, `bell` e `grid`, e o segundo título tem o estilo `small`, e o perfil tem o tamanho `xs`
+- **THEN** voltar, menu, pesquisa, notificações e seletor de produtos são `RebicButton` só com ícone, do tipo `transparent` com os ícones `navBack`, `menu2`, `search`, `bell` e `grid`, e o segundo título tem o estilo `small`, e o perfil tem o tamanho `xs`
 
 ### Requirement: [Estados] Estados dos botões
 Os botões, o ícone inicial interativo e o perfil interativo SHALL apresentar os estados normal, hover, pressionado, foco do teclado e desabilitado de `rebic/core/interaction`, com as cores da família `transparent` de `rebic/foundation/interaction-states`. A barra SHALL NOT apresentar estados próprios.
@@ -130,7 +130,7 @@ A classe usada pela barra SHALL ser a da largura da própria barra, com os limia
 - **THEN** a barra mede `spacing.xxxl` de altura, e o botão mede a altura de controle compacta
 
 ### Requirement: [Integração] Dependências de widgets e núcleo
-Dos widgets e do núcleo, `RebicShellBar` SHALL depender somente de `rebic/widgets/rebic-icon-button`, `rebic/widgets/rebic-avatar`, `rebic/widgets/rebic-badge`, `rebic/widgets/rebic-tooltip`, `rebic/widgets/rebic-title`, `rebic/widgets/rebic-container`, `rebic/core/interaction`, `rebic/core/localization` e `rebic/core/responsive`.
+Dos widgets e do núcleo, `RebicShellBar` SHALL depender somente de `rebic/widgets/rebic-button`, `rebic/widgets/rebic-avatar`, `rebic/widgets/rebic-badge`, `rebic/widgets/rebic-tooltip`, `rebic/widgets/rebic-title`, `rebic/widgets/rebic-container`, `rebic/core/interaction`, `rebic/core/localization` e `rebic/core/responsive`.
 
 #### Scenario: Barra sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`

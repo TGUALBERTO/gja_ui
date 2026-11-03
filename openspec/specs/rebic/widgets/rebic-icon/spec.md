@@ -22,7 +22,7 @@
 - **THEN** o ícone tem o tamanho `control` e a cor `text` do tema, e fica fora da árvore de semântica
 
 ### Requirement: [API] Callbacks e controlador
-`RebicIcon` SHALL NOT ter callbacks nem controlador: é um widget de exibição. Ícones clicáveis são de `RebicIconButton`.
+`RebicIcon` SHALL NOT ter callbacks nem controlador: é um widget de exibição. Ícones clicáveis são o `RebicButton` só com ícone.
 
 #### Scenario: Sem ação
 - **GIVEN** `RebicIcon` com `semanticLabel`
