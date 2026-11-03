@@ -46,7 +46,7 @@ Um item com subitens SHALL mostrar uma seta no fim e abrir ou fechar os subitens
 - **THEN** os subitens aparecem recuados, e `onItemSelect` recebe a chave de "Faturas"
 
 ### Requirement: [Comportamento] Modo recolhido
-Com `expanded` `false`, a navegação SHALL mostrar só os ícones dos itens de primeiro nível, sem subitens, com o texto como dica (`RebicTooltip`) e como nome no leitor de tela.
+Com `expanded` `false`, a navegação SHALL mostrar só os ícones dos itens de primeiro nível, sem subitens (o pai do subitem escolhido fica destacado), com o texto como dica (`RebicTooltip`) e como nome no leitor de tela.
 
 #### Scenario: Navegação recolhida
 - **WHEN** uma navegação recolhida é renderizada
@@ -61,7 +61,7 @@ Com o foco num item, as setas para cima e para baixo SHALL mover o foco ao item 
 - **THEN** o foco vai a "Vendas", e os subitens dele aparecem
 
 ### Requirement: [Aparência] Tokens de componente
-Expandida, a navegação SHALL ter a largura de 5 passos `spacing.xxxl` e o fundo `colors.base`. Cada item SHALL ter a altura `density.listItemHeight`, `spacing.s` no início (mais `spacing.l` por nível de subitem), o ícone `icons.control`, `spacing.s` entre o ícone e o texto e o texto `typography.base` com `colors.text`. O item escolhido SHALL ter o fundo `colors.selectionBackground` e o texto e o ícone `colors.brand`.
+Expandida, a navegação SHALL ter a largura de 5 passos `spacing.xxxl` e o fundo `colors.base`. Cada item SHALL ter a altura `density.listItemHeight`, `spacing.s` no início (mais `icons.control` e `spacing.s` por nível de subitem, alinhando o texto ao do item pai), o ícone `icons.control`, `spacing.s` entre o ícone e o texto e o texto `typography.base` com `colors.text`. O item escolhido SHALL ter o fundo `colors.selectionBackground` e o texto e o ícone `colors.brand`.
 
 #### Scenario: Item escolhido
 - **WHEN** uma navegação com "Pedidos" escolhido é renderizada no tema claro

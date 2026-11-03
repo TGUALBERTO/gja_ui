@@ -12,7 +12,7 @@ por chave. Abrir e fechar subitens é estado interno da navegação; a escolha �
 `Semantics(container, label)` com uma `Column`: um `Expanded` com `SingleChildScrollView` dos itens visíveis e, com
 `fixedItems`, um `RebicSeparator` e os itens fixos. A largura é `5 × spacing.xxxl` expandida e `density.barHeight`
 recolhida. Cada item é um `RebicInteractable` (`selected`, nó próprio) dentro de `Semantics(expanded:)` nos que têm
-subitens, com a altura `density.listItemHeight`, o recuo `spacing.s + nível × spacing.l`, ícone, texto e seta
+subitens, com a altura `density.listItemHeight`, o recuo `spacing.s + nível × (icons.control + spacing.s)` (o texto do subitem alinha com o do pai, como no UI5), ícone, texto e seta
 (`slimArrowRight` fechado, `slimArrowDown` aberto). Recolhido, o item mostra só o ícone num `RebicTooltip`.
 
 ### D3. Teclado

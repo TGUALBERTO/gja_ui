@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Novo `RebicSideNavigation<T>` (`add-rebic-side-navigation`, spec `rebic/widgets/rebic-side-navigation`), como o
+  `sap.tnt.SideNavigation`: `items` e `fixedItems` (`RebicNavigationListItem`, com subitens), `selectedKey`,
+  `onItemSelect`, `expanded` e `semanticLabel`.
 - Novo `RebicIconTabBar<T>` (`add-rebic-icon-tab-bar`, spec `rebic/widgets/rebic-icon-tab-bar`), como o
   `sap.m.IconTabBar`: `items` (`RebicIconTabFilter`), `selectedKey`, `onSelect` e `applyContentPadding`.
 - Novo `RebicBreadcrumbs` (`add-rebic-breadcrumbs`, spec `rebic/widgets/rebic-breadcrumbs`), como o
