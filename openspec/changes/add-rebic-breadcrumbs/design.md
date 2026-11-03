@@ -10,5 +10,5 @@ numa `Row` de largura mínima, para que link e separador quebrem juntos. A pági
 
 ### D2. Separadores
 
-`slash` `/`, `backSlash` `\`, `doubleSlash` `//`, `doubleBackSlash` `\`, `greaterThan` `>` e
+`slash` `/`, `backSlash` `\`, `doubleSlash` `//`, `doubleBackSlash` `\\`, `greaterThan` `>` e
 `doubleGreaterThan` `>>`, como o `BreadcrumbsSeparatorStyle` do UI5.

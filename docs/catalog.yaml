@@ -585,10 +585,14 @@ items:
     category: acoes-navegacao
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
       - rebic/widgets/rebic-link
-      - rebic/widgets/rebic-menu
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/spacing
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-tabs
     name: "RebicTabs"
     kind: widget

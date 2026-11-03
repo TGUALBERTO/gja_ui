@@ -31,6 +31,7 @@ export 'src/exibicao_dados/avatar/rebic_avatar.dart';
 export 'src/exibicao_dados/badge/rebic_badge.dart';
 export 'src/exibicao_dados/illustrated_message/rebic_illustrated_message.dart';
 export 'src/exibicao_dados/tooltip/rebic_tooltip.dart';
+export 'src/acoes_navegacao/breadcrumbs/rebic_breadcrumbs.dart';
 export 'src/acoes_navegacao/button/rebic_button.dart';
 export 'src/acoes_navegacao/link/rebic_link.dart';
 export 'src/acoes_navegacao/menu/rebic_menu.dart';

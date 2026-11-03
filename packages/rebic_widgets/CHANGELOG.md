@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Novo `RebicBreadcrumbs` (`add-rebic-breadcrumbs`, spec `rebic/widgets/rebic-breadcrumbs`), como o
+  `sap.m.Breadcrumbs`: `links`, `currentLocationText`, `separatorStyle` e `semanticLabel`.
 - Novo `RebicToolbar` (`add-rebic-toolbar`, spec `rebic/widgets/rebic-toolbar`), como o `sap.m.Toolbar`: `content`
   (com `Spacer` e `RebicSeparator.vertical`), `design`, `style`, `onPress`, `enabled` e `semanticLabel`.
 - Novo `RebicMessageToast` (`add-rebic-message-toast`, spec `rebic/widgets/rebic-message-toast`), como o

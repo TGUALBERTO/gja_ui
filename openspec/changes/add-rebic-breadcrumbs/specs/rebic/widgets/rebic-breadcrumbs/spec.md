@@ -23,11 +23,11 @@
 - **THEN** aparecem "Início / Pedidos / 4711", nessa ordem, numa linha
 
 ### Requirement: [API] Callbacks e controlador
-`RebicBreadcrumbs` SHALL NOT ter callbacks nem controlador: cada link avisa a própria ação, de `rebic/widgets/rebic-link`. `links` e `currentLocationText` MUST NOT estar ambos vazios, ou a criação MUST falhar em modo debug.
+`RebicBreadcrumbs` SHALL NOT ter callbacks nem controlador: cada link avisa a própria ação, de `rebic/widgets/rebic-link`. `links` e `currentLocationText` MUST NOT estar ambos vazios, ou a renderização MUST falhar em modo debug.
 
 #### Scenario: Trilha vazia
-- **WHEN** uma `RebicBreadcrumbs` é criada sem links e sem `currentLocationText`
-- **THEN** a criação falha em modo debug
+- **WHEN** uma `RebicBreadcrumbs` sem links e sem `currentLocationText` é renderizada
+- **THEN** a renderização falha em modo debug
 
 ### Requirement: [Comportamento] Navegação pelos links
 Tocar um link SHALL chamar a ação dele uma vez. A página atual SHALL NOT ser acionável.
