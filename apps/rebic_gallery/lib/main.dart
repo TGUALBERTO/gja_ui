@@ -44,6 +44,7 @@ import 'pages/states_page.dart';
 import 'pages/theme_page.dart';
 import 'pages/typography_page.dart';
 import 'pages/rebic_check_box_page.dart';
+import 'pages/rebic_switch_page.dart';
 
 /// Inicia a galeria de componentes Rebic.
 void main() {
@@ -285,6 +286,11 @@ final galleryPages = <GalleryPage>[
     title: RebicCheckBoxPage.title,
     route: RebicCheckBoxPage.route,
     builder: (_) => const RebicCheckBoxPage(),
+  ),
+  GalleryPage(
+    title: RebicSwitchPage.title,
+    route: RebicSwitchPage.route,
+    builder: (_) => const RebicSwitchPage(),
   ),
 ];
 

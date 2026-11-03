@@ -680,10 +680,17 @@ items:
     category: formularios
     priority: P1
     phase: 2
-    status: planned
+    status: implemented
     depends_on:
       - rebic/core/interaction
-      - rebic/widgets/rebic-form-field
+      - rebic/foundation/color
+      - rebic/foundation/iconography
+      - rebic/foundation/radius
+      - rebic/foundation/density
+      - rebic/foundation/design-tokens
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-select
     name: "RebicSelect"
     kind: widget

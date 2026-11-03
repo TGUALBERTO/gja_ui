@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Novo `RebicSwitch` (`add-rebic-switch`, spec `rebic/widgets/rebic-switch`), como o `sap.m.Switch`: controlado
+  (`state` + `onChange`), com `semanticLabel` e `enabled`.
 - Novo `RebicCheckBox` (`add-rebic-check-box`, spec `rebic/widgets/rebic-check-box`), como o `sap.m.CheckBox`:
   controlado (`selected` + `onSelect`), com texto ou `semanticLabel`, `partiallySelected`, `enabled`, `editable`,
   `valueState` e `wrapping`.

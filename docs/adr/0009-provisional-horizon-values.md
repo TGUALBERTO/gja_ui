@@ -52,6 +52,7 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Cartão | Cor do subtítulo, do status e da data do cabeçalho | `colors.label` | `sapTile_TextColor` | `update-rebic-card-fiori-card-header` |
 | Caixa de seleção | Somente leitura: fundo, borda e marca | `colors.background`, `colors.separator`, `colors.label` | `sapField_ReadOnly_Background`, `sapField_ReadOnly_BorderColor`, `sapContent_NonInteractiveIconColor` | `add-rebic-check-box` |
 | Caixa de seleção | Lado e marca parcial | `icons.control + spacing.xxs` (18); quadrado recuado `spacing.xs` | 1,125rem em `CheckBox.less`; recuo de 0,1875rem | `add-rebic-check-box` |
+| Chave | Trilho, alça e hover | trilho `2 × icons.medium` × `icons.medium`, alça `icons.control`; hover `label` (desligada) e `brandHover` (ligada) | `Switch.less`; `sapButton_Track_Hover_Background`, `sapButton_Track_Selected_Hover_Background` | `add-rebic-switch` |
 
 ## Alternativas consideradas
 
