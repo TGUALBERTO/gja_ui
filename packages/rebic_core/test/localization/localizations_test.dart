@@ -48,6 +48,10 @@ class _Es extends RebicLocalizations {
   @override
   String get shellBar => 'Barra de shell';
   @override
+  String get selectAll => 'Seleccionar todo';
+  @override
+  String get selectItem => 'Seleccionar elemento';
+  @override
   String valueState(RebicValueState state) => state.name;
   @override
   String selectedItems(int count) => '$count';
@@ -157,6 +161,14 @@ void main() {
       expect(_en.shellBar, 'Shell Bar');
     });
 
+    test('Textos do framework — Textos da tabela', () {
+      expect(
+        [_pt.selectAll, _pt.selectItem],
+        ['Selecionar tudo', 'Selecionar item'],
+      );
+      expect([_en.selectAll, _en.selectItem], ['Select All', 'Select Item']);
+    });
+
     test('todos os textos simples existem nos dois idiomas', () {
       for (final l in const <RebicLocalizations>[_pt, _en]) {
         final texts = [
@@ -177,6 +189,8 @@ void main() {
           l.profile,
           l.products,
           l.shellBar,
+          l.selectAll,
+          l.selectItem,
         ];
         expect(texts.every((t) => t.isNotEmpty), isTrue, reason: '${l.locale}');
       }

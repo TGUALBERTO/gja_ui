@@ -59,6 +59,7 @@ import 'pages/rebic_icon_tab_bar_page.dart';
 import 'pages/rebic_side_navigation_page.dart';
 import 'pages/rebic_panel_page.dart';
 import 'pages/rebic_form_page.dart';
+import 'pages/rebic_table_page.dart';
 
 /// Inicia a galeria de componentes Rebic.
 void main() {
@@ -375,6 +376,11 @@ final galleryPages = <GalleryPage>[
     title: RebicFormPage.title,
     route: RebicFormPage.route,
     builder: (_) => const RebicFormPage(),
+  ),
+  GalleryPage(
+    title: RebicTablePage.title,
+    route: RebicTablePage.route,
+    builder: (_) => const RebicTablePage(),
   ),
 ];
 

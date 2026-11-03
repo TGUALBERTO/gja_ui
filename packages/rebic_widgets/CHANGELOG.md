@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- Novo `RebicTable<T>` (`add-rebic-table`, spec `rebic/widgets/rebic-table`), como o `sap.m.Table`: `columns`
+  (`RebicColumn` com `hAlign`, `flex`, `minScreenWidth` e `demandPopin`), `items` (`RebicColumnListItem`), `headerText`,
+  `noDataText`, `mode`, `selectedKeys`, `onSelectionChange` e `onItemPress`.
 - Novo `RebicForm` (`add-rebic-form`, spec `rebic/widgets/rebic-form`), como o `sap.ui.layout.form.Form` com o
   `ColumnLayout`: `title`, `formContainers` (`RebicFormContainer` com `RebicFormElement`), `columnsM`, `columnsL`,
   `columnsXL` e `labelCellsLarge`.

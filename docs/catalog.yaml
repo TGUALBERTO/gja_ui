@@ -990,15 +990,23 @@ items:
     name: "RebicTable"
     kind: widget
     category: exibicao-dados
-    priority: P2
-    phase: 3
-    status: planned
+    priority: P1
+    phase: 2
+    status: implemented
     depends_on:
-      - rebic/core/data-source
+      - rebic/core/interaction
+      - rebic/core/localization
       - rebic/widgets/rebic-check-box
-      - rebic/widgets/rebic-illustrated-message
-      - rebic/widgets/rebic-skeleton
-      - rebic/widgets/rebic-pagination
+      - rebic/widgets/rebic-title
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/iconography
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/breakpoints
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-data-grid
     name: "RebicDataGrid"
     kind: widget

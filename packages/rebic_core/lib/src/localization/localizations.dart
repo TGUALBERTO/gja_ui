@@ -92,6 +92,12 @@ abstract class RebicLocalizations {
   /// Barra superior da aplicação, como o rótulo do `sap.f.ShellBar`.
   String get shellBar;
 
+  /// Caixa que escolhe todas as linhas de uma tabela.
+  String get selectAll;
+
+  /// Caixa que escolhe uma linha de uma tabela.
+  String get selectItem;
+
   /// Texto de [state] para leitores de tela; vazio para
   /// [RebicValueState.none].
   String valueState(RebicValueState state);
@@ -199,6 +205,12 @@ class RebicLocalizationsPtBr extends RebicLocalizations {
   String get shellBar => 'Barra de shell';
 
   @override
+  String get selectAll => 'Selecionar tudo';
+
+  @override
+  String get selectItem => 'Selecionar item';
+
+  @override
   String valueState(RebicValueState state) => switch (state) {
     RebicValueState.none => '',
     RebicValueState.success => 'Valor válido',
@@ -270,6 +282,12 @@ class RebicLocalizationsEn extends RebicLocalizations {
 
   @override
   String get shellBar => 'Shell Bar';
+
+  @override
+  String get selectAll => 'Select All';
+
+  @override
+  String get selectItem => 'Select Item';
 
   @override
   String valueState(RebicValueState state) => switch (state) {

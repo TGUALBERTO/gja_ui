@@ -58,6 +58,7 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Barra de ferramentas | Borda do estilo padrão e fundo da barra de informação | `colors.separator`; `stateColors(information).background` | `sapGroup_TitleBorderColor`; `sapInfobar_Background` | `add-rebic-toolbar` |
 | Barra de abas | Traço da aba escolhida | `spacing.xxs` (2) em `colors.brand` | 0,1875rem em `IconTabBar.less` | `add-rebic-icon-tab-bar` |
 | Formulário | Títulos e espaçamentos | formulário H4 e contêiner H5; `spacing.s` entre elementos e antes dos campos, `spacing.xs` sob o rótulo acima, `spacing.l` entre colunas | `ColumnLayout.less`, não conferido no Horizon | `add-rebic-form` |
+| Tabela | Títulos das colunas, células e `headerText` | `typography.base` em `colors.label`; células com `spacing.s` nas laterais e `spacing.xs` em cima e embaixo; `headerText` H5 | `sapList_HeaderTextColor` e o padding de `Table.less`, não conferidos no Horizon | `add-rebic-table` |
 | Painel | Título, recuo do cabeçalho e espaçamento do conteúdo | `typography.header6`; `spacing.s` antes da seta e `spacing.l` nas laterais; `spacing.l` em volta do conteúdo | `sapMFontHeader6Size` e as margens de `Panel.less`, não conferidos no Horizon | `add-rebic-panel` |
 | Navegação lateral | Largura expandida e recuo dos subitens | `5 × spacing.xxxl`; `icons.control + spacing.s` por nível | `sapTntSideNavigation_ExpandedWidth`; recuo de `SideNavigation.less`, não conferido | `add-rebic-side-navigation` |
 

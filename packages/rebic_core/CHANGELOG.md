@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Textos `selectAll` e `selectItem` (`add-rebic-table`, spec `rebic/core/localization`), as caixas de seleção da
+  tabela.
 - Semântica de marcação e alternância (`add-rebic-check-box`, spec `rebic/core/interaction`): `RebicInteractable`
   ganha `checked`, `mixed`, `toggled` e `inMutuallyExclusiveGroup`; com eles, o elemento é exposto como caixa, chave
   ou opção de rádio, e não como botão.
