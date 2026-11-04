@@ -3,7 +3,7 @@
 ## MODIFIED Requirements
 
 ### Requirement: [API] Propriedades
-`RebicDropdown<T>`, a lista do `sap.m.Select` (`sap.m.SelectList` num popover), SHALL expor:
+`RebicDropdown<T>`, a lista do `sap.m.Select`, SHALL expor:
 
 | Prop | Tipo | Padrão |
 |---|---|---|
