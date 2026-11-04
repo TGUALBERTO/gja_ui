@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- `RebicShellBar` ganha `menu` (o título abre um menu, como o `menu` do `sap.f.ShellBar`) e, na classe de largura S,
+  leva as notificações e os `RebicButton` de `additionalContent` para um menu "mais"
+  (`update-rebic-shell-bar-fiori-overflow-menu`).
 - `RebicDatePicker`: o mês e o ano do cabeçalho do calendário abrem a escolha de meses e de anos, e
   `showCurrentDateButton` mostra o botão "Hoje" (`update-rebic-date-picker-fiori-month-year-today`).
 - `RebicTable` ganha `growing`, `growingThreshold` e `growingTriggerText` (botão "Mais" com "[mostradas / total]") e

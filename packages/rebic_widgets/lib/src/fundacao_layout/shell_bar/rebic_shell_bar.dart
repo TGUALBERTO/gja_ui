@@ -3,9 +3,11 @@ import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
 import '../../acoes_navegacao/button/rebic_button.dart';
+import '../../acoes_navegacao/menu/rebic_menu.dart';
 import '../../exibicao_dados/avatar/rebic_avatar.dart';
 import '../../exibicao_dados/badge/rebic_badge.dart';
 import '../../exibicao_dados/tooltip/rebic_tooltip.dart';
+import '../../feedback_sobreposicoes/popover/rebic_popover.dart';
 import '../container/rebic_container.dart';
 import '../title/rebic_title.dart';
 
@@ -18,6 +20,11 @@ import '../title/rebic_title.dart';
 /// produtos ([showProductSwitcher]). Cada elemento avisa a aplicação pelo seu
 /// callback; um botão visível sem callback fica desabilitado. Quando falta
 /// espaço, o segundo título e depois o título terminam com reticências.
+///
+/// Com [menu], o título vira um botão que abre um menu com esses itens. Em
+/// larguras pequenas (classe S), as notificações e os `RebicButton` de
+/// [additionalContent] vão para um menu "mais", como no `OverflowToolbar` do
+/// `sap.f.ShellBar`.
 ///
 /// Em geral é o `header` de um `RebicToolPage`, com o botão de menu ligado ao
 /// conteúdo lateral:
@@ -49,6 +56,7 @@ class RebicShellBar extends StatelessWidget {
     this.showProductSwitcher = false,
     this.profile,
     this.additionalContent = const [],
+    this.menu = const [],
     this.onHomeIconPressed,
     this.onNavButtonPressed,
     this.onMenuButtonPressed,
@@ -96,8 +104,13 @@ class RebicShellBar extends StatelessWidget {
   /// `onPress` e o tamanho do próprio avatar são ignorados.
   final RebicAvatar? profile;
 
-  /// Conteúdo adicional, entre as notificações e o perfil.
+  /// Conteúdo adicional, entre as notificações e o perfil. Em larguras
+  /// pequenas, os `RebicButton` daqui vão para o menu "mais".
   final List<Widget> additionalContent;
+
+  /// Itens do menu aberto pelo título, como o `menu` do `sap.f.ShellBar`;
+  /// vazio deixa o título como texto.
+  final List<RebicMenuItem> menu;
 
   /// Toque no ícone inicial; nulo o deixa não interativo.
   final VoidCallback? onHomeIconPressed;
@@ -162,7 +175,7 @@ class RebicShellBar extends StatelessWidget {
           child: homeIcon,
         ),
     ];
-    final end = <Widget>[
+    final search = <Widget>[
       if (showSearch)
         RebicButton(
           icon: RebicIcons.search,
@@ -171,6 +184,8 @@ class RebicShellBar extends StatelessWidget {
           enabled: onSearchButtonPressed != null,
           type: RebicButtonType.transparent,
         ),
+    ];
+    final notifications = <Widget>[
       if (showNotifications)
         RebicBadge(
           count: notificationsNumber,
@@ -182,7 +197,8 @@ class RebicShellBar extends StatelessWidget {
             type: RebicButtonType.transparent,
           ),
         ),
-      ...additionalContent,
+    ];
+    final trailing = <Widget>[
       if (profile != null)
         RebicAvatar(
           image: profile.image,
@@ -203,6 +219,28 @@ class RebicShellBar extends StatelessWidget {
         ),
     ];
 
+    /// Itens do menu "mais": as notificações e os botões adicionais.
+    List<RebicMenuItem> overflowItems() => [
+      if (showNotifications)
+        RebicMenuItem(
+          text: notificationsNumber > 0
+              ? '${texts.notifications} '
+                    '(${texts.formatInteger(notificationsNumber)})'
+              : texts.notifications,
+          icon: RebicIcons.bell,
+          enabled: onNotificationsPressed != null,
+          onPress: onNotificationsPressed,
+        ),
+      for (final widget in additionalContent)
+        if (widget is RebicButton)
+          RebicMenuItem(
+            text: widget.text ?? widget.tooltip ?? '',
+            icon: widget.icon,
+            enabled: widget.enabled && widget.onPress != null,
+            onPress: widget.onPress,
+          ),
+    ];
+
     final gap = theme.spacing.xs;
     return Semantics(
       container: true,
@@ -215,10 +253,25 @@ class RebicShellBar extends StatelessWidget {
           height: theme.spacing.xxxl,
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final margin = _margin(
-                theme.spacing,
-                theme.breakpoints.classify(constraints.maxWidth),
+              final sizeClass = theme.breakpoints.classify(
+                constraints.maxWidth,
               );
+              final margin = _margin(theme.spacing, sizeClass);
+              final overflow = sizeClass == RebicSizeClass.small
+                  ? overflowItems()
+                  : const <RebicMenuItem>[];
+              final end = <Widget>[
+                ...search,
+                if (overflow.isEmpty) ...[
+                  ...notifications,
+                  ...additionalContent,
+                ] else ...[
+                  for (final widget in additionalContent)
+                    if (widget is! RebicButton) widget,
+                  _MoreMenu(items: overflow, tooltip: texts.more),
+                ],
+                ...trailing,
+              ];
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: margin),
                 child: Row(
@@ -237,11 +290,13 @@ class RebicShellBar extends StatelessWidget {
                           if (title != null)
                             LayoutId(
                               id: _TitleSlot.title,
-                              child: RebicTitle(
-                                title,
-                                level: RebicTitleLevel.h1,
-                                titleStyle: RebicTitleLevel.h5,
-                              ),
+                              child: menu.isEmpty
+                                  ? RebicTitle(
+                                      title,
+                                      level: RebicTitleLevel.h1,
+                                      titleStyle: RebicTitleLevel.h5,
+                                    )
+                                  : _TitleMenu(title: title, items: menu),
                             ),
                           if (secondTitle != null)
                             LayoutId(
@@ -271,6 +326,118 @@ class RebicShellBar extends StatelessWidget {
 }
 
 enum _TitleSlot { title, second }
+
+/// Título que abre um menu, como o `menu` do `sap.f.ShellBar`.
+class _TitleMenu extends StatefulWidget {
+  const _TitleMenu({required this.title, required this.items});
+
+  final String title;
+  final List<RebicMenuItem> items;
+
+  @override
+  State<_TitleMenu> createState() => _TitleMenuState();
+}
+
+class _TitleMenuState extends State<_TitleMenu> {
+  final _controller = RebicPopoverController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = RebicThemeData.of(context);
+    final family = RebicControlColors.of(
+      RebicControlFamily.transparent,
+      theme.colors,
+    );
+    final corners = BorderRadius.circular(theme.radius.button);
+    return RebicMenu(
+      controller: _controller,
+      semanticLabel: widget.title,
+      items: widget.items,
+      child: MergeSemantics(
+        child: RebicInteractable(
+          semanticLabel: widget.title,
+          onPressed: _controller.toggle,
+          focusRingBorderRadius: corners,
+          builder: (context, states) => ExcludeSemantics(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: family.resolve(states).background,
+                borderRadius: corners,
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: theme.spacing.xs,
+                  vertical: theme.spacing.xxs,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: theme.spacing.xs,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        widget.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.typography.header5.copyWith(
+                          color: theme.colors.text,
+                        ),
+                      ),
+                    ),
+                    Icon(
+                      RebicIcons.slimArrowDown,
+                      size: theme.icons.control,
+                      color: theme.colors.text,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Botão "mais" com os elementos que não cabem na barra.
+class _MoreMenu extends StatefulWidget {
+  const _MoreMenu({required this.items, required this.tooltip});
+
+  final List<RebicMenuItem> items;
+  final String tooltip;
+
+  @override
+  State<_MoreMenu> createState() => _MoreMenuState();
+}
+
+class _MoreMenuState extends State<_MoreMenu> {
+  final _controller = RebicPopoverController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => RebicMenu(
+    controller: _controller,
+    semanticLabel: widget.tooltip,
+    items: widget.items,
+    child: RebicButton(
+      icon: RebicIcons.overflow,
+      tooltip: widget.tooltip,
+      type: RebicButtonType.transparent,
+      onPress: _controller.toggle,
+    ),
+  );
+}
 
 /// Dispõe o título com toda a largura e o segundo título com o que sobrar,
 /// para que o segundo encolha primeiro; os dois ficam centrados na altura.

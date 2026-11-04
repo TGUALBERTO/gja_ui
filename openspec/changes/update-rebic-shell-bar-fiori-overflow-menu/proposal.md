@@ -11,7 +11,7 @@ Duas partes do `sap.f.ShellBar` (conferido em `SAP/openui5`) ficaram de fora da 
 
 ## What Changes
 
-- `RebicShellBar` passa a `StatefulWidget` e ganha `menu` (`List<RebicMenuItem>`).
+- `RebicShellBar` ganha `menu` (`List<RebicMenuItem>`).
 - Na classe de largura S, notificações e `RebicButton`s de `additionalContent` vão para o menu "mais".
 - Galeria, goldens e CHANGELOG.
 

@@ -250,7 +250,7 @@ void main() {
     for (final target in [
       _button(RebicIcons.navBack),
       _button(RebicIcons.menu2),
-      _button(RebicIcons.bell),
+      _button(RebicIcons.overflow),
       find.byType(RebicAvatar),
     ]) {
       final rect = tester.getRect(target);
@@ -259,9 +259,81 @@ void main() {
       expect(rect.width, greaterThan(0));
     }
     expect(
-      _visible(tester, RebicIcons.bell).width,
+      _visible(tester, RebicIcons.overflow).width,
       _light.density.controlHeight,
     );
+  });
+
+  testWidgets('[Comportamento] Menu mais — Notificações no menu mais', (
+    tester,
+  ) async {
+    _view(tester);
+    final log = <String>[];
+    await tester.pumpWidget(
+      RebicApp(
+        locale: const Locale('pt', 'BR'),
+        home: Align(
+          alignment: Alignment.topCenter,
+          child: SizedBox(
+            width: 360,
+            child: RebicShellBar(
+              title: 'Compras',
+              showNotifications: true,
+              notificationsNumber: 4,
+              onNotificationsPressed: () => log.add('notifications'),
+              additionalContent: [
+                RebicButton(
+                  icon: RebicIcons.sysHelp,
+                  tooltip: 'Ajuda',
+                  type: RebicButtonType.transparent,
+                  onPress: () => log.add('help'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+    expect(find.byIcon(RebicIcons.bell), findsNothing);
+    expect(find.byIcon(RebicIcons.sysHelp), findsNothing);
+    await tester.tap(find.byIcon(RebicIcons.overflow));
+    await tester.pumpAndSettle();
+    expect(find.text('Notificações (4)'), findsOneWidget);
+    expect(find.text('Ajuda'), findsOneWidget);
+    await tester.tap(find.text('Notificações (4)'));
+    await tester.pumpAndSettle();
+    expect(log, ['notifications']);
+  });
+
+  testWidgets('[Comportamento] Menu do título — Menu do título', (
+    tester,
+  ) async {
+    _view(tester);
+    final log = <String>[];
+    await tester.pumpWidget(
+      RebicApp(
+        home: Align(
+          alignment: Alignment.topCenter,
+          child: SizedBox(
+            width: 1200,
+            child: RebicShellBar(
+              title: 'Compras',
+              menu: [
+                RebicMenuItem(text: 'Pedidos', onPress: () => log.add('a')),
+                RebicMenuItem(text: 'Contratos', onPress: () => log.add('b')),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+    expect(find.byIcon(RebicIcons.slimArrowDown), findsOneWidget);
+    await tester.tap(find.text('Compras'));
+    await tester.pumpAndSettle();
+    expect(find.text('Pedidos'), findsOneWidget);
+    await tester.tap(find.text('Contratos'));
+    await tester.pumpAndSettle();
+    expect(log, ['b']);
   });
 
   group('[Aparência] Superfície e margem', () {
@@ -589,7 +661,7 @@ void main() {
         'rebic/widgets/rebic-shell-bar',
         'update-rebic-scaffold-fiori-tool-page',
       );
-      expect(names, hasLength(23));
+      expect(names, hasLength(25));
       expect(untestedScenarios(names), isEmpty);
     });
 
@@ -624,7 +696,7 @@ void main() {
       r'const RebicShellBar\(\{(.*?)\}\)',
       dotAll: true,
     ).firstMatch(source)!.group(1)!;
-    for (final name in ['menu', 'searchManager', 'showCopilot']) {
+    for (final name in ['searchManager', 'showCopilot']) {
       expect(ctor, isNot(contains('this.$name,')), reason: name);
     }
     for (final field in RegExp(

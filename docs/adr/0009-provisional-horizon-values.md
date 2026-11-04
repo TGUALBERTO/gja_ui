@@ -61,6 +61,7 @@ cores de estados específicos. Bloquear cada change até confirmar esses valores
 | Tabela | Títulos das colunas, células e `headerText` | `typography.base` em `colors.label`; células com `spacing.s` nas laterais e `spacing.xs` em cima e embaixo; `headerText` H5 | `sapList_HeaderTextColor` e o padding de `Table.less`, não conferidos no Horizon | `add-rebic-table` |
 | Campo de texto | Ícone padrão da ajuda de valor | `RebicIcons.popupWindow` | `sap-icon://value-help`, sem glifo no conjunto Lucide | `add-rebic-date-picker` |
 | Seletor de data | Dias do calendário | lado `density.minTargetSize`, raio `radius.field`; escolhido `brand`/`contrastText`, hoje com borda `brand`, outros meses `label` | `sapUiCalendar*` e `Calendar.less`, não conferidos no Horizon | `add-rebic-date-picker` |
+| Barra de shell | Quando o fim da barra vai para o menu "mais" | na classe de largura S (< 600) | o `OverflowToolbar` do `sap.f.ShellBar` mede o espaço livre | `update-rebic-shell-bar-fiori-overflow-menu` |
 | Painel | Título, recuo do cabeçalho e espaçamento do conteúdo | `typography.header6`; `spacing.s` antes da seta e `spacing.l` nas laterais; `spacing.l` em volta do conteúdo | `sapMFontHeader6Size` e as margens de `Panel.less`, não conferidos no Horizon | `add-rebic-panel` |
 | Navegação lateral | Largura expandida e recuo dos subitens | `5 × spacing.xxxl`; `icons.control + spacing.s` por nível | `sapTntSideNavigation_ExpandedWidth`; recuo de `SideNavigation.less`, não conferido | `add-rebic-side-navigation` |
 

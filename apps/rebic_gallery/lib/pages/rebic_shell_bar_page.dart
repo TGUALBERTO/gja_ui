@@ -70,6 +70,16 @@ class _RebicShellBarPageState extends State<RebicShellBarPage> {
           notificationsNumber: 4,
           showProductSwitcher: true,
           profile: const RebicAvatar(initials: 'TA'),
+          menu: [
+            RebicMenuItem(
+              text: 'Compras',
+              onPress: () => _show('Área: Compras'),
+            ),
+            RebicMenuItem(
+              text: 'Contratos',
+              onPress: () => _show('Área: Contratos'),
+            ),
+          ],
           onHomeIconPressed: () => _show('Ícone inicial acionado'),
           onNavButtonPressed: () => _show('Botão de voltar acionado'),
           onMenuButtonPressed: () => _show(RebicShellBarPage.menuMessage),
@@ -100,6 +110,15 @@ class _RebicShellBarPageState extends State<RebicShellBarPage> {
               secondTitle: 'Pedidos de compra em aberto no período',
               showMenuButton: true,
               showNotifications: true,
+              notificationsNumber: 4,
+              additionalContent: [
+                RebicButton(
+                  icon: RebicIcons.sysHelp,
+                  tooltip: 'Ajuda',
+                  type: RebicButtonType.transparent,
+                  onPress: () => _show('Ajuda acionada'),
+                ),
+              ],
               profile: const RebicAvatar(initials: 'TA'),
               onMenuButtonPressed: () => _show(RebicShellBarPage.menuMessage),
               onNotificationsPressed: () => _show('Notificações acionadas'),

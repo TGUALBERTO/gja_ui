@@ -4,8 +4,8 @@
 
 ### D1. Estado
 
-A barra passa a `StatefulWidget` só para guardar dois `RebicPopoverController` (o do menu do título e o do menu
-"mais"); a API continua `const`.
+A barra continua `StatelessWidget`: o menu do título e o menu "mais" são widgets privados com estado, cada um com o
+próprio `RebicPopoverController`.
 
 ### D2. Menu "mais" pela classe de largura
 
