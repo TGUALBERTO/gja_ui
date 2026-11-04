@@ -22,6 +22,7 @@ const _products = [
   ('mouse', 'Mouse', 'Periféricos', 'R\$ 45,00', '30'),
   ('monitor', 'Monitor 27"', 'Vídeo', 'R\$ 1.250,00', '4'),
   ('cabo', 'Cabo HDMI', 'Vídeo', 'R\$ 25,00', '80'),
+  ('webcam', 'Webcam', 'Periféricos', 'R\$ 210,00', '7'),
 ];
 
 class _RebicTablePageState extends State<RebicTablePage> {
@@ -39,7 +40,8 @@ class _RebicTablePageState extends State<RebicTablePage> {
       content: [
         const RebicText(
           'Tabela no modelo do sap.m.Table: em larguras pequenas, "Categoria" '
-          'some e "Preço" desce para baixo da linha.',
+          'some e "Preço" desce para baixo da linha; os produtos vêm em grupos, '
+          'três de cada vez (growing).',
         ),
         const RebicSpacing.vertical(RebicSpace.l),
         RebicTable<String>(
@@ -64,18 +66,27 @@ class _RebicTablePageState extends State<RebicTablePage> {
             ),
             RebicColumn(header: 'Estoque', hAlign: RebicColumnHAlign.end),
           ],
+          growing: true,
+          growingThreshold: 3,
           items: [
-            for (final (key, name, category, price, stock) in _products)
-              RebicColumnListItem(
-                key: key,
-                type: RebicListType.navigation,
-                cells: [
-                  RebicText(name),
-                  RebicText(category),
-                  RebicText(price),
-                  RebicText(stock),
-                ],
+            for (final group in ['Periféricos', 'Vídeo']) ...[
+              RebicGroupHeaderListItem(
+                title: group,
+                count: '${_products.where((p) => p.$3 == group).length}',
               ),
+              for (final (key, name, category, price, stock) in _products)
+                if (category == group)
+                  RebicColumnListItem(
+                    key: key,
+                    type: RebicListType.navigation,
+                    cells: [
+                      RebicText(name),
+                      RebicText(category),
+                      RebicText(price),
+                      RebicText(stock),
+                    ],
+                  ),
+            ],
           ],
         ),
         const RebicSpacing.vertical(RebicSpace.l),

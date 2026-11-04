@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- `RebicTable` ganha `growing`, `growingThreshold` e `growingTriggerText` (botão "Mais" com "[mostradas / total]") e
+  títulos de grupo `RebicGroupHeaderListItem` (`update-rebic-table-fiori-growing-groups`); `items` passa a
+  `List<RebicListItemBase<T>>`.
 - **BREAKING** Nomes do SAPUI5 no dropdown (`update-rebic-dropdown-fiori-key-text`): `RebicDropdownItem` usa `key` e
   `text` (antes `value` e `label`), e `RebicDropdown` usa `selectedKey` e `onSelectionChange` (antes `selected` e
   `onSelected`). A API do `RebicSelect` não muda.

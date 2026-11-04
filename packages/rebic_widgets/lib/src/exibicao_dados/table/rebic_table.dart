@@ -75,11 +75,34 @@ class RebicColumn {
   final bool demandPopin;
 }
 
+/// Item de uma [RebicTable], como o `sap.m.ListItemBase` do SAPUI5: uma
+/// linha ([RebicColumnListItem]) ou um título de grupo
+/// ([RebicGroupHeaderListItem]).
+@immutable
+sealed class RebicListItemBase<T> {
+  const RebicListItemBase();
+}
+
+/// Título de grupo de uma [RebicTable], como o `sap.m.GroupHeaderListItem`
+/// do SAPUI5: separa as linhas seguintes, até o próximo título.
+///
+/// Não pode ser escolhido nem acionado. É uma configuração, não um widget:
+/// use em [RebicTable.items].
+class RebicGroupHeaderListItem<T> extends RebicListItemBase<T> {
+  /// Cria o título de grupo [title].
+  const RebicGroupHeaderListItem({required this.title, this.count});
+
+  /// Título do grupo.
+  final String title;
+
+  /// Contagem mostrada entre parênteses depois do título.
+  final String? count;
+}
+
 /// Linha de uma [RebicTable], como o `sap.m.ColumnListItem` do SAPUI5.
 ///
 /// É uma configuração, não um widget: use em [RebicTable.items].
-@immutable
-class RebicColumnListItem<T> {
+class RebicColumnListItem<T> extends RebicListItemBase<T> {
   /// Cria a linha [key] com [cells].
   const RebicColumnListItem({
     required this.key,
@@ -110,6 +133,11 @@ class RebicColumnListItem<T> {
 /// das outras células, com o título. Pelo teclado, as setas para cima e
 /// para baixo movem o foco entre as linhas acionáveis.
 ///
+/// [items] pode ter títulos de grupo ([RebicGroupHeaderListItem]) entre as
+/// linhas. Com [growing], mostra só as primeiras [growingThreshold] linhas e,
+/// abaixo delas, um botão que mostra as próximas, com a contagem
+/// "[mostradas / total]", como o `growing` do UI5.
+///
 /// ```dart
 /// RebicTable<String>(
 ///   columns: const [
@@ -138,14 +166,17 @@ class RebicTable<T> extends StatefulWidget {
     this.selectedKeys = const {},
     this.onSelectionChange,
     this.onItemPress,
+    this.growing = false,
+    this.growingThreshold = 20,
+    this.growingTriggerText,
     super.key,
-  });
+  }) : assert(growingThreshold > 0, 'growingThreshold deve ser positivo');
 
   /// Colunas, da primeira à última.
   final List<RebicColumn> columns;
 
-  /// Linhas, de cima para baixo.
-  final List<RebicColumnListItem<T>> items;
+  /// Linhas e títulos de grupo, de cima para baixo.
+  final List<RebicListItemBase<T>> items;
 
   /// Título acima da tabela, e nome dela para o leitor de tela.
   final String? headerText;
@@ -166,6 +197,15 @@ class RebicTable<T> extends StatefulWidget {
   /// UI5.
   final ValueChanged<T>? onItemPress;
 
+  /// Se mostra as linhas aos poucos, com o botão de mais linhas.
+  final bool growing;
+
+  /// Linhas mostradas de início e a cada toque no botão de mais linhas.
+  final int growingThreshold;
+
+  /// Texto do botão de mais linhas; nulo usa o `more` da localização.
+  final String? growingTriggerText;
+
   @override
   State<RebicTable<T>> createState() => _RebicTableState<T>();
 }
@@ -175,6 +215,12 @@ class _RebicTableState<T> extends State<RebicTable<T>> {
 
   /// Chaves das linhas acionáveis, na ordem, para as setas.
   List<T> _order = [];
+
+  /// Linhas mostradas com `growing`; nulo vale `growingThreshold`.
+  int? _shown;
+
+  List<RebicColumnListItem<T>> get _rows =>
+      widget.items.whereType<RebicColumnListItem<T>>().toList();
 
   @override
   void dispose() {
@@ -190,7 +236,7 @@ class _RebicTableState<T> extends State<RebicTable<T>> {
 
   void _validate() {
     final columns = widget.columns;
-    final items = widget.items;
+    final items = _rows;
     assert(columns.isNotEmpty, 'columns não pode ser vazia');
     assert(
       items.every((item) => item.cells.length == columns.length),
@@ -244,7 +290,19 @@ class _RebicTableState<T> extends State<RebicTable<T>> {
     _validate();
     final theme = RebicThemeData.of(context);
     final l10n = RebicLocalizations.of(context);
-    final items = widget.items;
+    final items = _rows;
+    final limit = widget.growing
+        ? (_shown ?? widget.growingThreshold).clamp(0, items.length)
+        : items.length;
+    // Linhas e títulos até a última linha mostrada; um título só aparece
+    // se alguma linha dele aparece.
+    final shownItems = <RebicListItemBase<T>>[];
+    var count = 0;
+    for (final item in widget.items) {
+      if (count >= limit) break;
+      shownItems.add(item);
+      if (item is RebicColumnListItem<T>) count++;
+    }
     final multi = widget.mode == RebicListMode.multiSelect;
     final hasNavigation = items.any(
       (item) => item.type == RebicListType.navigation,
@@ -256,8 +314,8 @@ class _RebicTableState<T> extends State<RebicTable<T>> {
       return gone;
     });
     _order = [
-      for (final item in items)
-        if (_actionable(item)) item.key,
+      for (final item in shownItems)
+        if (item is RebicColumnListItem<T> && _actionable(item)) item.key,
     ];
     final header = widget.headerText;
 
@@ -349,18 +407,33 @@ class _RebicTableState<T> extends State<RebicTable<T>> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    for (final item in items)
-                      _row(
-                        item,
-                        visible: visible,
-                        popin: popin,
-                        multi: multi,
-                        trailing: hasNavigation,
-                        selectItem: l10n.selectItem,
-                      ),
+                    for (final item in shownItems)
+                      switch (item) {
+                        RebicColumnListItem<T>() => _row(
+                          item,
+                          visible: visible,
+                          popin: popin,
+                          multi: multi,
+                          trailing: hasNavigation,
+                          selectItem: l10n.selectItem,
+                        ),
+                        RebicGroupHeaderListItem<T>() => _GroupHeader(
+                          title: item.title,
+                          count: item.count,
+                        ),
+                      },
                   ],
                 ),
               ),
+              if (limit < items.length)
+                _GrowingTrigger(
+                  text: widget.growingTriggerText ?? l10n.more,
+                  counter:
+                      '[${l10n.formatInteger(limit)} / '
+                      '${l10n.formatInteger(items.length)}]',
+                  onPress: () =>
+                      setState(() => _shown = limit + widget.growingThreshold),
+                ),
             ],
           );
         },
@@ -449,6 +522,113 @@ class _RebicTableState<T> extends State<RebicTable<T>> {
             )
           : null,
       child: body,
+    );
+  }
+}
+
+/// Título de grupo, como o `sap.m.GroupHeaderListItem`.
+class _GroupHeader extends StatelessWidget {
+  const _GroupHeader({required this.title, required this.count});
+
+  final String title;
+  final String? count;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = RebicThemeData.of(context);
+    final count = this.count;
+    return _Frame(
+      selected: false,
+      child: Semantics(
+        header: true,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: theme.spacing.s,
+            vertical: theme.spacing.xs,
+          ),
+          child: Text(
+            count == null ? title : '$title ($count)',
+            style: theme.typography.baseBold.copyWith(color: theme.colors.text),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Botão de mais linhas, como o gatilho do `growing` do `sap.m.Table`.
+class _GrowingTrigger extends StatelessWidget {
+  const _GrowingTrigger({
+    required this.text,
+    required this.counter,
+    required this.onPress,
+  });
+
+  final String text;
+  final String counter;
+  final VoidCallback onPress;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = RebicThemeData.of(context);
+    final colors = theme.colors;
+    return MergeSemantics(
+      child: RebicInteractable(
+        semanticLabel: '$text $counter',
+        onPressed: onPress,
+        focusRingBorderRadius: BorderRadius.zero,
+        builder: (context, states) {
+          final active =
+              states.contains(RebicInteractionState.hovered) ||
+              states.contains(RebicInteractionState.pressed);
+          return ExcludeSemantics(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: active ? colors.hoverBackground : colors.base,
+                border: Border(
+                  bottom: BorderSide(
+                    color: colors.separator,
+                    width: const BorderSide().width,
+                  ),
+                ),
+              ),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: theme.density.listItemHeight,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(theme.spacing.xs),
+                  // A linha ocupa a largura da tabela, mesmo sob restrições
+                  // folgadas.
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            text,
+                            style: theme.typography.baseBold.copyWith(
+                              color: colors.text,
+                            ),
+                          ),
+                          Text(
+                            counter,
+                            style: theme.typography.small.copyWith(
+                              color: colors.label,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -56,7 +56,7 @@ Widget _stateful({
   required RebicListMode mode,
   List<Set<String>>? selections,
   List<String>? presses,
-  List<RebicColumnListItem<String>>? items,
+  List<RebicListItemBase<String>>? items,
   Set<String> initial = const {},
 }) {
   var keys = initial;
@@ -428,13 +428,80 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('[Comportamento] Mais linhas — Mais linhas', (tester) async {
+    await tester.pumpWidget(
+      _app(
+        RebicTable<int>(
+          columns: const [RebicColumn(header: 'Produto')],
+          growing: true,
+          growingThreshold: 2,
+          items: [
+            for (var i = 1; i <= 5; i++)
+              RebicColumnListItem(key: i, cells: [RebicText('Item $i')]),
+          ],
+        ),
+      ),
+    );
+    int rows() => find.textContaining(RegExp(r'^Item \d$')).evaluate().length;
+    expect(rows(), 2);
+    expect(find.text('[2 / 5]'), findsOneWidget);
+    await tester.tap(find.text('Mais'));
+    await tester.pump();
+    expect(rows(), 4);
+    expect(find.text('[4 / 5]'), findsOneWidget);
+    await tester.tap(find.text('Mais'));
+    await tester.pump();
+    expect(rows(), 5);
+    expect(find.text('Mais'), findsNothing);
+  });
+
+  testWidgets('[Comportamento] Títulos de grupo — Títulos de grupo', (
+    tester,
+  ) async {
+    final handle = tester.ensureSemantics();
+    final selections = <Set<String>>[];
+    await tester.pumpWidget(
+      _app(
+        _stateful(
+          mode: RebicListMode.multiSelect,
+          selections: selections,
+          items: [
+            const RebicGroupHeaderListItem(title: 'Periféricos', count: '2'),
+            ..._items().sublist(0, 2),
+            const RebicGroupHeaderListItem(title: 'Vídeo'),
+            _items()[2],
+          ],
+        ),
+      ),
+    );
+    expect(
+      tester.getTopLeft(find.text('Periféricos (2)')).dy,
+      lessThan(tester.getTopLeft(find.text('Teclado')).dy),
+    );
+    expect(
+      tester.getTopLeft(find.text('Vídeo')).dy,
+      allOf(
+        greaterThan(tester.getTopLeft(find.text('Mouse')).dy),
+        lessThan(tester.getTopLeft(find.text('Monitor')).dy),
+      ),
+    );
+    expect(
+      tester.getSemantics(find.text('Vídeo')),
+      containsSemantics(isHeader: true),
+    );
+    await tester.tap(find.byType(RebicCheckBox).first);
+    await tester.pump();
+    expect(selections.last, {'teclado', 'mouse', 'monitor'});
+    handle.dispose();
+  });
+
   group('[Testes] Cobertura exigida', () {
     test('[Testes] Cobertura exigida — Rastreabilidade da tabela', () {
       final names = scenarioNames(
         'rebic/widgets/rebic-table',
         'add-rebic-table',
       );
-      expect(names, hasLength(18));
+      expect(names, hasLength(20));
       expect(untestedScenarios(names), isEmpty);
     });
 
@@ -468,7 +535,7 @@ void main() {
           tester,
           name: 'rebic_table_$name',
           theme: theme,
-          size: const Size(1040, 360),
+          size: const Size(1040, 640),
           child: SizedBox(
             width: 1000,
             child: RebicHBox(
@@ -491,6 +558,26 @@ void main() {
                         onItemPress: (_) {},
                       ),
                       const RebicTable<String>(columns: columns, items: []),
+                      RebicTable<String>(
+                        columns: columns,
+                        growing: true,
+                        growingThreshold: 2,
+                        items: [
+                          const RebicGroupHeaderListItem(
+                            title: 'Periféricos',
+                            count: '3',
+                          ),
+                          ...items,
+                          RebicColumnListItem(
+                            key: 'c',
+                            cells: const [
+                              RebicText('Webcam'),
+                              RebicText('R\$ 210,00'),
+                              RebicText('7'),
+                            ],
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
