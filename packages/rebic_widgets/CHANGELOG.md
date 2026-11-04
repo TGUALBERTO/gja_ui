@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Correção: no `RebicForm`, campos que não esticam (como a caixa de seleção) ficam no início da célula, e não
+  centrados.
 - **BREAKING (leve)** `RebicForm` ganha `editable`, com o padrão `false` do `sap.ui.layout.form.Form`
   (`update-rebic-form-fiori-editable`): no modo de exibição, o rótulo ao lado fica alinhado ao topo dos valores;
   formulários com campos de entrada passam `editable: true`.

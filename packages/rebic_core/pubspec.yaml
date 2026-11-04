@@ -1,5 +1,5 @@
 name: rebic_core
-description: "Núcleo do Rebic: interação, foco, overlay, localização, validação e contratos de dados."
+description: "Núcleo do Rebic: interação, foco, overlay, localização e responsividade."
 version: 0.0.1
 publish_to: none
 resolution: workspace

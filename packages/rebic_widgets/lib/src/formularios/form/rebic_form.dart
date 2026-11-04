@@ -249,7 +249,18 @@ class _Element extends StatelessWidget {
     final fields = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: spacing.s,
-      children: [for (final field in element.fields) Expanded(child: field)],
+      children: [
+        // No início da célula, como no UI5: campos que não esticam (uma
+        // caixa de seleção, por exemplo) não ficam centrados.
+        for (final field in element.fields)
+          Expanded(
+            child: Align(
+              alignment: AlignmentDirectional.topStart,
+              heightFactor: 1,
+              child: field,
+            ),
+          ),
+      ],
     );
     if (!beside) {
       return Column(
