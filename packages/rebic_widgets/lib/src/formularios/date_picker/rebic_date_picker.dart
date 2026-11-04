@@ -21,6 +21,9 @@ import '../input/rebic_input.dart';
 /// calendário, os dias fora dos limites ficam desabilitados. As horas das
 /// datas são ignoradas.
 ///
+/// No cabeçalho do calendário, o mês e o ano abrem a escolha dos meses e dos
+/// anos; com [showCurrentDateButton], um botão escolhe a data de hoje.
+///
 /// ```dart
 /// RebicDatePicker(
 ///   semanticLabel: 'Data de entrega',
@@ -42,6 +45,7 @@ class RebicDatePicker extends StatefulWidget {
     this.editable = true,
     this.valueState = RebicValueState.none,
     this.valueStateText,
+    this.showCurrentDateButton = false,
     super.key,
   });
 
@@ -76,6 +80,10 @@ class RebicDatePicker extends StatefulWidget {
 
   /// Mensagem do estado de valor.
   final String? valueStateText;
+
+  /// Se o cabeçalho do calendário tem o botão "Hoje", que escolhe a data
+  /// atual.
+  final bool showCurrentDateButton;
 
   @override
   State<RebicDatePicker> createState() => _RebicDatePickerState();
@@ -162,6 +170,7 @@ class _RebicDatePickerState extends State<RebicDatePicker> {
         selected: date == null ? null : _day(date),
         minDate: min == null ? null : _day(min),
         maxDate: max == null ? null : _day(max),
+        showToday: widget.showCurrentDateButton,
         onSelect: (day) {
           _popover.close();
           _select(day);
@@ -198,20 +207,29 @@ class _Calendar extends StatefulWidget {
     required this.selected,
     required this.minDate,
     required this.maxDate,
+    required this.showToday,
     required this.onSelect,
   });
 
   final DateTime? selected;
   final DateTime? minDate;
   final DateTime? maxDate;
+  final bool showToday;
   final ValueChanged<DateTime> onSelect;
 
   @override
   State<_Calendar> createState() => _CalendarState();
 }
 
+/// Vista do calendário: dias de um mês, os meses de um ano ou vinte anos.
+enum _View { days, months, years }
+
 class _CalendarState extends State<_Calendar> {
   final _node = FocusNode();
+
+  /// Foco do mês ou do ano mostrado, nas escolhas de mês e de ano.
+  final _pickNode = FocusNode();
+  _View _view = _View.days;
   late DateTime _focused = widget.selected ?? _day(DateTime.now());
   late DateTime _month = DateTime(_focused.year, _focused.month);
 
@@ -228,7 +246,50 @@ class _CalendarState extends State<_Calendar> {
   @override
   void dispose() {
     _node.dispose();
+    _pickNode.dispose();
     super.dispose();
+  }
+
+  /// Primeiro ano da escolha de anos: dez antes do ano mostrado.
+  int get _firstYear => _month.year - 10;
+
+  /// Se algum dia entre [first] e [last] está dentro dos limites.
+  bool _anyEnabled(DateTime first, DateTime last) {
+    final min = widget.minDate;
+    final max = widget.maxDate;
+    return (min == null || !last.isBefore(min)) &&
+        (max == null || !first.isAfter(max));
+  }
+
+  void _showView(_View view) {
+    setState(() => _view = view);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) (view == _View.days ? _node : _pickNode).requestFocus();
+    });
+  }
+
+  void _step(int direction) => setState(() {
+    _month = switch (_view) {
+      _View.days => DateTime(_month.year, _month.month + direction),
+      _View.months => DateTime(_month.year + direction, _month.month),
+      _View.years => DateTime(_month.year + 20 * direction, _month.month),
+    };
+  });
+
+  /// Mostra os dias de [month], com o foco no mesmo dia, limitado ao fim do
+  /// mês.
+  void _pickMonth(DateTime month) {
+    final last = DateTime(month.year, month.month + 1, 0).day;
+    final day = DateTime(
+      month.year,
+      month.month,
+      _focused.day > last ? last : _focused.day,
+    );
+    setState(() {
+      _month = month;
+      if (_enabled(day)) _focused = day;
+    });
+    _showView(_View.days);
   }
 
   bool _enabled(DateTime day) {
@@ -237,9 +298,6 @@ class _CalendarState extends State<_Calendar> {
     return (min == null || !day.isBefore(min)) &&
         (max == null || !day.isAfter(max));
   }
-
-  void _showMonth(int delta) =>
-      setState(() => _month = DateTime(_month.year, _month.month + delta));
 
   void _moveFocus(DateTime day) {
     if (!_enabled(day)) return;
@@ -307,71 +365,208 @@ class _CalendarState extends State<_Calendar> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: theme.spacing.xs,
         children: [
-          Row(
-            children: [
-              RebicButton(
-                icon: RebicIcons.slimArrowLeft,
-                tooltip: l10n.previous,
-                type: RebicButtonType.transparent,
-                onPress: () => _showMonth(-1),
-              ),
-              Expanded(
-                child: Text(
-                  l10n.formatMonthYear(_month),
-                  textAlign: TextAlign.center,
-                  style: theme.typography.baseBold.copyWith(color: colors.text),
-                ),
-              ),
-              RebicButton(
-                icon: RebicIcons.slimArrowRight,
-                tooltip: l10n.next,
-                type: RebicButtonType.transparent,
-                onPress: () => _showMonth(1),
-              ),
-            ],
-          ),
-          ExcludeSemantics(
-            child: Row(
-              children: [
-                for (final name in l10n.shortWeekdays)
-                  Expanded(
-                    child: Text(
-                      name,
-                      textAlign: TextAlign.center,
-                      style: weekdayStyle,
+          _header(context),
+          if (_view == _View.months)
+            _pickGrid(
+              columns: 3,
+              cells: [
+                for (var m = 1; m <= 12; m++)
+                  (
+                    text: l10n.monthNames[m - 1],
+                    current: m == _month.month,
+                    enabled: _anyEnabled(
+                      DateTime(_month.year, m),
+                      DateTime(_month.year, m + 1, 0),
                     ),
+                    onPress: () => _pickMonth(DateTime(_month.year, m)),
                   ),
               ],
             ),
-          ),
-          Focus(
-            canRequestFocus: false,
-            skipTraversal: true,
-            onKeyEvent: _onKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                for (var week = 0; week < 6; week++)
-                  Row(
-                    children: [
-                      for (var i = 0; i < 7; i++)
-                        Expanded(
-                          child: _dayCell(
-                            DateTime(
-                              first.year,
-                              first.month,
-                              first.day + week * 7 + i,
+          if (_view == _View.years)
+            _pickGrid(
+              columns: 4,
+              cells: [
+                for (var y = _firstYear; y < _firstYear + 20; y++)
+                  (
+                    text: l10n.formatYear(DateTime(y)),
+                    current: y == _month.year,
+                    enabled: _anyEnabled(DateTime(y), DateTime(y, 12, 31)),
+                    onPress: () => _pickMonth(DateTime(y, _month.month)),
+                  ),
+              ],
+            ),
+          if (_view == _View.days) ...[
+            ExcludeSemantics(
+              child: Row(
+                children: [
+                  for (final name in l10n.shortWeekdays)
+                    Expanded(
+                      child: Text(
+                        name,
+                        textAlign: TextAlign.center,
+                        style: weekdayStyle,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+            Focus(
+              canRequestFocus: false,
+              skipTraversal: true,
+              onKeyEvent: _onKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (var week = 0; week < 6; week++)
+                    Row(
+                      children: [
+                        for (var i = 0; i < 7; i++)
+                          Expanded(
+                            child: _dayCell(
+                              DateTime(
+                                first.year,
+                                first.month,
+                                first.day + week * 7 + i,
+                              ),
+                              today: today,
                             ),
-                            today: today,
                           ),
-                        ),
-                    ],
-                  ),
-              ],
+                      ],
+                    ),
+                ],
+              ),
             ),
-          ),
+          ],
         ],
       ),
+    );
+  }
+
+  Widget _header(BuildContext context) {
+    final theme = RebicThemeData.of(context);
+    final l10n = RebicLocalizations.of(context);
+    final today = _day(DateTime.now());
+    final title = theme.typography.baseBold.copyWith(color: theme.colors.text);
+    return Row(
+      children: [
+        RebicButton(
+          icon: RebicIcons.slimArrowLeft,
+          tooltip: l10n.previous,
+          type: RebicButtonType.transparent,
+          onPress: () => _step(-1),
+        ),
+        Expanded(
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              if (_view == _View.days)
+                RebicButton(
+                  text: l10n.monthNames[_month.month - 1],
+                  type: RebicButtonType.transparent,
+                  onPress: () => _showView(_View.months),
+                ),
+              if (_view != _View.years)
+                RebicButton(
+                  text: l10n.formatYear(_month),
+                  type: RebicButtonType.transparent,
+                  onPress: () => _showView(_View.years),
+                )
+              else
+                Text(
+                  '${l10n.formatYear(DateTime(_firstYear))} – '
+                  '${l10n.formatYear(DateTime(_firstYear + 19))}',
+                  style: title,
+                ),
+            ],
+          ),
+        ),
+        if (widget.showToday)
+          RebicButton(
+            icon: RebicIcons.calendar,
+            tooltip: l10n.today,
+            type: RebicButtonType.transparent,
+            enabled: _enabled(today),
+            onPress: () => widget.onSelect(today),
+          ),
+        RebicButton(
+          icon: RebicIcons.slimArrowRight,
+          tooltip: l10n.next,
+          type: RebicButtonType.transparent,
+          onPress: () => _step(1),
+        ),
+      ],
+    );
+  }
+
+  /// Grade da escolha de mês ou de ano.
+  Widget _pickGrid({
+    required int columns,
+    required List<
+      ({String text, bool current, bool enabled, VoidCallback onPress})
+    >
+    cells,
+  }) {
+    final theme = RebicThemeData.of(context);
+    final colors = theme.colors;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (var row = 0; row < cells.length; row += columns)
+          Row(
+            children: [
+              for (final cell in cells.skip(row).take(columns))
+                Expanded(
+                  child: MergeSemantics(
+                    child: RebicInteractable(
+                      semanticLabel: cell.text,
+                      selected: cell.current,
+                      focusNode: cell.current ? _pickNode : null,
+                      onPressed: cell.enabled ? cell.onPress : null,
+                      focusRingBorderRadius: BorderRadius.circular(
+                        theme.radius.field,
+                      ),
+                      builder: (context, states) {
+                        final active =
+                            states.contains(RebicInteractionState.hovered) ||
+                            states.contains(RebicInteractionState.pressed);
+                        return ExcludeSemantics(
+                          child: Opacity(
+                            opacity: theme.interaction.opacity(states),
+                            child: SizedBox(
+                              height: theme.density.minTargetSize,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: cell.current
+                                      ? colors.brand
+                                      : (active
+                                            ? colors.hoverBackground
+                                            : null),
+                                  borderRadius: BorderRadius.circular(
+                                    theme.radius.field,
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    cell.text,
+                                    style: theme.typography.base.copyWith(
+                                      color: cell.current
+                                          ? colors.contrastText
+                                          : colors.text,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+            ],
+          ),
+      ],
     );
   }
 

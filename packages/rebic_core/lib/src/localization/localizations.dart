@@ -104,6 +104,9 @@ abstract class RebicLocalizations {
   /// Ir para o próximo (ex.: mês seguinte no calendário).
   String get next;
 
+  /// A data de hoje (ex.: o botão "Hoje" do calendário).
+  String get today;
+
   /// Texto de [state] para leitores de tela; vazio para
   /// [RebicValueState.none].
   String valueState(RebicValueState state);
@@ -160,6 +163,19 @@ abstract class RebicLocalizations {
   String formatLongDate(DateTime date) {
     _ensureDateData();
     return DateFormat.yMMMMEEEEd(intlLocale).format(date);
+  }
+
+  /// Nomes completos dos doze meses, na forma independente (ex.: janeiro
+  /// em pt-BR), de janeiro a dezembro.
+  List<String> get monthNames {
+    _ensureDateData();
+    return DateFormat.yMd(intlLocale).dateSymbols.STANDALONEMONTHS;
+  }
+
+  /// Ano de [date], sem separador de milhar (ex.: 2026).
+  String formatYear(DateTime date) {
+    _ensureDateData();
+    return DateFormat.y(intlLocale).format(date);
   }
 
   /// Primeiro dia da semana no idioma, como [DateTime.weekday] (7 = domingo).
@@ -269,6 +285,9 @@ class RebicLocalizationsPtBr extends RebicLocalizations {
   String get next => 'Próximo';
 
   @override
+  String get today => 'Hoje';
+
+  @override
   String valueState(RebicValueState state) => switch (state) {
     RebicValueState.none => '',
     RebicValueState.success => 'Valor válido',
@@ -352,6 +371,9 @@ class RebicLocalizationsEn extends RebicLocalizations {
 
   @override
   String get next => 'Next';
+
+  @override
+  String get today => 'Today';
 
   @override
   String valueState(RebicValueState state) => switch (state) {

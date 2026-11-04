@@ -50,6 +50,11 @@ Widget _stateful(
   );
 }
 
+/// Se o cabeçalho mostra o mês [month] e o ano [year].
+bool _shows(String month, String year) =>
+    find.text(month).evaluate().length == 1 &&
+    find.text(year).evaluate().length == 1;
+
 Future<void> _openCalendar(WidgetTester tester) async {
   await tester.tap(find.byIcon(RebicIcons.calendar));
   await tester.pumpAndSettle();
@@ -95,11 +100,11 @@ void main() {
       final log = <DateTime?>[];
       await tester.pumpWidget(_app(_stateful(log, initial: _march5)));
       await _openCalendar(tester);
-      expect(find.text('março de 2026'), findsOneWidget);
+      expect(_shows('março', '2026'), isTrue);
       await tester.tap(_day('terça-feira, 17 de março de 2026'));
       await tester.pumpAndSettle();
       expect(log, [DateTime(2026, 3, 17)]);
-      expect(find.text('março de 2026'), findsNothing);
+      expect(find.text('março'), findsNothing);
       expect(find.text('17/03/2026'), findsOneWidget);
     });
 
@@ -166,7 +171,7 @@ void main() {
     await _openCalendar(tester);
     await tester.tap(find.byIcon(RebicIcons.slimArrowRight).last);
     await tester.pumpAndSettle();
-    expect(find.text('abril de 2026'), findsOneWidget);
+    expect(_shows('abril', '2026'), isTrue);
   });
 
   testWidgets('[Comportamento] Teclado do calendário — Teclado no calendário', (
@@ -184,7 +189,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.sendKeyEvent(LogicalKeyboardKey.arrowRight);
     await tester.pumpAndSettle();
-    expect(find.text('abril de 2026'), findsOneWidget);
+    expect(_shows('abril', '2026'), isTrue);
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
     expect(log, [DateTime(2026, 4, 1)]);
@@ -323,13 +328,58 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('[Comportamento] Escolha de mês e ano — Escolher mês e ano', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_app(_stateful([], initial: _march5)));
+    await _openCalendar(tester);
+    await tester.tap(find.text('março'));
+    await tester.pumpAndSettle();
+    expect(find.text('dezembro'), findsOneWidget);
+    await tester.tap(find.text('julho'));
+    await tester.pumpAndSettle();
+    expect(_shows('julho', '2026'), isTrue);
+    await tester.tap(find.text('2026'));
+    await tester.pumpAndSettle();
+    expect(find.text('2016 – 2035'), findsOneWidget);
+    await tester.tap(find.text('2028'));
+    await tester.pumpAndSettle();
+    expect(_shows('julho', '2028'), isTrue);
+    expect(_day('sábado, 1 de julho de 2028'), findsOneWidget);
+  });
+
+  testWidgets('[Comportamento] Botão Hoje — Escolher hoje', (tester) async {
+    final log = <DateTime?>[];
+    await tester.pumpWidget(
+      _app(
+        StatefulBuilder(
+          builder: (context, setState) => RebicDatePicker(
+            semanticLabel: 'Entrega',
+            showCurrentDateButton: true,
+            dateValue: log.isEmpty ? _march5 : log.last,
+            onChange: (value) => setState(() => log.add(value)),
+          ),
+        ),
+      ),
+    );
+    await _openCalendar(tester);
+    await tester.tap(
+      find.byWidgetPredicate((w) => w is RebicButton && w.tooltip == 'Hoje'),
+    );
+    await tester.pumpAndSettle();
+    final now = DateTime.now();
+    expect(log, [DateTime(now.year, now.month, now.day)]);
+    expect(find.text('Anterior'), findsNothing);
+    expect(find.byType(RebicInteractable).evaluate().length, lessThan(10));
+  });
+
   group('[Testes] Cobertura exigida', () {
     test('[Testes] Cobertura exigida — Rastreabilidade do seletor', () {
       final names = scenarioNames(
         'rebic/widgets/rebic-date-picker',
         'add-rebic-date-picker',
       );
-      expect(names, hasLength(18));
+      expect(names, hasLength(20));
       expect(untestedScenarios(names), isEmpty);
     });
 
@@ -365,6 +415,7 @@ void main() {
                     semanticLabel: 'Entrega',
                     dateValue: _march5,
                     minDate: DateTime(2026, 3, 3),
+                    showCurrentDateButton: true,
                     onChange: (_) {},
                   ),
                 ),

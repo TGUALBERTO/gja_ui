@@ -43,9 +43,9 @@ Tocar o mês do cabeçalho SHALL mostrar os doze meses (três por linha), e toca
 - **THEN** o calendário mostra os dias de julho de 2028
 
 ### Requirement: [Comportamento] Botão Hoje
-Com `showCurrentDateButton` (padrão `false`), o cabeçalho do calendário SHALL ter um botão com o texto `today` da localização, como o do `sap.m.DatePicker`; acioná-lo SHALL chamar `onChange` com a data de hoje e fechar o calendário. Com hoje fora de `minDate`–`maxDate`, o botão MUST ficar desabilitado.
+Com `showCurrentDateButton` (padrão `false`), o cabeçalho do calendário SHALL ter um botão de ícone (`RebicIcons.calendar`) com a dica `today` da localização, como o do `sap.m.DatePicker`; acioná-lo SHALL chamar `onChange` com a data de hoje e fechar o calendário. Com hoje fora de `minDate`–`maxDate`, o botão MUST ficar desabilitado.
 
 #### Scenario: Escolher hoje
 - **GIVEN** um seletor com `showCurrentDateButton`, com o calendário aberto em pt-BR
-- **WHEN** o botão "Hoje" é tocado
+- **WHEN** o botão com a dica "Hoje" é tocado
 - **THEN** `onChange` recebe a data de hoje, e o calendário fecha

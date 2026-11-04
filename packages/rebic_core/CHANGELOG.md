@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Meses e anos do calendário (`update-rebic-date-picker-fiori-month-year-today`, spec `rebic/core/localization`):
+  `monthNames`, `formatYear` e o texto `today`.
 - Datas do calendário (`add-rebic-date-picker`, spec `rebic/core/localization`): `parseDate`, `datePattern`,
   `formatMonthYear`, `formatLongDate`, `firstDayOfWeek`, `shortWeekdays` e os textos `previous` e `next`.
 - Textos `selectAll` e `selectItem` (`add-rebic-table`, spec `rebic/core/localization`), as caixas de seleção da

@@ -18,5 +18,5 @@ ao fim do mês.
 
 ### D3. Hoje
 
-O botão "Hoje" é um `RebicButton` transparente com o texto `today`; chama a mesma escolha de um dia, com a data
+O botão "Hoje" é um `RebicButton` transparente só com o ícone `RebicIcons.calendar` e a dica `today` (o texto não cabe no cabeçalho compacto, e o UI5 também usa um botão de ícone); chama a mesma escolha de um dia, com a data
 atual, e fica desabilitado com hoje fora dos limites.

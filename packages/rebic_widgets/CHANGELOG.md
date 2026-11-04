@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- `RebicDatePicker`: o mês e o ano do cabeçalho do calendário abrem a escolha de meses e de anos, e
+  `showCurrentDateButton` mostra o botão "Hoje" (`update-rebic-date-picker-fiori-month-year-today`).
 - `RebicTable` ganha `growing`, `growingThreshold` e `growingTriggerText` (botão "Mais" com "[mostradas / total]") e
   títulos de grupo `RebicGroupHeaderListItem` (`update-rebic-table-fiori-growing-groups`); `items` passa a
   `List<RebicListItemBase<T>>`.

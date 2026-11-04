@@ -56,6 +56,8 @@ class _Es extends RebicLocalizations {
   @override
   String get next => 'Siguiente';
   @override
+  String get today => 'Hoy';
+  @override
   String valueState(RebicValueState state) => state.name;
   @override
   String selectedItems(int count) => '$count';
@@ -197,6 +199,15 @@ void main() {
       expect(_en.datePattern, 'M/d/y');
     });
 
+    test('Meses e anos do calendário — Meses, ano e hoje', () {
+      final date = DateTime(2026, 3, 5);
+      expect(_pt.monthNames.first, 'janeiro');
+      expect(_en.monthNames.first, 'January');
+      expect(_pt.monthNames, hasLength(12));
+      expect([_pt.formatYear(date), _en.formatYear(date)], ['2026', '2026']);
+      expect([_pt.today, _en.today], ['Hoje', 'Today']);
+    });
+
     test('todos os textos simples existem nos dois idiomas', () {
       for (final l in const <RebicLocalizations>[_pt, _en]) {
         final texts = [
@@ -221,6 +232,7 @@ void main() {
           l.selectItem,
           l.previous,
           l.next,
+          l.today,
         ];
         expect(texts.every((t) => t.isNotEmpty), isTrue, reason: '${l.locale}');
       }

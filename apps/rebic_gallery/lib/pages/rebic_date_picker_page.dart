@@ -47,6 +47,7 @@ class _RebicDatePickerPageState extends State<RebicDatePickerPage> {
                       semanticLabel: 'Data de entrega',
                       dateValue: delivery,
                       minDate: DateTime(now.year, now.month, now.day),
+                      showCurrentDateButton: true,
                       onChange: (date) => setState(() => _delivery = date),
                     ),
                   ],
