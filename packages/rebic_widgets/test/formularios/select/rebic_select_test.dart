@@ -13,9 +13,9 @@ import '../../support/traceability.dart';
 final _light = RebicThemeData.light();
 
 const _items = [
-  RebicDropdownItem(value: 'aberto', label: 'Em aberto'),
-  RebicDropdownItem(value: 'aprovado', label: 'Aprovado'),
-  RebicDropdownItem(value: 'recusado', label: 'Recusado'),
+  RebicDropdownItem(key: 'aberto', text: 'Em aberto'),
+  RebicDropdownItem(key: 'aprovado', text: 'Aprovado'),
+  RebicDropdownItem(key: 'recusado', text: 'Recusado'),
 ];
 
 Widget _app(

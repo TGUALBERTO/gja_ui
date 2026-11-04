@@ -30,20 +30,17 @@ void main() {
                     child: RebicDropdown<String>(
                       controller: controller,
                       semanticLabel: 'Status',
-                      selected: 'aprovado',
+                      selectedKey: 'aprovado',
                       items: const [
-                        RebicDropdownItem(value: 'aberto', label: 'Em aberto'),
+                        RebicDropdownItem(key: 'aberto', text: 'Em aberto'),
                         RebicDropdownItem(
-                          value: 'aprovado',
-                          label: 'Aprovado',
+                          key: 'aprovado',
+                          text: 'Aprovado',
                           additionalText: '12',
                         ),
-                        RebicDropdownItem(
-                          value: 'rejeitado',
-                          label: 'Rejeitado',
-                        ),
+                        RebicDropdownItem(key: 'rejeitado', text: 'Rejeitado'),
                       ],
-                      onSelected: (_) {},
+                      onSelectionChange: (_) {},
                       child: RebicButton(
                         text: 'Status',
                         onPress: controller.toggle,

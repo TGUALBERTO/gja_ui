@@ -24,8 +24,8 @@ import '../../feedback_sobreposicoes/popover/rebic_popover.dart';
 ///   selectedKey: status,
 ///   onChange: (value) => setState(() => status = value),
 ///   items: const [
-///     RebicDropdownItem(value: 'aberto', label: 'Em aberto'),
-///     RebicDropdownItem(value: 'aprovado', label: 'Aprovado'),
+///     RebicDropdownItem(key: 'aberto', text: 'Em aberto'),
+///     RebicDropdownItem(key: 'aprovado', text: 'Aprovado'),
 ///   ],
 /// )
 /// ```
@@ -106,7 +106,7 @@ class _RebicSelectState<T> extends State<RebicSelect<T>> {
     final theme = RebicThemeData.of(context);
     final colors = theme.colors;
     final selected = widget.items
-        .where((item) => item.value == widget.selectedKey)
+        .where((item) => item.key == widget.selectedKey)
         .firstOrNull;
     final hasState = widget.valueState != RebicValueState.none;
     final state = colors.stateColors(widget.valueState);
@@ -132,7 +132,7 @@ class _RebicSelectState<T> extends State<RebicSelect<T>> {
         final border = active
             ? colors.brand
             : (hasState ? state.border : colors.fieldBorder);
-        final text = selected?.label ?? placeholder;
+        final text = selected?.text ?? placeholder;
         return ExcludeSemantics(
           child: Opacity(
             opacity: theme.interaction.opacity(states),
@@ -187,9 +187,9 @@ class _RebicSelectState<T> extends State<RebicSelect<T>> {
     final anchored = RebicDropdown<T>(
       controller: _controller,
       semanticLabel: widget.semanticLabel,
-      selected: widget.selectedKey,
+      selectedKey: widget.selectedKey,
       items: widget.items,
-      onSelected: (value) {
+      onSelectionChange: (value) {
         if (value != widget.selectedKey) widget.onChange?.call(value);
       },
       child: Focus(
@@ -199,7 +199,7 @@ class _RebicSelectState<T> extends State<RebicSelect<T>> {
         onFocusChange: (value) => setState(() => _focused = value),
         child: MergeSemantics(
           child: Semantics(
-            value: selected?.label,
+            value: selected?.text,
             hint: hasState ? message : null,
             child: field,
           ),

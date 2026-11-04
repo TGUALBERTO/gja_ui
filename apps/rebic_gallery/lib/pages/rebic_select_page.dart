@@ -19,9 +19,9 @@ class RebicSelectPage extends StatefulWidget {
 
   /// Itens de status.
   static const statuses = [
-    RebicDropdownItem(value: 'aberto', label: 'Em aberto'),
-    RebicDropdownItem(value: 'aprovado', label: 'Aprovado'),
-    RebicDropdownItem(value: 'recusado', label: 'Recusado'),
+    RebicDropdownItem(key: 'aberto', text: 'Em aberto'),
+    RebicDropdownItem(key: 'aprovado', text: 'Aprovado'),
+    RebicDropdownItem(key: 'recusado', text: 'Recusado'),
   ];
 
   @override
@@ -74,13 +74,13 @@ class _RebicSelectPageState extends State<RebicSelectPage> {
                     onChange: (value) => setState(() => _sort = value),
                     items: const [
                       RebicDropdownItem(
-                        value: 'data',
-                        label: 'Data',
+                        key: 'data',
+                        text: 'Data',
                         icon: RebicIcons.calendar,
                       ),
                       RebicDropdownItem(
-                        value: 'valor',
-                        label: 'Valor',
+                        key: 'valor',
+                        text: 'Valor',
                         icon: RebicIcons.sort,
                       ),
                     ],
@@ -97,8 +97,8 @@ class _RebicSelectPageState extends State<RebicSelectPage> {
                     valueStateText: 'Escolha uma prioridade',
                     onChange: (value) => setState(() => _priority = value),
                     items: const [
-                      RebicDropdownItem(value: 'alta', label: 'Alta'),
-                      RebicDropdownItem(value: 'baixa', label: 'Baixa'),
+                      RebicDropdownItem(key: 'alta', text: 'Alta'),
+                      RebicDropdownItem(key: 'baixa', text: 'Baixa'),
                     ],
                   ),
                 ),

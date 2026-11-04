@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- **BREAKING** Nomes do SAPUI5 no dropdown (`update-rebic-dropdown-fiori-key-text`): `RebicDropdownItem` usa `key` e
+  `text` (antes `value` e `label`), e `RebicDropdown` usa `selectedKey` e `onSelectionChange` (antes `selected` e
+  `onSelected`). A API do `RebicSelect` não muda.
 - **BREAKING** `RebicProgressIndicator` segue só o `sap.m.ProgressIndicator`
   (`update-rebic-progress-indicator-fiori-percent-value`): `.linear` e `.circular` dão lugar a
   `RebicProgressIndicator(percentValue:)`, de 0 a 100; saem o modo indeterminado (use `RebicBusyIndicator`), o círculo

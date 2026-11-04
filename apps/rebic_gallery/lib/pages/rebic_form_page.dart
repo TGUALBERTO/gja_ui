@@ -76,8 +76,8 @@ class _RebicFormPageState extends State<RebicFormPage> {
                       selectedKey: _status,
                       onChange: (value) => setState(() => _status = value),
                       items: const [
-                        RebicDropdownItem(value: 'ativo', label: 'Ativo'),
-                        RebicDropdownItem(value: 'inativo', label: 'Inativo'),
+                        RebicDropdownItem(key: 'ativo', text: 'Ativo'),
+                        RebicDropdownItem(key: 'inativo', text: 'Inativo'),
                       ],
                     ),
                   ],

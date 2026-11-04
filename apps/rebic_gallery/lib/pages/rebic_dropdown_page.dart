@@ -23,39 +23,35 @@ class RebicDropdownPage extends StatefulWidget {
 
 const _statuses = [
   RebicDropdownItem(
-    value: 'aberto',
-    label: 'Em aberto',
+    key: 'aberto',
+    text: 'Em aberto',
     icon: RebicIcons.pending,
     additionalText: '8',
   ),
   RebicDropdownItem(
-    value: 'aprovado',
-    label: 'Aprovado',
+    key: 'aprovado',
+    text: 'Aprovado',
     icon: RebicIcons.sysEnter2,
     additionalText: '12',
   ),
   RebicDropdownItem(
-    value: 'rejeitado',
-    label: 'Rejeitado',
+    key: 'rejeitado',
+    text: 'Rejeitado',
     icon: RebicIcons.error,
     additionalText: '3',
   ),
   RebicDropdownItem(
-    value: 'arquivado',
-    label: 'Arquivado',
+    key: 'arquivado',
+    text: 'Arquivado',
     icon: RebicIcons.folderBlank,
     enabled: false,
   ),
 ];
 
 const _actions = [
-  RebicDropdownItem(value: 'editar', label: 'Editar', icon: RebicIcons.edit),
-  RebicDropdownItem(value: 'copiar', label: 'Copiar', icon: RebicIcons.copy),
-  RebicDropdownItem(
-    value: 'excluir',
-    label: 'Excluir',
-    icon: RebicIcons.delete,
-  ),
+  RebicDropdownItem(key: 'editar', text: 'Editar', icon: RebicIcons.edit),
+  RebicDropdownItem(key: 'copiar', text: 'Copiar', icon: RebicIcons.copy),
+  RebicDropdownItem(key: 'excluir', text: 'Excluir', icon: RebicIcons.delete),
 ];
 
 class _RebicDropdownPageState extends State<RebicDropdownPage> {
@@ -72,7 +68,7 @@ class _RebicDropdownPageState extends State<RebicDropdownPage> {
   }
 
   String get _label =>
-      _statuses.firstWhere((item) => item.value == _selected).label;
+      _statuses.firstWhere((item) => item.key == _selected).text;
 
   @override
   Widget build(BuildContext context) {
@@ -98,9 +94,10 @@ class _RebicDropdownPageState extends State<RebicDropdownPage> {
                 RebicDropdown<String>(
                   controller: _status,
                   semanticLabel: 'Status',
-                  selected: _selected,
+                  selectedKey: _selected,
                   items: _statuses,
-                  onSelected: (value) => setState(() => _selected = value),
+                  onSelectionChange: (value) =>
+                      setState(() => _selected = value),
                   child: _StatusField(
                     label: RebicDropdownPage.status(_label),
                     onPressed: _status.toggle,
@@ -110,7 +107,7 @@ class _RebicDropdownPageState extends State<RebicDropdownPage> {
                   controller: _more,
                   semanticLabel: 'Mais ações',
                   items: _actions,
-                  onSelected: (value) => setState(() => _action = value),
+                  onSelectionChange: (value) => setState(() => _action = value),
                   child: RebicButton(
                     icon: RebicIcons.overflow,
                     tooltip: 'Mais ações',
@@ -122,7 +119,7 @@ class _RebicDropdownPageState extends State<RebicDropdownPage> {
             ),
             if (action != null)
               RebicText(
-                'Ação: ${_actions.firstWhere((item) => item.value == action).label}',
+                'Ação: ${_actions.firstWhere((item) => item.key == action).text}',
               ),
           ],
         ),

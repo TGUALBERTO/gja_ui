@@ -14,14 +14,10 @@ import '../../support/golden.dart';
 import '../../support/traceability.dart';
 
 const _items = [
-  RebicDropdownItem(
-    value: 'aberto',
-    label: 'Em aberto',
-    icon: RebicIcons.pending,
-  ),
-  RebicDropdownItem(value: 'aprovado', label: 'Aprovado', additionalText: '12'),
-  RebicDropdownItem(value: 'arquivado', label: 'Arquivado', enabled: false),
-  RebicDropdownItem(value: 'rejeitado', label: 'Rejeitado'),
+  RebicDropdownItem(key: 'aberto', text: 'Em aberto', icon: RebicIcons.pending),
+  RebicDropdownItem(key: 'aprovado', text: 'Aprovado', additionalText: '12'),
+  RebicDropdownItem(key: 'arquivado', text: 'Arquivado', enabled: false),
+  RebicDropdownItem(key: 'rejeitado', text: 'Rejeitado'),
 ];
 
 /// Aplicação de teste com [home] sob [theme], na direção [direction] e com a
@@ -58,8 +54,8 @@ RebicPopoverController _controller() {
 Widget _dropdown(
   RebicPopoverController controller, {
   List<RebicDropdownItem<String>> items = _items,
-  String? selected,
-  ValueChanged<String>? onSelected,
+  String? selectedKey,
+  ValueChanged<String>? onSelectionChange,
   VoidCallback? onDismiss,
   double width = 240,
   Widget? anchor,
@@ -71,8 +67,8 @@ Widget _dropdown(
       controller: controller,
       semanticLabel: 'Status',
       items: items,
-      selected: selected,
-      onSelected: onSelected ?? (_) {},
+      selectedKey: selectedKey,
+      onSelectionChange: onSelectionChange ?? (_) {},
       onDismiss: onDismiss,
       child:
           anchor ??
@@ -138,14 +134,14 @@ void main() {
     testWidgets('[API] Propriedades — Item selecionado', (tester) async {
       final controller = _controller();
       await tester.pumpWidget(
-        _app(_dropdown(controller, selected: 'aprovado')),
+        _app(_dropdown(controller, selectedKey: 'aprovado')),
       );
       await _open(tester, controller);
       for (final item in _items) {
         expect(
-          tester.widget<RebicInteractable>(_item(item.label)).selected,
-          item.value == 'aprovado',
-          reason: item.label,
+          tester.widget<RebicInteractable>(_item(item.text)).selected,
+          item.key == 'aprovado',
+          reason: item.text,
         );
       }
     });
@@ -159,10 +155,10 @@ void main() {
         controller: controller,
         semanticLabel: 'Status',
         items: const [
-          RebicDropdownItem(value: 'a', label: 'A'),
-          RebicDropdownItem(value: 'a', label: 'B'),
+          RebicDropdownItem(key: 'a', text: 'A'),
+          RebicDropdownItem(key: 'a', text: 'B'),
         ],
-        onSelected: (_) {},
+        onSelectionChange: (_) {},
         child: const SizedBox(),
       ),
       throwsAssertionError,
@@ -180,7 +176,7 @@ void main() {
         _app(
           _dropdown(
             controller,
-            onSelected: chosen.add,
+            onSelectionChange: chosen.add,
             onDismiss: () => dismissed++,
           ),
         ),
@@ -199,7 +195,7 @@ void main() {
       final controller = _controller();
       final chosen = <String>[];
       await tester.pumpWidget(
-        _app(_dropdown(controller, onSelected: chosen.add)),
+        _app(_dropdown(controller, onSelectionChange: chosen.add)),
       );
       await _open(tester, controller);
       await tester.tap(find.text('Arquivado'));
@@ -218,7 +214,7 @@ void main() {
         await _open(tester, controller);
         expect(tester.getRect(_panel()).width, closeTo(300, 0.01));
         for (final item in _items) {
-          expect(tester.getRect(_item(item.label)).width, closeTo(300, 0.01));
+          expect(tester.getRect(_item(item.text)).width, closeTo(300, 0.01));
         }
       },
     );
@@ -247,12 +243,8 @@ void main() {
           _dropdown(
             controller,
             items: const [
-              RebicDropdownItem(value: 'aberto', label: 'Em aberto'),
-              RebicDropdownItem(
-                value: 'longo',
-                label: long,
-                additionalText: '12',
-              ),
+              RebicDropdownItem(key: 'aberto', text: 'Em aberto'),
+              RebicDropdownItem(key: 'longo', text: long, additionalText: '12'),
             ],
           ),
         ),
@@ -320,7 +312,7 @@ void main() {
       (tester) async {
         final controller = _controller();
         await tester.pumpWidget(
-          _app(_dropdown(controller, selected: 'aprovado')),
+          _app(_dropdown(controller, selectedKey: 'aprovado')),
         );
         await _open(tester, controller);
         final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
@@ -374,8 +366,8 @@ void main() {
         _app(
           _dropdown(
             controller,
-            selected: 'aprovado',
-            onSelected: chosen.add,
+            selectedKey: 'aprovado',
+            onSelectionChange: chosen.add,
             anchor: Focus(
               focusNode: anchor,
               child: const SizedBox(width: 240, height: 24),
@@ -421,7 +413,9 @@ void main() {
   ) async {
     final handle = tester.ensureSemantics();
     final controller = _controller();
-    await tester.pumpWidget(_app(_dropdown(controller, selected: 'aprovado')));
+    await tester.pumpWidget(
+      _app(_dropdown(controller, selectedKey: 'aprovado')),
+    );
     await _open(tester, controller);
     final routes = [
       for (final element in find.bySemanticsLabel('Status').evaluate())
@@ -487,9 +481,9 @@ void main() {
             _dropdown(
               controller,
               items: [
-                const RebicDropdownItem(value: 'aberto', label: 'Em aberto'),
+                const RebicDropdownItem(key: 'aberto', text: 'Em aberto'),
                 for (var i = 2; i <= 12; i++)
-                  RebicDropdownItem(value: '$i', label: 'Item $i'),
+                  RebicDropdownItem(key: '$i', text: 'Item $i'),
               ],
             ),
           ),
@@ -515,7 +509,7 @@ void main() {
       _app(
         _dropdown(
           controller,
-          onSelected: chosen.add,
+          onSelectionChange: chosen.add,
           anchor: RebicButton(text: 'Status', onPress: controller.toggle),
         ),
       ),
@@ -560,7 +554,7 @@ void main() {
               surface: RebicSurface.background,
               child: _dropdown(
                 controller,
-                selected: 'aprovado',
+                selectedKey: 'aprovado',
                 // Âncora no formato de um campo, como a de um futuro
                 // RebicSelect: a lista fica na largura dela.
                 anchor: SizedBox(

@@ -304,8 +304,8 @@ void main() {
                         selectedKey: status,
                         onChange: (value) => setState(() => status = value),
                         items: const [
-                          RebicDropdownItem(value: 'a', label: 'Ativo'),
-                          RebicDropdownItem(value: 'i', label: 'Inativo'),
+                          RebicDropdownItem(key: 'a', text: 'Ativo'),
+                          RebicDropdownItem(key: 'i', text: 'Inativo'),
                         ],
                       ),
                     ],
