@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- **BREAKING (leve)** `RebicForm` ganha `editable`, com o padrão `false` do `sap.ui.layout.form.Form`
+  (`update-rebic-form-fiori-editable`): no modo de exibição, o rótulo ao lado fica alinhado ao topo dos valores;
+  formulários com campos de entrada passam `editable: true`.
 - `RebicShellBar` ganha `menu` (o título abre um menu, como o `menu` do `sap.f.ShellBar`) e, na classe de largura S,
   leva as notificações e os `RebicButton` de `additionalContent` para um menu "mais"
   (`update-rebic-shell-bar-fiori-overflow-menu`).

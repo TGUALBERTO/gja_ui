@@ -50,6 +50,7 @@ RebicForm _form({
   String? title = 'Fornecedor',
   int columnsL = 2,
 }) => RebicForm(
+  editable: true,
   title: title,
   columnsL: columnsL,
   formContainers: containers ?? [_dados],
@@ -90,6 +91,7 @@ void main() {
     await tester.pumpWidget(
       _app(
         const RebicForm(
+          editable: true,
           formContainers: [
             RebicFormContainer(
               formElements: [RebicFormElement(label: 'Nome', fields: [])],
@@ -109,6 +111,7 @@ void main() {
     await tester.pumpWidget(
       _app(
         RebicForm(
+          editable: true,
           formContainers: [
             RebicFormContainer(
               formElements: [
@@ -166,6 +169,32 @@ void main() {
         final field = tester.getRect(find.byType(EditableText).at(1));
         expect(field.top, greaterThan(label.bottom));
       },
+    );
+  });
+
+  testWidgets('[Comportamento] Modo de exibição — Formulário de exibição', (
+    tester,
+  ) async {
+    _wide(tester);
+    await tester.pumpWidget(
+      _app(
+        const RebicForm(
+          formContainers: [
+            RebicFormContainer(
+              formElements: [
+                RebicFormElement(
+                  label: 'Cidade',
+                  fields: [RebicText('Belo Horizonte')],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+    expect(
+      tester.getTopLeft(_label('Cidade')).dy,
+      tester.getTopLeft(find.text('Belo Horizonte')).dy,
     );
   });
 
@@ -292,6 +321,7 @@ void main() {
       _app(
         StatefulBuilder(
           builder: (context, setState) => RebicForm(
+            editable: true,
             formContainers: [
               RebicFormContainer(
                 formElements: [
@@ -339,7 +369,7 @@ void main() {
   group('[Testes] Cobertura exigida', () {
     test('[Testes] Cobertura exigida — Rastreabilidade do formulário', () {
       final names = scenarioNames('rebic/widgets/rebic-form', 'add-rebic-form');
-      expect(names, hasLength(15));
+      expect(names, hasLength(16));
       expect(untestedScenarios(names), isEmpty);
     });
 

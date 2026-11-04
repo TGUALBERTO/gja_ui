@@ -36,6 +36,7 @@ class _RebicDatePickerPageState extends State<RebicDatePickerPage> {
         ),
         const RebicSpacing.vertical(RebicSpace.l),
         RebicForm(
+          editable: true,
           formContainers: [
             RebicFormContainer(
               formElements: [

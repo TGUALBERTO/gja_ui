@@ -42,6 +42,7 @@ class _RebicFormPageState extends State<RebicFormPage> {
         ),
         const RebicSpacing.vertical(RebicSpace.l),
         RebicForm(
+          editable: true,
           title: 'Fornecedor',
           formContainers: [
             RebicFormContainer(
@@ -128,6 +129,24 @@ class _RebicFormPageState extends State<RebicFormPage> {
         ),
         const RebicSpacing.vertical(RebicSpace.l),
         RebicText('Resumo: $summary'),
+        const RebicSpacing.vertical(RebicSpace.xl),
+        RebicForm(
+          title: 'Fornecedor (exibição)',
+          formContainers: [
+            RebicFormContainer(
+              formElements: [
+                RebicFormElement(
+                  label: 'Nome',
+                  fields: [RebicText(_name.isEmpty ? '—' : _name)],
+                ),
+                RebicFormElement(
+                  label: 'Cidade',
+                  fields: [RebicText(_city.isEmpty ? '—' : _city)],
+                ),
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }

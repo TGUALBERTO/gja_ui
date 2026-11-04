@@ -54,12 +54,15 @@ class RebicFormContainer {
 /// [labelCellsLarge] partes de 12 da coluna, no L e no XL, e no M com uma
 /// coluna; nos outros casos, acima.
 ///
-/// O formulário não tem estado: cada campo mantém o próprio valor e os
-/// próprios eventos.
+/// Com [editable] `false` (o padrão, como no UI5), o formulário mostra
+/// valores, e o rótulo fica alinhado ao topo dos campos; com `true`, para
+/// campos de entrada, o rótulo acompanha a altura deles. O formulário não
+/// tem estado: cada campo mantém o próprio valor e os próprios eventos.
 ///
 /// ```dart
 /// RebicForm(
 ///   title: 'Fornecedor',
+///   editable: true,
 ///   formContainers: [
 ///     RebicFormContainer(
 ///       formElements: [
@@ -82,6 +85,7 @@ class RebicForm extends StatelessWidget {
     this.columnsL = 2,
     this.columnsXL = 2,
     this.labelCellsLarge = 4,
+    this.editable = false,
     super.key,
   });
 
@@ -102,6 +106,10 @@ class RebicForm extends StatelessWidget {
 
   /// Partes de 12 da coluna ocupadas pelo rótulo ao lado, de 1 a 11.
   final int labelCellsLarge;
+
+  /// Se o formulário tem campos de entrada (edição) ou mostra valores
+  /// (exibição), como o `editable` do `sap.ui.layout.form.Form`.
+  final bool editable;
 
   void _validate() {
     assert(formContainers.isNotEmpty, 'formContainers não pode ser vazia');
@@ -168,6 +176,7 @@ class RebicForm extends StatelessWidget {
                                 container: formContainers[j],
                                 beside: beside,
                                 labelCells: labelCellsLarge,
+                                editable: editable,
                               )
                             : const SizedBox.shrink(),
                       ),
@@ -186,11 +195,13 @@ class _Container extends StatelessWidget {
     required this.container,
     required this.beside,
     required this.labelCells,
+    required this.editable,
   });
 
   final RebicFormContainer container;
   final bool beside;
   final int labelCells;
+  final bool editable;
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +214,12 @@ class _Container extends StatelessWidget {
       children: [
         if (text != null) RebicTitle(text, titleStyle: RebicTitleLevel.h5),
         for (final element in container.formElements)
-          _Element(element: element, beside: beside, labelCells: labelCells),
+          _Element(
+            element: element,
+            beside: beside,
+            labelCells: labelCells,
+            editable: editable,
+          ),
       ],
     );
   }
@@ -214,11 +230,13 @@ class _Element extends StatelessWidget {
     required this.element,
     required this.beside,
     required this.labelCells,
+    required this.editable,
   });
 
   final RebicFormElement element;
   final bool beside;
   final int labelCells;
+  final bool editable;
 
   @override
   Widget build(BuildContext context) {
@@ -248,16 +266,23 @@ class _Element extends StatelessWidget {
           flex: labelCells,
           child: Padding(
             padding: EdgeInsetsDirectional.only(end: spacing.s),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: theme.density.minTargetSize,
-              ),
-              child: Align(
-                alignment: AlignmentDirectional.centerStart,
-                widthFactor: 1,
-                child: label,
-              ),
-            ),
+            child: editable
+                ? ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: theme.density.minTargetSize,
+                    ),
+                    child: Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      widthFactor: 1,
+                      child: label,
+                    ),
+                  )
+                : Align(
+                    alignment: AlignmentDirectional.topStart,
+                    widthFactor: 1,
+                    heightFactor: 1,
+                    child: label,
+                  ),
           ),
         ),
         Expanded(flex: 12 - labelCells, child: fields),
