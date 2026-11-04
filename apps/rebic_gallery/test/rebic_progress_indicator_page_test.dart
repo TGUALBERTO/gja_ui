@@ -15,30 +15,26 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(const RebicGalleryApp());
 
-      await openGalleryPage(
-        tester,
-        RebicProgressIndicatorPage.title,
-        settle: false,
-      );
-      // Indicadores indeterminados nunca assentam: avança só a transição.
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
-
+      await openGalleryPage(tester, RebicProgressIndicatorPage.title);
       final indicators = tester
           .widgetList<RebicProgressIndicator>(
             find.byType(RebicProgressIndicator),
           )
           .toList();
-      final determinate = indicators.where((i) => i.value != null);
       expect(
-        determinate.map((i) => i.state).toSet(),
+        indicators.map((i) => i.state).toSet(),
         RebicValueState.values.toSet(),
       );
-      expect(determinate, hasLength(RebicValueState.values.length));
-      expect(
-        indicators.where((i) => i.value == null).map((i) => i.size).toList(),
-        [RebicIconSize.control, ...RebicProgressIndicatorPage.circleSizes],
-      );
+
+      double advancing() => tester
+          .widget<RebicProgressIndicator>(
+            find.byKey(RebicProgressIndicatorPage.advancingKey),
+          )
+          .percentValue;
+      final before = advancing();
+      await tester.tap(find.text('Avançar'));
+      await tester.pumpAndSettle();
+      expect(advancing(), before + 10);
       expect(tester.takeException(), isNull);
     },
   );

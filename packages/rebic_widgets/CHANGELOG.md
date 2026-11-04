@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- **BREAKING** `RebicProgressIndicator` segue só o `sap.m.ProgressIndicator`
+  (`update-rebic-progress-indicator-fiori-percent-value`): `.linear` e `.circular` dão lugar a
+  `RebicProgressIndicator(percentValue:)`, de 0 a 100; saem o modo indeterminado (use `RebicBusyIndicator`), o círculo
+  e `size`.
 - **BREAKING** `RebicStatusIndicator` passa a se chamar `RebicObjectStatus`
   (`update-rebic-status-indicator-fiori-object-status`, spec `rebic/widgets/rebic-object-status`), o nome do
   `sap.m.ObjectStatus` que ele segue; a API não muda.

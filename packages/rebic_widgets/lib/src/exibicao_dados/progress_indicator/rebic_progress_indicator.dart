@@ -2,100 +2,62 @@ import 'package:flutter/widgets.dart';
 import 'package:rebic_core/rebic_core.dart';
 import 'package:rebic_foundation/rebic_foundation.dart';
 
-import '../../fundacao_layout/icon/rebic_icon.dart';
 import 'rebic_progress_view.dart';
 
-/// Indicador de progresso, como o `sap.m.ProgressIndicator` (barra
-/// determinada) e o `sap.m.BusyIndicator` (indeterminado) do SAPUI5.
+/// Indicador de progresso, como o `sap.m.ProgressIndicator` do SAPUI5.
 ///
-/// [RebicProgressIndicator.linear] ocupa a largura disponível, com a
-/// espessura `spacing.xs`; [RebicProgressIndicator.circular] tem o tamanho de
-/// um ícone do tema ([size]), com o traço `spacing.xxs`. Com [value] (0 a 1),
-/// o preenchimento mostra o andamento e chega a cada novo valor em
-/// `motion.short`; sem ele, o indicador é animado continuamente. Com
-/// movimento reduzido, o indeterminado fica parado num desenho estático.
+/// Uma barra na largura disponível, com a espessura `spacing.xs`, preenchida
+/// até [percentValue] (de 0 a 100); chega a cada novo valor em
+/// `motion.short`, ou de imediato com movimento reduzido. Para uma operação
+/// sem andamento medível, use `RebicBusyIndicator`.
 ///
 /// O preenchimento usa `colors.brand` em [RebicValueState.none] e a cor do
 /// estado nos demais ([state]). O leitor de tela anuncia [semanticLabel] (ou
-/// o texto `loading`) e, no determinado, o valor em porcentagem.
+/// o texto `loading`) e o valor em porcentagem.
 ///
 /// ```dart
-/// RebicProgressIndicator.linear(value: enviados / total)
-/// const RebicProgressIndicator.circular(semanticLabel: 'Salvando pedido')
+/// RebicProgressIndicator(percentValue: enviados / total * 100)
 /// ```
 class RebicProgressIndicator extends StatelessWidget {
-  /// Barra na largura disponível.
-  const RebicProgressIndicator.linear({
-    this.value,
+  /// Cria a barra com [percentValue].
+  const RebicProgressIndicator({
+    required this.percentValue,
     this.state = RebicValueState.none,
     this.semanticLabel,
     super.key,
-  }) : size = RebicIconSize.control,
-       _circular = false,
-       assert(
-         value == null || (value >= 0 && value <= 1),
-         'value deve estar entre 0 e 1: $value',
+  }) : assert(
+         percentValue >= 0 && percentValue <= 100,
+         'percentValue deve estar entre 0 e 100: $percentValue',
        );
 
-  /// Círculo no tamanho do ícone [size].
-  const RebicProgressIndicator.circular({
-    this.value,
-    this.state = RebicValueState.none,
-    this.size = RebicIconSize.control,
-    this.semanticLabel,
-    super.key,
-  }) : _circular = true,
-       assert(
-         value == null || (value >= 0 && value <= 1),
-         'value deve estar entre 0 e 1: $value',
-       );
-
-  /// Andamento, de 0 a 1; nulo torna o indicador indeterminado.
-  final double? value;
+  /// Andamento, de 0 a 100.
+  final double percentValue;
 
   /// Estado de valor, que define a cor do preenchimento.
   final RebicValueState state;
 
-  /// Tamanho do círculo, entre os tamanhos de ícone do tema.
-  final RebicIconSize size;
-
   /// Rótulo do leitor de tela; nulo usa o texto `loading`.
   final String? semanticLabel;
-
-  final bool _circular;
 
   @override
   Widget build(BuildContext context) {
     final theme = RebicThemeData.of(context);
     final localizations = RebicLocalizations.of(context);
     final colors = theme.colors;
-    final value = this.value;
     return Semantics(
       container: true,
       label: semanticLabel ?? localizations.loading,
-      value: value == null
-          ? null
-          : '${localizations.formatInteger((value * 100).round())}%',
+      value: '${localizations.formatInteger(percentValue.round())}%',
       excludeSemantics: true,
       child: RebicProgressView(
-        circular: _circular,
-        value: value,
+        circular: false,
+        value: percentValue / 100,
         fill: state == RebicValueState.none
             ? colors.brand
             : colors.stateColors(state).foreground,
         track: colors.separator,
-        extent: _circular ? _iconSize(theme.icons, size) : theme.spacing.xs,
+        extent: theme.spacing.xs,
       ),
     );
   }
 }
-
-/// Lado de um ícone de tamanho [size].
-double _iconSize(RebicIconTokens t, RebicIconSize size) => switch (size) {
-  RebicIconSize.small => t.small,
-  RebicIconSize.medium => t.medium,
-  RebicIconSize.large => t.large,
-  RebicIconSize.xLarge => t.xLarge,
-  RebicIconSize.inline => t.inline,
-  RebicIconSize.control => t.control,
-};

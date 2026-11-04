@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
 
-/// Página "RebicProgressIndicator": barras por estado de valor, uma barra
-/// indeterminada e círculos indeterminados nos tamanhos de ícone.
-class RebicProgressIndicatorPage extends StatelessWidget {
+/// Página "RebicProgressIndicator": barras por estado de valor e uma barra
+/// que avança.
+class RebicProgressIndicatorPage extends StatefulWidget {
   /// Cria a página.
   const RebicProgressIndicatorPage({super.key});
 
@@ -13,26 +13,34 @@ class RebicProgressIndicatorPage extends StatelessWidget {
   /// Rota nomeada.
   static const route = '/rebic-progress-indicator';
 
-  /// Tamanhos de ícone mostrados nos círculos.
-  static const circleSizes = [
-    RebicIconSize.small,
-    RebicIconSize.control,
-    RebicIconSize.large,
-    RebicIconSize.xLarge,
-  ];
+  /// Chave da barra que avança.
+  static const advancingKey = ValueKey('advancing');
+
+  @override
+  State<RebicProgressIndicatorPage> createState() =>
+      _RebicProgressIndicatorPageState();
+}
+
+class _RebicProgressIndicatorPageState
+    extends State<RebicProgressIndicatorPage> {
+  double _sent = 30;
 
   @override
   Widget build(BuildContext context) {
     return RebicPage(
-      title: title,
+      title: RebicProgressIndicatorPage.title,
       showNavButton: true,
       onNavButtonPress: () => Navigator.of(context).maybePop(),
       contentPadding: RebicContentPadding.responsive,
       content: [
-        const RebicText('Barra e círculo, determinados ou indeterminados'),
+        const RebicText(
+          'Barra no modelo do sap.m.ProgressIndicator. Para operações sem '
+          'andamento medível, use RebicBusyIndicator.',
+        ),
         const RebicSpacing.vertical(RebicSpace.l),
         RebicVBox(
           gap: RebicSpace.l,
+          alignItems: RebicFlexAlignItems.stretch,
           items: [
             const RebicTitle(
               'Barras por estado',
@@ -42,32 +50,39 @@ class RebicProgressIndicatorPage extends StatelessWidget {
             for (final (i, state) in RebicValueState.values.indexed)
               RebicVBox(
                 gap: RebicSpace.xs,
+                alignItems: RebicFlexAlignItems.stretch,
                 items: [
                   RebicText('${state.name} — ${(i + 1) * 15}%'),
-                  RebicProgressIndicator.linear(
-                    value: (i + 1) * 0.15,
+                  RebicProgressIndicator(
+                    percentValue: (i + 1) * 15,
                     state: state,
                   ),
                 ],
               ),
             const RebicTitle(
-              'Indeterminada',
+              'Envio de arquivos',
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            const RebicProgressIndicator.linear(
-              semanticLabel: 'Carregando pedidos',
-            ),
-            const RebicTitle(
-              'Círculos',
-              level: RebicTitleLevel.h2,
-              titleStyle: RebicTitleLevel.h3,
+            RebicProgressIndicator(
+              key: RebicProgressIndicatorPage.advancingKey,
+              percentValue: _sent,
+              semanticLabel: 'Envio de arquivos',
             ),
             RebicHBox(
-              gap: RebicSpace.l,
+              gap: RebicSpace.s,
               items: [
-                for (final size in circleSizes)
-                  RebicProgressIndicator.circular(size: size),
+                RebicButton(
+                  text: 'Avançar',
+                  enabled: _sent < 100,
+                  onPress: () =>
+                      setState(() => _sent = (_sent + 10).clamp(0, 100)),
+                ),
+                RebicButton(
+                  text: 'Reiniciar',
+                  type: RebicButtonType.transparent,
+                  onPress: () => setState(() => _sent = 0),
+                ),
               ],
             ),
           ],

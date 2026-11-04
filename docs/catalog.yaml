@@ -856,12 +856,10 @@ items:
     phase: 1
     status: implemented
     depends_on:
-      - rebic/foundation/color
-      - rebic/widgets/rebic-icon
       - rebic/core/localization
+      - rebic/foundation/color
       - rebic/foundation/spacing
       - rebic/foundation/density
-      - rebic/foundation/iconography
       - rebic/foundation/design-tokens
       - rebic/foundation/theming
       - rebic/foundation/accessibility

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math' as math;
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -56,45 +55,26 @@ double _fillWidth(WidgetTester tester) {
 final _light = RebicThemeData.light();
 
 void main() {
-  group('[API] Propriedades', () {
-    testWidgets('[API] Propriedades — Barra determinada', (tester) async {
-      await tester.pumpWidget(
-        _host(const RebicProgressIndicator.linear(value: 0.45)),
-      );
-      expect(tester.getSize(find.byType(RebicProgressIndicator)).width, 400);
-      expect(_painter(tester).linearSegment, (0, 0.45));
-      expect(_fillWidth(tester), closeTo(180, 0.01));
-    });
-
-    testWidgets('[API] Propriedades — Círculo no tamanho de ícone', (
-      tester,
-    ) async {
-      await tester.pumpWidget(
-        _host(
-          const Center(
-            child: RebicProgressIndicator.circular(
-              value: 0.5,
-              size: RebicIconSize.xLarge,
-            ),
-          ),
-        ),
-      );
-      expect(
-        tester.getSize(find.byType(RebicProgressIndicator)),
-        Size.square(_light.icons.xLarge),
-      );
-    });
+  testWidgets('[API] Propriedades da barra — Barra determinada', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _host(const RebicProgressIndicator(percentValue: 45)),
+    );
+    expect(tester.getSize(find.byType(RebicProgressIndicator)).width, 400);
+    expect(_painter(tester).linearSegment, (0, 0.45));
+    expect(_fillWidth(tester), closeTo(180, 0.01));
   });
 
   test('[API] Valor válido — Valor fora do intervalo', () {
-    for (final value in [1.2]) {
+    for (final value in [120.0]) {
       expect(
-        () => RebicProgressIndicator.linear(value: value),
+        () => RebicProgressIndicator(percentValue: value),
         throwsA(
           isA<AssertionError>().having(
             (e) => '${e.message}',
             'message',
-            contains('1.2'),
+            contains('120'),
           ),
         ),
       );
@@ -105,7 +85,7 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(
-      _host(const RebicProgressIndicator.linear(value: 0.45)),
+      _host(const RebicProgressIndicator(percentValue: 45)),
     );
     await tester.tap(find.byType(RebicProgressIndicator));
     await tester.pump();
@@ -119,65 +99,43 @@ void main() {
     );
   });
 
-  group('[Comportamento] Determinado e indeterminado', () {
-    testWidgets(
-      '[Comportamento] Determinado e indeterminado — Valor atualizado',
-      (tester) async {
-        await tester.pumpWidget(
-          _host(const RebicProgressIndicator.linear(value: 0.45)),
-        );
-        await tester.pumpWidget(
-          _host(const RebicProgressIndicator.linear(value: 0.8)),
-        );
-        await tester.pump(_light.motion.short ~/ 2);
-        final halfway = _fillWidth(tester);
-        expect(halfway, greaterThan(180));
-        expect(halfway, lessThan(320));
-        await tester.pumpAndSettle();
-        expect(_fillWidth(tester), closeTo(320, 0.01));
-      },
-    );
+  group('[Comportamento] Valor animado', () {
+    testWidgets('[Comportamento] Valor animado — Valor atualizado', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        _host(const RebicProgressIndicator(percentValue: 45)),
+      );
+      await tester.pumpWidget(
+        _host(const RebicProgressIndicator(percentValue: 80)),
+      );
+      await tester.pump(_light.motion.short ~/ 2);
+      final halfway = _fillWidth(tester);
+      expect(halfway, greaterThan(180));
+      expect(halfway, lessThan(320));
+      await tester.pumpAndSettle();
+      expect(_fillWidth(tester), closeTo(320, 0.01));
+    });
 
-    testWidgets(
-      '[Comportamento] Determinado e indeterminado — Indeterminado em movimento',
-      (tester) async {
-        await tester.pumpWidget(
-          _host(const Center(child: RebicProgressIndicator.circular())),
-        );
-        final before = _painter(tester).circularArc;
-        expect(tester.binding.hasScheduledFrame, isTrue);
-        await tester.pump(_light.motion.long * 2);
-        expect(_painter(tester).circularArc, isNot(before));
-        expect(tester.binding.hasScheduledFrame, isTrue);
-        // Fora da árvore, a animação para.
-        await tester.pumpWidget(_host(const SizedBox.shrink()));
-        await tester.pump();
-        expect(tester.binding.hasScheduledFrame, isFalse);
-      },
-    );
-  });
-
-  testWidgets('[Comportamento] Movimento reduzido — Indeterminado estático', (
-    tester,
-  ) async {
-    await tester.pumpWidget(
-      _host(reduceMotion: true, const RebicProgressIndicator.linear()),
-    );
-    await tester.pump();
-    expect(tester.binding.hasScheduledFrame, isFalse);
-    final (start, end) = _painter(tester).linearSegment;
-    expect(end - start, closeTo(1 / 3, 1e-9));
-    expect((start + end) / 2, closeTo(0.5, 1e-9));
-    // O círculo mostra um arco fixo de um quarto.
-    await tester.pumpWidget(
-      _host(
-        reduceMotion: true,
-        const Center(child: RebicProgressIndicator.circular()),
-      ),
-    );
-    await tester.pump();
-    expect(tester.binding.hasScheduledFrame, isFalse);
-    expect(_painter(tester).circularArc.$2, closeTo(math.pi / 2, 1e-9));
+    testWidgets('[Comportamento] Valor animado — Valor sem animação', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        _host(
+          reduceMotion: true,
+          const RebicProgressIndicator(percentValue: 45),
+        ),
+      );
+      await tester.pumpWidget(
+        _host(
+          reduceMotion: true,
+          const RebicProgressIndicator(percentValue: 80),
+        ),
+      );
+      await tester.pump();
+      expect(_fillWidth(tester), closeTo(320, 0.01));
+      expect(tester.binding.hasScheduledFrame, isFalse);
+    });
   });
 
   group('[Aparência] Tokens de componente', () {
@@ -186,7 +144,7 @@ void main() {
     ) async {
       for (final state in RebicValueState.values) {
         await tester.pumpWidget(
-          _host(RebicProgressIndicator.linear(value: 0.45, state: state)),
+          _host(RebicProgressIndicator(percentValue: 45, state: state)),
         );
         final painter = _painter(tester);
         expect(
@@ -205,22 +163,12 @@ void main() {
       (tester) async {
         final compact = RebicThemeData.light(density: RebicDensity.compact);
         await tester.pumpWidget(
-          _host(
-            theme: compact,
-            const RebicProgressIndicator.linear(value: 0.45),
-          ),
+          _host(theme: compact, const RebicProgressIndicator(percentValue: 45)),
         );
         expect(
           tester.getSize(find.byType(RebicProgressIndicator)).height,
           compact.spacing.xs,
         );
-        await tester.pumpWidget(
-          _host(
-            theme: compact,
-            const Center(child: RebicProgressIndicator.circular(value: 0.5)),
-          ),
-        );
-        expect(_painter(tester).thickness, compact.spacing.xxs);
       },
     );
   });
@@ -239,7 +187,7 @@ void main() {
           home: Column(
             children: [
               Focus(focusNode: first, child: const SizedBox(height: 20)),
-              const RebicProgressIndicator.linear(value: 0.45),
+              const RebicProgressIndicator(percentValue: 45),
               Focus(focusNode: second, child: const SizedBox(height: 20)),
             ],
           ),
@@ -253,40 +201,18 @@ void main() {
     },
   );
 
-  group('[Acessibilidade] Semântica', () {
-    testWidgets('[Acessibilidade] Semântica — Semântica do valor', (
-      tester,
-    ) async {
-      final handle = tester.ensureSemantics();
-      await tester.pumpWidget(
-        _host(const RebicProgressIndicator.linear(value: 0.456)),
-      );
-      expect(
-        tester.getSemantics(find.byType(RebicProgressIndicator)),
-        matchesSemantics(label: 'Carregando', value: '46%'),
-      );
-      handle.dispose();
-    });
-
-    testWidgets('[Acessibilidade] Semântica — Semântica do indeterminado', (
-      tester,
-    ) async {
-      final handle = tester.ensureSemantics();
-      await tester.pumpWidget(
-        _host(
-          const Center(
-            child: RebicProgressIndicator.circular(
-              semanticLabel: 'Salvando pedido',
-            ),
-          ),
-        ),
-      );
-      expect(
-        tester.getSemantics(find.byType(RebicProgressIndicator)),
-        matchesSemantics(label: 'Salvando pedido'),
-      );
-      handle.dispose();
-    });
+  testWidgets('[Acessibilidade] Semântica da barra — Semântica do valor', (
+    tester,
+  ) async {
+    final handle = tester.ensureSemantics();
+    await tester.pumpWidget(
+      _host(const RebicProgressIndicator(percentValue: 45.6)),
+    );
+    expect(
+      tester.getSemantics(find.byType(RebicProgressIndicator)),
+      matchesSemantics(label: 'Carregando', value: '46%'),
+    );
+    handle.dispose();
   });
 
   test('[Acessibilidade] Contraste — Contraste do preenchimento', () {
@@ -313,7 +239,7 @@ void main() {
     await tester.pumpWidget(
       _host(
         direction: TextDirection.rtl,
-        const RebicProgressIndicator.linear(value: 0.25),
+        const RebicProgressIndicator(percentValue: 25),
       ),
     );
     final painter = _painter(tester);
@@ -333,16 +259,15 @@ void main() {
       const RebicApp(
         home: Column(
           children: [
-            RebicProgressIndicator.linear(value: 0.45),
-            RebicProgressIndicator.linear(),
-            RebicProgressIndicator.circular(value: 0.45),
-            RebicProgressIndicator.circular(),
+            RebicProgressIndicator(percentValue: 0),
+            RebicProgressIndicator(percentValue: 45),
+            RebicProgressIndicator(percentValue: 100),
           ],
         ),
       ),
     );
     await tester.pump(const Duration(milliseconds: 100));
-    expect(find.byType(RebicProgressIndicator), findsNWidgets(4));
+    expect(find.byType(RebicProgressIndicator), findsNWidgets(3));
     expect(tester.takeException(), isNull);
   });
 
@@ -352,7 +277,7 @@ void main() {
         'rebic/widgets/rebic-progress-indicator',
         'add-rebic-progress-indicator',
       );
-      expect(names, hasLength(19));
+      expect(names, hasLength(16));
       expect(untestedScenarios(names), isEmpty);
     });
 
@@ -372,21 +297,9 @@ void main() {
               child: RebicVBox(
                 items: [
                   for (final state in RebicValueState.values)
-                    RebicProgressIndicator.linear(value: 0.45, state: state),
-                  const RebicProgressIndicator.linear(),
-                  const RebicHBox(
-                    items: [
-                      RebicProgressIndicator.circular(
-                        value: 0.6,
-                        size: RebicIconSize.small,
-                      ),
-                      RebicProgressIndicator.circular(value: 0.6),
-                      RebicProgressIndicator.circular(
-                        value: 0.6,
-                        size: RebicIconSize.xLarge,
-                      ),
-                    ],
-                  ),
+                    RebicProgressIndicator(percentValue: 45, state: state),
+                  const RebicProgressIndicator(percentValue: 0),
+                  const RebicProgressIndicator(percentValue: 100),
                 ],
               ),
             ),
@@ -406,7 +319,7 @@ void main() {
     ).allMatches(source).map((m) => (m.group(1)!, m.group(2)!)).toList();
     expect(fields, isNotEmpty);
     for (final (type, name) in fields) {
-      if (type.startsWith('double')) expect(name, 'value');
+      if (type.startsWith('double')) expect(name, 'percentValue');
       expect(type, isNot(anyOf('Color', 'Color?', 'Duration', 'Duration?')));
     }
   });
