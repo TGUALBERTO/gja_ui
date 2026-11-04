@@ -1,14 +1,13 @@
-# rebic/widgets/rebic-status-indicator Specification
+# rebic/widgets/rebic-object-status Specification
 
 ## Purpose
 
-`RebicStatusIndicator` mostra a situação de um registro, como o `sap.m.ObjectStatus` do SAPUI5: um título opcional, um ícone e um texto na cor de um estado de valor, normal ou invertido (etiqueta preenchida), opcionalmente clicável, com semântica num só nó.
+`RebicObjectStatus` mostra a situação de um registro, como o `sap.m.ObjectStatus` do SAPUI5: um título opcional, um ícone e um texto na cor de um estado de valor, normal ou invertido (etiqueta preenchida), opcionalmente clicável, com semântica num só nó.
 
 ## Requirements
 
-
 ### Requirement: [API] Propriedades
-`RebicStatusIndicator` SHALL expor:
+`RebicObjectStatus` SHALL expor:
 
 | Prop | Tipo | Padrão |
 |---|---|---|
@@ -20,7 +19,7 @@
 | `onPress` | `VoidCallback?` | `null` (não interativo) |
 
 #### Scenario: Status mínimo
-- **WHEN** `RebicStatusIndicator(text: 'Aprovado', state: RebicValueState.success)` é renderizado
+- **WHEN** `RebicObjectStatus(text: 'Aprovado', state: RebicValueState.success)` é renderizado
 - **THEN** "Aprovado" aparece na cor de frente do estado `success`, no estilo `typography.base`, sem fundo
 
 #### Scenario: Status com título e ícone
@@ -32,11 +31,11 @@
 O status MUST ter `text` não vazio ou `icon`. Sem nenhum dos dois, MUST falhar em modo debug.
 
 #### Scenario: Status vazio
-- **WHEN** um `RebicStatusIndicator` é criado sem `text` e sem `icon`
+- **WHEN** um `RebicObjectStatus` é criado sem `text` e sem `icon`
 - **THEN** a criação falha em modo debug
 
 ### Requirement: [API] Callbacks e controlador
-Com `onPress`, o status SHALL ser ativo e chamar `onPress` uma vez por ativação por toque, Enter ou Espaço, como o evento `press` do SAPUI5. Sem `onPress`, não há ação, e o status MUST NOT receber o foco nem reagir ao ponteiro. `RebicStatusIndicator` SHALL NOT ter controlador.
+Com `onPress`, o status SHALL ser ativo e chamar `onPress` uma vez por ativação por toque, Enter ou Espaço, como o evento `press` do SAPUI5. Sem `onPress`, não há ação, e o status MUST NOT receber o foco nem reagir ao ponteiro. `RebicObjectStatus` SHALL NOT ter controlador.
 
 #### Scenario: Status ativo
 - **WHEN** um status com `onPress` é tocado e, com o foco nele, Enter é pressionado
@@ -107,7 +106,7 @@ Em RTL, a ordem SHALL ser espelhada: o título e o ícone ficam à direita do te
 - **THEN** o ícone fica à direita do texto
 
 ### Requirement: [Integração] Dependências
-`RebicStatusIndicator` SHALL depender somente de `rebic/widgets/rebic-icon`, `rebic/widgets/rebic-label`, `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/iconography`, `rebic/foundation/spacing`, `rebic/foundation/radius`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
+`RebicObjectStatus` SHALL depender somente de `rebic/widgets/rebic-icon`, `rebic/widgets/rebic-label`, `rebic/core/interaction`, `rebic/foundation/color`, `rebic/foundation/typography`, `rebic/foundation/iconography`, `rebic/foundation/spacing`, `rebic/foundation/radius`, `rebic/foundation/interaction-states`, `rebic/foundation/theming` e `rebic/foundation/accessibility`.
 
 #### Scenario: Status sem Material
 - **GIVEN** uma árvore criada apenas com `RebicApp`
@@ -115,7 +114,7 @@ Em RTL, a ordem SHALL ser espelhada: o título e o ícone ficam à direita do te
 - **THEN** não ocorrem exceções relacionadas a ancestrais Material ou Cupertino
 
 ### Requirement: [Testes] Cobertura exigida
-`RebicStatusIndicator` MUST ter um teste de widget por cenário, goldens nos temas claro e escuro, em cada densidade, e a bateria de `rebic/foundation/accessibility` aplicável: contraste, semântica e, no ativo, alvo e teclado.
+`RebicObjectStatus` MUST ter um teste de widget por cenário, goldens nos temas claro e escuro, em cada densidade, e a bateria de `rebic/foundation/accessibility` aplicável: contraste, semântica e, no ativo, alvo e teclado.
 
 #### Scenario: Rastreabilidade do status
 - **WHEN** a revisão compara os cenários desta spec com a suíte de testes
@@ -126,16 +125,16 @@ Em RTL, a ordem SHALL ser espelhada: o título e o ícone ficam à direita do te
 - **THEN** não há diferenças
 
 ### Requirement: [Documentação] Exemplos mínimos
-`RebicStatusIndicator` SHALL ter dartdoc em toda API pública e uma página "RebicStatusIndicator" na galeria com status por estado, invertidos, com título e um ativo que mostra uma mensagem.
+`RebicObjectStatus` SHALL ter dartdoc em toda API pública e uma página "RebicObjectStatus" na galeria com status por estado, invertidos, com título e um ativo que mostra uma mensagem.
 
-#### Scenario: Página RebicStatusIndicator na galeria
-- **GIVEN** a página "RebicStatusIndicator" aberta na galeria
+#### Scenario: Página RebicObjectStatus na galeria
+- **GIVEN** a página "RebicObjectStatus" aberta na galeria
 - **WHEN** o status ativo "3 pendências" é tocado
 - **THEN** a página mostra "Abrindo pendências"
 
 ### Requirement: [Restrições] Fora do escopo
-`RebicStatusIndicator` SHALL NOT aceitar cores, tamanhos ou estilos literais, nem cores de indicação fora dos estados de valor.
+`RebicObjectStatus` SHALL NOT aceitar cores, tamanhos ou estilos literais, nem cores de indicação fora dos estados de valor.
 
 #### Scenario: Status sem valor literal
-- **WHEN** a API pública de `RebicStatusIndicator` é inspecionada
+- **WHEN** a API pública de `RebicObjectStatus` é inspecionada
 - **THEN** não há parâmetro do tipo `double`, `Color` ou `TextStyle`
