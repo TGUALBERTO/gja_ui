@@ -27,7 +27,7 @@ export 'src/fundacao_layout/page/rebic_page.dart';
 export 'src/fundacao_layout/card/rebic_card.dart';
 export 'src/fundacao_layout/panel/rebic_panel.dart';
 export 'src/exibicao_dados/progress_indicator/rebic_progress_indicator.dart';
-export 'src/exibicao_dados/status_indicator/rebic_status_indicator.dart';
+export 'src/exibicao_dados/object_status/rebic_object_status.dart';
 export 'src/exibicao_dados/avatar/rebic_avatar.dart';
 export 'src/exibicao_dados/badge/rebic_badge.dart';
 export 'src/exibicao_dados/illustrated_message/rebic_illustrated_message.dart';

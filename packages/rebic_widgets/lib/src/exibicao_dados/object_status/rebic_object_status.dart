@@ -15,16 +15,16 @@ import '../../fundacao_layout/label/rebic_label.dart';
 /// com o título e o ícone na primeira.
 ///
 /// ```dart
-/// RebicStatusIndicator(
+/// RebicObjectStatus(
 ///   title: 'Situação',
 ///   text: 'Aprovado',
 ///   icon: RebicIcons.sysEnter2,
 ///   state: RebicValueState.success,
 /// )
 /// ```
-class RebicStatusIndicator extends StatelessWidget {
+class RebicObjectStatus extends StatelessWidget {
   /// Cria o status; informe [text] ou [icon].
-  const RebicStatusIndicator({
+  const RebicObjectStatus({
     this.text,
     this.icon,
     this.title,

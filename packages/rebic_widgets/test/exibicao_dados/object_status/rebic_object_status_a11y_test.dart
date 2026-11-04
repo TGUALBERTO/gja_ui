@@ -27,14 +27,14 @@ void main() {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         for (final state in RebicValueState.values) ...[
-                          RebicStatusIndicator(text: state.name, state: state),
-                          RebicStatusIndicator(
+                          RebicObjectStatus(text: state.name, state: state),
+                          RebicObjectStatus(
                             text: state.name,
                             state: state,
                             inverted: true,
                           ),
                         ],
-                        RebicStatusIndicator(
+                        RebicObjectStatus(
                           text: '3 pendências',
                           state: RebicValueState.warning,
                           onPress: () {},

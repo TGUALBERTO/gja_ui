@@ -37,7 +37,7 @@ Widget _host(
 /// Texto do valor (o último `Text` do status de [index]).
 Text _value(WidgetTester tester, String text) => tester.widget<Text>(
   find.descendant(
-    of: find.byType(RebicStatusIndicator),
+    of: find.byType(RebicObjectStatus),
     matching: find.text(text),
   ),
 );
@@ -51,7 +51,7 @@ void main() {
     testWidgets('[API] Propriedades — Status mínimo', (tester) async {
       await tester.pumpWidget(
         _host(
-          const RebicStatusIndicator(
+          const RebicObjectStatus(
             text: 'Aprovado',
             state: RebicValueState.success,
           ),
@@ -65,7 +65,7 @@ void main() {
       expect(style.fontSize, _light.typography.base.fontSize);
       expect(
         find.descendant(
-          of: find.byType(RebicStatusIndicator),
+          of: find.byType(RebicObjectStatus),
           matching: find.byType(DecoratedBox),
         ),
         findsNothing,
@@ -77,7 +77,7 @@ void main() {
     ) async {
       await tester.pumpWidget(
         _host(
-          const RebicStatusIndicator(
+          const RebicObjectStatus(
             title: 'Situação',
             icon: RebicIcons.sysEnter2,
             text: 'Aprovado',
@@ -98,7 +98,7 @@ void main() {
 
   test('[API] Conteúdo válido — Status vazio', () {
     for (final text in [null, '']) {
-      expect(() => RebicStatusIndicator(text: text), throwsAssertionError);
+      expect(() => RebicObjectStatus(text: text), throwsAssertionError);
     }
   });
 
@@ -108,7 +108,7 @@ void main() {
       await tester.pumpWidget(
         RebicApp(
           home: Center(
-            child: RebicStatusIndicator(
+            child: RebicObjectStatus(
               text: '3 pendências',
               state: RebicValueState.warning,
               onPress: () => calls++,
@@ -116,7 +116,7 @@ void main() {
           ),
         ),
       );
-      await tester.tap(find.byType(RebicStatusIndicator));
+      await tester.tap(find.byType(RebicObjectStatus));
       await tester.pump();
       await tester.sendKeyEvent(LogicalKeyboardKey.enter);
       await tester.pump();
@@ -137,7 +137,7 @@ void main() {
           home: Column(
             children: [
               Focus(focusNode: first, child: const SizedBox(height: 20)),
-              const RebicStatusIndicator(text: 'Aprovado'),
+              const RebicObjectStatus(text: 'Aprovado'),
               Focus(focusNode: second, child: const SizedBox(height: 20)),
             ],
           ),
@@ -150,7 +150,7 @@ void main() {
       expect(second.hasPrimaryFocus, isTrue);
       expect(
         find.descendant(
-          of: find.byType(RebicStatusIndicator),
+          of: find.byType(RebicObjectStatus),
           matching: find.byType(RebicInteractable),
         ),
         findsNothing,
@@ -165,7 +165,7 @@ void main() {
       _host(
         const SizedBox(
           width: 160,
-          child: RebicStatusIndicator(
+          child: RebicObjectStatus(
             icon: RebicIcons.pending,
             text: _long,
             state: RebicValueState.information,
@@ -197,7 +197,7 @@ void main() {
     for (final state in RebicValueState.values) {
       await tester.pumpWidget(
         _host(
-          RebicStatusIndicator(
+          RebicObjectStatus(
             key: ValueKey(state),
             icon: RebicIcons.information,
             text: state.name,
@@ -224,7 +224,7 @@ void main() {
   ) async {
     await tester.pumpWidget(
       _host(
-        const RebicStatusIndicator(
+        const RebicObjectStatus(
           text: 'Rejeitado',
           state: RebicValueState.error,
           inverted: true,
@@ -236,7 +236,7 @@ void main() {
         tester
                 .widget<DecoratedBox>(
                   find.descendant(
-                    of: find.byType(RebicStatusIndicator),
+                    of: find.byType(RebicObjectStatus),
                     matching: find.byType(DecoratedBox),
                   ),
                 )
@@ -254,7 +254,7 @@ void main() {
       await tester.pumpWidget(
         _host(
           textScale: 2,
-          const RebicStatusIndicator(
+          const RebicObjectStatus(
             icon: RebicIcons.information,
             text: 'Em análise',
           ),
@@ -272,14 +272,14 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(
-      _host(RebicStatusIndicator(text: '3 pendências', onPress: () {})),
+      _host(RebicObjectStatus(text: '3 pendências', onPress: () {})),
     );
     TextDecoration? decoration() =>
         _value(tester, '3 pendências').style!.decoration;
     final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
     await mouse.addPointer(location: Offset.zero);
     addTearDown(mouse.removePointer);
-    await mouse.moveTo(tester.getCenter(find.byType(RebicStatusIndicator)));
+    await mouse.moveTo(tester.getCenter(find.byType(RebicObjectStatus)));
     await tester.pump();
     expect(decoration(), TextDecoration.underline);
     await mouse.moveTo(Offset.zero);
@@ -296,23 +296,23 @@ void main() {
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const RebicStatusIndicator(
+            const RebicObjectStatus(
               title: 'Situação',
               icon: RebicIcons.sysEnter2,
               text: 'Aprovado',
             ),
-            RebicStatusIndicator(text: 'Atrasado', onPress: () {}),
+            RebicObjectStatus(text: 'Atrasado', onPress: () {}),
           ],
         ),
       ),
     );
-    final plain = tester.getSemantics(find.byType(RebicStatusIndicator).at(0));
+    final plain = tester.getSemantics(find.byType(RebicObjectStatus).at(0));
     expect(
       plain,
       containsSemantics(label: 'Situação: Aprovado', isButton: false),
     );
     expect(
-      tester.getSemantics(find.byType(RebicStatusIndicator).at(1)),
+      tester.getSemantics(find.byType(RebicObjectStatus).at(1)),
       containsSemantics(label: 'Atrasado', isButton: true, hasTapAction: true),
     );
     handle.dispose();
@@ -322,7 +322,7 @@ void main() {
     await tester.pumpWidget(
       _host(
         direction: TextDirection.rtl,
-        const RebicStatusIndicator(
+        const RebicObjectStatus(
           icon: RebicIcons.information,
           text: 'Em análise',
         ),
@@ -341,19 +341,18 @@ void main() {
       RebicApp(
         home: Column(
           children: [
-            const RebicStatusIndicator(text: 'Normal'),
-            const RebicStatusIndicator(
+            const RebicObjectStatus(text: 'Normal'),
+            const RebicObjectStatus(
               text: 'Invertido',
               state: RebicValueState.error,
               inverted: true,
             ),
-            RebicStatusIndicator(text: 'Ativo', onPress: () {}),
+            RebicObjectStatus(text: 'Ativo', onPress: () {}),
           ],
         ),
       ),
     );
-    for (final element
-        in find.byType(RebicStatusIndicator).evaluate().toList()) {
+    for (final element in find.byType(RebicObjectStatus).evaluate().toList()) {
       await tester.tap(find.byWidget(element.widget), warnIfMissed: false);
     }
     await tester.pump();
@@ -363,8 +362,8 @@ void main() {
   group('[Testes] Cobertura exigida', () {
     test('[Testes] Cobertura exigida — Rastreabilidade do status', () {
       final names = scenarioNames(
-        'rebic/widgets/rebic-status-indicator',
-        'add-rebic-status-indicator',
+        'rebic/widgets/rebic-object-status',
+        'update-rebic-status-indicator-fiori-object-status',
       );
       expect(names, hasLength(18));
       expect(untestedScenarios(names), isEmpty);
@@ -383,7 +382,7 @@ void main() {
       for (final (name, theme) in goldenThemes) {
         await expectGolden(
           tester,
-          name: 'rebic_status_indicator_$name',
+          name: 'rebic_object_status_$name',
           theme: theme,
           size: const Size(480, 320),
           child: RebicVBox(
@@ -392,25 +391,25 @@ void main() {
                 RebicHBox(
                   gap: RebicSpace.l,
                   items: [
-                    RebicStatusIndicator(
+                    RebicObjectStatus(
                       icon: icons[state],
                       text: state.name,
                       state: state,
                     ),
-                    RebicStatusIndicator(
+                    RebicObjectStatus(
                       text: state.name,
                       state: state,
                       inverted: true,
                     ),
                   ],
                 ),
-              const RebicStatusIndicator(
+              const RebicObjectStatus(
                 title: 'Situação',
                 icon: RebicIcons.sysEnter2,
                 text: 'Aprovado',
                 state: RebicValueState.success,
               ),
-              RebicStatusIndicator(
+              RebicObjectStatus(
                 icon: RebicIcons.warning,
                 text: '3 pendências',
                 state: RebicValueState.warning,
@@ -425,7 +424,7 @@ void main() {
 
   test('[Restrições] Fora do escopo — Status sem valor literal', () {
     final source = File(
-      'lib/src/exibicao_dados/status_indicator/rebic_status_indicator.dart',
+      'lib/src/exibicao_dados/object_status/rebic_object_status.dart',
     ).readAsStringSync();
     final fields = RegExp(
       r'^  final (\S+) (\w+);$',

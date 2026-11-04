@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- **BREAKING** `RebicStatusIndicator` passa a se chamar `RebicObjectStatus`
+  (`update-rebic-status-indicator-fiori-object-status`, spec `rebic/widgets/rebic-object-status`), o nome do
+  `sap.m.ObjectStatus` que ele segue; a API não muda.
 - Novo `RebicDatePicker` (`add-rebic-date-picker`, spec `rebic/widgets/rebic-date-picker`), como o
   `sap.m.DatePicker`: `dateValue`, `onChange`, `minDate`, `maxDate`, `placeholder`, `semanticLabel`, `enabled`,
   `editable`, `valueState` e `valueStateText`, com calendário mensal num popover.

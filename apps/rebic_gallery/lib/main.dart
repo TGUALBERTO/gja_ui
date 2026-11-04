@@ -31,7 +31,7 @@ import 'pages/rebic_progress_indicator_page.dart';
 import 'pages/rebic_hbox_vbox_page.dart';
 import 'pages/rebic_separator_page.dart';
 import 'pages/rebic_shell_bar_page.dart';
-import 'pages/rebic_status_indicator_page.dart';
+import 'pages/rebic_object_status_page.dart';
 import 'pages/rebic_tooltip_page.dart';
 import 'pages/rebic_spacing_page.dart';
 import 'pages/rebic_text_page.dart';
@@ -269,9 +269,9 @@ final galleryPages = <GalleryPage>[
     builder: (_) => const RebicBadgePage(),
   ),
   GalleryPage(
-    title: RebicStatusIndicatorPage.title,
-    route: RebicStatusIndicatorPage.route,
-    builder: (_) => const RebicStatusIndicatorPage(),
+    title: RebicObjectStatusPage.title,
+    route: RebicObjectStatusPage.route,
+    builder: (_) => const RebicObjectStatusPage(),
   ),
   GalleryPage(
     title: RebicAvatarPage.title,

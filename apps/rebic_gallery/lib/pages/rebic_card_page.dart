@@ -65,7 +65,7 @@ class _RebicCardPageState extends State<RebicCardPage> {
                     const RebicVBox(
                       gap: RebicSpace.s,
                       items: [
-                        RebicStatusIndicator(
+                        RebicObjectStatus(
                           icon: RebicIcons.warning,
                           text: '2 atrasados',
                           state: RebicValueState.warning,

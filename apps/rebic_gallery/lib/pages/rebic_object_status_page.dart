@@ -1,17 +1,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_ui/rebic_ui.dart';
 
-/// Página "RebicStatusIndicator": status por estado, invertidos, com título e
+/// Página "RebicObjectStatus": status por estado, invertidos, com título e
 /// um ativo que mostra uma mensagem.
-class RebicStatusIndicatorPage extends StatefulWidget {
+class RebicObjectStatusPage extends StatefulWidget {
   /// Cria a página.
-  const RebicStatusIndicatorPage({super.key});
+  const RebicObjectStatusPage({super.key});
 
   /// Título no índice e na página.
-  static const title = 'RebicStatusIndicator';
+  static const title = 'RebicObjectStatus';
 
   /// Rota nomeada.
-  static const route = '/rebic-status-indicator';
+  static const route = '/rebic-object-status';
 
   /// Texto do status ativo de exemplo.
   static const pending = '3 pendências';
@@ -20,11 +20,10 @@ class RebicStatusIndicatorPage extends StatefulWidget {
   static const opened = 'Abrindo pendências';
 
   @override
-  State<RebicStatusIndicatorPage> createState() =>
-      _RebicStatusIndicatorPageState();
+  State<RebicObjectStatusPage> createState() => _RebicObjectStatusPageState();
 }
 
-class _RebicStatusIndicatorPageState extends State<RebicStatusIndicatorPage> {
+class _RebicObjectStatusPageState extends State<RebicObjectStatusPage> {
   bool _opened = false;
 
   static const _examples = [
@@ -38,7 +37,7 @@ class _RebicStatusIndicatorPageState extends State<RebicStatusIndicatorPage> {
   @override
   Widget build(BuildContext context) {
     return RebicPage(
-      title: RebicStatusIndicatorPage.title,
+      title: RebicObjectStatusPage.title,
       showNavButton: true,
       onNavButtonPress: () => Navigator.of(context).maybePop(),
       contentPadding: RebicContentPadding.responsive,
@@ -57,12 +56,8 @@ class _RebicStatusIndicatorPageState extends State<RebicStatusIndicatorPage> {
               RebicHBox(
                 gap: RebicSpace.l,
                 items: [
-                  RebicStatusIndicator(icon: icon, text: text, state: state),
-                  RebicStatusIndicator(
-                    text: text,
-                    state: state,
-                    inverted: true,
-                  ),
+                  RebicObjectStatus(icon: icon, text: text, state: state),
+                  RebicObjectStatus(text: text, state: state, inverted: true),
                 ],
               ),
             const RebicTitle(
@@ -70,7 +65,7 @@ class _RebicStatusIndicatorPageState extends State<RebicStatusIndicatorPage> {
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            const RebicStatusIndicator(
+            const RebicObjectStatus(
               title: 'Situação',
               icon: RebicIcons.sysEnter2,
               text: 'Aprovado',
@@ -81,13 +76,13 @@ class _RebicStatusIndicatorPageState extends State<RebicStatusIndicatorPage> {
               level: RebicTitleLevel.h2,
               titleStyle: RebicTitleLevel.h3,
             ),
-            RebicStatusIndicator(
+            RebicObjectStatus(
               icon: RebicIcons.warning,
-              text: RebicStatusIndicatorPage.pending,
+              text: RebicObjectStatusPage.pending,
               state: RebicValueState.warning,
               onPress: () => setState(() => _opened = true),
             ),
-            if (_opened) const RebicText(RebicStatusIndicatorPage.opened),
+            if (_opened) const RebicText(RebicObjectStatusPage.opened),
           ],
         ),
       ],

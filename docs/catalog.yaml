@@ -881,8 +881,8 @@ items:
       - rebic/foundation/iconography
       - rebic/foundation/theming
       - rebic/foundation/accessibility
-  - id: rebic/widgets/rebic-status-indicator
-    name: "RebicStatusIndicator"
+  - id: rebic/widgets/rebic-object-status
+    name: "RebicObjectStatus"
     kind: widget
     category: exibicao-dados
     priority: P1
