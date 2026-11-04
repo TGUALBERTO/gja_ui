@@ -98,9 +98,8 @@ cd apps/rebic_gallery
 flutter run -d chrome
 ```
 
-A galeria tem uma página por fundamento e por componente, com seletores de tema (claro, escuro, sistema) e de
-densidade (cozy, compacta). A pasta `windows/` da galeria não é versionada; para rodar como aplicação Windows,
-gere-a antes com `flutter create --platforms=windows .` dentro de `apps/rebic_gallery`.
+Também roda como aplicação Windows (`flutter run -d windows`). A galeria tem uma página por fundamento e por
+componente, com seletores de tema (claro, escuro, sistema) e de densidade (cozy, compacta).
 
 ## Qualidade
 
