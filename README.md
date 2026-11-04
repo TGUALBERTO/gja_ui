@@ -96,7 +96,7 @@ cd rebic
 ```
 
 No Windows, alguns caminhos do histórico de specs são longos; se o clone reclamar de "Filename too long", rode antes
-`git config --global core.longpaths true` ou clone numa pasta perto da raiz (por exemplo, `C:ebic`).
+`git config --global core.longpaths true` ou clone numa pasta perto da raiz (por exemplo, `C:\rebic`).
 
 Requer o **Flutter 3.32.6** (stable), versão fixada em [ADR 0001](docs/adr/0001-sdk-baseline.md).
 
