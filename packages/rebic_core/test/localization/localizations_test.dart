@@ -52,6 +52,10 @@ class _Es extends RebicLocalizations {
   @override
   String get selectItem => 'Seleccionar elemento';
   @override
+  String get previous => 'Anterior';
+  @override
+  String get next => 'Siguiente';
+  @override
   String valueState(RebicValueState state) => state.name;
   @override
   String selectedItems(int count) => '$count';
@@ -169,6 +173,30 @@ void main() {
       expect([_en.selectAll, _en.selectItem], ['Select All', 'Select Item']);
     });
 
+    test('Datas do calendário — Textos do calendário', () {
+      expect([_pt.previous, _pt.next], ['Anterior', 'Próximo']);
+      expect([_en.previous, _en.next], ['Previous', 'Next']);
+    });
+
+    test('Datas do calendário — Ler e escrever datas', () {
+      expect(_pt.parseDate('05/03/2026'), DateTime(2026, 3, 5));
+      expect(_pt.parseDate('31/02/2026'), isNull);
+      expect(_pt.parseDate('abc'), isNull);
+      final date = DateTime(2026, 3, 5);
+      expect(_pt.formatMonthYear(date), 'março de 2026');
+      expect(_pt.formatLongDate(date), 'quinta-feira, 5 de março de 2026');
+    });
+
+    test('Datas do calendário — Semana do calendário', () {
+      expect(_pt.firstDayOfWeek, DateTime.sunday);
+      expect(_en.firstDayOfWeek, DateTime.sunday);
+      expect(_pt.shortWeekdays.first, 'dom.');
+      expect(_en.shortWeekdays.first, 'Sun');
+      expect(_pt.shortWeekdays, hasLength(7));
+      expect(_pt.datePattern, 'dd/MM/y');
+      expect(_en.datePattern, 'M/d/y');
+    });
+
     test('todos os textos simples existem nos dois idiomas', () {
       for (final l in const <RebicLocalizations>[_pt, _en]) {
         final texts = [
@@ -191,6 +219,8 @@ void main() {
           l.shellBar,
           l.selectAll,
           l.selectItem,
+          l.previous,
+          l.next,
         ];
         expect(texts.every((t) => t.isNotEmpty), isTrue, reason: '${l.locale}');
       }

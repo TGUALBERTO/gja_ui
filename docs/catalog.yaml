@@ -788,13 +788,23 @@ items:
     name: "RebicDatePicker"
     kind: widget
     category: formularios
-    priority: P3
-    phase: 4
-    status: planned
+    priority: P1
+    phase: 2
+    status: implemented
     depends_on:
+      - rebic/core/interaction
+      - rebic/core/localization
       - rebic/widgets/rebic-input
       - rebic/widgets/rebic-popover
-      - rebic/core/localization
+      - rebic/widgets/rebic-button
+      - rebic/foundation/color
+      - rebic/foundation/typography
+      - rebic/foundation/iconography
+      - rebic/foundation/spacing
+      - rebic/foundation/density
+      - rebic/foundation/interaction-states
+      - rebic/foundation/theming
+      - rebic/foundation/accessibility
   - id: rebic/widgets/rebic-date-range-picker
     name: "RebicDateRangePicker"
     kind: widget

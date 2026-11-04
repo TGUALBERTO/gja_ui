@@ -89,6 +89,35 @@ String _text(WidgetTester tester) =>
     tester.widget<EditableText>(find.byType(EditableText)).controller.text;
 
 void main() {
+  testWidgets('[Comportamento] Ajuda de valor — Pedir ajuda de valor', (
+    tester,
+  ) async {
+    var requests = 0;
+    await tester.pumpWidget(
+      RebicApp(
+        home: Center(
+          child: SizedBox(
+            width: 300,
+            child: RebicInput(
+              placeholder: 'Data',
+              showValueHelp: true,
+              valueHelpIconSrc: RebicIcons.calendar,
+              onValueHelpRequest: () => requests++,
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.byIcon(RebicIcons.calendar));
+    await tester.pump();
+    expect(requests, 1);
+    await tester.tap(find.byType(EditableText));
+    await tester.pump();
+    await tester.sendKeyEvent(LogicalKeyboardKey.f4);
+    await tester.pump();
+    expect(requests, 2);
+  });
+
   testWidgets('[API] Propriedades — Campo mínimo', (tester) async {
     await tester.pumpWidget(
       _app(RebicInput(placeholder: 'Nome', onLiveChange: (_) {})),
@@ -444,7 +473,7 @@ void main() {
         'rebic/widgets/rebic-input',
         'add-rebic-input',
       );
-      expect(names, hasLength(20));
+      expect(names, hasLength(21));
       expect(untestedScenarios(names), isEmpty);
     });
 

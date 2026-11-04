@@ -50,6 +50,7 @@ export 'src/formularios/check_box/rebic_check_box.dart';
 export 'src/formularios/input/rebic_input.dart';
 export 'src/formularios/radio_button/rebic_radio_button.dart';
 export 'src/formularios/radio_button_group/rebic_radio_button_group.dart';
+export 'src/formularios/date_picker/rebic_date_picker.dart';
 export 'src/formularios/form/rebic_form.dart';
 export 'src/formularios/select/rebic_select.dart';
 export 'src/formularios/switch/rebic_switch.dart';

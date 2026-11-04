@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+- Datas do calendário (`add-rebic-date-picker`, spec `rebic/core/localization`): `parseDate`, `datePattern`,
+  `formatMonthYear`, `formatLongDate`, `firstDayOfWeek`, `shortWeekdays` e os textos `previous` e `next`.
 - Textos `selectAll` e `selectItem` (`add-rebic-table`, spec `rebic/core/localization`), as caixas de seleção da
   tabela.
 - Semântica de marcação e alternância (`add-rebic-check-box`, spec `rebic/core/interaction`): `RebicInteractable`

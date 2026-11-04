@@ -98,6 +98,12 @@ abstract class RebicLocalizations {
   /// Caixa que escolhe uma linha de uma tabela.
   String get selectItem;
 
+  /// Ir para o anterior (ex.: mês anterior no calendário).
+  String get previous;
+
+  /// Ir para o próximo (ex.: mês seguinte no calendário).
+  String get next;
+
   /// Texto de [state] para leitores de tela; vazio para
   /// [RebicValueState.none].
   String valueState(RebicValueState state);
@@ -124,6 +130,52 @@ abstract class RebicLocalizations {
   String formatDate(DateTime date) {
     _ensureDateData();
     return DateFormat.yMd(intlLocale).format(date);
+  }
+
+  /// Data curta lida de [text] no formato de [formatDate], ou nula quando
+  /// [text] não é uma data válida (ex.: 31/02/2026).
+  DateTime? parseDate(String text) {
+    _ensureDateData();
+    try {
+      return DateFormat.yMd(intlLocale).parseStrict(text.trim());
+    } on FormatException {
+      return null;
+    }
+  }
+
+  /// Padrão da data curta (ex.: dd/MM/y em pt-BR), para dicas de campo.
+  String get datePattern {
+    _ensureDateData();
+    return DateFormat.yMd(intlLocale).pattern ?? '';
+  }
+
+  /// Mês e ano de [date] (ex.: março de 2026 em pt-BR).
+  String formatMonthYear(DateTime date) {
+    _ensureDateData();
+    return DateFormat.yMMMM(intlLocale).format(date);
+  }
+
+  /// Data por extenso, com o dia da semana (ex.: quinta-feira, 5 de março de
+  /// 2026 em pt-BR), para leitores de tela.
+  String formatLongDate(DateTime date) {
+    _ensureDateData();
+    return DateFormat.yMMMMEEEEd(intlLocale).format(date);
+  }
+
+  /// Primeiro dia da semana no idioma, como [DateTime.weekday] (7 = domingo).
+  int get firstDayOfWeek {
+    _ensureDateData();
+    // No CLDR, 0 é segunda-feira.
+    return DateFormat.yMd(intlLocale).dateSymbols.FIRSTDAYOFWEEK + 1;
+  }
+
+  /// Nomes curtos dos dias da semana, a partir de [firstDayOfWeek].
+  List<String> get shortWeekdays {
+    _ensureDateData();
+    // No CLDR, a lista começa no domingo.
+    final names = DateFormat.yMd(intlLocale).dateSymbols.SHORTWEEKDAYS;
+    final start = firstDayOfWeek % 7;
+    return [for (var i = 0; i < 7; i++) names[(start + i) % 7]];
   }
 
   /// Hora de [time], em 24 h ou 12 h conforme o idioma.
@@ -211,6 +263,12 @@ class RebicLocalizationsPtBr extends RebicLocalizations {
   String get selectItem => 'Selecionar item';
 
   @override
+  String get previous => 'Anterior';
+
+  @override
+  String get next => 'Próximo';
+
+  @override
   String valueState(RebicValueState state) => switch (state) {
     RebicValueState.none => '',
     RebicValueState.success => 'Valor válido',
@@ -288,6 +346,12 @@ class RebicLocalizationsEn extends RebicLocalizations {
 
   @override
   String get selectItem => 'Select Item';
+
+  @override
+  String get previous => 'Previous';
+
+  @override
+  String get next => 'Next';
 
   @override
   String valueState(RebicValueState state) => switch (state) {

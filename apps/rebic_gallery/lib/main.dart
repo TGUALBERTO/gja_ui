@@ -60,6 +60,7 @@ import 'pages/rebic_side_navigation_page.dart';
 import 'pages/rebic_panel_page.dart';
 import 'pages/rebic_form_page.dart';
 import 'pages/rebic_table_page.dart';
+import 'pages/rebic_date_picker_page.dart';
 
 /// Inicia a galeria de componentes Rebic.
 void main() {
@@ -381,6 +382,11 @@ final galleryPages = <GalleryPage>[
     title: RebicTablePage.title,
     route: RebicTablePage.route,
     builder: (_) => const RebicTablePage(),
+  ),
+  GalleryPage(
+    title: RebicDatePickerPage.title,
+    route: RebicDatePickerPage.route,
+    builder: (_) => const RebicDatePickerPage(),
   ),
 ];
 

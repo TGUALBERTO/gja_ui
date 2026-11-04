@@ -2,6 +2,11 @@
 
 ## Não lançado
 
+- Novo `RebicDatePicker` (`add-rebic-date-picker`, spec `rebic/widgets/rebic-date-picker`), como o
+  `sap.m.DatePicker`: `dateValue`, `onChange`, `minDate`, `maxDate`, `placeholder`, `semanticLabel`, `enabled`,
+  `editable`, `valueState` e `valueStateText`, com calendário mensal num popover.
+- `RebicInput` ganha `showValueHelp`, `valueHelpIconSrc` e `onValueHelpRequest` (`add-rebic-date-picker`), como o
+  `sap.m.Input`.
 - Novo `RebicTable<T>` (`add-rebic-table`, spec `rebic/widgets/rebic-table`), como o `sap.m.Table`: `columns`
   (`RebicColumn` com `hAlign`, `flex`, `minScreenWidth` e `demandPopin`), `items` (`RebicColumnListItem`), `headerText`,
   `noDataText`, `mode`, `selectedKeys`, `onSelectionChange` e `onItemPress`.

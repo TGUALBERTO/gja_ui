@@ -36,7 +36,8 @@ enum RebicInputType {
 ///
 /// Com [valueState] e [valueStateText], mostra a mensagem do estado abaixo do
 /// campo enquanto ele tem o foco. Com [showClearIcon], mostra um botão que
-/// esvazia o texto. Com [enabled] `false`, não recebe foco nem edição; com
+/// esvazia o texto; com [showValueHelp], um ícone que chama
+/// [onValueHelpRequest] (também com F4 ou Alt+seta para baixo). Com [enabled] `false`, não recebe foco nem edição; com
 /// [editable] `false`, recebe o foco e permite selecionar, sem editar.
 ///
 /// Sem rótulo visível, [semanticLabel] (ou, sem ele, [placeholder]) é o nome
@@ -66,6 +67,9 @@ class RebicInput extends StatefulWidget {
     this.valueStateText,
     this.maxLength = 0,
     this.showClearIcon = false,
+    this.showValueHelp = false,
+    this.valueHelpIconSrc = RebicIcons.popupWindow,
+    this.onValueHelpRequest,
     this.focusNode,
     super.key,
   }) : assert(
@@ -114,6 +118,16 @@ class RebicInput extends StatefulWidget {
 
   /// Se mostra o botão de limpar quando há texto.
   final bool showClearIcon;
+
+  /// Se mostra, no fim, o ícone de ajuda de valor [valueHelpIconSrc].
+  final bool showValueHelp;
+
+  /// Ícone da ajuda de valor.
+  final IconData valueHelpIconSrc;
+
+  /// Chamado ao tocar o ícone da ajuda de valor, ou com F4 ou Alt+seta para
+  /// baixo no campo, como o evento `valueHelpRequest` do UI5.
+  final VoidCallback? onValueHelpRequest;
 
   /// Nó de foco do campo; um interno é criado quando nulo.
   final FocusNode? focusNode;
@@ -175,6 +189,8 @@ class _RebicInputState extends State<RebicInput> {
     }
   }
 
+  void _help() => widget.onValueHelpRequest?.call();
+
   void _clear() {
     _controller.clear();
     widget.onLiveChange?.call('');
@@ -213,6 +229,7 @@ class _RebicInputState extends State<RebicInput> {
         widget.enabled &&
         widget.editable &&
         _controller.text.isNotEmpty;
+    final showHelp = widget.showValueHelp && widget.enabled && widget.editable;
 
     final field = EditableText(
       controller: _controller,
@@ -251,7 +268,7 @@ class _RebicInputState extends State<RebicInput> {
         child: Padding(
           padding: EdgeInsetsDirectional.only(
             start: theme.spacing.s,
-            end: showClear ? theme.spacing.none : theme.spacing.s,
+            end: showClear || showHelp ? theme.spacing.none : theme.spacing.s,
           ),
           child: Row(
             children: [
@@ -270,7 +287,19 @@ class _RebicInputState extends State<RebicInput> {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                    field,
+                    if (showHelp)
+                      CallbackShortcuts(
+                        bindings: {
+                          const SingleActivator(LogicalKeyboardKey.f4): _help,
+                          const SingleActivator(
+                            LogicalKeyboardKey.arrowDown,
+                            alt: true,
+                          ): _help,
+                        },
+                        child: field,
+                      )
+                    else
+                      field,
                   ],
                 ),
               ),
@@ -296,6 +325,29 @@ class _RebicInputState extends State<RebicInput> {
                             size: theme.icons.control,
                             color: colors.brand,
                           ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              // Como o de limpar, o ícone da ajuda de valor não é parada de
+              // Tab; F4 e Alt+seta para baixo fazem o mesmo pelo teclado.
+              if (showHelp)
+                ExcludeSemantics(
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      key: const ValueKey('rebic-input-value-help'),
+                      behavior: HitTestBehavior.opaque,
+                      onTap: _help,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: theme.spacing.s,
+                        ),
+                        child: Icon(
+                          widget.valueHelpIconSrc,
+                          size: theme.icons.control,
+                          color: colors.brand,
                         ),
                       ),
                     ),
