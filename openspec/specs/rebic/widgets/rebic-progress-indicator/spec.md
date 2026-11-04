@@ -2,9 +2,23 @@
 
 ## Purpose
 
-`RebicProgressIndicator` mostra o andamento de uma operação, como o `sap.m.ProgressIndicator` e o `sap.m.BusyIndicator` do SAPUI5: uma barra na largura disponível ou um círculo no tamanho de um ícone, determinado (com valor de 0 a 1) ou indeterminado (animado), com a cor do estado de valor, semântica de progresso e respeito ao movimento reduzido.
+`RebicProgressIndicator` mostra o andamento de uma operação, como o `sap.m.ProgressIndicator` do SAPUI5: uma barra na largura disponível, preenchida até `percentValue` (de 0 a 100), com a cor do estado de valor, semântica de progresso e respeito ao movimento reduzido. Operações sem andamento medível usam o `RebicBusyIndicator`.
 
 ## Requirements
+
+### Requirement: [API] Propriedades da barra
+`RebicProgressIndicator` SHALL expor, como o `sap.m.ProgressIndicator`, o construtor padrão com:
+
+| Prop | Tipo | Padrão |
+|---|---|---|
+| `percentValue` | `double` | obrigatório |
+| `state` | `RebicValueState` | `none` |
+| `semanticLabel` | `String?` | texto `loading` |
+
+#### Scenario: Barra determinada
+- **GIVEN** uma área de 400 de largura, em LTR
+- **WHEN** `RebicProgressIndicator(percentValue: 45)` é renderizado
+- **THEN** a barra ocupa os 400, e o preenchimento mede 180 a partir da borda inicial
 
 ### Requirement: [API] Valor válido
 `percentValue` MUST estar entre 0 e 100. Um valor fora do intervalo MUST falhar em modo debug com mensagem que cita o valor.
@@ -20,6 +34,19 @@
 - **GIVEN** uma barra determinada
 - **WHEN** ela é tocada
 - **THEN** nada é executado, e não há detector de gestos no indicador
+
+### Requirement: [Comportamento] Valor animado
+O preenchimento SHALL corresponder a `percentValue` e, quando ele muda, MUST chegar ao novo valor com a duração `motion.short`; com movimento reduzido, MUST mudar sem animação.
+
+#### Scenario: Valor atualizado
+- **GIVEN** uma barra de 400 com `percentValue` 45
+- **WHEN** ela é reconstruída com `percentValue` 80 e as animações terminam
+- **THEN** o preenchimento mede 320
+
+#### Scenario: Valor sem animação
+- **GIVEN** o movimento reduzido ativo e uma barra de 400 com `percentValue` 45
+- **WHEN** ela é reconstruída com `percentValue` 80
+- **THEN** o preenchimento mede 320 no quadro seguinte, sem quadros agendados
 
 ### Requirement: [Aparência] Tokens de componente
 O preenchimento SHALL usar `colors.brand` no estado `none` e `stateColors(state).foreground` nos demais. A trilha SHALL usar `colors.separator`. A espessura da barra SHALL ser `spacing.xs`, sem valores literais.
@@ -40,6 +67,14 @@ O preenchimento SHALL usar `colors.brand` no estado `none` e `stateColors(state)
 - **GIVEN** um indicador entre dois elementos focáveis
 - **WHEN** Tab é pressionado a partir do primeiro
 - **THEN** o foco vai ao segundo, sem parada no indicador
+
+### Requirement: [Acessibilidade] Semântica da barra
+O indicador SHALL ser exposto com o rótulo `semanticLabel` ou, sem ele, o texto `loading` de `rebic/core/localization`, e MUST expor o valor em porcentagem inteira.
+
+#### Scenario: Semântica do valor
+- **GIVEN** uma barra com `percentValue` 45.6, em pt-BR
+- **WHEN** a árvore de semântica é lida
+- **THEN** o nó tem o rótulo "Carregando" e o valor "46%"
 
 ### Requirement: [Acessibilidade] Contraste
 O preenchimento MUST ter contraste de ao menos 3:1 sobre `colors.base` e `colors.background`, em todos os estados e temas, conforme `rebic/foundation/accessibility`. A trilha é decorativa, como os separadores, e fica isenta.
@@ -88,38 +123,3 @@ A barra SHALL ocupar a largura disponível. Em RTL, o preenchimento MUST começa
 #### Scenario: Indicador sem valor literal
 - **WHEN** a API pública de `RebicProgressIndicator` é inspecionada
 - **THEN** o único `double` é `percentValue`, e não há parâmetro de cor nem de duração
-
-### Requirement: [Comportamento] Valor animado
-O preenchimento SHALL corresponder a `percentValue` e, quando ele muda, MUST chegar ao novo valor com a duração `motion.short`; com movimento reduzido, MUST mudar sem animação.
-
-#### Scenario: Valor atualizado
-- **GIVEN** uma barra de 400 com `percentValue` 45
-- **WHEN** ela é reconstruída com `percentValue` 80 e as animações terminam
-- **THEN** o preenchimento mede 320
-
-#### Scenario: Valor sem animação
-- **GIVEN** o movimento reduzido ativo e uma barra de 400 com `percentValue` 45
-- **WHEN** ela é reconstruída com `percentValue` 80
-- **THEN** o preenchimento mede 320 no quadro seguinte, sem quadros agendados
-
-### Requirement: [API] Propriedades da barra
-`RebicProgressIndicator` SHALL expor, como o `sap.m.ProgressIndicator`, o construtor padrão com:
-
-| Prop | Tipo | Padrão |
-|---|---|---|
-| `percentValue` | `double` | obrigatório |
-| `state` | `RebicValueState` | `none` |
-| `semanticLabel` | `String?` | texto `loading` |
-
-#### Scenario: Barra determinada
-- **GIVEN** uma área de 400 de largura, em LTR
-- **WHEN** `RebicProgressIndicator(percentValue: 45)` é renderizado
-- **THEN** a barra ocupa os 400, e o preenchimento mede 180 a partir da borda inicial
-
-### Requirement: [Acessibilidade] Semântica da barra
-O indicador SHALL ser exposto com o rótulo `semanticLabel` ou, sem ele, o texto `loading` de `rebic/core/localization`, e MUST expor o valor em porcentagem inteira.
-
-#### Scenario: Semântica do valor
-- **GIVEN** uma barra com `percentValue` 45.6, em pt-BR
-- **WHEN** a árvore de semântica é lida
-- **THEN** o nó tem o rótulo "Carregando" e o valor "46%"
