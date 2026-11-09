@@ -29,6 +29,9 @@ const _directional = {
   'navigationRightArrow',
   'log',
   'popupWindow',
+  'journeyArrive',
+  'sysFirstPage',
+  'sysLastPage',
 };
 
 /// Se o `Icon` inseriu o espelhamento horizontal (`Transform` com escala -1).

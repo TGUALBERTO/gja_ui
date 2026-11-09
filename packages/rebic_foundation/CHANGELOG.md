@@ -2,6 +2,11 @@
 
 ## Não lançado
 
+- 95 ícones novos em `RebicIcons` (spec `rebic/foundation/iconography`), para cobrir os ícones do portal GJA:
+  pessoas e grupos, agenda, cadeados, documentos, chamados, veículos, filas, gráficos, nuvem, mídia e outros. Os
+  nomes são do IconPool do SAPUI5 em camelCase, conferidos com o `SAP-icons.json` v5 do `@ui5/webcomponents-icons`,
+  e os desenhos são da Lucide empacotada, um glifo por ícone. `journeyArrive`, `sysFirstPage` e `sysLastPage` são
+  direcionais.
 - Token de densidade `separatorHeight` (`update-rebic-divider-fiori-separator`, spec `rebic/foundation/density`):
   altura do separador vertical, como a do `sap.m.ToolbarSeparator`, 32 no cozy e 24 no compacto, com o primitivo
   `RebicDensityPrimitives.size24`. Quem cria `RebicDensityTokens` pelo construtor passa a informar `separatorHeight`.
