@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicButton": um botão de cada tipo, com e sem ícone, uma barra
 /// de ações só com ícone, um desabilitado e "Enviar", que fica ocupado ao

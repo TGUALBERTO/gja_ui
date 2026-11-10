@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicBadge": contadores por estado, sobre botões de ícone e um
 /// contador de notificações que aumenta ao tocar "Nova notificação".

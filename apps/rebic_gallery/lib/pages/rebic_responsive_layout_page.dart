@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicResponsiveLayout": o mesmo formulário de exemplo pela classe
 /// da tela e pela classe de um painel de 400.

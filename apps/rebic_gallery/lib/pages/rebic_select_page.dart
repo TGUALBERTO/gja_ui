@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicSelect": campos interativos, um com ícones nos itens, um com
 /// espaço reservado e campos com estado de valor, somente leitura e

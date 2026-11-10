@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicText": um parágrafo livre, o mesmo truncado em duas linhas e
 /// em uma linha sem quebra.

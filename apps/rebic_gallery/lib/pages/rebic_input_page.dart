@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicInput": um campo com saudação, campos de cada tipo, um com
 /// limite, um com ícone de limpar, um com validação e campos somente leitura

@@ -25,13 +25,13 @@ Sem `--root`, a raiz é procurada subindo a partir do diretório atual: é o pri
 
 ### `architecture`
 
-- **Camadas:** `rebic_foundation` ← `rebic_core` ← `rebic_widgets` ← `rebic_ui`.
+- **Camadas:** `rebic_foundation` ← `rebic_core` ← `rebic_widgets` ← `gja_ui`.
   Um import ou export de camada posterior em `packages/*/lib` é violação.
 - **Material/Cupertino:** reexportar é sempre violação. Importar exige o marcador `// rebic-adr: NNNN`
   na mesma linha, apontando para um arquivo `docs/adr/NNNN-*.md` existente (ADR 0004).
 - **Primitivos de tokens:** em `packages/*/lib` de qualquer pacote diferente de `rebic_foundation`, um import
   ou export de `package:rebic_foundation/rebic_primitives.dart` ou de `package:rebic_foundation/src/…` é violação.
-  Isso inclui o agregador `rebic_ui`, que não pode reexportar os primitivos (ADR 0005 e spec
+  Isso inclui o agregador `gja_ui`, que não pode reexportar os primitivos (ADR 0005 e spec
   `rebic/foundation/design-tokens`). Os testes (`test/`) e as aplicações podem importar os primitivos.
 - **Ciclos entre módulos internos:** um módulo é `lib/src/<categoria>/<widget>` em `rebic_widgets`
   e `lib/src/<pasta>` nos demais pacotes. As bibliotecas públicas (`lib/*.dart`) não entram no grafo.

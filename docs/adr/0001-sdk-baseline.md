@@ -33,7 +33,7 @@ do SDK deve ser usada como baseline, sem aguardar o levantamento do portal.
 
 Em 2026-10-25, um app descartável (`flutter create --platforms=web,windows`) foi criado fora do
 repositório, em `%TEMP%\rebic_compat_check`. Ele usou as mesmas restrições de SDK e dependeu de
-`rebic_ui` por `path:`. Depois da verificação, o app foi removido.
+`gja_ui` por `path:`. Depois da verificação, o app foi removido.
 
 | Etapa | Resultado |
 |---|---|

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicGrid": cartões no `defaultSpan` padrão, pela classe da tela,
 /// e uma grade com um item de destaque em `RebicGridData`.

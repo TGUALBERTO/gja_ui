@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicCard": cartões numa grade, com `RebicCardHeader`: um
 /// acionável, um com ícone, status e data, um com o cabeçalho embaixo, um com

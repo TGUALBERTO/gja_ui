@@ -13,7 +13,7 @@ void main() {
             "import 'package:rebic_foundation/rebic_foundation.dart';\n",
         'packages/rebic_widgets/lib/rebic_widgets.dart':
             "import 'package:rebic_core/rebic_core.dart';\nimport 'package:rebic_foundation/rebic_foundation.dart';\n",
-        'packages/rebic_ui/lib/rebic_ui.dart':
+        'packages/gja_ui/lib/gja_ui.dart':
             "export 'package:rebic_widgets/rebic_widgets.dart';\n",
       });
       expect(checkImports(repo), isEmpty);
@@ -71,7 +71,7 @@ void main() {
       'Primitivos isolados da camada de widgets — Agregador não expõe primitivos',
       () {
         final repo = fixtureRepo({
-          'packages/rebic_ui/lib/rebic_ui.dart':
+          'packages/gja_ui/lib/gja_ui.dart':
               "export 'package:rebic_foundation/rebic_foundation.dart';\nexport 'package:rebic_foundation/rebic_primitives.dart';\n",
         });
         final violations = checkImports(repo);
@@ -121,7 +121,7 @@ void main() {
     test('reexportar Material é sempre rejeitado', () {
       final repo = fixtureRepo({
         'docs/adr/0042-x.md': '',
-        'packages/rebic_ui/lib/rebic_ui.dart':
+        'packages/gja_ui/lib/gja_ui.dart':
             "export 'package:flutter/material.dart'; // rebic-adr: 0042\n",
       });
       expect(messages(checkImports(repo)), [contains('reexporta')]);

@@ -54,7 +54,7 @@ O projeto é um workspace Dart com quatro pacotes em camadas; cada camada só de
 automaticamente).
 
 ```
-rebic_ui          ponto de entrada: reexporta tudo
+gja_ui          ponto de entrada: reexporta tudo
   └─ rebic_widgets     os widgets públicos (pastas por categoria)
        └─ rebic_core        interação, foco, overlay, localização, responsividade
             └─ rebic_foundation  design tokens, tema, densidade, breakpoints, ícones
@@ -68,11 +68,11 @@ rebic_ui          ponto de entrada: reexporta tudo
 - **Acessibilidade** em todos os componentes: contraste, alvo mínimo, teclado, leitor de tela e RTL, todos testados.
 - **Localização** em pt-BR (padrão) e en, com datas e números do CLDR.
 
-Uma aplicação usa só o pacote `rebic_ui`:
+Uma aplicação usa só o pacote `gja_ui`:
 
 ```dart
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 void main() => runApp(
   RebicApp(

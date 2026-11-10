@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicTitle": os sete estilos, um título de nível H1 com estilo H5
 /// e os títulos truncado e com quebra.

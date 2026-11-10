@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:rebic_foundation/rebic_primitives.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 import 'gallery_comparison.dart';
 
 /// Página "Tema": brilho, densidade e marca de exemplo, com uma prévia

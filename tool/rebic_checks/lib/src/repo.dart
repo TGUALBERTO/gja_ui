@@ -8,7 +8,7 @@ const frameworkLayers = [
   'rebic_foundation',
   'rebic_core',
   'rebic_widgets',
-  'rebic_ui',
+  'gja_ui',
 ];
 
 /// Profundidade, abaixo de `lib/src`, que define um módulo interno de cada

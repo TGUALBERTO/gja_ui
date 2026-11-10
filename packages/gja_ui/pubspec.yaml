@@ -1,4 +1,4 @@
-name: rebic_ui
+name: gja_ui
 description: "Ponto de entrada do framework Rebic: reexporta fundamentos, núcleo e widgets."
 version: 0.0.1
 publish_to: none

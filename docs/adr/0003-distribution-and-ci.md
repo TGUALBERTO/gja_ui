@@ -13,7 +13,7 @@ O repositório é um protótipo (ver ADR 0001) e ainda não tem remoto configura
 
 | Questão | Decisão |
 |---|---|
-| Canal de distribuição dos pacotes | Repositório git privado com tags `rebic_ui-vX.Y.Z`. Consumidores declaram cada pacote com `git:` (`url`, `path`, `ref`). |
+| Canal de distribuição dos pacotes | Repositório git privado com tags `gja_ui-vX.Y.Z`. Consumidores declaram cada pacote com `git:` (`url`, `path`, `ref`). |
 | Plataforma de integração contínua | GitHub Actions (`.github/workflows/ci.yml`), que chama `tool/ci.sh` em todo pull request e em push para `main`. |
 
 ## Alternativas consideradas

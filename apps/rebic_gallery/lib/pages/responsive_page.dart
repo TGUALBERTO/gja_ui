@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "Responsividade": classe da tela, classe de um painel estreito,
 /// um valor responsivo de colunas e a densidade recomendada.

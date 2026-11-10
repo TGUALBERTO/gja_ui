@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicDropdown": uma lista de situações sob um campo de status, na
 /// largura dele, e uma lista de ações sob um botão de ícone, na largura

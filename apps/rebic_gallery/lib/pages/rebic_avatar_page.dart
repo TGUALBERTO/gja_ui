@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicAvatar": tamanhos, formas, iniciais, ícone e um avatar ativo
 /// que mostra uma mensagem.

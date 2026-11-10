@@ -1,7 +1,7 @@
 /// Primitivos de design tokens do Rebic: escalas de valores brutos.
 ///
 /// Destinada a temas e aplicações que personalizam a identidade visual. Não
-/// é reexportada por `rebic_foundation.dart` nem por `rebic_ui.dart`, e as
+/// é reexportada por `rebic_foundation.dart` nem por `gja_ui.dart`, e as
 /// bibliotecas de `rebic_core` e `rebic_widgets` não podem importá-la
 /// (verificado por `rebic_checks architecture`).
 library;

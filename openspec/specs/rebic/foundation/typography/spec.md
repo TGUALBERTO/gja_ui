@@ -10,7 +10,7 @@ Define a tipografia do Rebic: a fonte empacotada e sua licença, as escalas prim
 O fundamento SHALL empacotar uma família tipográfica de licença aberta, sem fonte da SAP, com no mínimo os pesos 400, 500, 600 e 700, junto com o texto integral da licença. Aplicações que dependem do framework MUST conseguir usar a família sem declarar a fonte no próprio `pubspec.yaml`.
 
 #### Scenario: Fonte disponível na aplicação consumidora
-- **GIVEN** uma aplicação que depende de `rebic_ui` e não declara fontes
+- **GIVEN** uma aplicação que depende de `gja_ui` e não declara fontes
 - **WHEN** os arquivos da família são carregados pelo bundle de assets da aplicação
 - **THEN** os quatro pesos são encontrados e carregados sem erro
 

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicBar": uma barra de cada desenho e os alinhamentos `none` e
 /// `start` do conteúdo central.

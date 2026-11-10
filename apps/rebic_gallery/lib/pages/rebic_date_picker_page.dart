@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicDatePicker": data de entrega a partir de hoje.
 class RebicDatePickerPage extends StatefulWidget {

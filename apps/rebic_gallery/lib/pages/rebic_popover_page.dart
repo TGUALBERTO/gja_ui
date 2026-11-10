@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicPopover": um popover de filtros aberto por um botão, com
 /// ações no rodapé, e um popover só com conteúdo aberto por um ícone.

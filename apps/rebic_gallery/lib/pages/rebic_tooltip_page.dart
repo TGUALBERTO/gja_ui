@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicTooltip": ícones com dica e um texto com dica longa.
 class RebicTooltipPage extends StatelessWidget {

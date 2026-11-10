@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicMenu": um menu de ações com atalhos e seções sob o botão
 /// "Ações", e um menu curto sob um botão de ícone.

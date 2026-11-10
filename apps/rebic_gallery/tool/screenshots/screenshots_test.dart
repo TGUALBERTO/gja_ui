@@ -15,7 +15,7 @@ import 'package:rebic_gallery/pages/rebic_form_page.dart';
 import 'package:rebic_gallery/pages/rebic_shell_bar_page.dart';
 import 'package:rebic_gallery/pages/rebic_side_navigation_page.dart';
 import 'package:rebic_gallery/pages/rebic_table_page.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 import '../../test/support/inter_font.dart';
 import '../../test/support/lucide_font.dart';

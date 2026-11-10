@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicIconTabBar": abas de texto e abas com ícone e contagem.
 class RebicIconTabBarPage extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicPage": construída com `RebicPage`, com voltar, conteúdo do
 /// cabeçalho, subcabeçalho, conteúdo rolável e rodapé, que pode flutuar, e a

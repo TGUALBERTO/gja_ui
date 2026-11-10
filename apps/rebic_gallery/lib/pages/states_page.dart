@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 import 'gallery_comparison.dart';
 
 /// Página "Estados": cada família de controle em cada estado, nos dois modos.

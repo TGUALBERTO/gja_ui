@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicSpacing": cada passo e papel em escala, e o mesmo padding nas
 /// densidades cozy e compacta.

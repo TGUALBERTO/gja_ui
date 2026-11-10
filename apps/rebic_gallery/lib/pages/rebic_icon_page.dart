@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicIcon": tamanhos, tons, um ícone com rótulo e um direcional em
 /// LTR e RTL.

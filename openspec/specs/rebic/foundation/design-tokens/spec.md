@@ -19,7 +19,7 @@ O framework SHALL organizar os tokens em três níveis. Os **primitivos** são v
 - **THEN** ela indica se o token é primitivo, semântico ou de componente
 
 ### Requirement: Primitivos isolados da camada de widgets
-Os primitivos MUST ficar em uma biblioteca pública separada, que o ponto de entrada do fundamento e o agregador `rebic_ui` SHALL NOT reexportar. Código de biblioteca das camadas `core` e `widgets` MUST NOT importar essa biblioteca. Aplicações e temas podem importá-la para personalizar a identidade visual.
+Os primitivos MUST ficar em uma biblioteca pública separada, que o ponto de entrada do fundamento e o agregador `gja_ui` SHALL NOT reexportar. Código de biblioteca das camadas `core` e `widgets` MUST NOT importar essa biblioteca. Aplicações e temas podem importá-la para personalizar a identidade visual.
 
 #### Scenario: Widget importa primitivos
 - **GIVEN** um arquivo em `packages/rebic_widgets/lib` que importa a biblioteca de primitivos
@@ -32,7 +32,7 @@ Os primitivos MUST ficar em uma biblioteca pública separada, que o ponto de ent
 - **THEN** a aplicação compila sem importar nenhuma biblioteca interna (`src/`) do framework
 
 #### Scenario: Agregador não expõe primitivos
-- **WHEN** uma aplicação importa apenas `package:rebic_ui/rebic_ui.dart`
+- **WHEN** uma aplicação importa apenas `package:gja_ui/gja_ui.dart`
 - **THEN** nenhum símbolo da biblioteca de primitivos fica visível
 
 ### Requirement: Conjuntos de tokens imutáveis

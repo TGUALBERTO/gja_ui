@@ -10,7 +10,7 @@ workspace:
   - packages/rebic_foundation
   - packages/rebic_core
   - packages/rebic_widgets
-  - packages/rebic_ui
+  - packages/gja_ui
   - apps/rebic_gallery
   - tool/rebic_checks
 

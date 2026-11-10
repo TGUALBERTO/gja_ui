@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicLabel": os desenhos `standard` e `bold`, os dois-pontos, o
 /// obrigatório e um rótulo truncado.

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicBusyIndicator": um indicador sozinho, um com texto e um cartão
 /// que fica ocupado ao tocar "Atualizar".

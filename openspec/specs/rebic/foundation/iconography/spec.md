@@ -10,7 +10,7 @@ Define os ícones do Rebic: a fonte de ícones empacotada e licenciada, o catál
 O fundamento SHALL empacotar uma fonte de ícones de licença aberta, sem ícones da SAP, junto com o texto integral da licença e o mapa oficial de nomes para códigos da versão empacotada. Aplicações que dependem do framework MUST conseguir usar os ícones sem declarar a fonte no próprio `pubspec.yaml`.
 
 #### Scenario: Fonte disponível na aplicação consumidora
-- **GIVEN** uma aplicação que depende de `rebic_ui` e não declara fontes
+- **GIVEN** uma aplicação que depende de `gja_ui` e não declara fontes
 - **WHEN** a fonte de ícones é carregada pelo bundle de assets da aplicação
 - **THEN** o arquivo é encontrado e carregado sem erro
 

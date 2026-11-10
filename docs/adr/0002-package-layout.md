@@ -18,8 +18,8 @@ Usar um pub workspace na raiz do repositório com os membros:
 | `packages/rebic_foundation` | tokens, tema, breakpoints, densidade | Flutter SDK |
 | `packages/rebic_core` | interação, overlay, localização, validação, dados | `rebic_foundation` |
 | `packages/rebic_widgets` | widgets públicos | `rebic_foundation`, `rebic_core` |
-| `packages/rebic_ui` | agregador (só reexporta) | as três camadas |
-| `apps/rebic_gallery` | galeria de demonstração | `rebic_ui` |
+| `packages/gja_ui` | agregador (só reexporta) | as três camadas |
+| `apps/rebic_gallery` | galeria de demonstração | `gja_ui` |
 | `tool/rebic_checks` | verificações de conformidade (CLI Dart) | `analyzer`, `path`, `yaml` |
 
 A direção das dependências é garantida pelos `pubspec.yaml`, e `rebic_checks architecture`
@@ -36,4 +36,7 @@ verifica os imports dentro de cada pacote.
 ## Consequências
 
 Um único `pubspec.lock` e uma única resolução de dependências para todo o repositório.
-Consumidores dependem de `rebic_ui`, ou só de `rebic_foundation` quando precisarem apenas dos tokens.
+Consumidores dependem de `gja_ui`, ou só de `rebic_foundation` quando precisarem apenas dos tokens.
+
+Em 2026-11-09 o agregador foi renomeado de `rebic_ui` para `gja_ui`, o nome que o portal GJA
+importa; os demais pacotes mantêm o prefixo `rebic_`.

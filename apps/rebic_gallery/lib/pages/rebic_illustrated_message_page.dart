@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rebic_ui/rebic_ui.dart';
+import 'package:gja_ui/gja_ui.dart';
 
 /// Página "RebicIllustratedMessage": os tipos em tamanho `spot`, uma
 /// mensagem `dialog` e uma de busca sem resultados com a ação "Limpar

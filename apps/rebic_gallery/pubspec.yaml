@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
   # Primitivos para a marca de exemplo da página "Tema" (aplicações podem usá-los).
   rebic_foundation: ^0.0.1
-  rebic_ui: ^0.0.1
+  gja_ui: ^0.0.1
 
 dev_dependencies:
   flutter_test:
