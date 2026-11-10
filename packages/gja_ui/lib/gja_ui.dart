@@ -1,8 +1,8 @@
-/// Ponto de entrada do framework Rebic.
+/// Ponto de entrada do framework GJA.
 ///
 /// Aplicações consumidoras importam somente esta biblioteca.
 library;
 
-export 'package:rebic_core/rebic_core.dart';
-export 'package:rebic_foundation/rebic_foundation.dart';
-export 'package:rebic_widgets/rebic_widgets.dart';
+export 'package:gja_core/gja_core.dart';
+export 'package:gja_foundation/gja_foundation.dart';
+export 'package:gja_widgets/gja_widgets.dart';

@@ -1,13 +1,13 @@
-# Ícones do portal GJA no `RebicIcons`
+# Ícones do portal GJA no `GjaIcons`
 
 Equivalência entre os ícones Material (`Icons.*`) usados no portal GJA
-(`portal-frontend-main/lib`) e o catálogo `RebicIcons`, exportado por `package:gja_ui/gja_ui.dart`.
+(`portal-frontend-main/lib`) e o catálogo `GjaIcons`, exportado por `package:gja_ui/gja_ui.dart`.
 O portal não usa `Symbols.*` nem `IconData` próprio; os SVGs em `assets/icons` são logotipos de
 login social (Apple, Facebook, Google), não ícones de interface.
 
 Conferido em 2026-11-09: os 153 ícones distintos têm equivalente.
 
-| Material (`Icons.`) | `RebicIcons.` |
+| Material (`Icons.`) | `GjaIcons.` |
 |---|---|
 | `account_tree_outlined` | `orgChart` |
 | `add` | `add` |

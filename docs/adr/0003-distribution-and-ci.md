@@ -6,7 +6,7 @@
 
 ## Contexto
 
-Questões em aberto 2 e 6 do `design.md` da change `propose-rebic-ui-framework`.
+Questões em aberto 2 e 6 do `design.md` da change `propose-gja-ui-framework`.
 O repositório é um protótipo (ver ADR 0001) e ainda não tem remoto configurado.
 
 ## Decisão

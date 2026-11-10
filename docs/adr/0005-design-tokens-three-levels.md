@@ -6,7 +6,7 @@
 ## Contexto
 
 A aparência deve ser centralizada no design system e personalizável por um tema único.
-Os widgets não podem conter valores visuais literais (spec `rebic/framework-architecture`).
+Os widgets não podem conter valores visuais literais (spec `gja/framework-architecture`).
 
 ## Decisão
 
@@ -14,12 +14,12 @@ Os widgets não podem conter valores visuais literais (spec `rebic/framework-arc
    Os widgets **não** os leem.
 2. **Semânticos:** papéis (`base`, `text`, `brand`, `separator`, `focus`, estados de valor,
    estilos de texto). Cada tema (claro/escuro/marca) mapeia os primitivos para esses papéis.
-3. **De componente:** derivados dos semânticos e agrupados por widget dentro do `RebicThemeData`.
+3. **De componente:** derivados dos semânticos e agrupados por widget dentro do `GjaThemeData`.
 
-Os widgets leem apenas os níveis 2 e 3. A personalização é feita com `copyWith` sobre `RebicThemeData`
+Os widgets leem apenas os níveis 2 e 3. A personalização é feita com `copyWith` sobre `GjaThemeData`
 e com extensões tipadas para tokens da aplicação.
-`rebic_checks tokens` impede literais visuais em `packages/rebic_widgets/lib`.
-As exceções ficam em `tool/rebic_checks/token_exceptions.yaml`, cada uma com justificativa.
+`gja_checks tokens` impede literais visuais em `packages/gja_widgets/lib`.
+As exceções ficam em `tool/gja_checks/token_exceptions.yaml`, cada uma com justificativa.
 
 ## Alternativas consideradas
 
@@ -29,5 +29,5 @@ As exceções ficam em `tool/rebic_checks/token_exceptions.yaml`, cada uma com j
 
 ## Consequências
 
-Definida na change `add-rebic-foundation-design-tokens` e seguintes. Todo widget declara na spec
+Definida na change `add-gja-foundation-design-tokens` e seguintes. Todo widget declara na spec
 os tokens de componente que usa.

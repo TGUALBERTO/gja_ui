@@ -5,7 +5,7 @@
 
 ## Contexto
 
-A spec `rebic/framework-architecture` exige camadas publicadas como unidades independentes,
+A spec `gja/framework-architecture` exige camadas publicadas como unidades independentes,
 dependência em uma só direção e ausência de ciclos. Pub workspaces exigem **Dart ≥ 3.6**.
 A baseline provisória (ADR 0001) é Dart 3.8.1.
 
@@ -15,14 +15,14 @@ Usar um pub workspace na raiz do repositório com os membros:
 
 | Membro | Papel | Depende de |
 |---|---|---|
-| `packages/rebic_foundation` | tokens, tema, breakpoints, densidade | Flutter SDK |
-| `packages/rebic_core` | interação, overlay, localização, validação, dados | `rebic_foundation` |
-| `packages/rebic_widgets` | widgets públicos | `rebic_foundation`, `rebic_core` |
+| `packages/gja_foundation` | tokens, tema, breakpoints, densidade | Flutter SDK |
+| `packages/gja_core` | interação, overlay, localização, validação, dados | `gja_foundation` |
+| `packages/gja_widgets` | widgets públicos | `gja_foundation`, `gja_core` |
 | `packages/gja_ui` | agregador (só reexporta) | as três camadas |
-| `apps/rebic_gallery` | galeria de demonstração | `gja_ui` |
-| `tool/rebic_checks` | verificações de conformidade (CLI Dart) | `analyzer`, `path`, `yaml` |
+| `apps/gja_gallery` | galeria de demonstração | `gja_ui` |
+| `tool/gja_checks` | verificações de conformidade (CLI Dart) | `analyzer`, `path`, `yaml` |
 
-A direção das dependências é garantida pelos `pubspec.yaml`, e `rebic_checks architecture`
+A direção das dependências é garantida pelos `pubspec.yaml`, e `gja_checks architecture`
 verifica os imports dentro de cada pacote.
 
 ## Alternativas consideradas
@@ -36,7 +36,6 @@ verifica os imports dentro de cada pacote.
 ## Consequências
 
 Um único `pubspec.lock` e uma única resolução de dependências para todo o repositório.
-Consumidores dependem de `gja_ui`, ou só de `rebic_foundation` quando precisarem apenas dos tokens.
+Consumidores dependem de `gja_ui`, ou só de `gja_foundation` quando precisarem apenas dos tokens.
 
-Em 2026-11-09 o agregador foi renomeado de `rebic_ui` para `gja_ui`, o nome que o portal GJA
-importa; os demais pacotes mantêm o prefixo `rebic_`.
+Os nomes atuais dos pacotes seguem a ADR 0010.

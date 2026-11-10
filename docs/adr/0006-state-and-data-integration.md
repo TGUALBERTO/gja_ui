@@ -12,10 +12,10 @@ a sistemas corporativos sem acoplamento a backends específicos.
 
 1. **Estado:** os componentes com valor são controlados: recebem o valor e avisam a mudança por callback, com os
    nomes da propriedade e do evento do SAPUI5 (`selected` + `onSelect`, `value` + `onChange`), conforme a regra de
-   nomes de `rebic/framework-architecture`.
+   nomes de `gja/framework-architecture`.
    Os componentes complexos (Table, DataGrid, Tree, Tabs, Form) oferecem um controlador público opcional
    baseado em `ChangeNotifier`. Nenhuma biblioteca de gerenciamento de estado é exigida.
-2. **Dados:** `rebic_core` define o contrato `RebicDataSource<T>`:
+2. **Dados:** `gja_core` define o contrato `GjaDataSource<T>`:
    - busca paginada com ordenação, filtros e termo de busca;
    - total opcional e cancelamento;
    - estados `loading`/`empty`/`error`.
@@ -30,4 +30,4 @@ a sistemas corporativos sem acoplamento a backends específicos.
 
 ## Consequências
 
-O contrato será especificado em `rebic/core/data-source` (change `add-rebic-core-data-source`, Fase 3).
+O contrato será especificado em `gja/core/data-source` (change `add-gja-core-data-source`, Fase 3).

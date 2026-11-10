@@ -10,6 +10,6 @@ coverage/
 .idea/
 .vscode/
 # Artefatos temporários das verificações
-tool/rebic_checks/.test_tmp/
+tool/gja_checks/.test_tmp/
 # Falhas de golden
 **/failures/

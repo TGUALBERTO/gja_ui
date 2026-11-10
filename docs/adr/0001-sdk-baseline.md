@@ -6,7 +6,7 @@
 ## Contexto
 
 As restrições de SDK do framework precisam ser compatíveis com o portal existente
-(spec `rebic/framework-architecture`, requisito "Compatibilidade com o SDK das aplicações consumidoras").
+(spec `gja/framework-architecture`, requisito "Compatibilidade com o SDK das aplicações consumidoras").
 O portal não está neste repositório e não foi localizado na máquina de desenvolvimento.
 Uma busca por `pubspec.yaml` em `D:\` e no perfil do usuário encontrou apenas projetos de curso.
 
@@ -32,7 +32,7 @@ do SDK deve ser usada como baseline, sem aguardar o levantamento do portal.
 ## Verificação de compatibilidade (tarefa 6.1)
 
 Em 2026-10-25, um app descartável (`flutter create --platforms=web,windows`) foi criado fora do
-repositório, em `%TEMP%\rebic_compat_check`. Ele usou as mesmas restrições de SDK e dependeu de
+repositório, em `%TEMP%\gja_compat_check`. Ele usou as mesmas restrições de SDK e dependeu de
 `gja_ui` por `path:`. Depois da verificação, o app foi removido.
 
 | Etapa | Resultado |
@@ -41,9 +41,9 @@ repositório, em `%TEMP%\rebic_compat_check`. Ele usou as mesmas restrições de
 | `flutter build web` | OK |
 | `flutter build windows` | OK (apenas o aviso MSB8029 por compilar sob `%TEMP%`) |
 
-Achado: os pacotes internos declaram dependências entre si por versão (`rebic_core: ^0.0.1`),
+Achado: os pacotes internos declaram dependências entre si por versão (`gja_core: ^0.0.1`),
 resolvidas pelo workspace. Um consumidor externo que use `path:` precisa de `dependency_overrides`
-com `path:` para `rebic_foundation`, `rebic_core` e `rebic_widgets`. Com distribuição por git
+com `path:` para `gja_foundation`, `gja_core` e `gja_widgets`. Com distribuição por git
 (ADR 0003), o consumidor declara cada pacote por `git:` + `path:` + `ref:`.
 
 ## Pendências antes de adoção pelo portal

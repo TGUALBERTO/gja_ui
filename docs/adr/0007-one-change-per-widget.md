@@ -5,19 +5,19 @@
 
 ## Contexto
 
-A spec `rebic/spec-governance` exige uma spec por widget. O OpenSpec 1.14.3 aceita várias specs por change,
+A spec `gja/spec-governance` exige uma spec por widget. O OpenSpec 1.14.3 aceita várias specs por change,
 mas descarta no archive seções `##` fora de `Purpose`/`Requirements`.
 
 ## Decisão
 
-1. Cada widget tem a change `add-rebic-<widget>`, que contém spec, design (quando necessário), tarefas,
+1. Cada widget tem a change `add-gja-<widget>`, que contém spec, design (quando necessário), tarefas,
    implementação, testes, página na galeria e atualização de `docs/catalog.yaml`.
 2. **Exceção:** até três specs na mesma change para widgets inseparáveis
-   (por exemplo, `RebicForm` + `RebicFormField`), com justificativa na proposta.
+   (por exemplo, `GjaForm` + `GjaFormField`), com justificativa na proposta.
 3. As 12 seções obrigatórias da spec de widget são requisitos etiquetados
    (`[API]`, `[Comportamento]`, …) conforme o `docs/specs/widget-spec-template.md`.
 4. Fundamentos e infraestruturas do núcleo seguem a mesma regra
-   (`add-rebic-foundation-<x>`, `add-rebic-core-<x>`).
+   (`add-gja-foundation-<x>`, `add-gja-core-<x>`).
 
 ## Alternativas consideradas
 
@@ -28,4 +28,4 @@ mas descarta no archive seções `##` fora de `Purpose`/`Requirements`.
 ## Consequências
 
 São cerca de 75 changes ao longo das fases. O custo por change é reduzido pelo template,
-pelas regras em `openspec/config.yaml` e por `rebic_checks`.
+pelas regras em `openspec/config.yaml` e por `gja_checks`.

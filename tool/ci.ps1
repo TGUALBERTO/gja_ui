@@ -1,4 +1,4 @@
-﻿# Pipeline de qualidade do framework Rebic (Windows PowerShell 5.1+).
+﻿# Pipeline de qualidade do framework GJA (Windows PowerShell 5.1+).
 # Equivalente a tool/ci.sh; termina com código diferente de 0 na primeira etapa que falhar.
 # Requer: Flutter (ADR 0001) e OpenSpec CLI 1.14.3 (npm i -g @fission-ai/openspec@1.14.3).
 $ErrorActionPreference = 'Stop'
@@ -27,11 +27,11 @@ foreach ($dir in @(Get-ChildItem -Directory packages, apps)) {
     }
 }
 
-Invoke-Step 'Testes de rebic_checks' {
-    Push-Location tool/rebic_checks
+Invoke-Step 'Testes de gja_checks' {
+    Push-Location tool/gja_checks
     try { dart test } finally { Pop-Location }
 }
 Invoke-Step 'Validação OpenSpec' { openspec validate --all --strict --no-interactive }
-Invoke-Step 'Verificações de conformidade' { dart run rebic_checks all }
+Invoke-Step 'Verificações de conformidade' { dart run gja_checks all }
 
 Write-Host "`nPipeline concluído sem falhas."

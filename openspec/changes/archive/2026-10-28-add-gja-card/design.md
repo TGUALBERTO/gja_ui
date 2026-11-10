@@ -1,0 +1,101 @@
+# Design: GjaCard
+
+## Context
+
+- **`GjaContainer`** já dá a superfície (`surface`), a borda `separator` (`border: true`), o raio (`GjaRadius`) e a
+  sombra (`GjaElevation.card`), com `clip` dos cantos.
+- **`GjaText`** tem as variantes `subtitle`, `body` e `label`, o tom `muted`, `maxLines` com reticências e `heading`.
+  O título do cartão usa `subtitle` (18), com `heading: true`. A variante `title` (24) dos títulos de página quebrava
+  palavras em cartões estreitos, e os cartões Fiori usam um título menor que o da página.
+- **`GjaDivider`** sutil faz a separação entre cabeçalho e conteúdo.
+- **`GjaInteractable`** dá os estados, a ativação, o alvo, o anel de foco e a semântica de botão. O `MergeSemantics`
+  junta o nó interno de foco e toque ao rotulado, como nos botões.
+- Os cartões costumam ficar em `GjaGrid`, que dá a largura de cada célula.
+
+## Goals / Non-Goals
+
+**Goals:**
+- superfície do cartão;
+- cabeçalho com `leading`, título, subtítulo e status;
+- conteúdo com ou sem margem;
+- cabeçalho acionável;
+- RTL e escala.
+
+**Non-Goals:**
+- cabeçalho numérico;
+- manifesto;
+- rodapé ou menu de ações;
+- cartão inteiro acionável.
+
+## Decisions
+
+### D1. API
+
+```dart
+class GjaCard extends StatelessWidget {
+  const GjaCard({required this.child, this.title, this.subtitle, this.status, this.leading, this.padded = true,
+      this.onHeaderPressed, super.key})
+    : assert(title != null || (subtitle == null && status == null && leading == null && onHeaderPressed == null),
+             'subtitle, status, leading e onHeaderPressed exigem title');
+}
+```
+
+O cabeçalho é configurado por propriedades, e não por um widget `GjaCardHeader`. Assim, uma spec cobre um widget
+público, e o cabeçalho segue o modelo único do `sap.f.cards.Header`.
+
+### D2. Estrutura
+
+```
+GjaContainer(surface: base, border: true, radius: container, elevation: card)
+└─ Column(stretch, min)
+   ├─ [title] cabeçalho
+   ├─ [title] GjaDivider()
+   └─ padded ? Padding(all: spacing.l, child) : child
+```
+
+O cabeçalho é:
+
+```
+Padding(all: spacing.l) → Row(start, spacing: spacing.m)
+├─ leading?
+├─ Expanded(Column(min, start, spacing: xxs,
+│     [GjaText(title, variant: subtitle, heading: true, maxLines: 2), GjaText(subtitle, tone: muted, maxLines: 2)]))
+└─ status? → GjaText(status, variant: label, tone: muted, maxLines: 1)
+```
+
+- **Cabeçalho acionável:** com `onHeaderPressed`, ele fica dentro de
+  `MergeSemantics → GjaInteractable(semanticLabel: '$title, $subtitle' ou título, onPressed,
+  focusRingBorderRadius: radius.container)`. O `builder` pinta `ColoredBox(hoverBackground)` no hover e transparente
+  nos demais estados. O conteúdo do cabeçalho fica em `ExcludeSemantics`, porque o rótulo já vem do botão.
+- **Cabeçalho não acionável:** os `GjaText` mantêm a semântica, e o título é o cabeçalho.
+
+### D3. Testes, galeria e catálogo
+
+- **Ordem e posições:** por `getRect` do `leading`, do título, do status e do divisor.
+- **Superfície:** pelo `GjaContainer` (surface, border, radius, elevation) e pela `BoxDecoration` resolvida.
+- **Hover:** pelo `ColoredBox` do cabeçalho.
+- **Acessibilidade:** um arquivo sem a Inter, com contraste, alvo rotulado e alvo mínimo nos temas claro e escuro e
+  nas duas densidades, sobre `background`.
+- **Goldens:** 640 × 420, com três cartões numa linha:
+  - cabeçalho completo (avatar "MB", título, subtítulo, status, texto);
+  - sem cabeçalho;
+  - sem margem, com uma coluna de linhas separadas por divisores.
+
+  São gerados nos temas claro e escuro × confortável e compacto.
+- **Galeria:** página "GjaCard" (`gja_card_page.dart`), com `GjaPage` e uma `GjaGrid` de cartões:
+  - "Pedidos pendentes", com cabeçalho acionável que mostra "Abrindo pedidos pendentes";
+  - "Fornecedor", com um avatar;
+  - um cartão sem margem com uma lista simples.
+
+  O cenário se chama "Página GjaCard na galeria".
+- **Catálogo:** `implemented`, com as dependências do `[Integração]`.
+
+## Risks / Trade-offs
+
+- [O cabeçalho acionável esconde a semântica individual dos textos do cabeçalho] → O rótulo do botão reúne título e
+  subtítulo. O status, quando houver, fica fora do rótulo, como no UI5, que o anuncia à parte. Ele continua visível.
+- [Sem rodapé de ações] → Ações ficam no conteúdo até existir `GjaToolbar`.
+
+## Migration Plan
+
+Widget novo; nada a migrar.

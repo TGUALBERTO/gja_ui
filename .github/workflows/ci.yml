@@ -1,4 +1,4 @@
-# Pipeline de qualidade do framework Rebic (ADR 0003): executa tool/ci.sh.
+# Pipeline de qualidade do framework GJA (ADR 0003): executa tool/ci.sh.
 name: ci
 
 on:

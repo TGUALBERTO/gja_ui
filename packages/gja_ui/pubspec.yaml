@@ -1,5 +1,5 @@
 name: gja_ui
-description: "Ponto de entrada do framework Rebic: reexporta fundamentos, núcleo e widgets."
+description: "Ponto de entrada do framework GJA: reexporta fundamentos, núcleo e widgets."
 version: 0.0.1
 publish_to: none
 resolution: workspace
@@ -11,9 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  rebic_foundation: ^0.0.1
-  rebic_core: ^0.0.1
-  rebic_widgets: ^0.0.1
+  gja_foundation: ^0.0.1
+  gja_core: ^0.0.1
+  gja_widgets: ^0.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

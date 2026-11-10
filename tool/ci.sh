@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Pipeline de qualidade do framework Rebic. Executa a partir de qualquer
+# Pipeline de qualidade do framework GJA. Executa a partir de qualquer
 # diretório; termina com código diferente de 0 na primeira etapa que falhar.
 # Requer: Flutter (ADR 0001) e OpenSpec CLI 1.14.3 (npm i -g @fission-ai/openspec@1.14.3).
 set -euo pipefail
@@ -22,13 +22,13 @@ for dir in packages/* apps/*; do
   fi
 done
 
-step "Testes de rebic_checks"
-(cd tool/rebic_checks && dart test)
+step "Testes de gja_checks"
+(cd tool/gja_checks && dart test)
 
 step "Validação OpenSpec"
 openspec validate --all --strict --no-interactive
 
 step "Verificações de conformidade"
-dart run rebic_checks all
+dart run gja_checks all
 
 printf '\nPipeline concluído sem falhas.\n'

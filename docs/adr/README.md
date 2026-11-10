@@ -14,6 +14,7 @@ Cada ADR tem: **Status**, **Data**, **Contexto**, **Decisão**, **Alternativas c
 | [0007](0007-one-change-per-widget.md) | Uma change OpenSpec por widget | Aceita |
 | [0008](0008-golden-reference-windows.md) | Goldens com referência no Windows | Aceita (protótipo) |
 | [0009](0009-provisional-horizon-values.md) | Valores provisórios do tema Horizon | Aceita (protótipo) |
+| [0010](0010-rename-to-gja.md) | Framework renomeado de Rebic para GJA | Aceita |
 
 Exceções de import de `material`/`cupertino` em código de biblioteca exigem uma ADR aceita
-e o marcador `// rebic-adr: NNNN` na linha do import (ver ADR 0004).
+e o marcador `// gja-adr: NNNN` na linha do import (ver ADR 0004).

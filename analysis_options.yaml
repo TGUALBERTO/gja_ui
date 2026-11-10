@@ -1,4 +1,4 @@
-# Lints compartilhados por todos os pacotes do workspace Rebic.
+# Lints compartilhados por todos os pacotes do workspace GJA.
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
@@ -7,8 +7,8 @@ analyzer:
     strict-raw-types: true
   exclude:
     - "**/build/**"
-    - tool/rebic_checks/.test_tmp/**
-    - tool/rebic_checks/test/fixtures/**
+    - tool/gja_checks/.test_tmp/**
+    - tool/gja_checks/test/fixtures/**
 
 linter:
   rules:

@@ -6,7 +6,7 @@
 ## Contexto
 
 O framework tem identidade própria, e os widgets precisam funcionar sem `MaterialApp`, `Theme` ou `Material`
-como ancestrais (spec `rebic/framework-architecture`).
+como ancestrais (spec `gja/framework-architecture`).
 
 ## Decisão
 
@@ -15,19 +15,19 @@ como ancestrais (spec `rebic/framework-architecture`).
 2. Nenhum símbolo exportado pode referenciar tipos de `material` ou `cupertino` em supertipos, parâmetros,
    retornos, campos ou typedefs. Também é proibido reexportar essas bibliotecas.
 3. Um import interno de `material`/`cupertino` só é permitido com uma ADR aceita específica para ele.
-   A linha do import deve ter o marcador `// rebic-adr: NNNN`, onde `NNNN` é o número dessa ADR em `docs/adr/`.
+   A linha do import deve ter o marcador `// gja-adr: NNNN`, onde `NNNN` é o número dessa ADR em `docs/adr/`.
    A ADR deve justificar o uso, provar que ele não exige ancestrais Material e trazer um plano de remoção.
 4. Testes podem importar Material, por exemplo para afirmar que ele está ausente.
 
-`rebic_checks architecture` aplica as regras 2 e 3.
+`gja_checks architecture` aplica as regras 2 e 3.
 
 ## Alternativas consideradas
 
 - **Construir sobre Material com tema customizado.** Rejeitada porque acopla a API e a aparência ao Material.
 - **Proibição absoluta, sem exceções.** Rejeitada porque a seleção de texto pode precisar de reuso pontual
-  (ver risco de `RebicTextField` no `design.md`).
+  (ver risco de `GjaTextField` no `design.md`).
 
 ## Consequências
 
-Componentes como `RebicTextField` e os seletores de data exigirão mais implementação própria.
+Componentes como `GjaTextField` e os seletores de data exigirão mais implementação própria.
 Uma possível exceção será decidida em uma ADR dentro da change do componente.
