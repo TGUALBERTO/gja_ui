@@ -1,0 +1,60 @@
+# Proposal: Galeria no tema escuro (`fix-gja-gallery-dark-theme`)
+
+## Why
+
+Ao escolher o tema escuro no índice da galeria e abrir as páginas dos fundamentos, elas aparecem inteiras no tema
+claro. Isso foi reportado pelo usuário em 2026-10-28.
+
+A causa está nas 12 páginas criadas na fase dos fundamentos, antes de existir o `GjaTheme`:
+- Acessibilidade, Breakpoints, Cores, Densidade, Design tokens, Elevação, Espaçamentos, Estados, Ícones, Raios,
+  Tema e Tipografia.
+
+A página "Design tokens" também usava cores literais, sem estilo de texto próprio. No tema escuro, o texto claro
+herdado ficava sobre o fundo branco e não podia ser lido.
+
+Elas pintam com tokens fixos (`GjaColorTokens.light()`, `GjaSpacingTokens.fallback()`, `GjaThemeData.light()`)
+em vez do tema ativo. Por isso ignoram o modo escuro e também a densidade compacta. As páginas dos widgets, que usam
+`GjaPage` e os widgets do GJA, seguem o tema corretamente.
+
+O nome segue o pedido do usuário. Pela convenção do projeto, seria `update-gja-gallery-theme`.
+
+## What Changes
+
+- As 12 páginas passam a obter cores, espaçamentos, tipografia e demais tokens do tema ativo
+  (`GjaThemeData.of(context)`): o fundo, o texto, os cabeçalhos, os rótulos e as amostras de escala (espaçamento,
+  raio, tipografia, elevação, ícones, breakpoints, movimento).
+- As comparações intencionais ficam em painéis rotulados, com tokens fixos, marcados pelo widget `GalleryComparison`:
+  - os painéis "Claro" e "Escuro" das páginas "Cor" e "Estados";
+  - as colunas confortável e compacta da página "Densidade";
+  - a prévia configurável da página "Tema".
+
+  O que está em volta deles, como o fundo da página e os títulos, segue o tema ativo.
+- `gja/widgets/gja-app`: o requisito "[Documentação] Exemplos mínimos" passa a exigir que toda página da galeria
+  siga o tema e a densidade escolhidos, com o cenário "Páginas da galeria no tema escuro".
+- Um teste da galeria abre todas as páginas no tema escuro e verifica o fundo e o texto delas.
+
+Fora do escopo:
+- Redesenhar as páginas dos fundamentos com os widgets do GJA (`GjaPage`, `GjaText`). Esta change só troca a
+  origem dos tokens.
+- Mudanças nos widgets ou nos fundamentos do framework.
+
+## Capabilities
+
+### New Capabilities
+
+Nenhuma.
+
+### Modified Capabilities
+
+- `gja/widgets/gja-app`: "[Documentação] Exemplos mínimos" exige que as páginas da galeria sigam o tema e a
+  densidade, com um cenário novo.
+
+## Impact
+
+- **Código:**
+  - `apps/gja_gallery/lib/pages/` (as 12 páginas e o widget `GalleryComparison`) e os testes delas que comparam com tokens fixos;
+  - um teste novo na galeria;
+  - o teste de rastreabilidade do `GjaApp` em `gja_widgets`, que passa de 20 para 21 cenários.
+- **Framework:** nenhuma mudança de código.
+- **Catálogo:** sem mudança.
+- **Portal existente:** sem impacto.

@@ -1,0 +1,29 @@
+# Pipeline de qualidade do framework GJA (ADR 0003): executa tool/ci.sh.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.32.6
+          channel: stable
+          cache: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: OpenSpec CLI
+        run: npm install -g @fission-ai/openspec@1.14.3
+
+      - name: Pipeline de qualidade
+        run: bash tool/ci.sh

@@ -1,93 +1,154 @@
-# atualizacao-flutter
+# GJA
 
+GJA é um design system para Flutter que segue o **SAPUI5 / SAP Fiori (tema Horizon)**: os mesmos controles, nomes
+de propriedades e eventos, densidades cozy e compacta, temas claro e escuro, sem depender do Material nem do
+Cupertino. É um **protótipo**: a base e os componentes estão prontos e testados, e algumas escolhas visuais ainda são
+provisórias (veja [Decisões provisórias](#decisões-provisórias)).
 
+![Galeria: tabela com grupos e "Mais"](docs/screenshots/02-tabela.png)
 
-## Getting started
+## Componentes
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Cada componente tem o nome e a API do controle SAPUI5 em que se baseia (por exemplo, `onPress`, `selectedKey`,
+`enabled`), e a documentação de cada um cita o controle de referência.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+| Fase | Pedido | Widget GJA | Controle SAPUI5 |
+|---|---|---|---|
+| 1. Fundação | Tokens, cores, tipografia, temas, espaçamento, ícones | `gja_foundation` | tema Horizon, `sap.ui.core.IconPool` |
+| 2. Básicos | Button | `GjaButton` | `sap.m.Button` |
+| | TextField | `GjaInput` | `sap.m.Input` |
+| | Select | `GjaSelect` | `sap.m.Select` |
+| | Checkbox | `GjaCheckBox` | `sap.m.CheckBox` |
+| | Radio | `GjaRadioButton`, `GjaRadioButtonGroup` | `sap.m.RadioButton(Group)` |
+| | Switch | `GjaSwitch` | `sap.m.Switch` |
+| | Card | `GjaCard`, `GjaCardHeader` | `sap.f.Card` |
+| 3. Feedback | Dialog | `GjaDialog` | `sap.m.Dialog` |
+| | Toast | `GjaMessageToast` | `sap.m.MessageToast` |
+| | MessageStrip | `GjaMessageStrip` | `sap.m.MessageStrip` |
+| | Tooltip | `GjaTooltip` | `tooltip` dos controles |
+| | Loading | `GjaBusyIndicator` | `sap.m.BusyIndicator` |
+| | EmptyState | `GjaIllustratedMessage` | `sap.m.IllustratedMessage` |
+| 4. Navegação | ShellBar | `GjaShellBar` | `sap.f.ShellBar` |
+| | SideNavigation | `GjaSideNavigation` | `sap.tnt.SideNavigation` |
+| | Tabs | `GjaIconTabBar` | `sap.m.IconTabBar` |
+| | Breadcrumbs | `GjaBreadcrumbs` | `sap.m.Breadcrumbs` |
+| | Toolbar | `GjaToolbar` | `sap.m.Toolbar` |
+| 5. Dados | Table | `GjaTable` | `sap.m.Table` |
+| | Status | `GjaObjectStatus` | `sap.m.ObjectStatus` |
+| | Avatar | `GjaAvatar` | `sap.m.Avatar` |
+| | ProgressIndicator | `GjaProgressIndicator` | `sap.m.ProgressIndicator` |
+| | DatePicker | `GjaDatePicker` | `sap.m.DatePicker` |
+| 6. Layout | Container | `GjaContainer` | `backgroundDesign` dos contêineres |
+| | Row / Column | `GjaHBox` / `GjaVBox` | `sap.m.HBox` / `sap.m.VBox` |
+| | Accordion | `GjaPanel` (painéis expansíveis empilhados) | `sap.m.Panel` |
+| | Form | `GjaForm` | `sap.ui.layout.form.Form` + `ColumnLayout` |
+| | ResponsiveLayout | `GjaResponsiveLayout` (conteúdo por classe de tamanho) e `GjaGrid` | faixas S/M/L/XL de `sap.ui.Device.media` e `sap.ui.layout.Grid` |
 
-## Add your files
+Além desses, há `GjaToolPage`, `GjaPage`, `GjaBar`, `GjaPopover`, `GjaMenu`, `GjaDropdown`, `GjaLink`,
+`GjaLabel`, `GjaTitle`, `GjaText`, `GjaBadge`, `GjaSeparator` e outros. O catálogo completo, com prioridade e
+dependências de cada item, está em [`docs/catalog.yaml`](docs/catalog.yaml).
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+## Arquitetura
+
+O projeto é um workspace Dart com quatro pacotes em camadas; cada camada só depende das de baixo (verificado
+automaticamente).
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/TGUALBERTO/atualizacao-flutter.git
-git branch -M main
-git push -uf origin main
+gja_ui          ponto de entrada: reexporta tudo
+  └─ gja_widgets     os widgets públicos (pastas por categoria)
+       └─ gja_core        interação, foco, overlay, localização, responsividade
+            └─ gja_foundation  design tokens, tema, densidade, breakpoints, ícones
 ```
 
-## Integrate with your tools
+- **Sem Material/Cupertino** na API pública ([ADR 0004](docs/adr/0004-no-material-public-api.md)).
+- **Design tokens em três níveis**: primitivos, semânticos e de componente
+  ([ADR 0005](docs/adr/0005-design-tokens-three-levels.md)). Nenhum widget usa cor, medida ou duração literal.
+- **Widgets controlados**: o estado (valor, seleção, aberto/fechado) vem do pai, e os eventos têm os nomes do UI5
+  ([ADR 0006](docs/adr/0006-state-and-data-integration.md)).
+- **Acessibilidade** em todos os componentes: contraste, alvo mínimo, teclado, leitor de tela e RTL, todos testados.
+- **Localização** em pt-BR (padrão) e en, com datas e números do CLDR.
 
-* [Set up project integrations](https://gitlab.com/TGUALBERTO/atualizacao-flutter/-/settings/integrations)
+Uma aplicação usa só o pacote `gja_ui`:
 
-## Collaborate with your team
+```dart
+import 'package:flutter/widgets.dart';
+import 'package:gja_ui/gja_ui.dart';
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+void main() => runApp(
+  GjaApp(
+    home: GjaPage(
+      title: 'Pedidos',
+      content: [
+        GjaButton(text: 'Novo pedido', type: GjaButtonType.emphasized, onPress: () {}),
+      ],
+    ),
+  ),
+);
+```
 
-## Test and Deploy
+## Como executar
 
-Use the built-in continuous integration in GitLab.
+Se o projeto chegou como `gja.bundle` (um repositório Git com todo o histórico):
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+```bash
+git clone gja.bundle gja
+cd gja
+```
 
-***
+No Windows, alguns caminhos do histórico de specs são longos; se o clone reclamar de "Filename too long", rode antes
+`git config --global core.longpaths true` ou clone numa pasta perto da raiz (por exemplo, `C:\gja`).
 
-# Editing this README
+Requer o **Flutter 3.32.6** (stable), versão fixada em [ADR 0001](docs/adr/0001-sdk-baseline.md).
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+```bash
+flutter pub get
 
-## Suggestions for a good README
+# Galeria no navegador
+cd apps/gja_gallery
+flutter run -d chrome
+```
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Também roda como aplicação Windows (`flutter run -d windows`). A galeria tem uma página por fundamento e por
+componente, com seletores de tema (claro, escuro, sistema) e de densidade (cozy, compacta).
 
-## Name
-Choose a self-explaining name for your project.
+## Qualidade
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+```bash
+bash tool/ci.sh        # ou: pwsh tool/ci.ps1
+```
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+O pipeline (o mesmo do CI em `.github/workflows/ci.yml`) roda a análise estática, os testes de todos os pacotes, a
+validação das specs OpenSpec e as verificações próprias do projeto (`tool/gja_checks`): camadas e imports,
+ausência de valores literais, estrutura das specs e coerência do catálogo.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+- Cerca de 1.200 testes, com um teste de widget por cenário de cada spec.
+- Goldens (imagens de referência) de cada componente em claro/escuro × cozy/compacta, gerados no Windows
+  ([ADR 0008](docs/adr/0008-golden-reference-windows.md)): `flutter test --tags golden`.
+- As capturas deste README são geradas por
+  `flutter test tool/screenshots/screenshots_test.dart --update-goldens` (em `apps/gja_gallery`).
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+## Especificações (OpenSpec)
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Todo componente nasce de uma spec em [`openspec/specs/`](openspec/specs/), com requisitos agrupados por etiqueta
+(API, Comportamento, Aparência, Estados, Acessibilidade, Responsividade, Integração, Testes, Documentação e
+Restrições), e cada cenário tem um teste com o mesmo nome. Cada mudança passa por proposta, implementação e
+arquivamento ([ADR 0007](docs/adr/0007-one-change-per-widget.md)); o histórico fica em
+[`openspec/changes/archive/`](openspec/changes/archive/) e nos commits. Como contribuir:
+[`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md).
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Decisões provisórias
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+- **Fonte Inter** no lugar da SAP 72, e **ícones Lucide** no lugar do SAP-icons, com os nomes do `IconPool`.
+- **Alguns valores visuais do Horizon** (tamanhos, espaçamentos e cores de alguns componentes) não foram conferidos
+  com o tema oficial; cada um está listado em [ADR 0009](docs/adr/0009-provisional-horizon-values.md).
+- **EmptyState** usa ícones do catálogo, não as ilustrações SAP.
+- Ficaram fora de propósito, por não serem parte do controle ou dependerem da SAP: validação de formulário, intervalo
+  de datas, Joule, campo de pesquisa na barra de shell e cabeçalho fixo da tabela.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+## Capturas
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+| | |
+|---|---|
+| ![Galeria](docs/screenshots/01-galeria.png) | ![Tabela](docs/screenshots/02-tabela.png) |
+| ![Formulário no tema escuro](docs/screenshots/03-formulario-escuro.png) | ![Seletor de data](docs/screenshots/04-seletor-de-data.png) |
+| ![Navegação lateral no tema escuro](docs/screenshots/05-navegacao-lateral-escuro.png) | ![Barra de shell](docs/screenshots/06-barra-de-shell.png) |
